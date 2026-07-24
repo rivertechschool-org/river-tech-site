@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <title>Hiring — All Applications — Review</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root {
+      --bg: #f6f4f0; --text: #272443; --red: #e21c21; --darkred: #c0392b; --pink: #f0dddd;
+      --white: #ffffff; --green: #2e7d32; --amber: #b26a00; --blue: #1565c0; --gray: #777;
+      --gold: #b08d3e;
+      --border: rgba(39, 36, 67, 0.14);
+      --font: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.5; }
+    a { color: var(--red); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 18px 80px; }
+
+    header.app-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    header.app-head h1 { font-size: 24px; font-weight: 700; }
+    header.app-head .sub { font-size: 13px; opacity: 0.65; }
+    .head-actions { margin-left: auto; display: flex; gap: 8px; }
+
+    .btn {
+      font-family: var(--font); font-size: 13px; font-weight: 600; padding: 7px 14px;
+      border-radius: 6px; border: 1px solid var(--border); background: var(--white); cursor: pointer; transition: all 0.15s;
+    }
+    .btn:hover { border-color: var(--red); color: var(--red); }
+    .btn.primary { background: var(--darkred); border-color: var(--darkred); color: #fff; }
+    .btn.primary:hover { opacity: 0.9; color: #fff; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .stats { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+    .stat { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; }
+    .stat b { font-size: 17px; display: block; line-height: 1.2; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; }
+    .controls select, .controls input[type="search"] {
+      font-family: var(--font); font-size: 13px; padding: 7px 10px;
+      border: 1px solid var(--border); border-radius: 6px; background: var(--white); color: var(--text);
+    }
+    .controls input[type="search"] { min-width: 220px; }
+
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(39,36,67,0.05); }
+    .card-head { display: flex; align-items: center; gap: 14px; padding: 14px 18px; cursor: pointer; }
+    .card-head:hover { background: rgba(39,36,67,0.025); }
+    .card-id { flex: 1 1 auto; min-width: 0; }
+    .card-id .nm { font-size: 17px; font-weight: 700; }
+    .card-id .meta { font-size: 12.5px; opacity: 0.7; margin-top: 1px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .chip { font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--bg); border: 1px solid var(--border); }
+    .chip.ai { background: #eef3fa; border-color: #c9d8ee; color: #244d7e; }
+    .chip.hrs { background: #fdf3e3; border-color: #ecd9b0; color: #8a5b00; }
+    .chip.mode { background: var(--pink); border-color: #e4c4c4; color: #8b3a3a; }
+    .chip.proof { background: #e7f5e9; border-color: #b6ddb9; color: #1f6b2b; }
+    .chip.role-ft { background: var(--text); border-color: var(--text); color: #fff; }
+    .chip.role-pt { background: #eef3fa; border-color: var(--blue); color: var(--blue); }
+    .chip.role-ea { background: var(--darkred); border-color: var(--darkred); color: #fff; }
+    .chip.combo { background: var(--gold); border-color: var(--gold); color: #fff; }
+    .stage-pill { flex: 0 0 auto; font-size: 12px; font-weight: 700; padding: 5px 13px; border-radius: 999px; color: #fff; }
+    .st-New { background: var(--gray); }
+    .st-Reviewing { background: #4a7a9c; }
+    .st-Interview { background: var(--amber); }
+    .st-Offer { background: var(--blue); }
+    .st-Hired { background: var(--green); }
+    .st-Bench { background: #6a4fa3; }
+    .st-Passed { background: #b5b5b5; }
+
+    .card-body { display: none; border-top: 1px solid var(--border); padding: 16px 18px 18px; }
+    .card.open .card-body { display: block; }
+    .cols { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
+    @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+    .sect { margin-bottom: 14px; }
+    .sect h4 { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--red); margin-bottom: 5px; }
+    .sect h4.gold { color: var(--gold); }
+    .sect p, .sect li { font-size: 13.5px; margin-bottom: 3px; }
+    .sect ul { list-style: none; }
+    .quote { background: var(--bg); border-left: 3px solid var(--border); border-radius: 0 6px 6px 0; padding: 10px 12px; font-size: 13.5px; white-space: pre-wrap; }
+    .quote.gold { border-left-color: var(--gold); }
+    .muted { opacity: 0.55; }
+
+    .stage-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+    .stage-btn { font-family: var(--font); font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; }
+    .stage-btn:hover { border-color: var(--text); }
+    .stage-btn.cur { color: #fff; border-color: transparent; }
+    .stage-btn.cur.st-New { background: var(--gray); }
+    .stage-btn.cur.st-Reviewing { background: #4a7a9c; }
+    .stage-btn.cur.st-Interview { background: var(--amber); }
+    .stage-btn.cur.st-Offer { background: var(--blue); }
+    .stage-btn.cur.st-Hired { background: var(--green); }
+    .stage-btn.cur.st-Bench { background: #6a4fa3; }
+    .stage-btn.cur.st-Passed { background: #b5b5b5; }
+
+    .adjust { display: flex; flex-direction: column; gap: 8px; }
+    .adjust textarea { font-family: var(--font); font-size: 13px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; min-height: 70px; resize: vertical; }
+
+    #status { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: 13px; padding: 9px 20px; border-radius: 999px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 50; }
+    #status.show { opacity: 1; }
+    .loading { text-align: center; padding: 60px 0; opacity: 0.6; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="app-head">
+    <h1>Hiring — All Applications</h1>
+    <span class="sub">Full-Time &middot; Part-Time &middot; Executive Assistant &middot; 2026&ndash;27</span>
+    <div class="head-actions">
+      <button class="btn" id="btn-refresh">&#8635; Refresh</button>
+    </div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="controls">
+    <select id="f-role">
+      <option value="">All roles</option>
+      <option value="FT">Full-Time</option>
+      <option value="PT">Part-Time</option>
+      <option value="EA">Executive Assistant</option>
+      <option value="COMBO">&#9733; Combo interest</option>
+    </select>
+    <select id="f-stage">
+      <option value="">All stages</option>
+      <option>New</option><option>Reviewing</option><option>Interview</option>
+      <option>Offer</option><option>Hired</option><option>Bench</option><option>Passed</option>
+    </select>
+    <select id="f-sort">
+      <option value="new">Sort: Newest</option>
+      <option value="name">Sort: Name</option>
+    </select>
+    <input type="search" id="f-search" placeholder="Search name, city, subject, skill&hellip;">
+  </div>
+  <div id="cards"><p class="loading">Loading applications&hellip;</p></div>
+
+</div>
+<div id="status"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var BACKENDS = {
+    FT: { label: "Full-Time", api: "https://script.google.com/macros/s/AKfycbx8Ad6C2eQCPYS3MBd5LwZrw6eqP2kRQLP3mu3QlaSlb2yMMnsbRoF8i8GKL0izVCa2CA/exec", token: "ftt_5fff079ce149c132859b0b504e9105cf0695a73b" },
+    PT: { label: "Part-Time", api: "https://script.google.com/macros/s/AKfycbwSPOvg1al8rhWRcoPnOG76KOEFFUjlKi6b8Va9ImNDEDrzrG3EbShEOH5Cvg6YKF6F2A/exec", token: "200fad238a4b00a466b0b2ab5537b3e9" },
+    EA: { label: "Executive Assistant", api: "https://script.google.com/macros/s/AKfycbz_LO-ocd9hKskJ5JNfcAscfkldR-HPE6yRddLVxayNG8ZUOFuH24yeiPPwUBvYSzGM/exec", token: "8445c75eeae5ed2e3c0da41a932e6552" }
+  };
+  var STAGES = ["New", "Reviewing", "Interview", "Offer", "Hired", "Bench", "Passed"];
+
+  var people = [];
+
+  function $(s) { return document.querySelector(s); }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function toast(msg) {
+    var el = $("#status"); el.textContent = msg; el.classList.add("show");
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("show"); }, 2600);
+  }
+  function listify(s) { return String(s || "").split(",").map(function (x) { return x.trim(); }).filter(String); }
+  function day10(s) { return esc(String(s || "").slice(0, 10)); }
+
+  // ---- Degree lines shared by FT + PT (columns follow "<Level>?" pattern) ----
+  function degreeLines(r, levels) {
+    var out = [];
+    levels.forEach(function (lvl) {
+      if (r[lvl + "?"] === "Yes") {
+        var bits = [r[lvl + " Field"], r[lvl + " Institution"]].filter(String).join(", ");
+        out.push(lvl.replace(/'s$/, "’s") + ": " + (bits || "?") + (r[lvl + " Year"] ? " (" + r[lvl + " Year"] + ")" : ""));
+      }
+    });
+    for (var i = 1; i <= 3; i++) {
+      if (r["Cert " + i + " Name"]) out.push("Cert: " + r["Cert " + i + " Name"] + (r["Cert " + i + " Issuer"] ? " — " + r["Cert " + i + " Issuer"] : ""));
+    }
+    if (r["Other Education"]) out.push("Other: " + r["Other Education"]);
+    return out;
+  }
+  function expLines(r, pairs) {
+    var out = [];
+    pairs.forEach(function (x) {
+      if (r["Exp " + x + "?"] === "Yes") {
+        out.push(x + ": " + (r["Exp " + x + " Years"] ? r["Exp " + x + " Years"] + " yrs" : "yes") + (r["Exp " + x + " Detail"] ? " — " + r["Exp " + x + " Detail"] : ""));
+      }
+    });
+    return out;
+  }
+
+  // ---- Parsers -------------------------------------------------------------
+  function base(r, role) {
+    return {
+      raw: r, role: role, roleLabel: BACKENDS[role].label,
+      id: r["Application ID"], submitted: r["Submitted (UTC)"], stage: r["Stage"] || "New",
+      name: ((r["First Name"] || "") + " " + (r["Last Name"] || "")).trim(),
+      email: r["Email"], phone: r["Phone"], city: r["City"],
+      notes: r["Dan Notes"] || "", combo: false
+    };
+  }
+
+  function parseFT(r) {
+    var p = base(r, "FT");
+    p.connection = r["Connection"] || "";
+    p.degrees = degreeLines(r, ["Associate's", "Bachelor's", "Second Bachelor's", "Master's", "Doctorate"]);
+    p.transcripts = String(r["Transcript Links"] || "").split(/\n/).map(function (x) { return x.trim(); }).filter(String);
+    p.exps = expLines(r, ["Classroom", "Co-op", "Church", "Youth Programs", "Tutoring"]);
+    p.highlight = r["Experience Highlight"] || "";
+    p.faith = r["Faith"] || ""; p.why = r["Why River Tech"] || "";
+    p.subjects = listify(r["Subjects"]); p.subjectsOther = r["Suggested Subjects"] || ""; p.strengths = r["Strengths"] || "";
+    p.track = r["Track"] || ""; p.start = r["Start Timing"] || "";
+    p.combo = r["Combo Interest"] === "Yes"; p.comboSkills = r["Combo Skills"] || "";
+    p.resumeLink = r["Resume Link"] || ""; p.bgCheck = r["Background Check OK"] || ""; p.references = r["References"] || "";
+    p.searchBlob = [p.name, p.city, p.subjects.join(" "), p.degrees.join(" "), p.faith, p.why, p.comboSkills].join(" ").toLowerCase();
+    return p;
+  }
+
+  function parsePT(r) {
+    var p = base(r, "PT");
+    p.connection = (r["Connection"] || "") + (r["Connection Detail"] ? " — " + r["Connection Detail"] : "");
+    p.degrees = degreeLines(r, ["Associate's", "Bachelor's", "Master's", "Doctorate"]);
+    p.exps = expLines(r, ["Classroom", "Co-op", "Tutoring", "Professional"]);
+    p.highlight = r["Experience Highlight"] || "";
+    p.subjects = listify(r["Subjects"]); p.subjectsOther = r["Suggested Subjects"] || ""; p.strengths = r["Strengths"] || "";
+    p.days = r["Days"] || ""; p.idealDays = r["Ideal Days/Week"] || ""; p.compensation = r["Compensation"] || "";
+    p.behindScenes = listify(r["Behind-the-Scenes Help"]); p.behindNote = r["Behind-the-Scenes Note"] || "";
+    p.bgCheck = r["Background Check OK"] || ""; p.references = r["References"] || "";
+    p.searchBlob = [p.name, p.city, p.subjects.join(" "), p.degrees.join(" "), p.days, p.behindScenes.join(" ")].join(" ").toLowerCase();
+    return p;
+  }
+
+  function parseEA(r) {
+    var p = base(r, "EA");
+    p.connection = (r["Connection"] || "") + (r["Connection Detail"] ? " — " + r["Connection Detail"] : "");
+    p.aiTools = listify(r["AI Tools"]); p.aiYears = r["AI Experience Length"] || "";
+    p.aiExperience = r["AI Experience"] || ""; p.aiProof = r["AI Proof Link"] || "";
+    p.writingSample = r["Writing Sample"] || ""; p.writingLink = r["Writing Link"] || "";
+    p.skills = listify(r["Skills"]); p.degree = r["Highest Degree"] || ""; p.degreeDetail = r["Degree Detail"] || "";
+    p.yearsExp = r["Years Experience"] || ""; p.expSummary = r["Experience Summary"] || "";
+    p.futureExcites = r["Future Excites"] || ""; p.influences = r["Influences"] || "";
+    p.faith = r["Faith Affirmed"] || ""; p.faithNote = r["Faith Note"] || "";
+    p.hours = r["Ideal Hours/Week"] || ""; p.workMode = r["Work Mode"] || "";
+    p.start = r["Earliest Start"] || ""; p.availabilityNote = r["Availability Note"] || "";
+    p.bgCheck = r["Background Check OK"] || "";
+    p.searchBlob = [p.name, p.city, p.aiTools.join(" "), p.skills.join(" "), p.aiExperience].join(" ").toLowerCase();
+    return p;
+  }
+
+  var PARSERS = { FT: parseFT, PT: parsePT, EA: parseEA };
+
+  // ---- Load ----------------------------------------------------------------
+  function refresh() {
+    toast("Loading…");
+    var keys = Object.keys(BACKENDS);
+    Promise.all(keys.map(function (k) {
+      var b = BACKENDS[k];
+      return fetch(b.api + "?action=list&token=" + b.token)
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d.ok) throw new Error(k + ": " + (d.error || "load failed"));
+          return (d.applicants || []).map(PARSERS[k]);
+        })
+        .catch(function (e) { console.error(e); toast(BACKENDS[k].label + " failed to load"); return []; });
+    })).then(function (lists) {
+      people = [].concat.apply([], lists);
+      renderAll();
+      toast(people.length + " application" + (people.length === 1 ? "" : "s") + " loaded");
+    });
+  }
+
+  function update(p, fields, cb) {
+    var b = BACKENDS[p.role];
+    var body = new URLSearchParams();
+    body.append("action", "update"); body.append("token", b.token); body.append("appId", p.id);
+    Object.keys(fields).forEach(function (k) { body.append(k, fields[k]); });
+    fetch(b.api, { method: "POST", body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (!d.ok) throw new Error(d.error || "update failed"); cb && cb(null, d); })
+      .catch(function (e) { console.error(e); cb && cb(e); });
+  }
+
+  // ---- Render --------------------------------------------------------------
+  function renderStats() {
+    var byRole = { FT: 0, PT: 0, EA: 0 }, byStage = {}, combo = 0;
+    STAGES.forEach(function (s) { byStage[s] = 0; });
+    people.forEach(function (p) { byRole[p.role]++; byStage[p.stage] = (byStage[p.stage] || 0) + 1; if (p.combo) combo++; });
+    var html = '<div class="stat"><b>' + people.length + "</b>Total</div>" +
+      '<div class="stat"><b>' + byRole.FT + "</b>Full-Time</div>" +
+      '<div class="stat"><b>' + byRole.PT + "</b>Part-Time</div>" +
+      '<div class="stat"><b>' + byRole.EA + "</b>Exec Asst</div>" +
+      (combo ? '<div class="stat"><b>' + combo + "</b>&#9733; Combo</div>" : "");
+    STAGES.forEach(function (s) { if (byStage[s]) html += '<div class="stat"><b>' + byStage[s] + "</b>" + s + "</div>"; });
+    $("#stats").innerHTML = html;
+  }
+
+  function headChips(p) {
+    var c = [];
+    c.push('<span class="chip role-' + p.role.toLowerCase() + '">' + esc(p.roleLabel) + "</span>");
+    if (p.combo) c.push('<span class="chip combo">&#9733; Combo</span>');
+    if (p.role === "EA") {
+      p.aiTools.slice(0, 2).forEach(function (t) { c.push('<span class="chip ai">' + esc(t.replace(/ \(.*\)/, "")) + "</span>"); });
+      if (p.hours) c.push('<span class="chip hrs">' + esc(p.hours) + " hrs/wk</span>");
+      if (p.workMode) c.push('<span class="chip mode">' + esc(p.workMode) + "</span>");
+      if (p.aiProof) c.push('<span class="chip proof">&#9733; proof</span>');
+    } else {
+      p.subjects.slice(0, 2).forEach(function (s) { c.push('<span class="chip ai">' + esc(s.replace(/ \(.*\)/, "")) + "</span>"); });
+      if (p.subjects.length > 2) c.push('<span class="chip ai">+' + (p.subjects.length - 2) + "</span>");
+      if (p.role === "FT") {
+        if (p.degrees.length) c.push('<span class="chip">' + esc(p.degrees[p.degrees.length > 1 && /Master|Doctor/.test(p.degrees.join(" ")) ? 0 : 0].split(":")[0]) + (p.degrees.length > 1 ? " +" + (p.degrees.length - 1) : "") + "</span>");
+        if (p.start) c.push('<span class="chip hrs">' + esc(p.start) + "</span>");
+        if (p.transcripts.length) c.push('<span class="chip proof">&#128206; ' + p.transcripts.length + "</span>");
+      } else {
+        if (p.days) c.push('<span class="chip hrs">' + esc(p.days.split(",").map(function (d) { return d.trim().split(" ")[0]; }).join("/")) + "</span>");
+        if (p.behindScenes.length) c.push('<span class="chip mode">&#9733; ops</span>');
+      }
+    }
+    return c.join("");
+  }
+
+  function renderCards() {
+    var fRole = $("#f-role").value, fStage = $("#f-stage").value, fSort = $("#f-sort").value, q = $("#f-search").value.trim().toLowerCase();
+    var list = people.slice();
+    if (fRole === "COMBO") list = list.filter(function (p) { return p.combo; });
+    else if (fRole) list = list.filter(function (p) { return p.role === fRole; });
+    if (fStage) list = list.filter(function (p) { return p.stage === fStage; });
+    if (q) list = list.filter(function (p) { return p.searchBlob.indexOf(q) >= 0; });
+    if (fSort === "name") list.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    else list.sort(function (a, b) { return String(b.submitted).localeCompare(String(a.submitted)); });
+
+    if (!list.length) { $("#cards").innerHTML = '<p class="loading">No applications match.</p>'; return; }
+
+    $("#cards").innerHTML = list.map(function (p, i) {
+      return '<div class="card" id="card-' + i + '" data-i="' + i + '">' +
+        '<div class="card-head">' +
+          '<div class="card-id">' +
+            '<div class="nm">' + esc(p.name) + "</div>" +
+            '<div class="meta">' + esc(p.city || "") + (p.connection ? " &middot; " + esc(p.connection) : "") + "</div>" +
+            '<div class="chips">' + headChips(p) + "</div>" +
+          "</div>" +
+          '<span class="stage-pill st-' + esc(p.stage) + '">' + esc(p.stage) + "</span>" +
+        "</div>" +
+        '<div class="card-body" data-i="' + i + '"></div>' +
+      "</div>";
+    }).join("");
+
+    var byIndex = list;
+    Array.prototype.forEach.call(document.querySelectorAll(".card-head"), function (h) {
+      h.addEventListener("click", function () {
+        var card = h.parentNode, bodyEl = card.querySelector(".card-body");
+        if (!card.classList.contains("open") && !bodyEl.innerHTML) {
+          var p = byIndex[Number(bodyEl.dataset.i)];
+          bodyEl.innerHTML = cardBody(p);
+          wireBody(bodyEl, p);
+        }
+        card.classList.toggle("open");
+      });
+    });
+  }
+
+  function sharedRight(p) {
+    var stageBtns = STAGES.map(function (st) {
+      return '<button class="stage-btn' + (p.stage === st ? " cur st-" + st : "") + '" data-stage="' + st + '">' + st + "</button>";
+    }).join("");
+    return '<div class="sect"><h4>Stage</h4><div class="stage-row">' + stageBtns + "</div></div>" +
+      '<div class="sect"><h4>Notes</h4><div class="adjust">' +
+        '<textarea class="note-box" placeholder="Your private notes on this candidate">' + esc(p.notes) + "</textarea>" +
+        '<button class="btn primary save-note">Save notes</button>' +
+      "</div></div>";
+  }
+
+  function contactSect(p) {
+    return '<div class="sect"><h4>Contact</h4><p><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + "</a> &middot; <a href=\"tel:" + esc(p.phone) + '">' + esc(p.phone) + "</a> &middot; " + esc(p.city || "") + "</p>" +
+      (p.connection ? '<p class="muted">' + esc(p.connection) + "</p>" : "") + "</div>";
+  }
+
+  function cardBody(p) {
+    if (p.role === "EA") return bodyEA(p);
+    if (p.role === "PT") return bodyPT(p);
+    return bodyFT(p);
+  }
+
+  function bodyFT(p) {
+    var transcripts = p.transcripts.length
+      ? p.transcripts.map(function (u, i) { return '<a href="' + esc(u) + '" target="_blank" rel="noopener">Transcript ' + (i + 1) + "</a>"; }).join(" &middot; ")
+      : '<span class="muted">none attached — request at follow-up</span>';
+    return '<div class="cols"><div>' +
+      contactSect(p) +
+      '<div class="sect"><h4>Education</h4>' + (p.degrees.length ? p.degrees.map(function (d) { return "<p>" + esc(d) + "</p>"; }).join("") : '<p class="muted">—</p>') +
+        "<p><b>Transcripts:</b> " + transcripts + "</p>" +
+        (p.resumeLink ? '<p><b>R&eacute;sum&eacute;:</b> <a href="' + esc(p.resumeLink) + '" target="_blank" rel="noopener">' + esc(p.resumeLink) + "</a></p>" : "") + "</div>" +
+      '<div class="sect"><h4>Teaching experience</h4>' + (p.exps.length ? p.exps.map(function (d) { return "<p>" + esc(d) + "</p>"; }).join("") : '<p class="muted">—</p>') +
+        (p.highlight ? '<p><b>Most interesting:</b> ' + esc(p.highlight) + "</p>" : "") + "</div>" +
+      '<div class="sect"><h4>Faith &amp; why River Tech</h4>' +
+        '<div class="quote">' + esc(p.faith || "—") + "</div>" +
+        '<div class="quote" style="margin-top:6px;">' + esc(p.why || "—") + "</div></div>" +
+      '<div class="sect"><h4>Subjects</h4><div class="chips">' + (p.subjects.map(function (s) { return '<span class="chip">' + esc(s) + "</span>"; }).join("") || '<span class="muted">—</span>') + "</div>" +
+        (p.subjectsOther ? '<p style="margin-top:5px;"><b>Suggested:</b> ' + esc(p.subjectsOther) + "</p>" : "") +
+        (p.strengths ? "<p><b>Strongest:</b> " + esc(p.strengths) + "</p>" : "") + "</div>" +
+      (p.combo ? '<div class="sect"><h4 class="gold">&#9733; Teacher + EA combo interest</h4><div class="quote gold">' + (esc(p.comboSkills) || '<span class="muted">no skills description given</span>') + "</div></div>" : "") +
+      '<div class="sect"><h4>Logistics</h4><p>' + esc(p.track || "—") + " &middot; start: " + esc(p.start || "—") + " &middot; bg-check: " + esc(p.bgCheck || "—") + "</p></div>" +
+      '<div class="sect"><h4>References</h4><p>' + (esc(p.references) || '<span class="muted">—</span>') + "</p></div>" +
+      '<div class="sect"><h4>Submitted</h4><p>' + day10(p.submitted) + " &middot; " + esc(p.id) + "</p></div>" +
+    "</div><div>" + sharedRight(p) + "</div></div>";
+  }
+
+  function bodyPT(p) {
+    return '<div class="cols"><div>' +
+      contactSect(p) +
+      '<div class="sect"><h4>Education</h4>' + (p.degrees.length ? p.degrees.map(function (d) { return "<p>" + esc(d) + "</p>"; }).join("") : '<p class="muted">—</p>') + "</div>" +
+      '<div class="sect"><h4>Experience</h4>' + (p.exps.length ? p.exps.map(function (d) { return "<p>" + esc(d) + "</p>"; }).join("") : '<p class="muted">—</p>') +
+        (p.highlight ? '<p><b>Most interesting:</b> ' + esc(p.highlight) + "</p>" : "") + "</div>" +
+      '<div class="sect"><h4>Subjects</h4><div class="chips">' + (p.subjects.map(function (s) { return '<span class="chip">' + esc(s) + "</span>"; }).join("") || '<span class="muted">—</span>') + "</div>" +
+        (p.subjectsOther ? '<p style="margin-top:5px;"><b>Suggested:</b> ' + esc(p.subjectsOther) + "</p>" : "") +
+        (p.strengths ? "<p><b>Strongest:</b> " + esc(p.strengths) + "</p>" : "") + "</div>" +
+      '<div class="sect"><h4>Availability</h4><p>' + esc(p.days || "—") + (p.idealDays ? " &middot; ideal: " + esc(p.idealDays) + " day(s)/wk" : "") + "</p></div>" +
+      '<div class="sect"><h4>Compensation</h4><p>' + esc(p.compensation || "—") + "</p></div>" +
+      (p.behindScenes.length ? '<div class="sect"><h4 class="gold">&#9733; Behind-the-scenes help offered</h4><div class="chips">' + p.behindScenes.map(function (s) { return '<span class="chip">' + esc(s) + "</span>"; }).join("") + "</div>" + (p.behindNote ? "<p style=\"margin-top:5px;\">" + esc(p.behindNote) + "</p>" : "") + "</div>" : "") +
+      '<div class="sect"><h4>References</h4><p>' + (esc(p.references) || '<span class="muted">—</span>') + "</p> <p>bg-check: " + esc(p.bgCheck || "—") + "</p></div>" +
+      '<div class="sect"><h4>Submitted</h4><p>' + day10(p.submitted) + " &middot; " + esc(p.id) + "</p></div>" +
+    "</div><div>" + sharedRight(p) + "</div></div>";
+  }
+
+  function bodyEA(p) {
+    var writing = p.writingSample ? '<div class="quote">' + esc(p.writingSample) + "</div>" : "";
+    if (p.writingLink) writing += '<p style="margin-top:6px;"><a href="' + esc(p.writingLink) + '" target="_blank" rel="noopener">' + esc(p.writingLink) + "</a></p>";
+    if (!writing) writing = '<p class="muted">None provided</p>';
+    var eduLine = [p.degree, p.degreeDetail].filter(String).join(" — ") || "—";
+    return '<div class="cols"><div>' +
+      contactSect(p) +
+      '<div class="sect"><h4>AI fluency (the keystone)</h4>' +
+        "<p><b>Tools:</b> " + (p.aiTools.join(", ") || "—") + (p.aiYears ? " &middot; " + esc(p.aiYears) : "") + "</p>" +
+        (p.aiProof ? '<p><b>Proof:</b> <a href="' + esc(p.aiProof) + '" target="_blank" rel="noopener">' + esc(p.aiProof) + "</a></p>" : "") +
+        '<div class="quote" style="margin-top:6px;">' + (esc(p.aiExperience) || '<span class="muted">—</span>') + "</div></div>" +
+      '<div class="sect"><h4>Writing sample</h4>' + writing + "</div>" +
+      '<div class="sect"><h4>Skills</h4><div class="chips">' + (p.skills.map(function (s) { return '<span class="chip">' + esc(s) + "</span>"; }).join("") || '<span class="muted">—</span>') + "</div></div>" +
+      '<div class="sect"><h4>Experience &amp; education</h4><p>' + esc(eduLine) + (p.yearsExp ? " &middot; " + esc(p.yearsExp) + " yrs" : "") + "</p>" +
+        (p.expSummary ? "<p>" + esc(p.expSummary) + "</p>" : "") + "</div>" +
+      ((p.futureExcites || p.influences) ? '<div class="sect"><h4>Forward thinking</h4>' + (p.futureExcites ? "<p>" + esc(p.futureExcites) + "</p>" : "") + (p.influences ? '<p><b>Influences:</b> ' + esc(p.influences) + "</p>" : "") + "</div>" : "") +
+      '<div class="sect"><h4>Faith</h4><p>' + (p.faith === "Yes" ? "Affirmed Christian faith" : esc(p.faith || "—")) + (p.faithNote ? " — " + esc(p.faithNote) : "") + "</p></div>" +
+      '<div class="sect"><h4>Logistics</h4><p>' + esc(p.hours || "—") + " hrs/wk &middot; " + esc(p.workMode || "—") + (p.start ? " &middot; start " + day10(p.start) : "") + " &middot; bg-check: " + esc(p.bgCheck || "—") + "</p>" +
+        (p.availabilityNote ? "<p>" + esc(p.availabilityNote) + "</p>" : "") + "</div>" +
+      '<div class="sect"><h4>Submitted</h4><p>' + day10(p.submitted) + " &middot; " + esc(p.id) + "</p></div>" +
+    "</div><div>" + sharedRight(p) + "</div></div>";
+  }
+
+  // ---- Wiring --------------------------------------------------------------
+  function wireBody(bodyEl, p) {
+    bodyEl.addEventListener("click", function (e) { e.stopPropagation(); });
+    Array.prototype.forEach.call(bodyEl.querySelectorAll(".stage-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var stage = btn.dataset.stage;
+        if (p.stage === stage) return;
+        btn.disabled = true;
+        update(p, { stage: stage }, function (err) {
+          btn.disabled = false;
+          if (err) { toast("Failed: " + err.message); return; }
+          p.stage = stage; p.raw["Stage"] = stage;
+          toast(p.name + " → " + stage);
+          renderStats();
+          var card = bodyEl.parentNode;
+          card.querySelector(".stage-pill").outerHTML = '<span class="stage-pill st-' + esc(stage) + '">' + esc(stage) + "</span>";
+          Array.prototype.forEach.call(bodyEl.querySelectorAll(".stage-btn"), function (b) {
+            b.className = "stage-btn" + (b.dataset.stage === stage ? " cur st-" + stage : "");
+          });
+        });
+      });
+    });
+    var saveBtn = bodyEl.querySelector(".save-note");
+    saveBtn.addEventListener("click", function () {
+      var note = bodyEl.querySelector(".note-box").value.trim();
+      saveBtn.disabled = true;
+      update(p, { danNotes: note }, function (err) {
+        saveBtn.disabled = false;
+        if (err) { toast("Failed: " + err.message); return; }
+        p.notes = note; p.raw["Dan Notes"] = note;
+        toast("Notes saved for " + p.name);
+      });
+    });
+  }
+
+  function renderAll() { renderStats(); renderCards(); }
+
+  ["f-role", "f-stage", "f-sort"].forEach(function (id) { document.getElementById(id).addEventListener("change", renderCards); });
+  $("#f-search").addEventListener("input", renderCards);
+  $("#btn-refresh").addEventListener("click", refresh);
+  refresh();
+})();
+</script>
+</body>
+</html>
