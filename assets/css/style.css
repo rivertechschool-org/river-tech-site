@@ -2003,3 +2003,184 @@ body {
 .qf-item--wide {
   grid-column: 1 / -1;
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   2026–27 Tuition table — real text, not a picture.
+   Built 2026-08-13 to replace NEW_TUITION_TABLE_2026-27*.jpg, which was
+   unreadable on a phone. Mobile-first: stacks to one card per programme
+   below 760px, becomes the three-column plan grid above it.
+   ════════════════════════════════════════════════════════════════════ */
+
+.tt {
+  font-family: var(--font-display);
+  --tt-m: #6A778A;
+  --tt-q: #337A72;
+  --tt-a: #253C5C;
+  --tt-qbody: #377570;
+  --tt-bg: #F6F9FE;
+  background: var(--tt-bg);
+  border-radius: 14px;
+  padding: 28px 16px 32px;
+  margin: 2rem 0;
+}
+.tt * { box-sizing: border-box; }
+
+.tt .tt-title {
+  text-align: center;
+  font-size: clamp(26px, 6vw, 36px);
+  margin: 0 0 10px;
+  color: #1c2b3a;
+}
+.tt .tt-note {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b7684;
+  margin: 0 auto 24px;
+  max-width: 40em;
+  text-align: center;
+}
+
+.tt-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* ---- plan column headers: hidden on phones, shown on wide screens ---- */
+.tt-corner, .tt-hd { display: none; }
+
+/* ---- programme label ---- */
+.tt-prog {
+  background: #eef2f8;
+  border-radius: 10px 10px 0 0;
+  padding: 12px 16px;
+  margin-top: 22px;
+  border-bottom: 3px solid #d7dfea;
+}
+.tt-prog b { display: block; font-size: 18px; color: #1c2b3a; line-height: 1.35; }
+.tt-prog i { font-style: normal; }
+.tt-prog span { display: block; font-size: 14px; color: #6b7684; margin-top: 2px; }
+
+/* ---- one price cell ---- */
+.tt-cell {
+  background: #fff;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e6ebf2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+}
+.tt-cell.tt-a { border-radius: 0 0 10px 10px; border-bottom: none; }
+
+.tt-plan {
+  flex: 0 0 100%;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #6b7684;
+}
+.tt-cell s { color: #97a1ae; font-size: 15px; }
+.tt-cell strong { font-size: 26px; color: #16202c; font-weight: 700; }
+.tt-cell strong i { font-size: 14px; font-style: normal; font-weight: 400; color: #6b7684; }
+
+.tt-pill {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.tt-grey  { background: #EEF1F4; color: #55606E; }
+.tt-amber { background: #FFD970; color: #4A3705; }
+.tt-green { background: #C6F75F; color: #2C4004; }
+
+/* ---- the recommended quarterly column ---- */
+.tt-cell.tt-q { background: var(--tt-qbody); }
+.tt-cell.tt-q .tt-plan { color: #d3ece7; }
+.tt-cell.tt-q s { color: #cfe6e1; }
+.tt-cell.tt-q strong { color: #fff; }
+.tt-cell.tt-q strong i { color: #d3ece7; }
+
+.tt-rec {
+  display: inline-block;
+  background: #FFC94A;
+  color: #4A3705;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin: 6px 0;
+}
+
+/* ════════ wide screens: the three-column plan grid ════════ */
+@media (min-width: 760px) {
+  .tt { padding: 32px 28px 40px; }
+
+  .tt-grid {
+    grid-template-columns: minmax(184px, 0.8fr) repeat(3, 1fr);
+    column-gap: 0;
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  .tt-corner { display: block; }
+  .tt-hd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 18px 14px;
+    border-radius: 10px 10px 0 0;
+  }
+  .tt-hd-name {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .tt-hd-sub { font-size: 13px; line-height: 1.45; margin-top: 6px; opacity: 0.92; }
+  .tt-hd.tt-hd-m { background: var(--tt-m); }
+  .tt-hd.tt-hd-q { background: var(--tt-q); }
+  .tt-hd.tt-hd-a { background: var(--tt-a); }
+
+  .tt-prog {
+    background: transparent;
+    border-bottom: 1px solid #e6ebf2;
+    border-radius: 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 14px 18px 4px;
+  }
+
+  .tt-cell {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    padding: 18px 12px;
+    border-bottom: 1px solid #e6ebf2;
+    border-radius: 0;
+  }
+  .tt-cell:last-child { border-radius: 0; }
+  .tt-plan { display: none; }
+  .tt-cell strong { font-size: 30px; }
+
+  .tt-cell.tt-q { border-bottom: 1px solid rgba(255,255,255,0.18); }
+
+  /* round the bottom of each plan column on the final row */
+  .tt-cell.tt-a { border-radius: 0; border-bottom: 1px solid #e6ebf2; }
+  .tt-cell.tt-last { border-bottom: none; border-radius: 0 0 10px 10px; }
+}
