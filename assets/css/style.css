@@ -2184,3 +2184,100 @@ body {
   .tt-cell.tt-a { border-radius: 0; border-bottom: 1px solid #e6ebf2; }
   .tt-cell.tt-last { border-bottom: none; border-radius: 0 0 10px 10px; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   Phone repairs — 13 August 2026.
+
+   Every rule below is either inside the phone media query or is a new
+   class that is hidden above 900px, so the desktop rendering cannot
+   change. That was the condition of the work.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Hidden by default; only the phone query below turns it on. */
+.mobile-announce { display: none; }
+
+@media (max-width: 900px) {
+
+  /* ---- 1. The September announcement, which phones used to hide ----
+     The desktop carries this as a scrolling strip and a red button in
+     the top bar. Both vanish on a phone, so a visitor saw no mention of
+     the start of school at all. This is the same message, standing still
+     instead of scrolling, and it links to the enrollment page. */
+  .mobile-announce {
+    display: block;
+    margin: 0 0 10px;
+    padding: 14px 18px;
+    background: #FBECEA;
+    border-bottom: 1px solid #F0C7C1;
+    color: #C0392B;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.45;
+    text-align: center;
+    text-decoration: none;
+  }
+  .mobile-announce b {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 3px;
+  }
+
+  /* ---- 2. Justified text opens white rivers in a narrow column ----
+     Justification looks like a printed book at desktop width and looks
+     broken at phone width. Left-aligned below 900px only. */
+  .content-area p,
+  .content-area li,
+  .testimonial-slide p,
+  p { text-align: left; }
+
+  /* ---- 3. Fine print raised to a readable size ----
+     The schedule grids and calendars were set at 12 and 13 pixels, which
+     reads as an eye test held at arm's length. */
+  table td, table th,
+  .time-cell,
+  .schedule-legend span,
+  .rtd-class__title,
+  .rtd-sched__cell,
+  .cal-subtitle,
+  .sfoot,
+  .prod b,
+  .testimonial-slide cite,
+  .footer-bottom p { font-size: 15px !important; }
+
+  .prod small,
+  .rtd-sched__cell small { font-size: 14px !important; }
+
+  /* ---- 4. Tap targets nearer Apple's 44 pixel guidance ---- */
+  .footer-col a,
+  .footer-col span {
+    padding: 9px 0;
+    margin-bottom: 0;
+  }
+
+  .mobile-header .mobile-logo { padding: 8px 14px; }
+
+  .testimonial-nav button {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  /* The dot stays 10px to the eye; the transparent border gives the
+     thumb something to actually hit. */
+  .carousel-dots button {
+    box-sizing: content-box;
+    width: 10px;
+    height: 10px;
+    border: 13px solid transparent;
+    background-clip: padding-box;
+    margin: 0;
+  }
+
+  summary { padding: 12px 0; }
+
+  .rtd-class { min-height: 40px; }
+
+  /* Stragglers found on the second pass. */
+  .grow, .muted, p.v, .v { font-size: 15px !important; }
+  .carousel-dots button { border-width: 15px; }
+}
