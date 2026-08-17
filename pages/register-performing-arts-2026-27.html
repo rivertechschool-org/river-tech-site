@@ -7,10 +7,10 @@
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <title>Performing Arts 2026&ndash;27 | River Tech School</title>
-  <meta name="description" content="Tell us whether your student will join our 2026-27 productions, and choose their arts and Spanish classes for the quarter.">
+  <meta name="description" content="Tell us whether your students will join our 2026-27 productions, and choose their arts and Spanish classes for the quarter.">
 
   <meta property="og:title" content="Performing Arts 2026&ndash;27 &mdash; River Tech School">
-  <meta property="og:description" content="Tell us whether your student will join our 2026-27 productions, and choose their arts and Spanish classes.">
+  <meta property="og:description" content="Tell us whether your students will join our 2026-27 productions, and choose their arts and Spanish classes.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.rivertechschool.com/pages/register-performing-arts-2026-27.html">
   <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
@@ -60,9 +60,9 @@
     .reg-row { margin-bottom: 18px; }
     .reg-row:last-child { margin-bottom: 0; }
     .reg-row-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
-    .reg-row-grid-3 { display: grid; grid-template-columns: 1.4fr 1.4fr 0.8fr; gap: 16px; margin-bottom: 18px; }
+    .reg-row-grid-name-age { display: grid; grid-template-columns: 1fr 110px; gap: 16px; margin-bottom: 18px; }
     @media (max-width: 560px) {
-      .reg-row-grid-2, .reg-row-grid-3 { grid-template-columns: 1fr; }
+      .reg-row-grid-2, .reg-row-grid-name-age { grid-template-columns: 1fr; }
     }
     .reg-label {
       display: block; font-size: 15px; font-weight: 600;
@@ -78,7 +78,7 @@
       border-radius: 2px; transition: border-color 0.2s;
       box-sizing: border-box;
     }
-    .reg-textarea { min-height: 90px; resize: vertical; }
+    .reg-textarea { min-height: 80px; resize: vertical; }
     .reg-input:focus, .reg-select:focus, .reg-textarea:focus {
       outline: none; border-color: var(--color-red);
     }
@@ -122,10 +122,40 @@
     }
     .pa-note {
       background: var(--color-bg); border-left: 4px solid #2a9d8f;
-      padding: 14px 18px; margin: 18px 0;
-      font-size: 16px; line-height: 1.6; text-align: left;
+      padding: 14px 18px; margin: 4px 0 18px;
+      font-size: 15.5px; line-height: 1.6; text-align: left;
     }
     .pa-note b { display: block; margin-bottom: 4px; font-family: var(--font-display); }
+
+    /* Student cards -------------------------------------------------- */
+    .pa-student {
+      border: 1.5px solid rgba(39, 36, 67, 0.18);
+      border-radius: 4px; padding: 20px 22px;
+      background: var(--color-bg); margin-bottom: 18px;
+    }
+    .pa-student-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; gap: 12px;
+    }
+    .pa-student-title {
+      font-family: var(--font-display); font-weight: 700; font-size: 17px;
+    }
+    .pa-remove {
+      background: none; border: 1px solid rgba(39, 36, 67, 0.25);
+      border-radius: 2px; padding: 5px 12px; font-size: 13px;
+      cursor: pointer; color: var(--color-text); opacity: 0.7;
+      font-family: var(--font-body);
+    }
+    .pa-remove:hover { opacity: 1; border-color: var(--color-red); color: var(--color-red); }
+    .pa-add {
+      display: block; width: 100%; padding: 13px;
+      background: var(--color-white);
+      border: 1.5px dashed rgba(39, 36, 67, 0.35);
+      border-radius: 3px; font-family: var(--font-display);
+      font-size: 16px; font-weight: 600; color: var(--color-text);
+      cursor: pointer;
+    }
+    .pa-add:hover { border-color: var(--color-red); color: var(--color-red); }
 
     /* Choice buttons ------------------------------------------------- */
     .reg-choices { display: flex; flex-direction: column; gap: 9px; }
@@ -316,11 +346,11 @@
 
     <div class="reg-wrap">
 
-      <a href="school-resources.html" class="reg-back">&larr; Back to School Resources</a>
+      <a href="school-start-hub.html" class="reg-back">&larr; Back to the School Start Hub</a>
 
       <div class="reg-hero">
         <h1>Performing Arts 2026&ndash;27</h1>
-        <p class="reg-subtitle">One form for each full-time student.</p>
+        <p class="reg-subtitle">One form per family &mdash; add each of your full-time students.</p>
         <div class="reg-deadline">Please send this back by <strong>Thursday, August&nbsp;20</strong>.</div>
       </div>
 
@@ -330,33 +360,16 @@
       <form id="pa-form" novalidate>
 
         <div class="reg-section">
-          <div class="reg-section-title">Your student</div>
-          <div class="reg-row-grid-3">
+          <div class="reg-section-title">You</div>
+          <div class="reg-row-grid-2">
             <div>
-              <label class="reg-label" for="studentName">Student's name<span class="req">*</span></label>
-              <input class="reg-input" type="text" id="studentName" name="studentName" placeholder="First and last name" required>
+              <label class="reg-label" for="parentName">Your name<span class="req">*</span></label>
+              <input class="reg-input" type="text" id="parentName" name="parentName" placeholder="Parent or guardian" required>
             </div>
             <div>
-              <label class="reg-label" for="parentName">Parent's name<span class="req">*</span></label>
-              <input class="reg-input" type="text" id="parentName" name="parentName" placeholder="Your name" required>
+              <label class="reg-label" for="parentEmail">Your email<span class="req">*</span></label>
+              <input class="reg-input" type="email" id="parentEmail" name="parentEmail" placeholder="you@example.com" required>
             </div>
-            <div>
-              <label class="reg-label" for="studentAge">Age<span class="req">*</span></label>
-              <select class="reg-select" id="studentAge" name="studentAge" required>
-                <option value="">Age&hellip;</option>
-                <option value="6">6</option><option value="7">7</option>
-                <option value="8">8</option><option value="9">9</option>
-                <option value="10">10</option><option value="11">11</option>
-                <option value="12">12</option><option value="13">13</option>
-                <option value="14">14</option><option value="15">15</option>
-                <option value="16">16</option><option value="17">17</option>
-                <option value="18">18</option>
-              </select>
-            </div>
-          </div>
-          <div class="reg-row">
-            <label class="reg-label" for="parentEmail">Your email<span class="req">*</span></label>
-            <input class="reg-input" type="email" id="parentEmail" name="parentEmail" placeholder="you@example.com" required>
           </div>
         </div>
 
@@ -402,68 +415,15 @@
         </div>
 
         <div class="reg-section">
-          <div class="reg-section-title">The questions</div>
+          <div class="reg-section-title">Your students</div>
+          <p class="reg-section-subtitle">Add every full-time student in your family. The questions change a little with age, so please answer them for each child separately.</p>
 
-          <div class="reg-row">
-            <label class="reg-label"><span class="pa-num">1.</span> Will your student join our performances this year?<span class="req">*</span></label>
-            <div class="reg-choices inline">
-              <label class="reg-check"><input type="radio" name="join" value="Yes"><span>Yes</span></label>
-              <label class="reg-check"><input type="radio" name="join" value="No"><span>No</span></label>
-            </div>
-          </div>
+          <div id="pa-student-list"></div>
 
-          <div id="aladdin-block" class="pa-hidden">
-            <div class="reg-row">
-              <label class="reg-label"><span class="pa-num">2.</span> Do you plan to audition for <em>Aladdin</em> on Monday, August 31?</label>
-              <div class="reg-choices inline">
-                <label class="reg-check"><input type="radio" name="aladdin" value="Yes"><span>Yes</span></label>
-                <label class="reg-check"><input type="radio" name="aladdin" value="No"><span>No</span></label>
-                <label class="reg-check"><input type="radio" name="aladdin" value="Not sure yet"><span>Not sure yet</span></label>
-              </div>
-            </div>
-            <div class="reg-row">
-              <label class="reg-label" for="roles">Which roles interest you most?</label>
-              <input class="reg-input" type="text" id="roles" name="roles" placeholder="Aladdin, Jasmine, Genie, ensemble&hellip;">
-            </div>
-          </div>
+          <button type="button" id="pa-add-student" class="pa-add">+ Add another student</button>
+        </div>
 
-          <div class="reg-row">
-            <label class="reg-label"><span class="pa-num">3.</span> Tell us about your student's experience on stage, or their lack of it.</label>
-            <p class="reg-help">Anything you want us to know helps us cast well.</p>
-            <textarea class="reg-textarea" id="experience" name="experience" placeholder="Years of piano, a shy first-timer, loves to dance, has never sung in front of anyone&hellip;"></textarea>
-          </div>
-
-          <div id="q-three" class="reg-row pa-hidden">
-            <label class="reg-label"><span class="pa-num" data-num>4.</span> If your student could choose between dance, ukulele and guitar, or piano &mdash; which would they choose this quarter?</label>
-            <div class="reg-choices">
-              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Dance"><span>Dance</span></label>
-              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Ukulele and guitar"><span>Ukulele and guitar</span></label>
-              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Piano"><span>Piano</span></label>
-            </div>
-          </div>
-
-          <div id="q-two" class="reg-row pa-hidden">
-            <label class="reg-label"><span class="pa-num" data-num>4.</span> If your student could choose between dance and instruments &mdash; which would they choose this quarter?</label>
-            <div class="reg-choices">
-              <label class="reg-check"><input type="radio" name="artsTwoWay" value="Dance"><span>Dance</span></label>
-              <label class="reg-check"><input type="radio" name="artsTwoWay" value="Instruments"><span>Instruments</span></label>
-            </div>
-          </div>
-
-          <div id="q-youngest" class="pa-note pa-hidden">
-            <b>A note for our youngest students.</b>
-            Our youngest students get a great deal of the arts. They take part in our big productions, they prepare a show of their own, and they have drill, crafts and fine arts through the week. Separate instrument and dance lessons begin in 5th grade, so that is the one piece their week does not yet include.
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-label"><span class="pa-num" data-num>5.</span> Would your student like to take Spanish this quarter?</label>
-            <p class="reg-help">We encourage as many students as possible to learn Spanish, though it is not required. The alternative is silent reading or study hall.</p>
-            <div class="reg-choices inline">
-              <label class="reg-check"><input type="radio" name="spanish" value="Yes"><span>Yes, Spanish</span></label>
-              <label class="reg-check"><input type="radio" name="spanish" value="No"><span>No thank you</span></label>
-            </div>
-          </div>
-
+        <div class="reg-section">
           <div class="reg-row">
             <label class="reg-label" for="notes">Anything else we should know?</label>
             <textarea class="reg-textarea" id="notes" name="notes" placeholder="Optional"></textarea>
@@ -515,7 +475,7 @@
 </footer>
 
 <script src="../assets/js/main.js?v=4" defer></script>
-<script src="../assets/js/register-performing-arts-2026-27.js?v=2" defer></script>
+<script src="../assets/js/register-performing-arts-2026-27.js?v=3" defer></script>
 
 <button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>

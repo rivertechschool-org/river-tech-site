@@ -5,9 +5,9 @@
  *   Execute as: Me (learn@rivertech.me)
  *   Who has access: Anyone
  *
- * Receives one full-time student's performing arts choices, writes a row
- * to the Sheet, emails the family a copy, and notifies staff.
- * No payment processing.
+ * Receives one FAMILY's performing arts choices — one or more children —
+ * writes one sheet row per child, emails the family a copy, and notifies
+ * staff once for the whole family. No payment processing.
  *
  * Script Properties (Project Settings > Script Properties):
  *   SHEET_ID — set automatically by running setupSheet() once from the editor.
@@ -20,7 +20,7 @@ const NOTIFY_EMAILS = ["learn@rivertech.me", "dhegelund@gmail.com"];
 const SCHOOL_NAME = "River Tech School of Performing Arts & Technology";
 const SHEET_NAME = "Performing Arts Choices 2026-27";
 const SHEET_TAB_NAME = "Choices";
-const FORM_PAGE_URL = "https://www.rivertechschool.com/pages/register-performing-arts-2026-27.html";
+const MAX_CHILDREN = 6;
 
 // ---- Web-app entrypoints ------------------------------------------------
 function doPost(e) {
@@ -42,21 +42,47 @@ function json_(obj) {
 }
 
 // ---- Core handler -------------------------------------------------------
+/**
+ * Accepts the family shape { parent, children: [...] } and, for safety, the
+ * original single-student shape { parent, student, join, ... } that the first
+ * version of the form sent.
+ */
+function normalise_(p) {
+  if (p && p.children && p.children.length) return p.children.slice(0, MAX_CHILDREN);
+  if (p && p.student) {
+    return [{
+      name: p.student.name, age: p.student.age,
+      join: p.join, aladdin: p.aladdin, roles: p.roles,
+      experience: p.experience, artsQuestion: p.artsQuestion,
+      artsChoice: p.artsChoice, spanish: p.spanish
+    }];
+  }
+  return [];
+}
+
 function handleSubmission(p) {
-  if (!p || !p.student || !p.student.name) return { ok: false, error: "Please enter your student's name." };
-  if (!p.parent || !p.parent.name || !p.parent.email) return { ok: false, error: "Parent name and email are required." };
-  if (!p.student.age) return { ok: false, error: "Please choose your student's age." };
-  if (!p.join) return { ok: false, error: "Please tell us whether your student will join our performances." };
-  if (!p.spanish) return { ok: false, error: "Please answer the Spanish question." };
+  if (!p || !p.parent || !p.parent.name || !p.parent.email) {
+    return { ok: false, error: "Parent name and email are required." };
+  }
+
+  const kids = normalise_(p).filter(function (c) { return c && c.name; });
+  if (kids.length === 0) return { ok: false, error: "Please add at least one student." };
+
+  for (var i = 0; i < kids.length; i++) {
+    var c = kids[i];
+    if (!c.age) return { ok: false, error: "Please choose an age for " + c.name + "." };
+    if (!c.join) return { ok: false, error: "Please say whether " + c.name + " will join our performances." };
+    if (!c.spanish) return { ok: false, error: "Please answer the Spanish question for " + c.name + "." };
+  }
 
   const referenceId = "PA-" + Utilities.formatDate(new Date(), "America/Los_Angeles", "yyyyMMdd-HHmmss")
     + "-" + Math.floor(Math.random() * 1000).toString().padStart(3, "0");
 
-  writeToSheet_(referenceId, p);
-  sendParentEmail_(referenceId, p);
-  sendNotificationEmail_(referenceId, p);
+  writeToSheet_(referenceId, p, kids);
+  sendParentEmail_(referenceId, p, kids);
+  sendNotificationEmail_(referenceId, p, kids);
 
-  return { ok: true, referenceId: referenceId };
+  return { ok: true, referenceId: referenceId, children: kids.length };
 }
 
 // ---- Sheet write --------------------------------------------------------
@@ -72,7 +98,8 @@ function headerRow_() {
   ];
 }
 
-function writeToSheet_(referenceId, p) {
+/** One row per child. Siblings share a reference id with a -1, -2 suffix. */
+function writeToSheet_(referenceId, p, kids) {
   const sheetId = cfg("SHEET_ID");
   if (!sheetId) throw new Error("SHEET_ID is not configured. Run setupSheet() once from the editor.");
   const ss = SpreadsheetApp.openById(sheetId);
@@ -85,52 +112,66 @@ function writeToSheet_(referenceId, p) {
     sh.setFrozenRows(1);
   }
 
-  sh.appendRow([
-    referenceId,
-    p.submittedAt || new Date().toISOString(),
-    p.schoolYear || "2026-27",
-    p.student.name,
-    p.student.age,
-    p.parent.name,
-    p.parent.email,
-    p.join,
-    p.aladdin || "",
-    p.roles || "",
-    p.experience || "",
-    p.artsQuestion || "",
-    p.artsChoice || "",
-    p.spanish,
-    p.notes || ""
-  ]);
+  const submitted = p.submittedAt || new Date().toISOString();
+  const rows = kids.map(function (c, idx) {
+    return [
+      kids.length > 1 ? (referenceId + "-" + (idx + 1)) : referenceId,
+      submitted,
+      p.schoolYear || "2026-27",
+      c.name,
+      c.age,
+      p.parent.name,
+      p.parent.email,
+      c.join,
+      c.aladdin || "",
+      c.roles || "",
+      c.experience || "",
+      c.artsQuestion || "",
+      c.artsChoice || "",
+      c.spanish,
+      p.notes || ""
+    ];
+  });
+
+  sh.getRange(sh.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
 }
 
 // ---- Emails -------------------------------------------------------------
-function choiceLines_(p) {
-  const lines = [];
-  lines.push("Joining our performances: " + p.join);
-  if (p.join === "Yes" && p.aladdin) {
-    lines.push("Auditioning for Aladdin on August 31: " + p.aladdin);
-    if (p.roles) lines.push("Roles of interest: " + p.roles);
+function childLines_(c) {
+  const lines = ["  " + c.name + " (age " + c.age + ")"];
+  lines.push("    Joining our performances: " + c.join);
+  if (c.join === "Yes" && c.aladdin) {
+    lines.push("    Auditioning for Aladdin on August 31: " + c.aladdin);
+    if (c.roles) lines.push("    Roles of interest: " + c.roles);
   }
-  if (p.artsChoice) lines.push("Arts choice this quarter: " + p.artsChoice);
-  lines.push("Spanish this quarter: " + p.spanish);
+  if (c.artsChoice) lines.push("    Arts choice this quarter: " + c.artsChoice);
+  lines.push("    Spanish this quarter: " + c.spanish);
   return lines;
 }
 
-function sendParentEmail_(referenceId, p) {
+function anyJoining_(kids) {
+  for (var i = 0; i < kids.length; i++) { if (kids[i].join === "Yes") return true; }
+  return false;
+}
+
+function sendParentEmail_(referenceId, p, kids) {
   const first = (p.parent.name || "").split(" ")[0] || "there";
+  const who = kids.length === 1 ? kids[0].name + "'s" : "your students'";
+
   let lines = [
     "Hi " + first + ",",
     "",
-    "Thank you for sending in " + p.student.name + "'s performing arts choices for the coming year. Here is what we have:",
+    "Thank you for sending in " + who + " performing arts choices for the coming year. Here is what we have:",
     ""
   ];
-  lines = lines.concat(choiceLines_(p).map(function (l) { return "  " + l; }));
-  lines.push("");
+  kids.forEach(function (c) {
+    lines = lines.concat(childLines_(c));
+    lines.push("");
+  });
   lines.push("Reference: " + referenceId);
   lines.push("");
 
-  if (p.join === "Yes") {
+  if (anyJoining_(kids)) {
     lines.push("Our first audition is for Aladdin on Monday, August 31, from 10:30 to 2:30 here at the school. The audition material is on the School Start Hub at rivertechschool.com.");
     lines.push("");
   }
@@ -146,44 +187,41 @@ function sendParentEmail_(referenceId, p) {
     MailApp.sendEmail({
       to: p.parent.email,
       replyTo: "learn@rivertech.me",
-      subject: "Performing arts choices received — " + p.student.name,
+      subject: "Performing arts choices received — " + p.parent.name,
       body: lines.join("\n"),
       name: "River Tech School"
     });
   } catch (err) { Logger.log("Parent email failed: " + err); }
 }
 
-function sendNotificationEmail_(referenceId, p) {
+function sendNotificationEmail_(referenceId, p, kids) {
   let lines = [
     "New performing arts choices submitted.",
     "",
     "Reference: " + referenceId,
     "Submitted: " + (p.submittedAt || new Date().toISOString()),
     "",
-    "Student: " + p.student.name + "  (age " + p.student.age + ")",
-    "Parent:  " + p.parent.name,
-    "Email:   " + p.parent.email,
+    "Parent: " + p.parent.name,
+    "Email:  " + p.parent.email,
+    "Students: " + kids.length,
     ""
   ];
-  lines = lines.concat(choiceLines_(p));
-  lines.push("");
-  lines.push("Question shown: " + (p.artsQuestion || "—"));
-  if (p.experience) {
+  kids.forEach(function (c) {
+    lines = lines.concat(childLines_(c));
+    lines.push("    Question shown: " + (c.artsQuestion || "—"));
     lines.push("");
-    lines.push("Stage experience: " + p.experience);
-  }
+  });
   if (p.notes) {
-    lines.push("");
     lines.push("Notes: " + p.notes);
+    lines.push("");
   }
-  lines.push("");
-  lines.push("Row appended to " + SHEET_NAME + ".");
+  lines.push(kids.length + " row(s) appended to " + SHEET_NAME + ".");
 
+  const names = kids.map(function (c) { return c.name; }).join(", ");
   try {
     MailApp.sendEmail({
       to: NOTIFY_EMAILS.join(","),
-      subject: "[Performing Arts] " + p.student.name + " — joining: " + p.join
-        + (p.artsChoice ? (" / " + p.artsChoice) : ""),
+      subject: "[Performing Arts] " + p.parent.name + " — " + names,
       body: lines.join("\n"),
       name: "River Tech Forms"
     });
@@ -226,15 +264,14 @@ function selfTest() {
     submittedAt: new Date().toISOString(),
     formType: "performing-arts-choices",
     schoolYear: "2026-27",
-    student: { name: "Test Student", age: 12 },
     parent: { name: "Test Parent", email: Session.getActiveUser().getEmail() || "dhegelund@gmail.com" },
-    join: "Yes",
-    aladdin: "Yes",
-    roles: "Genie",
-    experience: "Two years of choir.",
-    artsQuestion: "Dance / ukulele and guitar / piano",
-    artsChoice: "Piano",
-    spanish: "Yes",
+    children: [
+      { name: "Elder Test", age: 14, join: "Yes", aladdin: "Yes", roles: "Genie",
+        experience: "Two years of choir.", artsQuestion: "Dance / ukulele and guitar / piano",
+        artsChoice: "Piano", spanish: "Yes" },
+      { name: "Younger Test", age: 7, join: "No", aladdin: "", roles: "",
+        experience: "", artsQuestion: "Not asked (age 6-8)", artsChoice: "", spanish: "No" }
+    ],
     notes: ""
   };
   Logger.log(JSON.stringify(handleSubmission(fake), null, 2));
