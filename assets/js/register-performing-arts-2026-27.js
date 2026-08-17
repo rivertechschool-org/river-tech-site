@@ -12,7 +12,7 @@
   "use strict";
 
   // ---- Configuration ----------------------------------------------------
-  const BACKEND_URL = "__BACKEND_URL__";
+  const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxygFbe4_QSx9-Y4qHzRlILGxpaEaWXmKG2oykF-x5iZ3sAt_8n3FYM-xbiILfvRz6FCg/exec";
   const SCHOOL_YEAR = "2026-27";
 
   // ---- Boot -------------------------------------------------------------
