@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <title>Our Teachers | River Tech School, Post Falls, ID</title>
+  <meta name="description" content="Meet the teachers of River Tech School in Post Falls, Idaho. See who teaches your child, what they teach, and their week — and how to reach them.">
+
+  <meta property="og:title" content="Our Teachers | River Tech School, Post Falls, ID">
+  <meta property="og:description" content="Meet the teachers of River Tech School — who teaches your child, what they teach, and their week.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rivertechschool.com/pages/teachers.html">
+  <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/style.css?v=27">
+
+
+  <link rel="canonical" href="https://www.rivertechschool.com/pages/teachers.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Our Teachers | River Tech School, Post Falls, ID",
+    "url": "https://www.rivertechschool.com/pages/teachers.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "River Tech School of Performing Arts & Technology",
+      "url": "https://www.rivertechschool.com/"
+    }
+  }
+  </script>
+
+<style>
+/* ---- Teachers page. Uses the site's own colours, fonts and spacing. ---- */
+.tp-now{font-family:var(--font-body);font-size:1.05rem;line-height:1.75;background:#fff;
+  border-left:4px solid var(--color-teacher-bg);border-radius:0 8px 8px 0;padding:18px 22px;
+  margin:26px 0 34px;box-shadow:0 1px 4px rgba(39,36,67,.08)}
+.tp-now .tp-clock{display:block;font-family:var(--font-display);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-teacher-bg);margin-bottom:8px}
+.tp-controls{margin:0 0 10px}
+.tp-controls h2{font-family:var(--font-display);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:#6b6780;margin:0 0 10px}
+.tp-grades{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tp-grades button{font-family:var(--font-body);font-size:.95rem;color:var(--color-text);background:#fff;
+  border:1px solid #ddd8cd;border-radius:999px;padding:7px 16px;cursor:pointer;
+  transition:background .3s ease-in-out,color .3s ease-in-out,border-color .3s ease-in-out}
+.tp-grades button:hover{border-color:var(--color-teacher-bg)}
+.tp-grades button[aria-pressed="true"]{background:var(--color-teacher-bg);border-color:var(--color-teacher-bg);color:#fff}
+.tp-search{width:100%;max-width:420px;font-family:var(--font-body);font-size:1rem;color:var(--color-text);
+  background:#fff;border:1px solid #ddd8cd;border-radius:999px;padding:9px 18px;margin-bottom:6px}
+.tp-answer{font-family:var(--font-body);font-style:italic;color:#55516d;min-height:1.6em;margin:6px 0 22px}
+.tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:22px;margin:0 0 40px;padding:0;list-style:none}
+.tp-card{margin:0}
+.tp-card[hidden]{display:none}
+.tp-card button.tp-face{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit}
+.tp-portrait{position:relative;width:100%;aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:#e9e4da}
+.tp-portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.72) contrast(1.02);
+  transition:filter .5s ease-in-out,transform .5s ease-in-out}
+.tp-card:hover .tp-portrait img,.tp-card:focus-within .tp-portrait img{filter:saturate(1) contrast(1);transform:scale(1.03)}
+.tp-portrait.tp-pending{display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(135deg,#efeae1,#efeae1 9px,#e9e4da 9px,#e9e4da 18px)}
+.tp-portrait.tp-pending span{font-family:var(--font-display);font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:#8f8a7d}
+.tp-name{font-family:var(--font-body);font-size:1.12rem;margin:12px 0 2px;color:var(--color-text)}
+.tp-role{font-family:var(--font-display);font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--color-teacher-bg);margin:0 0 6px}
+.tp-line{font-family:var(--font-body);font-size:.92rem;line-height:1.55;color:#55516d;margin:0}
+.tp-teaches{font-family:var(--font-body);font-size:.88rem;font-style:italic;color:#7a7590;margin:8px 0 0}
+.tp-week{margin-top:14px;border-top:1px solid #e3ded4;padding-top:12px}
+.tp-week[hidden]{display:none}
+.tp-week h4{font-family:var(--font-display);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:#6b6780;margin:12px 0 4px}
+.tp-week h4:first-child{margin-top:0}
+.tp-week ul{list-style:none;margin:0;padding:0}
+.tp-week li{font-family:var(--font-body);font-size:.9rem;line-height:1.5;color:var(--color-text);
+  display:flex;gap:10px;padding:2px 0}
+.tp-week li.tp-duty{color:#8b8799}
+.tp-week .tp-t{flex:0 0 92px;color:#8b8799;font-variant-numeric:tabular-nums}
+.tp-open{font-family:var(--font-display);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--color-teacher-bg);margin-top:10px;display:inline-block}
+.tp-h2{font-family:var(--font-display);font-size:1.25rem;color:var(--color-text);margin:8px 0 4px}
+.tp-sub{font-family:var(--font-body);color:#55516d;margin:0 0 4px}
+.tpw .schedule-tabs{justify-content:flex-start}
+.tpw .schedule-tab{font-size:13px;padding:8px 13px}
+.tpw-panel[hidden]{display:none}
+.tpw .schedule-table td{vertical-align:top}
+.tpw .schedule-table td.tpw-duty{color:#8b8799;font-weight:400}
+.tp-wfoot{font-size:.8rem;color:#666;font-style:italic;text-align:center;margin:.4rem 0 2.2rem}
+.tp-contact{background:#fff;border:1px solid #e3ded4;border-radius:10px;padding:22px 26px;margin:0 0 34px}
+.tp-contact h3{margin-top:0}
+.tp-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--font-body);font-size:.86rem;color:#6b6780;margin:0 0 40px}
+.tp-empty{font-family:var(--font-body);font-style:italic;color:#7a7590}
+.tp-empty[hidden]{display:none}
+@media (prefers-reduced-motion: reduce){.tp-portrait img{transition:none}.tp-card:hover .tp-portrait img{transform:none}}
+@media print{.sidebar,.top-bar,.mobile-header,.site-footer,.tp-controls,.tp-now,.scroll-top{display:none!important}
+  .tp-grid{grid-template-columns:1fr 1fr}.tp-week{display:block!important}}
+</style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+    <a href="../index.html">River Tech School</a>
+    <div class="sidebar-submenu">
+      <a href="../index.html">About River Tech</a>
+      <a href="elementary-school.html">Elementary School</a>
+      <a href="middle-school.html">Middle School</a>
+      <a href="high-school.html">High School</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="a-la-carte.html">River Tech À La Carte</a>
+    <div class="sidebar-submenu">
+      <a href="a-la-carte.html">Homeschooling</a>
+      <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+      <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+      <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+      <a href="friday-technology.html">Friday: Technology</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="why-river-tech.html">Why River Tech?</a>
+    <div class="sidebar-submenu">
+      <a href="teachers.html">Teachers</a>
+      <a href="our-culture.html">Our Culture</a>
+      <a href="reviews.html">References & Reviews</a>
+      <a href="technology.html">Technology</a>
+      <a href="performing-arts.html">Performing Arts</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="enrollment.html">Enrollment</a>
+    <div class="sidebar-submenu">
+      <a href="enrollment.html">How to Enroll</a>
+      <a href="tuition.html">Tuition</a>
+      <a href="faq.html">FAQs</a>
+      <a href="tax-credit.html">Tax Credit</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="school-resources.html">School Resources</a>
+    <div class="sidebar-submenu">
+      <a href="calendar.html">Schedule & Calendar</a>
+      <a href="school-start-hub.html">School Start Hub</a>
+      <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a href="volunteer.html">Volunteer</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="../pages/gallery.html">Media</a>
+    <div class="sidebar-submenu">
+      <a href="../pages/gallery.html">Photo Gallery</a>
+      <a href="../pages/vlog.html">Video Globe</a>
+      <a href="../pages/fieldtrips.html">Field Trips</a>
+    </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <a href="enrollment.html" class="enroll-btn">School starts Sept 1</a>
+  <div class="social-icons">
+    <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" fill="#c0392b"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="white" points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
+    </a>
+    <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="#3b5998"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile Header -->
+<div class="mobile-header">
+  <a href="../index.html" class="mobile-logo">River Tech</a>
+  <button class="hamburger" aria-label="Open menu">☰</button>
+</div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay">
+  <button class="close-btn" aria-label="Close menu">✕</button>
+  <a href="../index.html">River Tech School</a>
+        <div class="mobile-submenu">
+    <a href="../index.html">About River Tech</a>
+    <a href="elementary-school.html">Elementary School</a>
+    <a href="middle-school.html">Middle School</a>
+    <a href="high-school.html">High School</a>
+  </div>
+  <a href="a-la-carte.html">River Tech À La Carte</a>
+        <div class="mobile-submenu">
+    <a href="a-la-carte.html">Homeschooling</a>
+    <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+    <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+    <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+    <a href="friday-technology.html">Friday: Technology</a>
+  </div>
+  <a href="why-river-tech.html">Why River Tech?</a>
+        <div class="mobile-submenu">
+    <a href="teachers.html">Teachers</a>
+    <a href="our-culture.html">Our Culture</a>
+    <a href="reviews.html">References & Reviews</a>
+    <a href="technology.html">Technology</a>
+    <a href="performing-arts.html">Performing Arts</a>
+  </div>
+  <a href="enrollment.html">Enrollment</a>
+        <div class="mobile-submenu">
+    <a href="enrollment.html">How to Enroll</a>
+    <a href="tuition.html">Tuition</a>
+    <a href="faq.html">FAQs</a>
+    <a href="tax-credit.html">Tax Credit</a>
+  </div>
+  <a href="school-resources.html">School Resources</a>
+        <div class="mobile-submenu">
+    <a href="calendar.html">Schedule & Calendar</a>
+      <a href="school-start-hub.html">School Start Hub</a>
+    <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+    <a href="scholarships.html">Scholarships</a>
+    <a href="volunteer.html">Volunteer</a>
+  </div>
+  <a href="../pages/gallery.html">Media</a>
+        <div class="mobile-submenu">
+    <a href="../pages/gallery.html">Photo Gallery</a>
+    <a href="../pages/vlog.html">Video Globe</a>
+    <a href="../pages/fieldtrips.html">Field Trips</a>
+  </div>
+  <a href="enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="content-area">
+    <div class="page-hero-inner">
+      <h1>Our Teachers</h1>
+    </div>
+
+    <p style="font-style: italic; text-align: center; margin-top: 30px;">Small classes exist so that every teacher knows every child by name.</p>
+
+    <p class="tp-now"><span class="tp-clock" id="tp-now-clock">At River Tech today</span><span id="tp-now-text">Choose a class below to see the adults who will know your child by name.</span></p>
+
+    <div class="tp-controls">
+      <h2>Show me the teachers for&hellip;</h2>
+      <div class="tp-grades"><button type="button" data-grade="y-elem" aria-pressed="false">1st &amp; 2nd</button><button type="button" data-grade="o-elem" aria-pressed="false">3rd &amp; 4th</button><button type="button" data-grade="ms" aria-pressed="false">5th &amp; 6th</button><button type="button" data-grade="jh" aria-pressed="false">7th &amp; 8th</button><button type="button" data-grade="hs" aria-pressed="false">9th to 12th</button><button type="button" data-grade="home" aria-pressed="false">Homeschool</button></div>
+      <label class="sr-only" for="tp-search">What does your child love?</label>
+      <input class="tp-search" id="tp-search" type="search" placeholder="What does your child love? Try &ldquo;coding&rdquo;&hellip;" autocomplete="off">
+      <p class="tp-answer" id="tp-answer"></p>
+    </div>
+
+    <ul class="tp-grid"><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="dan hegelund founder & principal leads our productions, plus leadership and academics. a.i. &amp; machine learning &#8220;aladdin&#8221; &amp; christmas concert critical thinking &amp; debate english leadership mindset math &#8220;peter &amp; alice &mdash; the way home&#8221; piano study hall" data-first="Dan"><button class="tp-face" data-who="DA"><div class="tp-portrait"><img src="../assets/images/teachers/dan-mary-hegelund.jpg" alt="Dan Hegelund" loading="lazy"></div><h3 class="tp-name">Dan Hegelund</h3><p class="tp-role">Founder & Principal</p><p class="tp-line">Leads our productions, plus leadership and academics.</p><p class="tp-teaches">A.I. &amp; Machine Learning, &#8220;Aladdin&#8221; &amp; Christmas Concert, Critical Thinking &amp; Debate, English, Leadership Mindset, Math…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home jh ms o-elem y-elem" data-search="mary hegelund elementary lead leads the elementary program. crafts english film making fine arts make &amp; keep friends math science silent reading soc. studies study hall" data-first="Mary"><button class="tp-face" data-who="MA"><div class="tp-portrait"><img src="../assets/images/teachers/dan-mary-hegelund.jpg" alt="Mary Hegelund" loading="lazy"></div><h3 class="tp-name">Mary Hegelund</h3><p class="tp-role">Elementary Lead</p><p class="tp-line">Leads the Elementary program.</p><p class="tp-teaches">Crafts, English, Film Making, Fine Arts, Make &amp; Keep Friends, Math…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem" data-search="caitlin relvas teacher english, literature, social studies, and dance. creative writing critical thinking &amp; debate dance english literature soc. studies" data-first="Caitlin"><button class="tp-face" data-who="CA"><div class="tp-portrait"><img src="../assets/images/teachers/caitlin-relvas.jpg" alt="Caitlin Relvas" loading="lazy"></div><h3 class="tp-name">Caitlin Relvas</h3><p class="tp-role">Teacher</p><p class="tp-line">English, literature, social studies, and dance.</p><p class="tp-teaches">Creative Writing, Critical Thinking &amp; Debate, Dance, English, Literature, Soc. Studies</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="jordan ezell technology director coding, a.i., robotics, and science. a.i. &amp; machine learning chemistry coding coding / ai math personal finance &amp; family life physics robotics science year book" data-first="Jordan"><button class="tp-face" data-who="JO"><div class="tp-portrait"><img src="../assets/images/teachers/jordan-ezell.jpg" alt="Jordan Ezell" loading="lazy"></div><h3 class="tp-name">Jordan Ezell</h3><p class="tp-role">Technology Director</p><p class="tp-line">Coding, A.I., robotics, and science.</p><p class="tp-teaches">A.I. &amp; Machine Learning, Chemistry, Coding, Coding / AI, Math, Personal Finance &amp; Family Life…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="luke hegelund music & media instruments, filmmaking, robotics, and coding. bible coding drill english film making filmmaking math money p.e. at the park or library robotics study hall ukulele" data-first="Luke"><button class="tp-face" data-who="LU"><div class="tp-portrait"><img src="../assets/images/teachers/luke-hegelund.jpg" alt="Luke Hegelund" loading="lazy"></div><h3 class="tp-name">Luke Hegelund</h3><p class="tp-role">Music & Media</p><p class="tp-line">Instruments, filmmaking, robotics, and coding.</p><p class="tp-teaches">Bible, Coding, Drill, English, Film Making, Filmmaking…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="tiffany young elementary teacher full-time elementary teacher. bible/worship/prayer english fine art fine arts free play games math math/english nutrition &amp; health p.e. at the park or library performing arts production science sketchbook pro soc. studies" data-first="Tiffany"><button class="tp-face" data-who="TI"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Tiffany Young</h3><p class="tp-role">Elementary Teacher</p><p class="tp-line">Full-time Elementary teacher.</p><p class="tp-teaches">Bible/Worship/Prayer, English, Fine Art, Fine Arts, Free Play, Games…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="charlotte tebow performing arts performing arts and musical direction. &#8220;aladdin&#8221; &amp; christmas concert coding digital arts drawing math performing arts production &#8220;peter &amp; alice &mdash; the way home&#8221;" data-first="Charlotte"><button class="tp-face" data-who="CH"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Charlotte Tebow</h3><p class="tp-role">Performing Arts</p><p class="tp-line">Performing arts and musical direction.</p><p class="tp-teaches">&#8220;Aladdin&#8221; &amp; Christmas Concert, Coding, Digital Arts, Drawing, Math, Performing Arts Production…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh ms o-elem y-elem" data-search="evelyn hegelund performing arts performing arts, bible &amp; worship, and reading. &#8220;aladdin&#8221; &amp; christmas concert bible/worship/prayer coding digital arts drawing / silent reading &#8220;peter &amp; alice &mdash; the way home&#8221; silent reading" data-first="Evelyn"><button class="tp-face" data-who="EV"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Evelyn Hegelund</h3><p class="tp-role">Performing Arts</p><p class="tp-line">Performing arts, Bible &amp; worship, and reading.</p><p class="tp-teaches">&#8220;Aladdin&#8221; &amp; Christmas Concert, Bible/Worship/Prayer, Coding, Digital Arts, Drawing / Silent Reading, &#8220;Peter &amp; Alice &mdash; The Way Home&#8221;…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home hs jh" data-search="kirsten decker teacher fridays &mdash; english, math, geography, and bible. bible big picture geography english film making" data-first="Kirsten"><button class="tp-face" data-who="KI"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Kirsten Decker</h3><p class="tp-role">Teacher</p><p class="tp-line">Fridays &mdash; English, math, geography, and Bible.</p><p class="tp-teaches">Bible, Big Picture Geography, English, Film Making</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home o-elem y-elem" data-search="emily allison classroom assistant math, robotics, and arts. coding crafts drawing english film making math nutrition &amp; health robotics" data-first="Emily"><button class="tp-face" data-who="EM"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Emily Allison</h3><p class="tp-role">Classroom Assistant</p><p class="tp-line">Math, robotics, and arts.</p><p class="tp-teaches">Coding, Crafts, Drawing, English, Film Making, Math…</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="hs jh" data-search="phil munts teacher python and robotics. python robotics" data-first="Phil"><button class="tp-face" data-who="PH"><div class="tp-portrait"><img src="../assets/images/teachers/phil-munts.jpg" alt="Phil Munts" loading="lazy"></div><h3 class="tp-name">Phil Munts</h3><p class="tp-role">Teacher</p><p class="tp-line">Python and robotics.</p><p class="tp-teaches">Python, Robotics</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="hs jh ms o-elem y-elem" data-search="cristina maness spanish spanish. spanish" data-first="Cristina"><button class="tp-face" data-who="CR"><div class="tp-portrait"><img src="../assets/images/teachers/cris-maness.jpg" alt="Cristina Maness" loading="lazy"></div><h3 class="tp-name">Cristina Maness</h3><p class="tp-role">Spanish</p><p class="tp-line">Spanish.</p><p class="tp-teaches">Spanish</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="hs" data-search="ryan killackey filmmaking high-school filmmaking. filmmaking" data-first="Ryan"><button class="tp-face" data-who="RY"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Ryan Killackey</h3><p class="tp-role">Filmmaking</p><p class="tp-line">High-school filmmaking.</p><p class="tp-teaches">Filmmaking</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="hs" data-search="penny burciaga operations &amp; leadership teaches leadership mindset and organizational design &amp; management. leadership mindset organizational design &amp; management" data-first="Penny"><button class="tp-face" data-who="PE"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Penny Burciaga</h3><p class="tp-role">Operations &amp; Leadership</p><p class="tp-line">Teaches Leadership Mindset and Organizational Design &amp; Management.</p><p class="tp-teaches">Leadership Mindset, Organizational Design &amp; Management</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home" data-search="angie costumes costumes for both productions. costumes for &ldquo;aladdin&rdquo; &amp; christmas concert costumes for &ldquo;peter &amp; alice&rdquo;, talent show &amp; summer concert" data-first="Angie"><button class="tp-face" data-who="AN"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Angie</h3><p class="tp-role">Costumes</p><p class="tp-line">Costumes for both productions.</p><p class="tp-teaches">Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert, Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="home" data-search="kara mcarthur props props for both productions. props for &ldquo;aladdin&rdquo; &amp; christmas concert props for &ldquo;peter &amp; alice&rdquo;, talent show &amp; summer concert" data-first="Kara"><button class="tp-face" data-who="KA"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Kara McArthur</h3><p class="tp-role">Props</p><p class="tp-line">Props for both productions.</p><p class="tp-teaches">Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert, Props for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert</p><span class="tp-open">See their week ↓</span></button></li><li class="tp-card" data-grades="" data-search="brooke donnelly executive assistant the first person you will hear back from when you write to the school." data-first="Brooke"><button class="tp-face" data-who="BR"><div class="tp-portrait tp-pending"><span>portrait coming</span></div><h3 class="tp-name">Brooke Donnelly</h3><p class="tp-role">Executive Assistant</p><p class="tp-line">The first person you will hear back from when you write to the school.</p></button></li></ul>
+    <p class="tp-empty" id="tp-empty" hidden>No one matches that just yet. Clear the filters and try another word.</p>
+
+    <h2 class="tp-h2">Every teacher&rsquo;s week</h2>
+    <p class="tp-sub">Choose a name to see that teacher&rsquo;s whole week &mdash; when they teach, which class, and which room.</p>
+    <div class="schedule-tabs-container tpw">
+      <div class="schedule-tabs"><button class="schedule-tab active" type="button" data-who="DA">Dan<br><small>Founder & Principal</small></button><button class="schedule-tab" type="button" data-who="MA">Mary<br><small>Elementary Lead</small></button><button class="schedule-tab" type="button" data-who="CA">Caitlin<br><small>Teacher</small></button><button class="schedule-tab" type="button" data-who="JO">Jordan<br><small>Technology Director</small></button><button class="schedule-tab" type="button" data-who="LU">Luke<br><small>Music & Media</small></button><button class="schedule-tab" type="button" data-who="TI">Tiffany<br><small>Elementary Teacher</small></button><button class="schedule-tab" type="button" data-who="CH">Charlotte<br><small>Performing Arts</small></button><button class="schedule-tab" type="button" data-who="EV">Evelyn<br><small>Performing Arts</small></button><button class="schedule-tab" type="button" data-who="KI">Kirsten<br><small>Teacher</small></button><button class="schedule-tab" type="button" data-who="EM">Emily<br><small>Classroom Assistant</small></button><button class="schedule-tab" type="button" data-who="PH">Phil<br><small>Teacher</small></button><button class="schedule-tab" type="button" data-who="CR">Cristina<br><small>Spanish</small></button><button class="schedule-tab" type="button" data-who="RY">Ryan<br><small>Filmmaking</small></button><button class="schedule-tab" type="button" data-who="PE">Penny<br><small>Operations &amp; Leadership</small></button><button class="schedule-tab" type="button" data-who="AN">Angie<br><small>Costumes</small></button><button class="schedule-tab" type="button" data-who="KA">Kara<br><small>Props</small></button></div>
+      <div class="tpw-panel" id="tpw-DA"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td>English 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td>Math 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>Math 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td>English 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td>&#8220;Aladdin&#8221; &amp; Christmas Concert 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, High School, Homeschool</small></td><td>Leadership Mindset 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td></td><td></td><td></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Leadership Mindset [UH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td>Critical Thinking &amp; Debate [UH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>A.I. &amp; Machine Learning [UH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, Homeschool</small><br>&#8220;Peter &amp; Alice — The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td>(B) Piano<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td></td><td>(B) Piano 🎻<br><small style="font-weight:400;opacity:.62">Middle School, Junior High</small></td><td>(B) Study Hall<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Dan&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-MA" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td></td><td>Math 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>Soc. Studies 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td></td><td>English 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>English 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>Make &amp; Keep Friends [YH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td>Math 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Film Making [YH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Science 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>(B) Silent Reading 🎻<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Crafts 🎨<br><small style="font-weight:400;opacity:.62">Middle School</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Study Hall 🎻<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td></td><td>Crafts [YH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Study Hall 🎻<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td>Crafts 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Fine Arts 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr></tbody></table></div><p class="tp-wfoot">Mary&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-CA" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td>English<br><small style="font-weight:400;opacity:.62">High School</small></td><td>English<br><small style="font-weight:400;opacity:.62">High School</small></td><td>English<br><small style="font-weight:400;opacity:.62">High School</small></td><td>English<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>English 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>English 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>English 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>English 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>English ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Literature 🎨<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Creative Writing [UH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Soc. Studies 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Soc. Studies<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Creative Writing [YH] 🌳<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Literature 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>(A) Dance<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Literature<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Soc. Studies 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>(A) Dance 💃<br><small style="font-weight:400;opacity:.62">Middle School, Junior High</small></td><td>Critical Thinking &amp; Debate [YH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td></tr><tr><td class="time-cell">Lunch</td><td></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Caitlin&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-JO" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td></td><td>Math 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Math 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Math 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Math 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td></td><td>Math<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Math<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Math<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Math<br><small style="font-weight:400;opacity:.62">High School</small></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>Personal Finance &amp; Family Life [UH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Coding / AI<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Coding / A.I.<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Robotics [UH] 🤖<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Coding 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Coding 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Year Book<br><small style="font-weight:400;opacity:.62">High School</small></td><td>A.I. &amp; Machine Learning [UH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Chemistry [UH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Physics ☕<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Science 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Coding [UH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Chemistry [YH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Physics<br><small style="font-weight:400;opacity:.62">High School</small></td><td>Coding 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Coding 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td></tr><tr><td class="time-cell">Lunch</td><td></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">High School</small></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr></tbody></table></div><p class="tp-wfoot">Jordan&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-LU" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td>Math 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Math 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>P.E. at The Park or Library<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Math 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Math 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>Math<br><small style="font-weight:400;opacity:.62">High School</small></td><td>English 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td>English 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>English 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>Filmmaking 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Robotics 🤖<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Drill 💃<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Drill 💃<br><small style="font-weight:400;opacity:.62">Elementary, Middle School</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Money [YH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Coding 🎻<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Filmmaking 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Robotics [YH] 🤖<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Filmmaking<br><small style="font-weight:400;opacity:.62">High School</small></td><td>(C) Ukulele<br><small style="font-weight:400;opacity:.62">High School</small></td><td>(B) Study Hall 🎻<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td>Coding 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Filmmaking<br><small style="font-weight:400;opacity:.62">High School</small></td><td>(C) Ukulele 🎻<br><small style="font-weight:400;opacity:.62">Middle School, Junior High</small></td><td>Bible 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Film Making [UH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">Lunch</td><td></td><td></td><td></td><td></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr></tbody></table></div><p class="tp-wfoot">Luke&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-TI" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td>Math 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Math ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>P.E. at The Park or Library<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Soc. Studies ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Math 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>English 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>English ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>English ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>English 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>Math/English 💡<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Games 💃<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Fine Arts [YH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Fine Arts<br><small style="font-weight:400;opacity:.62">High School</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Science ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Bible/Worship/Prayer 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Fine Art 🎨<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td>Sketchbook Pro 🎻<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Nutrition &amp; Health 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Performing Arts Production 💃<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Fine Art [UH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Sketchbook Pro 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Nutrition &amp; Health 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Free Play 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Fine Art [UH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td>Fine Arts ☕<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr></tbody></table></div><p class="tp-wfoot">Tiffany&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-CH" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td>&#8220;Aladdin&#8221; &amp; Christmas Concert 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, High School, Homeschool</small></td><td></td><td></td><td>Math ☀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, Homeschool</small><br>&#8220;Peter &amp; Alice — The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td>Performing Arts Production 💃<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Drawing 🚀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Coding [YH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td></td><td></td><td></td><td>Digital Arts [YH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">Lunch</td><td class="tpw-duty">Performers&#8217; Lunch<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td class="tpw-duty">P.E. &amp; Lunch at The Park<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Charlotte&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-EV" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td>&#8220;Aladdin&#8221; &amp; Christmas Concert 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, High School, Homeschool</small></td><td></td><td></td><td>(B) Silent Reading 🎻<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td></td><td>Bible/Worship/Prayer 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">Elementary, Middle School, Junior High, Homeschool</small><br>&#8220;Peter &amp; Alice — The Way Home&#8221; 🎤<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td>Drawing / Silent Reading 🌳<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td><td>Coding [UH] ☕<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td></td><td></td><td></td><td>Digital Arts [YH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">Lunch</td><td class="tpw-duty">Performers&#8217; Lunch<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Evelyn&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-KI" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td></td><td></td><td></td><td></td><td>English<br><small style="font-weight:400;opacity:.62">High School</small></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td></td><td></td><td></td><td></td><td>English 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td></td><td></td><td></td><td>Film Making [YH] 🎨<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td></td><td></td><td></td><td>Bible 💃<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Big Picture Geography [YH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td></td><td>Bible<br><small style="font-weight:400;opacity:.62">High School</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Big Picture Geography [UH] 🌳<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Kirsten&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-EM" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">8:45&ndash;9:35</td><td></td><td></td><td></td><td></td><td>Math 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td></td><td></td><td></td><td></td><td>English 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td></td><td></td><td></td><td>Robotics [UH] 🤖<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td></td><td></td><td></td><td>Robotics [YH] 🤖<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Nutrition &amp; Health 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>Drawing 🚀<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Coding [YH] 🚀<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Nutrition &amp; Health 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td><td>Crafts 🎨<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td>Film Making [UH] 💃<br><small style="font-weight:400;opacity:.62">Homeschool</small></td></tr></tbody></table></div><p class="tp-wfoot">Emily&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-PH" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td></td><td></td><td></td><td>Python 🚀<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td></td><td></td><td></td><td>Python<br><small style="font-weight:400;opacity:.62">High School</small></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td></td><td></td><td></td><td>Robotics 🤖<br><small style="font-weight:400;opacity:.62">Junior High</small></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td></td><td></td><td></td><td>Robotics<br><small style="font-weight:400;opacity:.62">High School</small></td></tr></tbody></table></div><p class="tp-wfoot">Phil&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-CR" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td></td><td></td><td>(A) Spanish 🎻<br><small style="font-weight:400;opacity:.62">Middle School</small></td><td></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td></td><td></td><td>(A) Spanish 🎻<br><small style="font-weight:400;opacity:.62">Elementary</small></td><td></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td></td><td></td><td>(A) Spanish 🎻<br><small style="font-weight:400;opacity:.62">Junior High</small></td><td></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td></td><td></td><td>(A) Spanish<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Cristina&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-RY" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">1:00&ndash;1:40</td><td></td><td>Filmmaking<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td></td><td></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td></td><td>Filmmaking<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Ryan&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-PE" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td></td><td>Organizational Design &amp; Management<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td></td><td></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td></td><td>Leadership Mindset<br><small style="font-weight:400;opacity:.62">High School</small></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Penny&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-AN" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:45</td><td>Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908; 🎤<br><small style="font-weight:400;opacity:.62">Productions</small></td><td></td><td></td><td></td><td></td></tr><tr><td class="time-cell">12:45&ndash;2:20</td><td>Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908; 🎤<br><small style="font-weight:400;opacity:.62">Productions</small></td><td></td><td></td><td></td><td></td></tr><tr><td class="time-cell">Lunch</td><td class="tpw-duty">Performers&#8217; Lunch<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Angie&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div><div class="tpw-panel" id="tpw-KA" hidden><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:45</td><td>Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908; 🎤<br><small style="font-weight:400;opacity:.62">Productions</small></td><td></td><td></td><td></td><td></td></tr><tr><td class="time-cell">12:45&ndash;2:20</td><td>Props for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908; 🎤<br><small style="font-weight:400;opacity:.62">Productions</small></td><td></td><td></td><td></td><td></td></tr><tr><td class="time-cell">Lunch</td><td class="tpw-duty">Performers&#8217; Lunch<br><small style="font-weight:400;opacity:.62">Homeschool</small></td><td></td><td></td><td></td><td></td></tr></tbody></table></div><p class="tp-wfoot">Kara&rsquo;s week &mdash; Quarter 1, as of 2026-08-17. The same source as the <a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div>
+    </div>
+
+    <div class="tp-contact">
+      <h3>Reaching a teacher</h3>
+      <p>Write to <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>, say which teacher you would like to reach, and Brooke passes your message straight to them. We keep teachers&rsquo; addresses off the public web so their inboxes stay for families rather than for strangers.</p>
+      <p>If something is unresolved after speaking with a teacher, write to the Principal and copy the teacher. That ladder is set out in full on the <a href="school-start-hub.html">School Start Hub</a>.</p>
+    </div>
+
+    <h3>The rooms</h3>
+    <div class="tp-key"><span>☕ Cafe / Assembly</span><span>🚀 Upper Middle School</span><span>🌳 Younger Middle School</span><span>☀ Upper Elementary</span><span>💡 Younger Elementary</span><span>🎨 Crafts Room</span><span>📚 Study Room</span><span>🎻 Music Rooms</span><span>💃 Dance Hall</span><span>🤖 Robotics</span><span>🎤 Stage / Sanctuary</span></div>
+<!-- Footer -->
+
+    
+<footer class="site-footer">
+  <div class="footer-top">
+    <a href="../index.html" class="footer-logo">rivertechschool.com</a>
+    <div class="footer-tagline">Life is a Stage. <span class="love">Love</span> is our Script.</div>
+  </div>
+
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>
+      <span>Tel: 425-444-2081</span>
+      <span>The Heart</span>
+      <span>927 E Polston Ave</span>
+      <span>Post Falls, ID 83854</span>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="why-river-tech.html">Why River Tech?</a>
+      <a href="enrollment.html">Enrollment</a>
+      <a href="school-resources.html">School Resources</a>
+      <a href="a-la-carte.html">À La Carte</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/rivertechschool/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 by Faithful Five Inc. (d.b.a. River Tech and Post Falls Art). <em>Life is a Stage. <span class="love">Love</span> is our Script.</em></p>
+    <p>Nondiscrimination Policy: Faithful Five Inc. and its ministry River Tech School of Performing Arts &amp; Technology admit students of any race, color, national and ethnic origin to all the rights, privileges, programs, and activities generally accorded or made available to students at the school. We do not discriminate on the basis of race, color, national and ethnic origin in administration of our educational policies, admissions policies, scholarship and loan programs, and athletic and other school-administered programs.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js?v=4" defer></script>
+
+<!-- Scroll to Top -->
+<button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+(function(){
+  var btn=document.querySelector('.scroll-to-top');
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>400);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var SLOTS = [{"d": "Monday", "a": 525, "b": 575, "p": ["TI"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 525, "b": 575, "p": ["TI"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 525, "b": 575, "p": ["MA"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Wednesday", "a": 525, "b": 625, "p": ["LU", "TI"], "w": "P.E. at The Park or Library", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 525, "b": 575, "p": ["TI"], "w": "Soc. Studies", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 525, "b": 575, "p": ["MA"], "w": "Soc. Studies", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 525, "b": 575, "p": ["TI", "EM"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Monday", "a": 575, "b": 625, "p": ["TI"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 575, "b": 625, "p": ["TI"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 575, "b": 625, "p": ["MA"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 575, "b": 625, "p": ["TI"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 575, "b": 625, "p": ["MA"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 575, "b": 625, "p": ["TI", "EM"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Monday", "a": 625, "b": 705, "p": ["CH", "EV", "DA"], "w": "“Aladdin” & Christmas Concert", "g": "Elementary", "duty": false, "stage": true}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["CA"], "w": "English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["TI"], "w": "Math/English", "g": "Elementary", "duty": false, "stage": false}, {"d": "Wednesday", "a": 625, "b": 665, "p": ["TI"], "w": "Games", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["CH"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["MA"], "w": "Math", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["LU"], "w": "Drill", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["TI"], "w": "Science", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["MA"], "w": "Science", "g": "Elementary", "duty": false, "stage": false}, {"d": "Wednesday", "a": 665, "b": 705, "p": ["TI", "EV"], "w": "Bible/Worship/Prayer", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["CR"], "w": "Spanish", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["MA"], "w": "Silent Reading", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["TI"], "w": "Sketchbook Pro", "g": "Elementary", "duty": false, "stage": false}, {"d": "Monday", "a": 780, "b": 860, "p": ["DA", "CH", "EV"], "w": "“Peter & Alice — The Way Home”", "g": "Elementary", "duty": false, "stage": true}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["TI", "EM"], "w": "Nutrition & Health", "g": "Elementary", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["TI", "CH"], "w": "Performing Arts Production", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["CH", "EM"], "w": "Drawing", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["LU"], "w": "Coding", "g": "Elementary", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["TI", "EM"], "w": "Nutrition & Health", "g": "Elementary", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["TI"], "w": "Free Play", "g": "Elementary", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["MA", "EM"], "w": "Crafts", "g": "Elementary", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["MA"], "w": "Fine Arts", "g": "Elementary", "duty": false, "stage": false}, {"d": "Monday", "a": 525, "b": 575, "p": ["DA"], "w": "English", "g": "Middle School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 525, "b": 575, "p": ["LU"], "w": "Math", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 525, "b": 575, "p": ["DA"], "w": "Math", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 525, "b": 575, "p": ["LU"], "w": "Math", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 525, "b": 575, "p": ["LU"], "w": "Math", "g": "Middle School", "duty": false, "stage": false}, {"d": "Monday", "a": 575, "b": 625, "p": ["DA"], "w": "Math", "g": "Middle School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 575, "b": 625, "p": ["LU"], "w": "English", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 575, "b": 625, "p": ["DA"], "w": "English", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 575, "b": 625, "p": ["LU"], "w": "English", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 575, "b": 625, "p": ["LU"], "w": "English", "g": "Middle School", "duty": false, "stage": false}, {"d": "Monday", "a": 625, "b": 705, "p": ["CH", "EV", "DA"], "w": "“Aladdin” & Christmas Concert", "g": "Middle School", "duty": false, "stage": true}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["LU"], "w": "Filmmaking", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 625, "b": 665, "p": ["LU"], "w": "Robotics", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["CR"], "w": "Spanish", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["EV"], "w": "Silent Reading", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["LU"], "w": "Drill", "g": "Middle School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["CA"], "w": "Soc. Studies", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 665, "b": 705, "p": ["LU"], "w": "Coding", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["TI"], "w": "Fine Art", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["MA"], "w": "Crafts", "g": "Middle School", "duty": false, "stage": false}, {"d": "Monday", "a": 780, "b": 860, "p": ["DA", "CH", "EV"], "w": "“Peter & Alice — The Way Home”", "g": "Middle School", "duty": false, "stage": true}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["CA"], "w": "Literature", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["EV"], "w": "Drawing / Silent Reading", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["JO"], "w": "Science", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["TI"], "w": "Sketchbook Pro", "g": "Middle School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["MA"], "w": "Study Hall", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["CA"], "w": "Dance", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["DA"], "w": "Piano", "g": "Middle School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["LU"], "w": "Ukulele", "g": "Middle School", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["LU"], "w": "Bible", "g": "Middle School", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["JO"], "w": "Coding", "g": "Middle School", "duty": false, "stage": false}, {"d": "Monday", "a": 525, "b": 575, "p": ["LU"], "w": "Math", "g": "Junior High", "duty": false, "stage": false}, {"d": "Tuesday", "a": 525, "b": 575, "p": ["JO"], "w": "Math", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 525, "b": 575, "p": ["JO"], "w": "Math", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 525, "b": 575, "p": ["JO"], "w": "Math", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 525, "b": 575, "p": ["JO"], "w": "Math", "g": "Junior High", "duty": false, "stage": false}, {"d": "Monday", "a": 575, "b": 625, "p": ["CA"], "w": "English", "g": "Junior High", "duty": false, "stage": false}, {"d": "Tuesday", "a": 575, "b": 625, "p": ["CA"], "w": "English", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 575, "b": 625, "p": ["CA"], "w": "English", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 575, "b": 625, "p": ["CA"], "w": "English", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 575, "b": 625, "p": ["KI"], "w": "English", "g": "Junior High", "duty": false, "stage": false}, {"d": "Monday", "a": 625, "b": 705, "p": ["CH", "EV", "DA"], "w": "“Aladdin” & Christmas Concert", "g": "Junior High", "duty": false, "stage": true}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["DA"], "w": "Leadership Mindset", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 625, "b": 665, "p": ["CA"], "w": "Literature", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["LU"], "w": "Drill", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["PH"], "w": "Python", "g": "Junior High", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["JO"], "w": "Coding", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 665, "b": 705, "p": ["JO"], "w": "Coding", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["LU"], "w": "Filmmaking", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["KI"], "w": "Bible", "g": "Junior High", "duty": false, "stage": false}, {"d": "Monday", "a": 780, "b": 860, "p": ["DA", "CH", "EV"], "w": "“Peter & Alice — The Way Home”", "g": "Junior High", "duty": false, "stage": true}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["MA"], "w": "Study Hall", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["JO"], "w": "Physics", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["CR"], "w": "Spanish", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["LU"], "w": "Study Hall", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["PH"], "w": "Robotics", "g": "Junior High", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["CA"], "w": "Soc. Studies", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["CA"], "w": "Dance", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["DA"], "w": "Piano", "g": "Junior High", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["LU"], "w": "Ukulele", "g": "Junior High", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["JO"], "w": "Coding", "g": "Junior High", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["TI"], "w": "Fine Arts", "g": "Junior High", "duty": false, "stage": false}, {"d": "Monday", "a": 525, "b": 575, "p": ["CA"], "w": "English", "g": "High School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 525, "b": 575, "p": ["CA"], "w": "English", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 525, "b": 575, "p": ["CA"], "w": "English", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 525, "b": 575, "p": ["CA"], "w": "English", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 525, "b": 575, "p": ["KI"], "w": "English", "g": "High School", "duty": false, "stage": false}, {"d": "Monday", "a": 575, "b": 625, "p": ["LU"], "w": "Math", "g": "High School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 575, "b": 625, "p": ["JO"], "w": "Math", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 575, "b": 625, "p": ["JO"], "w": "Math", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 575, "b": 625, "p": ["JO"], "w": "Math", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 575, "b": 625, "p": ["JO"], "w": "Math", "g": "High School", "duty": false, "stage": false}, {"d": "Monday", "a": 625, "b": 705, "p": ["CH", "EV", "DA"], "w": "“Aladdin” & Christmas Concert", "g": "High School", "duty": false, "stage": true}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["PE"], "w": "Organizational Design & Management", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 625, "b": 665, "p": ["JO"], "w": "Coding / AI", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["JO"], "w": "Coding / A.I.", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["TI"], "w": "Fine Arts", "g": "High School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["PE"], "w": "Leadership Mindset", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 665, "b": 705, "p": ["CA"], "w": "Soc. Studies", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["JO"], "w": "Year Book", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["PH"], "w": "Python", "g": "High School", "duty": false, "stage": false}, {"d": "Monday", "a": 780, "b": 860, "p": ["DA", "CH", "EV"], "w": "“Peter & Alice — The Way Home”", "g": "High School", "duty": false, "stage": true}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["RY", "LU"], "w": "Filmmaking", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["CA"], "w": "Dance", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["DA"], "w": "Piano", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 780, "b": 820, "p": ["LU"], "w": "Ukulele", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["CA"], "w": "Literature", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["KI"], "w": "Bible", "g": "High School", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["RY", "LU"], "w": "Filmmaking", "g": "High School", "duty": false, "stage": false}, {"d": "Wednesday", "a": 820, "b": 860, "p": ["JO"], "w": "Physics", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["CR"], "w": "Spanish", "g": "High School", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["DA"], "w": "Study Hall", "g": "High School", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["PH"], "w": "Robotics", "g": "High School", "duty": false, "stage": false}, {"d": "Monday", "a": 625, "b": 705, "p": ["CH", "EV", "DA"], "w": "“Aladdin” & Christmas Concert", "g": "Homeschool", "duty": false, "stage": true}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["JO"], "w": "Personal Finance & Family Life", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 625, "b": 665, "p": ["MA"], "w": "Make & Keep Friends", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["CA"], "w": "Creative Writing", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 625, "b": 665, "p": ["TI"], "w": "Fine Arts", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["JO", "EM"], "w": "Robotics", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 625, "b": 665, "p": ["MA", "KI"], "w": "Film Making", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["DA"], "w": "Leadership Mindset", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 665, "b": 705, "p": ["LU"], "w": "Money", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["DA"], "w": "Critical Thinking & Debate", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 665, "b": 705, "p": ["CA"], "w": "Creative Writing", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["JO", "DA"], "w": "A.I. & Machine Learning", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 665, "b": 705, "p": ["LU", "EM"], "w": "Robotics", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Monday", "a": 780, "b": 860, "p": ["DA", "CH", "EV"], "w": "“Peter & Alice — The Way Home”", "g": "Homeschool", "duty": false, "stage": true}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["JO"], "w": "Chemistry", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 780, "b": 820, "p": ["KI"], "w": "Big Picture Geography", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["TI"], "w": "Fine Art", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 780, "b": 820, "p": ["MA"], "w": "Crafts", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["JO", "EV"], "w": "Coding", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 780, "b": 820, "p": ["CH", "EM"], "w": "Coding", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["KI"], "w": "Big Picture Geography", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Tuesday", "a": 820, "b": 860, "p": ["JO"], "w": "Chemistry", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["TI"], "w": "Fine Art", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Thursday", "a": 820, "b": 860, "p": ["CA"], "w": "Critical Thinking & Debate", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["LU", "EM"], "w": "Film Making", "g": "Homeschool", "duty": false, "stage": false}, {"d": "Friday", "a": 820, "b": 860, "p": ["CH", "EV"], "w": "Digital Arts", "g": "Homeschool", "duty": false, "stage": false}];
+  var NAMES = {"DA": "Dan", "MA": "Mary", "CA": "Caitlin", "JO": "Jordan", "LU": "Luke", "TI": "Tiffany", "CH": "Charlotte", "EV": "Evelyn", "KI": "Kirsten", "EM": "Emily", "PH": "Phil", "CR": "Cristina", "RY": "Ryan", "PE": "Penny", "AN": "Angie", "KA": "Kara", "BR": "Brooke"};
+  var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  /* ---- Right now at River Tech ---------------------------------------- */
+  function list(a){ if(a.length===1) return a[0];
+    if(a.length===2) return a[0]+" and "+a[1];
+    return a.slice(0,-1).join(", ")+" and "+a[a.length-1]; }
+
+  function nowLine(){
+    var el = document.getElementById("tp-now-text"), clock = document.getElementById("tp-now-clock");
+    if(!el) return;
+    var d = new Date(), day = DAYS[d.getDay()], mins = d.getHours()*60 + d.getMinutes();
+    var hh = d.getHours()%12; if(hh===0) hh=12;
+    var stamp = hh + ":" + String(d.getMinutes()).padStart(2,"0") + " " + (d.getHours()<12?"a.m.":"p.m.") + " on " + day;
+    clock.textContent = stamp;
+    var live = SLOTS.filter(function(s){ return s.d===day && s.a<=mins && mins<s.b && !s.duty; });
+    if(!live.length){
+      var next = SLOTS.filter(function(s){ return s.d===day && s.a>mins; }).sort(function(x,y){return x.a-y.a;})[0];
+      if(next){
+        var nh = Math.floor(next.a/60)%12 || 12, nm = String(next.a%60).padStart(2,"0");
+        el.textContent = "The halls are quiet just now. The next thing on today\u2019s timetable is at " + nh + ":" + nm + " \u2014 " + next.w + ".";
+      } else if(day==="Saturday" || day==="Sunday"){
+        el.textContent = "It is the weekend, and the school is resting. On Monday morning the week begins at 8:30 with Assembly, and the whole school is in one room.";
+      } else {
+        el.textContent = "The school day is over and the building is quiet. Tomorrow begins at 8:30 with Assembly, and the whole school is in one room.";
+      }
+      return;
+    }
+    var seen = {}, phrases = [];
+    live.forEach(function(s){
+      var who = s.p.map(function(i){ return NAMES[i] || i; });
+      var key = who.join("+") + "|" + s.w;
+      if(seen[key]) return; seen[key] = 1;
+      var verb = who.length>1 ? "are" : "is";
+      phrases.push(s.stage
+        ? list(who) + " " + verb + " rehearsing " + s.w
+        : list(who) + " " + verb + " teaching " + s.w + " to the " + s.g.toLowerCase());
+    });
+    if(phrases.length > 5) phrases = phrases.slice(0,5).concat(["and more besides"]);
+    el.textContent = "Right now " + list(phrases) + ".";
+  }
+  nowLine(); setInterval(nowLine, 30000);
+
+  /* ---- Show me my child's teachers ------------------------------------ */
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".tp-card"));
+  var empty = document.getElementById("tp-empty");
+  var grade = null, term = "";
+
+  function apply(){
+    var shown = 0;
+    cards.forEach(function(c){
+      var okG = !grade || (c.dataset.grades||"").split(" ").indexOf(grade) > -1;
+      var okT = !term || (c.dataset.search||"").indexOf(term) > -1;
+      c.hidden = !(okG && okT);
+      if(!c.hidden) shown++;
+    });
+    if(empty) empty.hidden = shown > 0;
+    say();
+  }
+
+  function say(){
+    var answer = document.getElementById("tp-answer");
+    if(!answer) return;
+    if(!term){ answer.textContent = ""; return; }
+    var who = cards.filter(function(c){ return !c.hidden; }).map(function(c){ return c.dataset.first; });
+    answer.textContent = who.length
+      ? (term.charAt(0).toUpperCase()+term.slice(1)) + " is taught by " + list(who) + "."
+      : "Nobody teaches that yet — try “coding”, “dance”, “Spanish” or “robotics”.";
+  }
+
+  document.querySelectorAll(".tp-grades button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var g = b.dataset.grade || null;
+      grade = (grade === g) ? null : g;
+      document.querySelectorAll(".tp-grades button").forEach(function(o){
+        o.setAttribute("aria-pressed", String(o.dataset.grade === grade));
+      });
+      apply();
+    });
+  });
+
+  /* ---- Ask it a question ---------------------------------------------- */
+  var box = document.getElementById("tp-search"), answer = document.getElementById("tp-answer");
+  if(box) box.addEventListener("input", function(){
+    term = box.value.trim().toLowerCase();
+    apply();
+    if(!term){ answer.textContent = ""; return; }
+    var who = cards.filter(function(c){ return !c.hidden; })
+                   .map(function(c){ return c.dataset.first; });
+    answer.textContent = who.length
+      ? (term.charAt(0).toUpperCase()+term.slice(1)) + " is taught by " + list(who) + "."
+      : "Nobody teaches that yet \u2014 try \u201ccoding\u201d, \u201cdance\u201d, \u201cSpanish\u201d or \u201crobotics\u201d.";
+  });
+
+  /* ---- Teachers as tabs: choose a name, see that week ------------------ */
+  function showWeek(who, scroll){
+    var panel = document.getElementById("tpw-" + who);
+    if(!panel) return false;
+    document.querySelectorAll(".tpw-panel").forEach(function(p){ p.hidden = (p !== panel); });
+    document.querySelectorAll(".tpw .schedule-tab").forEach(function(t){
+      t.classList.toggle("active", t.dataset.who === who);
+    });
+    if(scroll) panel.parentNode.scrollIntoView({behavior:"smooth", block:"start"});
+    return true;
+  }
+
+  document.querySelectorAll(".tpw .schedule-tab").forEach(function(t){
+    t.addEventListener("click", function(){ showWeek(t.dataset.who, false); });
+  });
+
+  document.querySelectorAll(".tp-face").forEach(function(btn){
+    btn.addEventListener("click", function(){ showWeek(btn.dataset.who, true); });
+  });
+
+})();
+</script>
+</body>
+</html>

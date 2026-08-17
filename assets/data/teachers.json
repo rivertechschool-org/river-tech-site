@@ -1,0 +1,47 @@
+{
+ "_note": "The people of River Tech. 'initials' must match the initials used in the schedule source file, or the person's week will not appear. 'photo' is a filename in assets/images/teachers/ or null. 'bio' is the long introduction; when it is empty the card shows the role line alone.",
+ "people": [
+  {"initials": "DA", "name": "Dan Hegelund",    "role": "Founder & Principal", "line": "Leads our productions, plus leadership and academics.", "photo": "dan-mary-hegelund.jpg", "bio": ""},
+  {"initials": "MA", "name": "Mary Hegelund",   "role": "Elementary Lead",     "line": "Leads the Elementary program.", "photo": "dan-mary-hegelund.jpg", "bio": ""},
+  {"initials": "CA", "name": "Caitlin Relvas",  "role": "Teacher",             "line": "English, literature, social studies, and dance.", "photo": "caitlin-relvas.jpg", "bio": ""},
+  {"initials": "JO", "name": "Jordan Ezell",    "role": "Technology Director", "line": "Coding, A.I., robotics, and science.", "photo": "jordan-ezell.jpg", "bio": ""},
+  {"initials": "LU", "name": "Luke Hegelund",   "role": "Music & Media",       "line": "Instruments, filmmaking, robotics, and coding.", "photo": "luke-hegelund.jpg", "bio": ""},
+  {"initials": "TI", "name": "Tiffany Young",   "role": "Elementary Teacher",  "line": "Full-time Elementary teacher.", "photo": null, "bio": ""},
+  {"initials": "CH", "name": "Charlotte Tebow", "role": "Performing Arts",     "line": "Performing arts and musical direction.", "photo": null, "bio": ""},
+  {"initials": "EV", "name": "Evelyn Hegelund", "role": "Performing Arts",     "line": "Performing arts, Bible &amp; worship, and reading.", "photo": null, "bio": ""},
+  {"initials": "KI", "name": "Kirsten Decker",  "role": "Teacher",             "line": "Fridays &mdash; English, math, geography, and Bible.", "photo": null, "bio": ""},
+  {"initials": "EM", "name": "Emily Allison",   "role": "Classroom Assistant", "line": "Math, robotics, and arts.", "photo": null, "bio": ""},
+  {"initials": "PH", "name": "Phil Munts",      "role": "Teacher",             "line": "Python and robotics.", "photo": "phil-munts.jpg", "bio": ""},
+  {"initials": "CR", "name": "Cristina Maness", "role": "Spanish",             "line": "Spanish.", "photo": "cris-maness.jpg", "bio": ""},
+  {"initials": "RY", "name": "Ryan Killackey",  "role": "Filmmaking",          "line": "High-school filmmaking.", "photo": null, "bio": ""},
+  {"initials": "PE", "name": "Penny Burciaga",  "role": "Operations &amp; Leadership", "line": "Teaches Leadership Mindset and Organizational Design &amp; Management.", "photo": null, "bio": ""},
+  {"initials": "AN", "name": "Angie",           "role": "Costumes",            "line": "Costumes for both productions.", "photo": null, "bio": "",
+   "manual_slots": [{"day": "Monday", "time": "10:25&ndash;11:45", "group": "Productions", "what": "Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"},
+                    {"day": "Monday", "time": "12:45&ndash;2:20",  "group": "Productions", "what": "Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"}]},
+  {"initials": "KA", "name": "Kara McArthur",   "role": "Props",               "line": "Props for both productions.", "photo": null, "bio": "",
+   "manual_slots": [{"day": "Monday", "time": "10:25&ndash;11:45", "group": "Productions", "what": "Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"},
+                    {"day": "Monday", "time": "12:45&ndash;2:20",  "group": "Productions", "what": "Props for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"}]},
+  {"initials": "BR", "name": "Brooke Donnelly", "role": "Executive Assistant", "line": "The first person you will hear back from when you write to the school.", "photo": null, "bio": ""}
+ ],
+ "grades": [
+  {"id": "y-elem", "label": "1st &amp; 2nd",  "panel": "elem", "colors": [null, "#CA6F1E", "#2471A3"]},
+  {"id": "o-elem", "label": "3rd &amp; 4th",  "panel": "elem", "colors": [null, "#1E8449", "#2471A3"]},
+  {"id": "ms",     "label": "5th &amp; 6th",  "panel": "ms",   "colors": [null]},
+  {"id": "jh",     "label": "7th &amp; 8th",  "panel": "jh",   "colors": [null]},
+  {"id": "hs",     "label": "9th to 12th",    "panel": "hs",   "colors": [null]},
+  {"id": "home",   "label": "Homeschool",     "panel": "home", "colors": [null, "#9AA0A6"]}
+ ],
+ "rooms": [
+  ["☕", "Cafe / Assembly"],
+  ["🚀", "Upper Middle School"],
+  ["🌳", "Younger Middle School"],
+  ["☀", "Upper Elementary"],
+  ["💡", "Younger Elementary"],
+  ["🎨", "Crafts Room"],
+  ["📚", "Study Room"],
+  ["🎻", "Music Rooms"],
+  ["💃", "Dance Hall"],
+  ["🤖", "Robotics"],
+  ["🎤", "Stage / Sanctuary"]
+ ]
+}
