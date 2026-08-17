@@ -58,3 +58,62 @@ If you need to adjust mobile nav for an unrelated change, confirm with Dan first
 ## 6. When in doubt
 
 Ask Dan before making changes to nav, mobile nav, or locked copy. Small, reversible changes are fine; "refactors" or "cleanups" of the above almost always create regressions.
+
+## 7. The class schedule has ONE source. Do not hand-edit the tables.
+
+Added 2026-08-17, after the Q1 schedule was published twice in two days — version 1.2 on
+the 16th, 1.3 on the 17th — by editing the same tables by hand in two separate files. That
+works right up until it doesn't. The failure mode isn't effort, it's divergence: eventually
+one copy gets edited and the other doesn't, and the copy that's wrong is always the one
+nobody remembers exists.
+
+**Source of truth:** `assets/data/schedule-q1-2026-27.json`. It holds all five panels
+(Elementary, Middle School, Junior High, High School, Homeschool) as structured rows and
+cells — time, class, teacher initials, room emoji, the colour marking which grade group a
+line belongs to, and the footnotes under each table.
+
+**Generated output:** the schedule tables inside `pages/school-start-hub.html` and
+`pages/calendar.html`. **Do not hand-edit them.** They get overwritten the next time the
+generator runs, and your change will vanish silently.
+
+### Changing the schedule
+
+1. Edit `assets/data/schedule-q1-2026-27.json`.
+2. `python3 tools/build_schedule.py apply assets/data/schedule-q1-2026-27.json pages/school-start-hub.html pages/calendar.html`
+3. `git --no-pager diff` and **read it** before committing.
+
+The generator writes plain static HTML into the pages. Nothing runs in the visitor's
+browser and nothing is fetched at page load — the pages behave exactly as they did when
+the tables were typed by hand.
+
+### The commands
+
+| Command | What it does |
+|---|---|
+| `parse <page.html> <out.json>` | Reads the panels out of a page into a source file. Used once, to create the source from what was already live. |
+| `apply <source.json> <page.html> …` | Rewrites every schedule panel in each page from the source file. |
+| `verify <page.html> <source.json>` | Round trip: regenerates from the source and compares against the page, character by character. |
+| `teachers <source.json>` | Pivots the grid by person — the shape the Teachers page needs. |
+
+### How this was proved before anything relied on it
+
+The source file was built by reading the live pages, fed back through the generator, and
+compared against those same pages character by character. All five panels came back
+exactly, from both pages, from the one file. Four were byte-identical; the High School
+panel differed only in line breaks, because it had been typed across several lines while
+the other four sat on one. `verify` is that same test and it stays in the repo — run it
+any time you want to know whether the pages and the source still agree.
+
+### Two things the teacher pivot cannot see
+
+`teachers` finds a person by the initials in parentheses — `Math (JO)`. Angie and Kara
+never appear that way, because costumes and props are written into the small print under
+the production blocks rather than as classes. They must be placed by hand on any
+per-teacher view. That's a fact about how the Keynote is drawn, not a parser bug.
+
+### Upstream of all of it
+
+The master is a Keynote deck Dan maintains, exported as
+`26-27 Q1 Schedule Semi-Final <version>, <date>.pdf`. The site is downstream of that deck.
+When a new version lands, read the changes off the PDF and apply them to the JSON — the
+deck stays the human original, the JSON stays the machine one.
