@@ -394,6 +394,8 @@ def build():
     # ---- cards
     cards = []
     for p in people:
+        if p.get("hidden"):
+            continue
         ini = p["initials"]
         mine = weeks.get(ini, [])
         gids = sorted({g for e in mine for g in e["grades"]})
@@ -437,6 +439,8 @@ def build():
     tabs, panels = [], []
     first = True
     for p in people:
+        if p.get("hidden"):
+            continue
         ini, mine = p["initials"], weeks.get(p["initials"], [])
         if not mine:
             continue
@@ -565,9 +569,10 @@ def build():
 
     print("Wrote %s" % OUT)
     print("  %d people, %d with a scheduled week, %d portraits, %d timed slots for the live line"
-          % (len(people), len([p for p in people if weeks.get(p["initials"])]),
-             len([p for p in people if p.get("photo")]), len(js_slots)))
-    missing = [p["name"] for p in people if not p.get("photo")]
+          % (len([p for p in people if not p.get("hidden")]),
+             len([p for p in people if weeks.get(p["initials"]) and not p.get("hidden")]),
+             len([p for p in people if p.get("photo") and not p.get("hidden")]), len(js_slots)))
+    missing = [p["name"] for p in people if not p.get("photo") and not p.get("hidden")]
     print("  portraits still needed (%d): %s" % (len(missing), ", ".join(missing)))
 
 
