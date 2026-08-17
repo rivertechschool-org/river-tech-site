@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <title>Performing Arts 2026&ndash;27 | River Tech School</title>
+  <meta name="description" content="Tell us whether your student will join our 2026-27 productions, and choose their arts and Spanish classes for the quarter.">
+
+  <meta property="og:title" content="Performing Arts 2026&ndash;27 &mdash; River Tech School">
+  <meta property="og:description" content="Tell us whether your student will join our 2026-27 productions, and choose their arts and Spanish classes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rivertechschool.com/pages/register-performing-arts-2026-27.html">
+  <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/style.css?v=27">
+
+  <link rel="canonical" href="https://www.rivertechschool.com/pages/register-performing-arts-2026-27.html">
+  <meta name="robots" content="noindex,follow">
+
+  <style>
+    .reg-wrap { max-width: 760px; margin: 0 auto; padding: 20px 0 60px; }
+    .reg-hero { text-align: center; padding: 30px 0 16px; }
+    .reg-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 4.5vw, 38px);
+      font-weight: 700; margin-bottom: 8px; line-height: 1.15;
+      color: var(--color-text);
+    }
+    .reg-hero .reg-subtitle {
+      font-size: clamp(16px, 2.2vw, 19px);
+      text-align: center; color: var(--color-text);
+      opacity: 0.85; margin-bottom: 0;
+    }
+    .reg-deadline {
+      display: inline-block; margin-top: 14px;
+      background: var(--color-pink-btn);
+      border-left: 4px solid var(--color-red);
+      padding: 9px 18px; font-size: 16px; text-align: left;
+    }
+
+    .reg-section {
+      background: var(--color-white);
+      border: 1px solid rgba(39, 36, 67, 0.12);
+      padding: 26px 28px; margin-bottom: 22px;
+    }
+    .reg-section-title {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--color-text); margin-bottom: 6px;
+    }
+    .reg-section-subtitle {
+      font-size: 15px; color: var(--color-text);
+      opacity: 0.75; margin-bottom: 18px; line-height: 1.5; text-align: left;
+    }
+
+    .reg-row { margin-bottom: 18px; }
+    .reg-row:last-child { margin-bottom: 0; }
+    .reg-row-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+    .reg-row-grid-3 { display: grid; grid-template-columns: 1.4fr 1.4fr 0.8fr; gap: 16px; margin-bottom: 18px; }
+    @media (max-width: 560px) {
+      .reg-row-grid-2, .reg-row-grid-3 { grid-template-columns: 1fr; }
+    }
+    .reg-label {
+      display: block; font-size: 15px; font-weight: 600;
+      color: var(--color-text); margin-bottom: 6px;
+    }
+    .reg-label .req { color: var(--color-red); margin-left: 3px; }
+    .reg-help { font-size: 14px; opacity: 0.75; margin: -2px 0 8px; line-height: 1.5; text-align: left; }
+    .reg-input, .reg-select, .reg-textarea {
+      width: 100%; padding: 10px 12px;
+      font-family: var(--font-body); font-size: 16px;
+      color: var(--color-text); background: var(--color-white);
+      border: 1.5px solid rgba(39, 36, 67, 0.25);
+      border-radius: 2px; transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .reg-textarea { min-height: 90px; resize: vertical; }
+    .reg-input:focus, .reg-select:focus, .reg-textarea:focus {
+      outline: none; border-color: var(--color-red);
+    }
+
+    /* Performance table --------------------------------------------- */
+    .pa-shows { margin: 16px 0 6px; }
+    .pa-shows-head, .pa-show {
+      display: grid; grid-template-columns: 1.35fr 1.5fr 1fr;
+      gap: 18px; align-items: baseline;
+    }
+    .pa-shows-head {
+      font-family: var(--font-display); font-size: 12.5px;
+      font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      opacity: 0.5; padding-bottom: 8px;
+      border-bottom: 2px solid rgba(39, 36, 67, 0.16);
+    }
+    .pa-show { padding: 13px 0; border-bottom: 1px solid rgba(39, 36, 67, 0.09); }
+    .pa-show:last-child { border-bottom: none; }
+    .pa-show .pa-name {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 16.5px; line-height: 1.35;
+    }
+    .pa-show .pa-when { font-size: 16px; }
+    .pa-show .pa-sub { display: block; font-size: 14.5px; opacity: 0.7; }
+    .pa-show .pa-aud { font-size: 15px; opacity: 0.85; }
+    @media (max-width: 620px) {
+      .pa-shows-head { display: none; }
+      .pa-show { grid-template-columns: 1fr; gap: 2px; padding: 15px 0; }
+      .pa-show .pa-aud::before { content: "Auditions: "; opacity: 0.6; }
+    }
+
+    /* Notes ---------------------------------------------------------- */
+    .pa-note-teal {
+      background: #e6f4f1; border-left: 4px solid #2a9d8f;
+      padding: 16px 20px; margin: 20px 0 0;
+      font-size: 16px; line-height: 1.65; text-align: left;
+    }
+    .pa-note-teal b {
+      display: block; margin-bottom: 5px;
+      font-family: var(--font-display); font-size: 17px; color: #1f7a6e;
+    }
+    .pa-note {
+      background: var(--color-bg); border-left: 4px solid #2a9d8f;
+      padding: 14px 18px; margin: 18px 0;
+      font-size: 16px; line-height: 1.6; text-align: left;
+    }
+    .pa-note b { display: block; margin-bottom: 4px; font-family: var(--font-display); }
+
+    /* Choice buttons ------------------------------------------------- */
+    .reg-choices { display: flex; flex-direction: column; gap: 9px; }
+    .reg-choices.inline { flex-direction: row; flex-wrap: wrap; }
+    .reg-choices.inline .reg-check { flex: 1 1 150px; }
+    .reg-check {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 11px 14px;
+      border: 1.5px solid rgba(39, 36, 67, 0.18);
+      border-radius: 2px; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 16px; line-height: 1.4;
+      background: var(--color-white);
+    }
+    .reg-check:hover { border-color: var(--color-red); }
+    .reg-check input {
+      width: 18px; height: 18px; accent-color: var(--color-red);
+      cursor: pointer; margin-top: 3px; flex-shrink: 0;
+    }
+    .reg-check.checked { border-color: var(--color-red); background: var(--color-pink-btn); }
+
+    .pa-hidden { display: none; }
+
+    .reg-submit {
+      display: block; width: 100%; padding: 18px;
+      background: var(--color-enroll-bg); color: var(--color-white);
+      font-family: var(--font-nav); font-size: 18px; font-weight: 700;
+      letter-spacing: 0.5px; border: none; border-radius: 2px;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .reg-submit:hover { opacity: 0.9; }
+    .reg-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .reg-error {
+      background: #fef0f0; border-left: 4px solid var(--color-red);
+      color: var(--color-red); padding: 12px 16px; margin-bottom: 16px;
+      font-size: 15px; display: none; text-align: left;
+    }
+    .reg-error.show { display: block; }
+    .reg-success {
+      background: #f0f7f0; border-left: 4px solid #2d7a2d;
+      color: #1a4d1a; padding: 16px 20px; margin-bottom: 16px;
+      font-size: 16px; line-height: 1.5; display: none; text-align: left;
+    }
+    .reg-success.show { display: block; }
+
+    .reg-back {
+      display: inline-block; font-size: 15px; color: var(--color-text);
+      opacity: 0.7; text-decoration: none; margin-bottom: 8px;
+    }
+    .reg-back:hover { opacity: 1; color: var(--color-red); }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+    <a href="../index.html">River Tech School</a>
+    <div class="sidebar-submenu">
+      <a href="../index.html">About River Tech</a>
+      <a href="elementary-school.html">Elementary School</a>
+      <a href="middle-school.html">Middle School</a>
+      <a href="high-school.html">High School</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="a-la-carte.html">River Tech À La Carte</a>
+    <div class="sidebar-submenu">
+      <a href="a-la-carte.html">Homeschooling</a>
+      <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+      <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+      <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+      <a href="friday-technology.html">Friday: Technology</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="why-river-tech.html">Why River Tech?</a>
+    <div class="sidebar-submenu">
+      <a href="our-culture.html">Our Culture</a>
+      <a href="reviews.html">References & Reviews</a>
+      <a href="technology.html">Technology</a>
+      <a href="performing-arts.html">Performing Arts</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="enrollment.html">Enrollment</a>
+    <div class="sidebar-submenu">
+      <a href="enrollment.html">How to Enroll</a>
+      <a href="tuition.html">Tuition</a>
+      <a href="faq.html">FAQs</a>
+      <a href="tax-credit.html">Tax Credit</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="school-resources.html" class="active">School Resources</a>
+    <div class="sidebar-submenu">
+      <a href="calendar.html">Schedule & Calendar</a>
+      <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="our-needs.html">Our Needs</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="../pages/gallery.html">Media</a>
+    <div class="sidebar-submenu">
+      <a href="../pages/gallery.html">Photo Gallery</a>
+      <a href="../pages/vlog.html">Video Globe</a>
+      <a href="../pages/fieldtrips.html">Field Trips</a>
+    </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <a href="enrollment.html" class="enroll-btn">School starts Sept 1</a>
+  <div class="social-icons">
+    <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" fill="#c0392b"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="white" points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
+    </a>
+    <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="#3b5998"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile Header -->
+<div class="mobile-header">
+  <a href="../index.html" class="mobile-logo">River Tech</a>
+  <button class="hamburger" aria-label="Open menu">☰</button>
+</div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay">
+  <button class="close-btn" aria-label="Close menu">✕</button>
+  <a href="../index.html">River Tech School</a>
+        <div class="mobile-submenu">
+    <a href="../index.html">About River Tech</a>
+    <a href="elementary-school.html">Elementary School</a>
+    <a href="middle-school.html">Middle School</a>
+    <a href="high-school.html">High School</a>
+  </div>
+  <a href="a-la-carte.html">River Tech À La Carte</a>
+        <div class="mobile-submenu">
+    <a href="a-la-carte.html">Homeschooling</a>
+    <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+    <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+    <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+    <a href="friday-technology.html">Friday: Technology</a>
+  </div>
+  <a href="why-river-tech.html">Why River Tech?</a>
+        <div class="mobile-submenu">
+    <a href="our-culture.html">Our Culture</a>
+    <a href="reviews.html">References & Reviews</a>
+    <a href="technology.html">Technology</a>
+    <a href="performing-arts.html">Performing Arts</a>
+  </div>
+  <a href="enrollment.html">Enrollment</a>
+        <div class="mobile-submenu">
+    <a href="enrollment.html">How to Enroll</a>
+    <a href="tuition.html">Tuition</a>
+    <a href="faq.html">FAQs</a>
+    <a href="tax-credit.html">Tax Credit</a>
+  </div>
+  <a href="school-resources.html" class="active">School Resources</a>
+        <div class="mobile-submenu">
+    <a href="calendar.html">Schedule & Calendar</a>
+    <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+    <a href="scholarships.html">Scholarships</a>
+    <a href="volunteer.html">Volunteer</a>
+    <a href="our-needs.html">Our Needs</a>
+  </div>
+  <a href="../pages/gallery.html">Media</a>
+        <div class="mobile-submenu">
+    <a href="../pages/gallery.html">Photo Gallery</a>
+    <a href="../pages/vlog.html">Video Globe</a>
+    <a href="../pages/fieldtrips.html">Field Trips</a>
+  </div>
+  <a href="enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="content-area">
+
+    <div class="reg-wrap">
+
+      <a href="school-resources.html" class="reg-back">&larr; Back to School Resources</a>
+
+      <div class="reg-hero">
+        <h1>Performing Arts 2026&ndash;27</h1>
+        <p class="reg-subtitle">One form for each full-time student.</p>
+        <div class="reg-deadline">Please send this back by <strong>Thursday, August&nbsp;20</strong>.</div>
+      </div>
+
+      <div id="reg-error" class="reg-error"></div>
+      <div id="reg-success" class="reg-success"></div>
+
+      <form id="pa-form" novalidate>
+
+        <div class="reg-section">
+          <div class="reg-section-title">Your student</div>
+          <div class="reg-row-grid-3">
+            <div>
+              <label class="reg-label" for="studentName">Student's name<span class="req">*</span></label>
+              <input class="reg-input" type="text" id="studentName" name="studentName" placeholder="First and last name" required>
+            </div>
+            <div>
+              <label class="reg-label" for="parentName">Parent's name<span class="req">*</span></label>
+              <input class="reg-input" type="text" id="parentName" name="parentName" placeholder="Your name" required>
+            </div>
+            <div>
+              <label class="reg-label" for="studentAge">Age<span class="req">*</span></label>
+              <select class="reg-select" id="studentAge" name="studentAge" required>
+                <option value="">Age&hellip;</option>
+                <option value="6">6</option><option value="7">7</option>
+                <option value="8">8</option><option value="9">9</option>
+                <option value="10">10</option><option value="11">11</option>
+                <option value="12">12</option><option value="13">13</option>
+                <option value="14">14</option><option value="15">15</option>
+                <option value="16">16</option><option value="17">17</option>
+                <option value="18">18</option>
+              </select>
+            </div>
+          </div>
+          <div class="reg-row">
+            <label class="reg-label" for="parentEmail">Your email<span class="req">*</span></label>
+            <input class="reg-input" type="email" id="parentEmail" name="parentEmail" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="reg-section">
+          <div class="reg-section-title">Our performances this year</div>
+          <p class="reg-section-subtitle">River Tech is a performing arts school, and we encourage every student to step past their comfort zone and take the stage. Here is the whole year, so you can put it on the calendar now.</p>
+
+          <div class="pa-shows">
+            <div class="pa-shows-head">
+              <div>Production</div><div>Performance</div><div>Auditions</div>
+            </div>
+            <div class="pa-show">
+              <div class="pa-name">Talent Show</div>
+              <div class="pa-when">Wednesday, October 28<span class="pa-sub">Krok Center</span></div>
+              <div class="pa-aud">Monday, September 21</div>
+            </div>
+            <div class="pa-show">
+              <div class="pa-name">Christmas Concert</div>
+              <div class="pa-when">Tuesday, December 15<span class="pa-sub">The Heart</span></div>
+              <div class="pa-aud">Monday, September 28<span class="pa-sub">Soloists only</span></div>
+            </div>
+            <div class="pa-show">
+              <div class="pa-name">Peter Pan &amp; Alice in Wonderland</div>
+              <div class="pa-when">Tuesday, March 23<span class="pa-sub">Krok Center</span></div>
+              <div class="pa-aud">Monday, September 14</div>
+            </div>
+            <div class="pa-show">
+              <div class="pa-name">Aladdin</div>
+              <div class="pa-when">Tuesday, May 18<span class="pa-sub">The Heart</span></div>
+              <div class="pa-aud">Monday, August 31</div>
+            </div>
+            <div class="pa-show">
+              <div class="pa-name">Fun in the Sun Summer Concert</div>
+              <div class="pa-when">Around Friday, June 4<span class="pa-sub">Date to be confirmed</span></div>
+              <div class="pa-aud">&mdash;</div>
+            </div>
+          </div>
+
+          <div class="pa-note-teal">
+            <b>Once you are in, you are in for the whole year.</b>
+            Every student who joins is part of all five productions, and that is where the joy of it lives &mdash; by the third show the cast has become a company. Beginners are every bit as welcome as veterans, and there are smaller roles for anyone still finding their feet. Our elementary students prepare a show of their own as well, and details on that will follow.
+          </div>
+        </div>
+
+        <div class="reg-section">
+          <div class="reg-section-title">The questions</div>
+
+          <div class="reg-row">
+            <label class="reg-label"><span class="pa-num">1.</span> Will your student join our performances this year?<span class="req">*</span></label>
+            <div class="reg-choices inline">
+              <label class="reg-check"><input type="radio" name="join" value="Yes"><span>Yes</span></label>
+              <label class="reg-check"><input type="radio" name="join" value="No"><span>No</span></label>
+            </div>
+          </div>
+
+          <div id="aladdin-block" class="pa-hidden">
+            <div class="reg-row">
+              <label class="reg-label"><span class="pa-num">2.</span> Do you plan to audition for <em>Aladdin</em> on Monday, August 31?</label>
+              <div class="reg-choices inline">
+                <label class="reg-check"><input type="radio" name="aladdin" value="Yes"><span>Yes</span></label>
+                <label class="reg-check"><input type="radio" name="aladdin" value="No"><span>No</span></label>
+                <label class="reg-check"><input type="radio" name="aladdin" value="Not sure yet"><span>Not sure yet</span></label>
+              </div>
+            </div>
+            <div class="reg-row">
+              <label class="reg-label" for="roles">Which roles interest you most?</label>
+              <input class="reg-input" type="text" id="roles" name="roles" placeholder="Aladdin, Jasmine, Genie, ensemble&hellip;">
+            </div>
+          </div>
+
+          <div class="reg-row">
+            <label class="reg-label"><span class="pa-num">3.</span> Tell us about your student's experience on stage, or their lack of it.</label>
+            <p class="reg-help">Anything you want us to know helps us cast well.</p>
+            <textarea class="reg-textarea" id="experience" name="experience" placeholder="Years of piano, a shy first-timer, loves to dance, has never sung in front of anyone&hellip;"></textarea>
+          </div>
+
+          <div id="q-three" class="reg-row pa-hidden">
+            <label class="reg-label"><span class="pa-num" data-num>4.</span> If your student could choose between dance, ukulele and guitar, or piano &mdash; which would they choose this quarter?</label>
+            <div class="reg-choices">
+              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Dance"><span>Dance</span></label>
+              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Ukulele and guitar"><span>Ukulele and guitar</span></label>
+              <label class="reg-check"><input type="radio" name="artsThreeWay" value="Piano"><span>Piano</span></label>
+            </div>
+          </div>
+
+          <div id="q-two" class="reg-row pa-hidden">
+            <label class="reg-label"><span class="pa-num" data-num>4.</span> If your student could choose between dance and instruments &mdash; which would they choose this quarter?</label>
+            <div class="reg-choices">
+              <label class="reg-check"><input type="radio" name="artsTwoWay" value="Dance"><span>Dance</span></label>
+              <label class="reg-check"><input type="radio" name="artsTwoWay" value="Instruments"><span>Instruments</span></label>
+            </div>
+          </div>
+
+          <div id="q-youngest" class="pa-note pa-hidden">
+            <b>A note for our youngest students.</b>
+            Our youngest students get a great deal of the arts. They take part in our big productions, they prepare a show of their own, and they have drill, crafts and fine arts through the week. Separate instrument and dance lessons begin in 5th grade, so that is the one piece their week does not yet include.
+          </div>
+
+          <div class="reg-row">
+            <label class="reg-label"><span class="pa-num" data-num>5.</span> Would your student like to take Spanish this quarter?</label>
+            <p class="reg-help">We encourage as many students as possible to learn Spanish, though it is not required. The alternative is silent reading or study hall.</p>
+            <div class="reg-choices inline">
+              <label class="reg-check"><input type="radio" name="spanish" value="Yes"><span>Yes, Spanish</span></label>
+              <label class="reg-check"><input type="radio" name="spanish" value="No"><span>No thank you</span></label>
+            </div>
+          </div>
+
+          <div class="reg-row">
+            <label class="reg-label" for="notes">Anything else we should know?</label>
+            <textarea class="reg-textarea" id="notes" name="notes" placeholder="Optional"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="reg-submit" class="reg-submit">Send our answers &rarr;</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <a href="../index.html" class="footer-logo">rivertechschool.com</a>
+    <div class="footer-tagline">Life is a Stage. <span class="love">Love</span> is our Script.</div>
+  </div>
+
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>
+      <span>Tel: 425-444-2081</span>
+      <span>The Heart</span>
+      <span>927 E Polston Ave</span>
+      <span>Post Falls, ID 83854</span>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="why-river-tech.html">Why River Tech?</a>
+      <a href="enrollment.html">Enrollment</a>
+      <a href="school-resources.html">School Resources</a>
+      <a href="a-la-carte.html">À La Carte</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/rivertechschool/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 by Faithful Five Inc. (d.b.a. River Tech and Post Falls Art). <em>Life is a Stage. <span class="love">Love</span> is our Script.</em></p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js?v=4" defer></script>
+<script src="../assets/js/register-performing-arts-2026-27.js?v=1" defer></script>
+
+<button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+(function(){
+  var btn=document.querySelector('.scroll-to-top');
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>400);
+  });
+})();
+</script>
+</body>
+</html>
