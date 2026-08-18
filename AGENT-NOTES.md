@@ -37,8 +37,8 @@ If you need to adjust mobile nav for an unrelated change, confirm with Dan first
 
 ## 3. Deploy gotchas
 
-- Hosted on Netlify, auto-deploys from `main`.
-- CSS cache-bust: bump the `?v=NN` on `<link rel="stylesheet" href="…/style.css?v=NN">` across all pages whenever you change `style.css`. Currently `v=26`.
+- Hosted on GitHub Pages; pushing `main` publishes the site.
+- CSS cache-bust: whenever `style.css` changes, bump the shared `?v=NN` value on every page that links it.
 - **Watch out for zero-byte commits.** In the 2026-04-21 session, an `edit` tool call reported success but wrote 0 bytes to `pages/our-culture.html`, then `git add -A && commit && push` blind-pushed a 312-line deletion. GitHub Pages served the empty file. Before committing a file you just edited, run `wc -c` on it to sanity-check it's not empty.
 - Prefer `git add <specific files>` over `git add -A` when you know exactly what changed.
 
