@@ -91,9 +91,6 @@
 .tpw-panel[hidden]{display:none}
 .tpw .schedule-table td{vertical-align:top}
 .tpw .schedule-table td.tpw-duty{color:#8b8799;font-weight:400}
-.tp-bio{font-family:var(--font-body);font-size:1rem;line-height:1.7;color:#55516d;background:#fff;
-  border-left:4px solid var(--color-teacher-bg);border-radius:0 8px 8px 0;padding:18px 22px;
-  margin:18px 0 24px;box-shadow:0 1px 4px rgba(39,36,67,.08)}
 .tp-wfoot{font-size:.8rem;color:#666;font-style:italic;text-align:center;margin:.4rem 0 2.2rem}
 .tp-contact{background:#fff;border:1px solid #e3ded4;border-radius:10px;padding:22px 26px;margin:0 0 34px}
 .tp-contact h3{margin-top:0}
@@ -444,6 +441,15 @@
 
   document.querySelectorAll(".tp-face").forEach(function(btn){
     btn.addEventListener("click", function(){ showWeek(btn.dataset.who, true); });
+  });
+
+  /* Approved biographies belong on the visible teacher cards. */
+  ["DA", "MA", "CA", "JO", "LU"].forEach(function(who){
+    var bio = document.querySelector("#tpw-" + who + " .tp-bio");
+    var summary = document.querySelector('.tp-face[data-who="' + who + '"] .tp-line');
+    if(!bio || !summary) return;
+    summary.innerHTML = bio.innerHTML;
+    bio.remove();
   });
 
 })();
