@@ -166,7 +166,14 @@ def verify(path, jpath):
     bad = 0
     for pid, body in PANEL_RE.findall(page):
         original = normalise('<div class="schedule-panel" id="panel-%s">%s</div>' % (pid, panel_body(body)))
-        panel = [p for p in src["panels"] if p["id"] == pid][0]
+        match = [p for p in src["panels"] if p["id"] == pid]
+        if not match:
+            # panel-all is derived from the five level panels by
+            # tools/build_all_panel.py, so it is not in the source file and has
+            # nothing to round-trip against. Skip it rather than crash.
+            print("  panel-%-5s derived, not a source panel - skipped" % pid)
+            continue
+        panel = match[0]
         regenerated = normalise(render_panel(panel))
         if original == regenerated:
             print("  panel-%-5s OK   %d chars round-tripped exactly" % (pid, len(original)))

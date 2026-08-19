@@ -1,47 +1,271 @@
 {
  "_note": "The people of River Tech. 'initials' must match the initials used in the schedule source file, or the person's week will not appear. 'photo' is a filename in assets/images/teachers/ or null. 'bio' is the long introduction; when it is empty the card shows the role line alone.",
  "people": [
-  {"initials": "DA", "name": "Dan Hegelund",    "role": "Founder & Principal", "line": "Leads our productions, plus leadership and academics.", "photo": "dan-mary-hegelund.jpg", "bio": ""},
-  {"initials": "MA", "name": "Mary Hegelund",   "role": "Elementary Lead",     "line": "Leads the Elementary program.", "photo": "dan-mary-hegelund.jpg", "bio": ""},
-  {"initials": "CA", "name": "Caitlin Relvas",  "role": "Teacher",             "line": "English, literature, social studies, and dance.", "photo": "caitlin-relvas.jpg", "bio": ""},
-  {"initials": "JO", "name": "Jordan Ezell",    "role": "Technology Director", "line": "Coding, A.I., robotics, and science.", "photo": "jordan-ezell.jpg", "bio": ""},
-  {"initials": "LU", "name": "Luke Hegelund",   "role": "Music & Media",       "line": "Instruments, filmmaking, robotics, and coding.", "photo": "luke-hegelund.jpg", "bio": ""},
-  {"initials": "TI", "name": "Tiffany Young",   "role": "Elementary Teacher",  "line": "Full-time Elementary teacher.", "photo": null, "bio": ""},
-  {"initials": "CH", "name": "Charlotte Tebow", "role": "Teacher Assistant",   "line": "Performing arts and musical direction.", "photo": null, "bio": ""},
-  {"initials": "EV", "name": "Evelyn Hegelund", "role": "Performing Arts",     "line": "Performing arts, Bible &amp; worship, and reading.", "photo": null, "bio": "", "hidden": true},
-  {"initials": "KI", "name": "Kirsten Decker",  "role": "Teacher",             "line": "Fridays &mdash; English, math, geography, and Bible.", "photo": null, "bio": ""},
-  {"initials": "EM", "name": "Emily Allison",   "role": "Classroom Assistant", "line": "Math, robotics, and arts.", "photo": null, "bio": ""},
-  {"initials": "PH", "name": "Phil Munts",      "role": "Teacher",             "line": "Python and robotics.", "photo": "phil-munts.jpg", "bio": ""},
-  {"initials": "CR", "name": "Cristina Maness", "role": "Spanish",             "line": "Spanish.", "photo": "cris-maness.jpg", "bio": ""},
-  {"initials": "RY", "name": "Ryan Killackey",  "role": "Filmmaking",          "line": "High-school filmmaking.", "photo": null, "bio": ""},
-  {"initials": "PE", "name": "Penny Burciaga",  "role": "Operations &amp; Leadership", "line": "Teaches Leadership Mindset and Organizational Design &amp; Management.", "photo": null, "bio": ""},
-  {"initials": "AN", "name": "Angie",           "role": "Costumes",            "line": "Costumes for both productions.", "photo": null, "bio": "",
-   "manual_slots": [{"day": "Monday", "time": "10:25&ndash;11:45", "group": "Productions", "what": "Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"},
-                    {"day": "Monday", "time": "12:45&ndash;2:20",  "group": "Productions", "what": "Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"}]},
-  {"initials": "KA", "name": "Kara McArthur",   "role": "Props",               "line": "Props for both productions.", "photo": null, "bio": "",
-   "manual_slots": [{"day": "Monday", "time": "10:25&ndash;11:45", "group": "Productions", "what": "Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"},
-                    {"day": "Monday", "time": "12:45&ndash;2:20",  "group": "Productions", "what": "Props for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"}]},
-  {"initials": "BR", "name": "Brooke Donnelly", "role": "Executive Assistant", "line": "The first person you will hear back from when you write to the school.", "photo": null, "bio": ""}
+  {
+   "initials": "DA",
+   "name": "Dan Hegelund",
+   "role": "Founder & Principal",
+   "line": "Leads our productions, plus leadership and academics.",
+   "photo": "2026-27/dan.jpg",
+   "bio": "Dan Hegelund, principal at River Tech, holds a B.S. and M.S in Political Science. Dan is a professional vocal coach, choir director, music director, etc. He has thirty years of experience teaching and producing music and heads the River Tech Arts department. Expect concerts, musicals, studio recordings, music videos, choir trips, talent shows, music festivals, etc."
+  },
+  {
+   "initials": "MA",
+   "name": "Mary Hegelund",
+   "role": "Elementary Lead",
+   "line": "Leads the Elementary program.",
+   "photo": "2026-27/mary.jpg",
+   "bio": "Mary Hegelund holds a B.S. and M.S. in Education and leads River Tech Elementary. She has worked at a preschool, kindergarten, and elementary school and as a homeschooler of three children. Mary loves teaching children team building, teamwork, and leadership skills."
+  },
+  {
+   "initials": "CA",
+   "name": "Caitlin Relvas",
+   "role": "Teacher",
+   "line": "English, literature, social studies, and dance.",
+   "photo": "caitlin-relvas.jpg",
+   "bio": "Caitlin Relvas has a B.A. in English and Classical Civilizations. She has a minor in Dance and has been studying and teaching dance for most of her life. Caitlin loves to teach K-1 students problem-solving skills and responsibility and teach middle and high school English students the art of writing and an appreciation for story."
+  },
+  {
+   "initials": "JO",
+   "name": "Jordan Ezell",
+   "role": "Technology Director",
+   "line": "Coding, A.I., robotics, and science.",
+   "photo": "2026-27/jordan.jpg",
+   "bio": "Jordan Ezell holds a B.S. in Game Development from Full Sail University and a degree from Master&rsquo;s Commission in Biblical Counseling. He loves creating board games and video games, and can&rsquo;t wait to teach our students how to create their own games. Jordan is heading the Tech Department at River Tech. Expect your kids to learn programming, robotics, 3D animation, videography, sound engineering, game development, etc. River Tech has an outstanding tech program."
+  },
+  {
+   "initials": "LU",
+   "name": "Luke Hegelund",
+   "role": "Music & Media",
+   "line": "Instruments, filmmaking, robotics, and coding.",
+   "photo": "2026-27/luke.jpg",
+   "bio": "Luke Hegelund is the media director at River Tech, with four years of teaching experience. Luke is a proficient multi-instrumentalist, having offered private piano, guitar, and drum lessons outside of his work at River Tech. Additionally, he is a professional videographer, having produced wedding films, short films, and commercials. While working at River Tech, Luke is finishing his degree in Theology and pursuing a degree in education. Students can look forward to learning filmmaking, music, and 3D design from Luke."
+  },
+  {
+   "initials": "TI",
+   "name": "Tiffany Young",
+   "role": "Elementary Teacher",
+   "line": "Full-time Elementary teacher.",
+   "photo": "2026-27/tiffany.jpg",
+   "bio": ""
+  },
+  {
+   "initials": "CH",
+   "name": "Charlotte Tebow",
+   "role": "Teacher Assistant",
+   "line": "Performing arts and musical direction.",
+   "photo": null,
+   "bio": ""
+  },
+  {
+   "initials": "EV",
+   "name": "Evelyn Hegelund",
+   "role": "Performing Arts",
+   "line": "Performing arts, Bible &amp; worship, and reading.",
+   "photo": null,
+   "bio": "",
+   "hidden": true
+  },
+  {
+   "initials": "KI",
+   "name": "Kirsten Decker",
+   "role": "Teacher",
+   "line": "Fridays &mdash; English, math, geography, and Bible.",
+   "photo": "2026-27/kirsten.jpg",
+   "bio": ""
+  },
+  {
+   "initials": "EM",
+   "name": "Emily Allison",
+   "role": "Classroom Assistant",
+   "line": "Math, robotics, and arts.",
+   "photo": "2026-27/emily.jpg",
+   "bio": ""
+  },
+  {
+   "initials": "PH",
+   "name": "Phil Munts",
+   "role": "Teacher",
+   "line": "Python and robotics.",
+   "photo": "phil-munts.jpg",
+   "bio": ""
+  },
+  {
+   "initials": "CR",
+   "name": "Cristina Maness",
+   "role": "Spanish",
+   "line": "Spanish.",
+   "photo": "cris-maness.jpg",
+   "bio": ""
+  },
+  {
+   "initials": "RY",
+   "name": "Ryan Killackey",
+   "role": "Filmmaking",
+   "line": "High-school filmmaking.",
+   "photo": null,
+   "bio": ""
+  },
+  {
+   "initials": "PE",
+   "name": "Penny Burciaga",
+   "role": "Operations &amp; Leadership",
+   "line": "Teaches Leadership Mindset and Organizational Design &amp; Management.",
+   "photo": null,
+   "bio": ""
+  },
+  {
+   "initials": "AN",
+   "name": "Angie",
+   "role": "Costumes",
+   "line": "Costumes for both productions.",
+   "photo": null,
+   "bio": "",
+   "manual_slots": [
+    {
+     "day": "Monday",
+     "time": "10:25&ndash;11:45",
+     "group": "Productions",
+     "what": "Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"
+    },
+    {
+     "day": "Monday",
+     "time": "12:45&ndash;2:20",
+     "group": "Productions",
+     "what": "Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"
+    }
+   ]
+  },
+  {
+   "initials": "KA",
+   "name": "Kara McArthur",
+   "role": "Props",
+   "line": "Props for both productions.",
+   "photo": null,
+   "bio": "",
+   "manual_slots": [
+    {
+     "day": "Monday",
+     "time": "10:25&ndash;11:45",
+     "group": "Productions",
+     "what": "Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"
+    },
+    {
+     "day": "Monday",
+     "time": "12:45&ndash;2:20",
+     "group": "Productions",
+     "what": "Props for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"
+    }
+   ]
+  },
+  {
+   "initials": "BR",
+   "name": "Brooke Donnelly",
+   "role": "Executive Assistant",
+   "line": "The first person you will hear back from when you write to the school.",
+   "photo": null,
+   "bio": ""
+  }
  ],
  "grades": [
-  {"id": "y-elem", "label": "1st &amp; 2nd",  "panel": "elem", "colors": [null, "#CA6F1E", "#2471A3"]},
-  {"id": "o-elem", "label": "3rd &amp; 4th",  "panel": "elem", "colors": [null, "#1E8449", "#2471A3"]},
-  {"id": "ms",     "label": "5th &amp; 6th",  "panel": "ms",   "colors": [null]},
-  {"id": "jh",     "label": "7th &amp; 8th",  "panel": "jh",   "colors": [null]},
-  {"id": "hs",     "label": "9th to 12th",    "panel": "hs",   "colors": [null]},
-  {"id": "home",   "label": "Homeschool",     "panel": "home", "colors": [null, "#9AA0A6"]}
+  {
+   "id": "y-elem",
+   "label": "1st &amp; 2nd",
+   "panel": "elem",
+   "colors": [
+    null,
+    "#CA6F1E",
+    "#2471A3"
+   ]
+  },
+  {
+   "id": "o-elem",
+   "label": "3rd &amp; 4th",
+   "panel": "elem",
+   "colors": [
+    null,
+    "#1E8449",
+    "#2471A3"
+   ]
+  },
+  {
+   "id": "ms",
+   "label": "5th &amp; 6th",
+   "panel": "ms",
+   "colors": [
+    null
+   ]
+  },
+  {
+   "id": "jh",
+   "label": "7th &amp; 8th",
+   "panel": "jh",
+   "colors": [
+    null
+   ]
+  },
+  {
+   "id": "hs",
+   "label": "9th to 12th",
+   "panel": "hs",
+   "colors": [
+    null
+   ]
+  },
+  {
+   "id": "home",
+   "label": "Homeschool",
+   "panel": "home",
+   "colors": [
+    null,
+    "#9AA0A6"
+   ]
+  }
  ],
  "rooms": [
-  ["☕", "Cafe / Assembly"],
-  ["🚀", "Upper Middle School"],
-  ["🌳", "Younger Middle School"],
-  ["☀", "Upper Elementary"],
-  ["💡", "Younger Elementary"],
-  ["🎨", "Crafts Room"],
-  ["📚", "Study Room"],
-  ["🎻", "Music Rooms"],
-  ["💃", "Dance Hall"],
-  ["🤖", "Robotics"],
-  ["🎤", "Stage / Sanctuary"]
+  [
+   "☕",
+   "Cafe / Assembly"
+  ],
+  [
+   "🚀",
+   "Upper Middle School"
+  ],
+  [
+   "🌳",
+   "Younger Middle School"
+  ],
+  [
+   "☀",
+   "Upper Elementary"
+  ],
+  [
+   "💡",
+   "Younger Elementary"
+  ],
+  [
+   "🎨",
+   "Crafts Room"
+  ],
+  [
+   "📚",
+   "Study Room"
+  ],
+  [
+   "🎻",
+   "Music Rooms"
+  ],
+  [
+   "💃",
+   "Dance Hall"
+  ],
+  [
+   "🤖",
+   "Robotics"
+  ],
+  [
+   "🎤",
+   "Stage / Sanctuary"
+  ]
  ]
 }

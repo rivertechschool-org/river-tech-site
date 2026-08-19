@@ -1,6 +1,6 @@
 {
- "schedule_version": "Q1 Semi-Final 1.3",
- "as_of": "2026-08-17",
+ "schedule_version": "Q1 Semi-Final 1.5",
+ "as_of": "2026-08-19",
  "header": "<strong>2026&ndash;27 &middot; Quarter 1</strong> &middot; The Heart Church, Post Falls",
  "legend": [
   "<span><strong>Teachers:</strong></span> <span>(CA) Caitlyn</span> <span>(CR) Cristina</span> <span>(DA) Dan</span> <span>(JO) Jordan</span> <span>(LU) Luke</span> <span>(MA) Mary</span> <span>(PH) Phil</span> <span>(TI) Tiffany</span> <span>(PE) Penny</span> <span>(EM) Emily</span> <span>(RY) Ryan</span> <span>(KI) Kirsten</span> <span>(CH) Charlotte</span> <span>(EV) Evelyn</span> <span>(AN) Angie</span> <span>(KA) Kara</span>",
@@ -412,7 +412,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Drill (LU) 💃",
+         "text": "P.E. (MA) 💃",
          "color": null,
          "role": null
         }
@@ -752,7 +752,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Fine Arts (MA) 🎨",
+         "text": "Fine Arts (MA &amp; EM) 🎨",
          "color": null,
          "role": null
         }
@@ -765,7 +765,7 @@
     "* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.",
     "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
     "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 17, 2026 &mdash; subject to change."
+    "Q1, as of Aug 19, 2026 &mdash; subject to change."
    ]
   },
   {
@@ -1241,7 +1241,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Drill (LU) 💃",
+         "text": "P.E. (MA) 💃",
          "color": null,
          "role": null
         }
@@ -1595,7 +1595,7 @@
     "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
     "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
     "Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.",
-    "Q1, as of Aug 17, 2026 &mdash; subject to change."
+    "Q1, as of Aug 19, 2026 &mdash; subject to change."
    ]
   },
   {
@@ -2335,7 +2335,7 @@
     "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
     "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
     "Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.",
-    "Q1, as of Aug 17, 2026 &mdash; subject to change."
+    "Q1, as of Aug 19, 2026 &mdash; subject to change."
    ]
   },
   {
@@ -3074,7 +3074,7 @@
     "* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.",
     "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
     "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 17, 2026 — subject to change."
+    "Q1, as of Aug 19, 2026 — subject to change."
    ]
   },
   {
@@ -3244,7 +3244,7 @@
          "role": null
         },
         {
-         "text": "Film Making [YH] (MA &amp; KI) 🎨",
+         "text": "Film Making [YH] (LU &amp; KI) 🎨",
          "color": "#9AA0A6",
          "role": null
         }
@@ -3562,7 +3562,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Film Making [UH] (LU &amp; EM) 💃",
+         "text": "Film Making [UH] (LU &amp; KI) 💃",
          "color": null,
          "role": null
         },
@@ -3613,7 +3613,7 @@
     "* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.",
     "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
     "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 17, 2026 &mdash; subject to change."
+    "Q1, as of Aug 19, 2026 &mdash; subject to change."
    ]
   }
  ]

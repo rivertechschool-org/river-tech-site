@@ -212,6 +212,7 @@ CSS = """
 .tp-search{width:100%;max-width:420px;font-family:var(--font-body);font-size:1rem;color:var(--color-text);
   background:#fff;border:1px solid #ddd8cd;border-radius:999px;padding:9px 18px;margin-bottom:6px}
 .tp-answer{font-family:var(--font-body);font-style:italic;color:#55516d;min-height:1.6em;margin:6px 0 22px}
+.tp-team-photo{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin:24px 0 34px;box-shadow:0 2px 10px rgba(39,36,67,.12)}
 .tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:22px;margin:0 0 40px;padding:0;list-style:none}
 .tp-card{margin:0}
 .tp-card[hidden]{display:none}
@@ -378,6 +379,15 @@ JS = """
     btn.addEventListener("click", function(){ showWeek(btn.dataset.who, true); });
   });
 
+  /* Approved biographies belong on the visible teacher cards. */
+  ["DA", "MA", "CA", "JO", "LU"].forEach(function(who){
+    var bio = document.querySelector("#tpw-" + who + " .tp-bio");
+    var summary = document.querySelector('.tp-face[data-who="' + who + '"] .tp-line');
+    if(!bio || !summary) return;
+    summary.innerHTML = bio.innerHTML;
+    bio.remove();
+  });
+
 })();
 </script>
 """
@@ -473,12 +483,14 @@ def build():
         tabs.append('<button class="schedule-tab%s" type="button" data-who="%s">%s<br><small>%s</small></button>'
                     % (" active" if first else "", ini, p["name"].split()[0], p["role"]))
         panels.append(
-            '<div class="tpw-panel" id="tpw-%s"%s><div class="schedule-table-wrap">'
+            '<div class="tpw-panel" id="tpw-%s"%s>%s<div class="schedule-table-wrap">'
             '<table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th>'
             '<th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody>%s</tbody></table></div>'
             '<p class="tp-wfoot">%s&rsquo;s week &mdash; Quarter 1, as of %s. The same source as the '
             '<a href="calendar.html">Schedule &amp; Calendar</a> page, so the two can never disagree.</p></div>'
-            % (ini, "" if first else " hidden", "".join(rows), p["name"].split()[0], schedule["as_of"]))
+            % (ini, "" if first else " hidden",
+               ('<p class="tp-bio">%s</p>' % p["bio"]) if p.get("bio") else "",
+               "".join(rows), p["name"].split()[0], schedule["as_of"]))
         first = False
 
     # ---- filter buttons
@@ -505,6 +517,8 @@ def build():
 
     <p style="font-style: italic; text-align: center; margin-top: 30px;">Small classes exist so that every teacher knows every child by name.</p>
 
+    <img class="tp-team-photo" src="../assets/images/teachers/2026-27/group-normal.jpg" alt="River Tech School teaching team for the 2026–27 school year">
+
     <p class="tp-now"><span class="tp-clock" id="tp-now-clock">At River Tech today</span><span id="tp-now-text">%(fallback)s</span></p>
 
     <div class="tp-controls">
@@ -518,8 +532,8 @@ def build():
     <ul class="tp-grid">%(cards)s</ul>
     <p class="tp-empty" id="tp-empty" hidden>No one matches that just yet. Clear the filters and try another word.</p>
 
-    <h2 class="tp-h2">Every teacher&rsquo;s week</h2>
-    <p class="tp-sub">Choose a name to see that teacher&rsquo;s whole week &mdash; when they teach, which class, and which room.</p>
+    <h2 class="tp-h2">About our teachers &amp; their week</h2>
+    <p class="tp-sub">Choose a name to read their biography and see their whole week &mdash; when they teach, which class, and which room.</p>
     <div class="schedule-tabs-container tpw">
       <div class="schedule-tabs">%(tabs)s</div>
       %(panels)s
