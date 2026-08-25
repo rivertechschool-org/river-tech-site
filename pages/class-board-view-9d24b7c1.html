@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>River Tech — The Class Board</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:#f4f1ea;color:#1c1c1e;padding:14px}
+h1{font-size:20px;margin-bottom:2px}
+.sub{color:#8a8a8e;font-size:12px;margin-bottom:12px}
+.toggle{display:inline-flex;border:1px solid #d0cec8;border-radius:8px;overflow:hidden;margin-left:14px;vertical-align:middle}
+.toggle button{border:0;background:#fff;padding:5px 12px;font-size:13px;cursor:pointer}
+.toggle button.on{background:#2E5D3A;color:#fff}
+#cols{display:flex;gap:10px;align-items:flex-start;overflow-x:auto;padding-bottom:20px}
+.col{background:#fff;border-radius:10px;min-width:170px;flex:1;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.col h2{font-size:13px;padding:9px 10px;border-bottom:2px solid #2E5D3A;display:flex;justify-content:space-between}
+.col h2 .n{color:#2E5D3A}
+.zone{min-height:60px;padding:7px}
+.card{background:#faf9f6;border:1px solid #e4e1d8;border-radius:7px;padding:5px 8px;margin-bottom:5px;font-size:12.5px;display:flex;justify-content:space-between}
+.card .a{color:#8a8a8e;margin-left:6px}
+.card.committed{border-style:dashed}
+.zone.over{background:#eef4ee;outline:2px dashed #2E5D3A;border-radius:7px}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
+.hsnote{color:#8a8a8e;font-size:12px;margin:6px 0 10px}
+</style>
+</head>
+<body>
+<h1>The Class Board 2026–27
+<span class="toggle"><button id="btnFT" class="on" onclick="setView('ft')">Full-time</button><button id="btnHS" onclick="setView('hs')">Homeschool</button></span></h1>
+<div class="sub">Live from the Register · ages on Sep 1 · read-only — placement changes are Dan&#39;s hand <span id="stat"></span></div>
+<div id="hsn" class="hsnote" style="display:none">Homeschool à-la-carte children by attendance day.</div>
+<div id="cols">Loading the Register…</div>
+<div id="toast"></div>
+<script>
+var API="https://script.google.com/macros/s/AKfycbxnK8E8Cj6rq-t3_dM6Rwvq46RstXx8O-ymvQBOMf7uzEc3IG46heqoqJtUqnlFCfoq/exec";
+var RK="c4e19b72a5d03f68";
+var KIDS=[],VIEW="ft";
+var FT=[["YE","Younger Elementary"],["OE","Older Elementary"],["YM","Younger Middle"],["JH","Junior High"],["HS","High School"],["—","Unplaced"]];
+var DAYS=[["M","Monday"],["Tu","Tuesday"],["W","Wednesday"],["Th","Thursday"],["F","Friday"]];
+function api(params){
+  var q=Object.keys(params).map(function(k){return k+"="+encodeURIComponent(params[k]);}).join("&");
+  return fetch(API+"?"+q,{credentials:"omit"}).then(function(r){return r.text();}).then(function(t){
+    try{return JSON.parse(t);}catch(e){throw new Error("Google hiccup — try again");}
+  });
+}
+
+function load(){
+  api({action:"board_view",rk:RK}).then(function(d){
+    if(!d.ok)throw new Error(d.error||"feed failed");
+    KIDS=d.kids;
+    render();
+  }).catch(fail);
+}
+function setView(v){VIEW=v;document.getElementById("btnFT").className=v==="ft"?"on":"";document.getElementById("btnHS").className=v==="hs"?"on":"";document.getElementById("hsn").style.display=v==="hs"?"block":"none";render();}
+function card(k,drag){
+  var el=document.createElement("div");
+  el.className="card"+(k.status==="Committed"?" committed":"");
+  el.innerHTML="<span>"+k.name+"</span><span class=a>"+(k.age===""?"?":k.age)+"</span>";
+  return el;
+}
+function render(){
+  var wrap=document.getElementById("cols");wrap.innerHTML="";
+  if(VIEW==="ft"){
+    var ft=KIDS.filter(function(k){return k.program!=="À la carte";});
+    FT.forEach(function(c){var code=c[0];
+      var members=ft.filter(function(k){return (k.placed||"—")===code||(code==="—"&&!k.placed);});
+      wrap.appendChild(colEl(code,c[1],members,false));});
+  }else{
+    var hs=KIDS.filter(function(k){return k.program==="À la carte";});
+    DAYS.forEach(function(c){var members=hs.filter(function(k){return k.days[c[0]];});
+      wrap.appendChild(colEl(c[0],c[1],members,false));});
+  }
+  document.getElementById("stat").textContent="· "+KIDS.length+" children";
+}
+function colEl(code,label,members,draggable){
+  var col=document.createElement("div");col.className="col";
+  var h=document.createElement("h2");h.innerHTML="<span>"+label+"</span><span class=n>"+members.length+"</span>";col.appendChild(h);
+  var z=document.createElement("div");z.className="zone";
+  members.sort(function(a,b){return (b.age||0)-(a.age||0);}).forEach(function(k){z.appendChild(card(k,draggable));});
+  col.appendChild(z);return col;
+}
+
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.className="show";clearTimeout(t._x);t._x=setTimeout(function(){t.className="";},2600);}
+function fail(e){toast("FAILED: "+((e&&e.message)||e));}
+load();
+</script>
+</body>
+</html>
