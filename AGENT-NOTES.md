@@ -117,3 +117,20 @@ The master is a Keynote deck Dan maintains, exported as
 `26-27 Q1 Schedule Semi-Final <version>, <date>.pdf`. The site is downstream of that deck.
 When a new version lands, read the changes off the PDF and apply them to the JSON — the
 deck stays the human original, the JSON stays the machine one.
+
+## 8. Teachers page — bios show on the CARDS, and staff emails are @rivertech.me
+
+Added 2026-08-25, at Luke's direction. Two standing rules for every future teachers-page change:
+
+- **A bio is not "published" until it is visible on the grid.** Bio copy is authored inside that
+  teacher's `<div class="tpw-panel" id="tpw-XX">` as `<p class="tp-bio">`, but a panel is `hidden`
+  until someone clicks the card, so a bio left there alone is invisible to anyone scanning the page.
+  The inline script near the bottom of `pages/teachers.html` hoists it onto the visible card:
+  `["DA", "CA", "JO", "LU", "PH", "TI", "RY", "PE"].forEach(...)` copies the panel bio into that
+  card's `.tp-line` and removes the panel copy. **When you add a bio, add the teacher's two-letter
+  `data-who` code to that array.** Do not instead duplicate the bio text into the card markup — that
+  renders it twice, once from the markup and once from the hoist.
+- **Staff contact addresses are firstname@rivertech.me. Never personal addresses.** The page
+  previously carried gmail/yahoo addresses for Dan, Mary, Caitlin, Jordan, and Luke; those were
+  replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave
+  their contact line off rather than guessing one.
