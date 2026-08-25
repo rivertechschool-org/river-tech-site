@@ -178,6 +178,8 @@
     .reg-check.checked { border-color: var(--color-red); background: var(--color-pink-btn); }
 
     .pa-hidden { display: none; }
+    .pa-monday [data-block="three"], .pa-monday [data-block="two"],
+    .pa-monday [data-block="youngest"], .pa-monday [data-block="spanish"] { display: none !important; }
 
     .reg-submit {
       display: block; width: 100%; padding: 18px;
@@ -352,14 +354,30 @@
 
       <div class="reg-hero">
         <h1>Performing Arts 2026&ndash;27</h1>
-        <p class="reg-subtitle">One form per family &mdash; add each of your full-time students.</p>
-        <div class="reg-deadline">Please send this back by <strong>Thursday, August&nbsp;20</strong>.</div>
+        <p class="reg-subtitle">One form per family &mdash; add each of your students.</p>
+        <div class="reg-deadline">Please send this back as soon as you can &mdash; <strong>Aladdin auditions are Monday, August&nbsp;31</strong>.</div>
       </div>
 
       <div id="reg-error" class="reg-error"></div>
       <div id="reg-success" class="reg-success"></div>
 
       <form id="pa-form" novalidate>
+
+        <div class="reg-section">
+          <div class="reg-section-title">Who fills this in</div>
+          <div class="pa-note-teal" style="margin: 0 0 18px;">
+            Full-time families: the whole form, please, for each student.
+            Homeschool families: only if your student joins us on Mondays &mdash; and then only the performance questions; instruments and Spanish don't apply.
+            If your homeschooler doesn't come on Mondays, there is nothing to send.
+          </div>
+          <div class="reg-row">
+            <label class="reg-label">Are your students full-time or &agrave; la carte?</label>
+            <div class="reg-choices inline" id="pa-program">
+              <label class="reg-check"><input type="radio" name="program" value="Full-time"><span>Full-time</span></label>
+              <label class="reg-check"><input type="radio" name="program" value="À la carte — Mondays"><span>&Agrave; la carte &mdash; Mondays</span></label>
+            </div>
+          </div>
+        </div>
 
         <div class="reg-section">
           <div class="reg-section-title">You</div>
@@ -418,7 +436,7 @@
 
         <div class="reg-section">
           <div class="reg-section-title">Your students</div>
-          <p class="reg-section-subtitle">Add every full-time student in your family. The questions change a little with age, so please answer them for each child separately.</p>
+          <p class="reg-section-subtitle">Add every student in your family. The questions change a little with age, so please answer them for each child separately.</p>
 
           <div id="pa-student-list"></div>
 
@@ -477,7 +495,7 @@
 </footer>
 
 <script src="../assets/js/main.js?v=4" defer></script>
-<script src="../assets/js/register-performing-arts-2026-27.js?v=3" defer></script>
+<script src="../assets/js/register-performing-arts-2026-27.js?v=4" defer></script>
 
 <button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>

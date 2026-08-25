@@ -71,8 +71,8 @@ function handleSubmission(p) {
   for (var i = 0; i < kids.length; i++) {
     var c = kids[i];
     if (!c.age) return { ok: false, error: "Please choose an age for " + c.name + "." };
-    if (!c.join) return { ok: false, error: "Please say whether " + c.name + " will join our performances." };
-    if (!c.spanish) return { ok: false, error: "Please answer the Spanish question for " + c.name + "." };
+    // 2026-08-25: join and spanish are no longer required — Monday a la carte
+    // families skip them, and Dan wants the form submittable with gaps.
   }
 
   const referenceId = "PA-" + Utilities.formatDate(new Date(), "America/Los_Angeles", "yyyyMMdd-HHmmss")
@@ -139,13 +139,13 @@ function writeToSheet_(referenceId, p, kids) {
 // ---- Emails -------------------------------------------------------------
 function childLines_(c) {
   const lines = ["  " + c.name + " (age " + c.age + ")"];
-  lines.push("    Joining our performances: " + c.join);
+  if (c.join) lines.push("    Joining our performances: " + c.join);
   if (c.join === "Yes" && c.aladdin) {
     lines.push("    Auditioning for Aladdin on August 31: " + c.aladdin);
     if (c.roles) lines.push("    Roles of interest: " + c.roles);
   }
   if (c.artsChoice) lines.push("    Arts choice this quarter: " + c.artsChoice);
-  lines.push("    Spanish this quarter: " + c.spanish);
+  if (c.spanish) lines.push("    Spanish this quarter: " + c.spanish);
   return lines;
 }
 

@@ -8,7 +8,13 @@
      9-10  → dance or instruments
      11+   → dance, ukulele and guitar, or piano
 
-   Each card branches on its own age, independently of the others. */
+   Each card branches on its own age, independently of the others.
+
+   2026-08-25 (Dan's instruction): a program question at the top — Full-time
+   vs A la carte Mondays. Monday families see only the performance questions;
+   instruments, Spanish and the youngest-note are hidden (CSS .pa-monday).
+   Almost nothing is mandatory any more: parent name/email and each
+   student's name and age, nothing else. Backend validation relaxed to match. */
 (function () {
   "use strict";
 
@@ -22,9 +28,29 @@
   // ---- Boot -------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("pa-add-student").addEventListener("click", function () { addStudent(); });
+    document.querySelectorAll("input[name='program']").forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.querySelectorAll("input[name='program']").forEach(function (sib) {
+          const lbl = sib.closest(".reg-check");
+          if (lbl) lbl.classList.toggle("checked", sib.checked);
+        });
+        document.getElementById("pa-form").classList.toggle("pa-monday", isMonday());
+      });
+    });
     document.getElementById("pa-form").addEventListener("submit", submitForm);
     addStudent(); // start with one
   });
+
+  // ---- Program (full-time vs Monday a la carte) -------------------------
+  function programVal() {
+    const el = document.querySelector("input[name='program']:checked");
+    return el ? el.value : "";
+  }
+
+  function isMonday() {
+    const el = document.querySelector("input[name='program']:checked");
+    return !!el && el.value !== "Full-time";
+  }
 
   // ---- Student cards ----------------------------------------------------
   function addStudent() {
@@ -92,7 +118,7 @@
       '</div>',
 
       '<div class="reg-row">',
-      '  <label class="reg-label">Will they join our performances this year?<span class="req">*</span></label>',
+      '  <label class="reg-label">Will they join our performances this year?</label>',
       '  <div class="reg-choices inline">',
       '    <label class="reg-check"><input type="radio" name="join_' + id + '" value="Yes"><span>Yes</span></label>',
       '    <label class="reg-check"><input type="radio" name="join_' + id + '" value="No"><span>No</span></label>',
@@ -142,8 +168,8 @@
       '  Our youngest students get a great deal of the arts. They take part in our big productions, they prepare a show of their own, and they have drill, crafts and fine arts through the week. Separate instrument and dance lessons begin in 5th grade, so that is the one piece their week does not yet include.',
       '</div>',
 
-      '<div class="reg-row">',
-      '  <label class="reg-label">Would they like to take Spanish this quarter?<span class="req">*</span></label>',
+      '<div class="reg-row" data-block="spanish">',
+      '  <label class="reg-label">Would they like to take Spanish this quarter?</label>',
       '  <p class="reg-help">We encourage as many students as possible to learn Spanish, though it is not required. The alternative is silent reading or study hall.</p>',
       '  <div class="reg-choices inline">',
       '    <label class="reg-check"><input type="radio" name="esp_' + id + '" value="Yes"><span>Yes, Spanish</span></label>',
@@ -231,6 +257,7 @@
 
   function readCard(card) {
     const b = bandOf(card);
+    const monday = isMonday();
     return {
       name: cardField(card, "name"),
       age: parseInt(cardField(card, "age"), 10) || null,
@@ -238,10 +265,11 @@
       aladdin: cardRadio(card, "ala_"),
       roles: cardField(card, "roles"),
       experience: cardField(card, "experience"),
-      artsChoice: cardRadio(card, "three_") || cardRadio(card, "two_") || "",
-      artsQuestion: b === "three" ? "Dance / ukulele and guitar / piano"
-                  : (b === "two" ? "Dance / instruments" : "Not asked (age 6-8)"),
-      spanish: cardRadio(card, "esp_")
+      artsChoice: monday ? "" : (cardRadio(card, "three_") || cardRadio(card, "two_") || ""),
+      artsQuestion: monday ? "Not asked (\u00e0 la carte Mondays)"
+                  : (b === "three" ? "Dance / ukulele and guitar / piano"
+                  : (b === "two" ? "Dance / instruments" : "Not asked (age 6-8)")),
+      spanish: monday ? "" : cardRadio(card, "esp_")
     };
   }
 
@@ -262,16 +290,6 @@
 
       if (!s.name) return "Please enter a name for student " + (i + 1) + ".";
       if (!s.age) return "Please choose an age for " + who + ".";
-      if (!s.join) return "Please say whether " + who + " will join our performances.";
-
-      const b = bandOf(card);
-      if (b === "three" && !s.artsChoice) {
-        return "For " + who + ", please choose between dance, ukulele and guitar, or piano.";
-      }
-      if (b === "two" && !s.artsChoice) {
-        return "For " + who + ", please choose between dance and instruments.";
-      }
-      if (!s.spanish) return "For " + who + ", please answer the Spanish question.";
     }
 
     // Two cards with the same name is almost always a mis-click on Add.
@@ -288,13 +306,17 @@
   // ---- Payload ----------------------------------------------------------
   function buildPayload() {
     const cards = Array.prototype.slice.call(document.querySelectorAll(".pa-student"));
+    const noteBits = [];
+    if (isMonday()) noteBits.push("Program: \u00c0 la carte \u2014 Mondays");
+    if (val("notes")) noteBits.push(val("notes"));
     return {
       submittedAt: new Date().toISOString(),
       formType: "performing-arts-choices",
       schoolYear: SCHOOL_YEAR,
+      program: programVal(),
       parent: { name: val("parentName"), email: val("parentEmail") },
       children: cards.map(readCard),
-      notes: val("notes")
+      notes: noteBits.join("\n")
     };
   }
 
