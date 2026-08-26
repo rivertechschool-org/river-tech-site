@@ -184,6 +184,13 @@ old and new PDF are compared, so a render that looks identical leaves the commit
 alone. The file changes when the sheet actually looks different, and never otherwise.
 Do not hand-edit `.pdf.inputs`.
 
+One consequence worth knowing: your Chrome and the runner's Chrome do not emit
+byte-identical PDFs for the same page. Both fall back to the same Liberation faces (the
+site asks for Palatino and Avenir, which exist on neither), so the sheet looks the same;
+the drawing operators just differ slightly by browser build. That is why the stamp keys
+off the INPUTS and not the output. Rebuild locally and commit, and CI sees a matching
+stamp and leaves your file alone, so the two never ping-pong.
+
 ### Why the print block is full of `!important`
 
 `assets/css/style.css` raises every table cell to `font-size: 15px !important` inside its
