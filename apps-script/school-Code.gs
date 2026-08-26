@@ -153,13 +153,15 @@ function handleRegistration(p) {
   writeToSheet_(registrationId, p, photoUrls, reportUrls);
 
   // 3. Create Stripe Checkout session
-  const checkoutUrl = createStripeSession_(registrationId, p);
+  // Fee-waived submissions (assisted form) skip Stripe entirely.
+  const feeWaived = (p.feeWaived === true);
+  const checkoutUrl = feeWaived ? null : createStripeSession_(registrationId, p);
 
   // 4. Emails
   sendParentEmail_(registrationId, p);
   sendNotificationEmail_(registrationId, p, photoUrls, reportUrls);
 
-  return { ok: true, registrationId: registrationId, checkoutUrl: checkoutUrl };
+  return { ok: true, registrationId: registrationId, checkoutUrl: checkoutUrl, feeWaived: feeWaived };
 }
 
 // ---- Drive file upload --------------------------------------------------
@@ -290,7 +292,7 @@ function writeToSheet_(registrationId, p, photoUrls, reportUrls) {
     pk(1).name || "", pk(1).relationship || "", pk(1).phone || "",
     pk(2).name || "", pk(2).relationship || "", pk(2).phone || "",
     children.length,
-    p.householdFee || HOUSEHOLD_FEE_USD,
+    (p.feeWaived === true ? 0 : (p.householdFee || HOUSEHOLD_FEE_USD)),
     p.signature || "",
     p.signatureDate || "",
     p.releaseAgreed ? "Yes" : "No",
@@ -406,10 +408,10 @@ function sendParentEmail_(registrationId, p) {
     "Thanks for enrolling " + kidsStr + " full-time at River Tech for the 2026-27 school year. We have your details.",
     "",
     "Your confirmation reference: " + registrationId,
-    "Household Registration Fee: $" + (p.householdFee || HOUSEHOLD_FEE_USD),
+    "Household Registration Fee: " + (p.feeWaived === true ? "$0 — waived" : "$" + (p.householdFee || HOUSEHOLD_FEE_USD)),
     "",
     "What happens next:",
-    "• Once your Stripe payment is complete, your application is logged and locked in for review.",
+    (p.feeWaived === true ? "• Your application is logged and locked in for review — no payment is due." : "• Once your Stripe payment is complete, your application is logged and locked in for review."),
     "• We will schedule a short welcome call with you within two weeks to walk through next steps.",
     "• We'll follow up before the school year starts (Tuesday, September 1, 2026) with class details, supply lists, and logistics.",
     "• Tuition is billed separately based on the schedule you chose.",
@@ -438,7 +440,7 @@ function sendParentEmail_(registrationId, p) {
 
 function sendNotificationEmail_(registrationId, p, photoUrls, reportUrls) {
   const subject = "[Full-Time 26-27] " + (p.parent.firstName || "") + " " + (p.parent.lastName || "") +
-    " — " + p.children.length + " child" + (p.children.length === 1 ? "" : "ren") + " — $" + (p.householdFee || HOUSEHOLD_FEE_USD);
+    " — " + p.children.length + " child" + (p.children.length === 1 ? "" : "ren") + " — " + (p.feeWaived === true ? "$0 waived" : "$" + (p.householdFee || HOUSEHOLD_FEE_USD));
 
   const childSummary = (p.children || []).map(function (c, i) {
     const interests = c.interests || {};
@@ -489,7 +491,7 @@ function sendNotificationEmail_(registrationId, p, photoUrls, reportUrls) {
     "",
     "Reference: " + registrationId,
     "Submitted: " + (p.submittedAt || new Date().toISOString()),
-    "Household Registration Fee: $" + (p.householdFee || HOUSEHOLD_FEE_USD),
+    "Household Registration Fee: " + (p.feeWaived === true ? "$0 — waived" : "$" + (p.householdFee || HOUSEHOLD_FEE_USD)),
     "",
     "Parent 1: " + (p.parent.firstName || "") + " " + (p.parent.lastName || ""),
     "  Email: " + (p.parent.email || "") + " · Phone: " + (p.parent.phone || ""),
