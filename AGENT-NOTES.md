@@ -135,25 +135,54 @@ Added 2026-08-25, at Luke's direction. Two standing rules for every future teach
   replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave
   their contact line off rather than guessing one.
 
-## 9. The lunch rotation PDF is generated. Rebuild it whenever the page changes.
+## 9. The lunch rotation PDF rebuilds itself. You do not have to know that it exists.
 
 Added 2026-08-26. `pages/lunch-rotations.html` carries a **Download the one-page PDF**
 button, and that button hands out a file committed to the repo:
-`assets/docs/river-tech-lunch-rotations.pdf`. It is not produced on the fly. Edit the
-tables or the print styles without rebuilding it and the button keeps handing out last
-week's rotation, with nothing on screen to say so.
+`assets/docs/river-tech-lunch-rotations.pdf`. It is not produced on the fly, so it goes
+stale the moment anything it is printed from changes, and a stale sheet looks exactly
+like a fresh one from the page.
 
-### Rebuilding
+Relying on people to remember that is how it would break. `.github/workflows/lunch-rotation-pdf.yml`
+rebuilds the sheet on any push to `main` that touches the page, `style.css`, `base.css`
+or the build script, and commits the result. Edit the rotation page in the GitHub web
+UI, or change the stylesheet having never heard of any of this, and the download stays
+correct on its own.
+
+**The one case that needs a person:** if an edit makes the sheet stop fitting on one
+page, the build fails, the run goes red on the commit that caused it, and the old PDF is
+left untouched rather than replaced by a broken two-page one. Fix the layout or trim the
+content; do not delete the check.
+
+**If the workflow cannot push** (a red run saying the push was rejected), the repository
+setting is Settings > Actions > General > Workflow permissions, which must be
+"Read and write". Nothing else about it needs configuring.
+
+### Rebuilding by hand
+
+Worth doing when you are already editing the page, so the new sheet lands in the same
+commit as the change rather than in a follow-up commit from the bot.
 
 ```
-node tools/build_lunch_pdf.js            # finds Chrome/Chromium in the usual places
-node tools/build_lunch_pdf.js /path/to/chrome
+node tools/build_lunch_pdf.js            # rebuilds only if an input changed
+node tools/build_lunch_pdf.js --check    # says whether the PDF is stale, changes nothing
+node tools/build_lunch_pdf.js --force    # rebuilds regardless
 ```
 
 The script drives headless Chrome over the DevTools protocol using only Node's built-in
-WebSocket — no `npm install`, no dependency in the repo. It prints the page count and
-**exits non-zero if the result is not exactly one page**, which is the whole point of the
-sheet.
+WebSocket — no `npm install`, no dependency in the repo. It **exits non-zero if the
+result is not exactly one page**, which is the whole point of the sheet.
+
+### Why there is a `.pdf.inputs` file next to the PDF
+
+The PDF is not byte-reproducible: Chrome stamps a fresh document id into every render, so
+a naive "rebuild and commit if the bytes differ" would commit on every single run and
+manufacture merge conflicts for everyone else in the repo. Two guards stop that. The
+`.inputs` file holds a hash of everything the sheet is rendered from, so a matching hash
+skips the rebuild entirely; and when a rebuild does happen, the drawing operators of the
+old and new PDF are compared, so a render that looks identical leaves the committed file
+alone. The file changes when the sheet actually looks different, and never otherwise.
+Do not hand-edit `.pdf.inputs`.
 
 ### Why the print block is full of `!important`
 
