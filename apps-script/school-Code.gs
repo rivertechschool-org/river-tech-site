@@ -28,6 +28,10 @@ function cfg(key) {
 }
 
 const NOTIFY_EMAILS = ["learn@rivertech.me", "dhegelund@gmail.com"];
+
+// ---- The Register (the One) — live intake via the Masterlist Bridge ----
+const BRIDGE_URL   = "https://script.google.com/macros/s/AKfycbxPqmUMg8dDDLIhwOxZ9dN0_arqt6p5LHs8ZxaGg5NCb9aDIfnrPqiGXrcE3fhWSOIv/exec";
+const BRIDGE_TOKEN = "5a48cbea79dae324238cf87a820a6d058ca39505a09dce27";
 const SCHOOL_NAME = "River Tech School of Performing Arts & Technology";
 const FORM_PAGE_URL = "https://www.rivertechschool.com/pages/register-school-2026-27.html";
 const SUCCESS_URL = "https://www.rivertechschool.com/pages/register-school-2026-27-success.html?session_id={CHECKOUT_SESSION_ID}";
@@ -35,7 +39,7 @@ const CANCEL_URL = "https://www.rivertechschool.com/pages/register-school-2026-2
 
 const HOUSEHOLD_FEE_USD = 250;
 
-// Sheet columns: 35 family + (21 per child × 6) = 161 columns.
+// Sheet columns: 35 family + (21 per child ? 6) = 161 columns.
 const MAX_CHILDREN = 6;
 const CHILD_COLS = 21;
 
@@ -150,7 +154,10 @@ function handleRegistration(p) {
   });
 
   // 2. Write to Sheet
-  writeToSheet_(registrationId, p, photoUrls, reportUrls);
+  const sheetRow = writeToSheet_(registrationId, p, photoUrls, reportUrls);
+
+  // 2b. Carry into the Register immediately — armored, never blocks enrollment
+  try { forwardToRegister_(sheetRow); } catch (err) { Logger.log("Register forward failed: " + err); }
 
   // 3. Create Stripe Checkout session
   // Fee-waived submissions (assisted form) skip Stripe entirely.
@@ -332,6 +339,33 @@ function writeToSheet_(registrationId, p, photoUrls, reportUrls) {
   }
 
   sh.appendRow(row);
+  return sh.getLastRow();
+}
+
+// ---- Register forward ---------------------------------------------------
+// Sends the exact headers+row to the Masterlist Bridge, which maps it into
+// The One (and only) Masterlist and files the family's cabinet letter.
+// On success the row is marked so the Bridge's half-hour sweep skips it;
+// on any failure the row stays unmarked and the sweep carries it instead.
+function forwardToRegister_(rowIndex) {
+  const ss = SpreadsheetApp.openById(cfg("SHEET_ID"));
+  const sh = ss.getSheets()[0];
+  const head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String);
+  const vals = sh.getRange(rowIndex, 1, 1, sh.getLastColumn()).getValues()[0];
+  const res = UrlFetchApp.fetch(BRIDGE_URL, {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify({ action: "intake", token: BRIDGE_TOKEN, kind: "full-time", headers: head, row: vals }),
+    muteHttpExceptions: true
+  });
+  let out = {};
+  try { out = JSON.parse(res.getContentText() || "{}"); } catch (e) {}
+  if (out && out.ok) {
+    const mi = head.indexOf("Bridged to One");
+    if (mi >= 0) sh.getRange(rowIndex, mi + 1).setValue(new Date().toISOString() + " -> intake");
+  } else {
+    Logger.log("Register intake declined: " + String(res.getContentText()).slice(0, 200));
+  }
 }
 
 // ---- Stripe Checkout ----------------------------------------------------
@@ -581,7 +615,7 @@ function setupSchoolBackend_ONCE() {
   }
 
   if (!props.getProperty("STRIPE_SECRET_KEY")) {
-    Logger.log("⚠ STRIPE_SECRET_KEY not yet set — add it in Project Settings > Script Properties.");
+    Logger.log("? STRIPE_SECRET_KEY not yet set — add it in Project Settings > Script Properties.");
   }
 }
 
@@ -658,9 +692,9 @@ function deleteAllDataRows_TESTONLY() {
 
 // ==== Pipeline (Enrollment-Review app) ===================================
 // Endpoints used by the Enrollment-Review Cowork artifact:
-//   GET  ?action=list&token=XXX                      → list rows + headers
-//   POST ?action=advance + body{token,regId,toStage} → write stage transition
-//   POST ?action=migrate&token=XXX                   → one-shot schema migration
+//   GET  ?action=list&token=XXX                      ? list rows + headers
+//   POST ?action=advance + body{token,regId,toStage} ? write stage transition
+//   POST ?action=migrate&token=XXX                   ? one-shot schema migration
 //
 // Shared secret in Script Property PIPELINE_TOKEN. Same value across all 3 backends in v1.
 
@@ -814,7 +848,7 @@ function pipelineImport_(token, rows, dryRun) {
  *
  * Body: { token, regId, childIdx, filename, mimeType, base64 }
  *
- * - Decodes base64 → blob → uploads to DRIVE_PHOTO_FOLDER_ID.
+ * - Decodes base64 ? blob ? uploads to DRIVE_PHOTO_FOLDER_ID.
  * - Sets file sharing to ANYONE_WITH_LINK / VIEW so Drive's /thumbnail endpoint serves it.
  * - Locates row by regId, writes the file URL into "Child N Photo URL".
  * - Returns the URL.
@@ -1010,14 +1044,14 @@ function pipelineMigrate_(token) {
   let renamed = false;
   let rewrittenInbox = 0;
   const addedColumns = [];
-  // Step 1: rename "Status" → "Pipeline Stage"
+  // Step 1: rename "Status" ? "Pipeline Stage"
   const statusIdx = headers.indexOf("Status");
   if (statusIdx >= 0) {
     sh.getRange(1, statusIdx + 1).setValue("Pipeline Stage");
     headers[statusIdx] = "Pipeline Stage";
     renamed = true;
   }
-  // Step 2: rewrite "Submitted (awaiting payment)" → "Inbox" in Pipeline Stage column
+  // Step 2: rewrite "Submitted (awaiting payment)" ? "Inbox" in Pipeline Stage column
   const stageColIdx = headers.indexOf("Pipeline Stage");
   if (stageColIdx >= 0) {
     const lastRow = sh.getLastRow();
