@@ -106,8 +106,18 @@ async function targetWs() {
   fs.writeFileSync(OUT, pdf);
 
   ws.close();
+
+  // Chrome is still writing to its profile directory as it shuts down, so wait
+  // for it to exit and treat the cleanup as best effort. A leftover temp
+  // directory must never fail a build that produced a good PDF: the exit code
+  // belongs to the page count, nothing else.
   proc.kill();
-  fs.rmSync(profile, { recursive: true, force: true });
+  await new Promise(ok => { proc.once('exit', ok); setTimeout(ok, 3000); });
+  try {
+    fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+  } catch {
+    console.warn(`(left ${profile} behind; harmless)`);
+  }
 
   const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
   console.log(`${path.relative(ROOT, OUT)} — ${pages} page(s), ${(pdf.length / 1024).toFixed(0)} KB`);
