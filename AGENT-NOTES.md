@@ -134,3 +134,48 @@ Added 2026-08-25, at Luke's direction. Two standing rules for every future teach
   previously carried gmail/yahoo addresses for Dan, Mary, Caitlin, Jordan, and Luke; those were
   replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave
   their contact line off rather than guessing one.
+
+## 9. The lunch rotation PDF is generated. Rebuild it whenever the page changes.
+
+Added 2026-08-26. `pages/lunch-rotations.html` carries a **Download the one-page PDF**
+button, and that button hands out a file committed to the repo:
+`assets/docs/river-tech-lunch-rotations.pdf`. It is not produced on the fly. Edit the
+tables or the print styles without rebuilding it and the button keeps handing out last
+week's rotation, with nothing on screen to say so.
+
+### Rebuilding
+
+```
+node tools/build_lunch_pdf.js            # finds Chrome/Chromium in the usual places
+node tools/build_lunch_pdf.js /path/to/chrome
+```
+
+The script drives headless Chrome over the DevTools protocol using only Node's built-in
+WebSocket — no `npm install`, no dependency in the repo. It prints the page count and
+**exits non-zero if the result is not exactly one page**, which is the whole point of the
+sheet.
+
+### Why the print block is full of `!important`
+
+`assets/css/style.css` raises every table cell to `font-size: 15px !important` inside its
+`@media (max-width: 900px)` phone query. A US Letter page is 7.5 inches of content, which
+is 720 CSS pixels — narrower than the phone breakpoint — so that query fires while
+printing and blew the schedule onto three pages. The print rules in the page override it
+cell by cell. The same query's `.schedule-table-wrap::after { content: 'Scroll →' }` hint
+is switched off there too. If you loosen any of that, re-run the build script and read
+the page count.
+
+### Headroom
+
+The sheet lays out at about 968 of the 994 CSS pixels a Letter page gives it at those
+margins. That is roughly 3% of slack, so a couple of extra words in a cell are fine and a
+new row is not. Every day block, the notice and the notes carry `break-inside: avoid`, so
+an overflow produces a clean second page rather than a table cut in half — but a second
+page still means the button is lying about what it hands out.
+
+### The page's own copy
+
+The rotation is typed into `pages/lunch-rotations.html` by hand. It is not generated from
+`assets/data/schedule-q1-2026-27.json` — that source file holds the class schedule, which
+is a different grid with different groupings. Do not point the schedule generator at this
+page.

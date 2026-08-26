@@ -122,6 +122,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.rivertechschool.com/pages/lunch-rotations.html</loc>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.rivertechschool.com/pages/nonprofit.html</loc>
     <priority>0.5</priority>
     <changefreq>yearly</changefreq>
