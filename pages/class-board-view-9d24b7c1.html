@@ -143,6 +143,16 @@ function openSheet(k){
   html+=row("Class",esc(clsLabel));
   html+=row("Program",esc(k.program||"\u2014"));
   html+='<div class="row" style="display:block"><span class="k">Days attending</span>'+strip+'</div>';
+  if(k.productions!==undefined){
+    if(!String(k.productions||"")){
+      html+=row("Electives","No form yet");
+    }else{
+      html+=row("Arts class",esc(k.arts||"Not asked"));
+      html+=row("Spanish",esc(k.spanish||"Not asked"));
+      var pa="Productions "+esc(k.productions)+(String(k.aladdin||"")?" \u00b7 Aladdin "+esc(k.aladdin):"");
+      html+='<div class="row"><span class="k" style="opacity:.65">'+pa+'</span></div>';
+    }
+  }
   document.getElementById("sh-body").innerHTML=html;
   document.getElementById("scrim").className="show";
 }
