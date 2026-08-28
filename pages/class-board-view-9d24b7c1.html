@@ -25,6 +25,25 @@ h1{font-size:20px;margin-bottom:2px}
 #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
 .hsnote{color:#8a8a8e;font-size:12px;margin:6px 0 10px}
+.card{cursor:pointer;transition:box-shadow .12s,transform .12s}
+.card:hover{box-shadow:0 2px 6px rgba(0,0,0,.14);transform:translateY(-1px)}
+#scrim{position:fixed;inset:0;background:rgba(28,28,30,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+#scrim.show{display:flex}
+#sheet{background:#fff;border-radius:14px;max-width:380px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.28);overflow:hidden}
+#sheet .hd{background:#2E5D3A;color:#fff;padding:14px 16px}
+#sheet .hd .nm{font-size:19px;font-weight:600;line-height:1.2}
+#sheet .hd .sb{font-size:12.5px;opacity:.82;margin-top:3px}
+#sheet .bd{padding:6px 16px 14px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid #efece4}
+.row:last-child{border-bottom:0}
+.row .k{color:#8a8a8e;font-size:12px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.row .v{font-size:14px;text-align:right;font-weight:500}
+.daystrip{display:flex;gap:4px;margin:8px 0 2px;justify-content:flex-end}
+.daystrip span{width:32px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;background:#f4f1ea;color:#c4c0b6;border:1px solid #e4e1d8}
+.daystrip span.on{background:#2E5D3A;color:#fff;border-color:#2E5D3A}
+.dayword{text-align:right;font-size:13.5px;font-weight:600;color:#2E5D3A;margin-top:2px}
+#sheet .ft{padding:10px 16px 14px;display:flex;justify-content:flex-end}
+#sheet .ft button{border:1px solid #d0cec8;background:#faf9f6;border-radius:8px;padding:7px 16px;font-size:13.5px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -33,6 +52,13 @@ h1{font-size:20px;margin-bottom:2px}
 <div class="sub">Live from the Register · ages on Sep 1 · read-only — placement changes are Dan&#39;s hand <span id="stat"></span></div>
 <div id="hsn" class="hsnote" style="display:none">Homeschool à-la-carte children by attendance day.</div>
 <div id="cols">Loading the Register…</div>
+<div id="scrim" onclick="if(event.target.id==='scrim')closeSheet()">
+  <div id="sheet" role="dialog" aria-modal="true">
+    <div class="hd"><div class="nm" id="sh-name"></div><div class="sb" id="sh-sub"></div></div>
+    <div class="bd" id="sh-body"></div>
+    <div class="ft"><button onclick="closeSheet()">Close</button></div>
+  </div>
+</div>
 <div id="toast"></div>
 <script>
 var API="https://script.google.com/macros/s/AKfycbxnK8E8Cj6rq-t3_dM6Rwvq46RstXx8O-ymvQBOMf7uzEc3IG46heqoqJtUqnlFCfoq/exec";
@@ -59,6 +85,7 @@ function card(k,drag){
   var el=document.createElement("div");
   el.className="card"+(k.status==="Committed"?" committed":"");
   el.innerHTML="<span>"+k.name+"</span><span class=a>"+(k.age===""?"?":k.age)+"</span>";
+  el.onclick=function(){openSheet(k);};
   return el;
 }
 function render(){
@@ -82,6 +109,45 @@ function colEl(code,label,members,draggable){
   members.sort(function(a,b){return (b.age||0)-(a.age||0);}).forEach(function(k){z.appendChild(card(k,draggable));});
   col.appendChild(z);return col;
 }
+
+var DAYNAMES={M:"Monday",Tu:"Tuesday",W:"Wednesday",Th:"Thursday",F:"Friday"};
+var DAYORDER=["M","Tu","W","Th","F"];
+var CLASSNAMES={YE:"Younger Elementary",OE:"Older Elementary",YM:"Younger Middle",JH:"Junior High",HS:"High School"};
+
+function daysInWords(d){
+  d=d||{};
+  var on=DAYORDER.filter(function(x){return d[x];});
+  if(!on.length)return "No days recorded";
+  if(on.length===5)return "Monday to Friday";
+  var contiguous=true;
+  for(var i=1;i<on.length;i++){
+    if(DAYORDER.indexOf(on[i])!==DAYORDER.indexOf(on[i-1])+1){contiguous=false;break;}
+  }
+  if(contiguous&&on.length>2)return DAYNAMES[on[0]]+" to "+DAYNAMES[on[on.length-1]];
+  return on.map(function(x){return DAYNAMES[x];}).join(", ");
+}
+function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function row(k,v){return '<div class="row"><span class="k">'+k+'</span><span class="v">'+v+'</span></div>';}
+
+function openSheet(k){
+  var cls=k.placed||"";
+  var clsLabel=CLASSNAMES[cls]||(cls==="\u2014"||!cls?"Not yet placed":cls);
+  document.getElementById("sh-name").textContent=k.name;
+  document.getElementById("sh-sub").textContent=(k.age===""||k.age==null?"Age unknown":"Age "+k.age+" on 1 September")+" \u00b7 "+(k.status||"\u2014");
+
+  var strip='<div class="daystrip">'+DAYORDER.map(function(x){
+    return '<span class="'+((k.days&&k.days[x])?"on":"")+'">'+x+'</span>';}).join("")+'</div>'+
+    '<div class="dayword">'+esc(daysInWords(k.days))+'</div>';
+
+  var html="";
+  html+=row("Class",esc(clsLabel));
+  html+=row("Program",esc(k.program||"\u2014"));
+  html+='<div class="row" style="display:block"><span class="k">Days attending</span>'+strip+'</div>';
+  document.getElementById("sh-body").innerHTML=html;
+  document.getElementById("scrim").className="show";
+}
+function closeSheet(){document.getElementById("scrim").className="";}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet();});
 
 function toast(m){var t=document.getElementById("toast");t.textContent=m;t.className="show";clearTimeout(t._x);t._x=setTimeout(function(){t.className="";},2600);}
 function fail(e){toast("FAILED: "+((e&&e.message)||e));}
