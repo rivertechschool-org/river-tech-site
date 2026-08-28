@@ -681,6 +681,49 @@ body.sched-fs-lock .scroll-to-top{display:none}
     panel.style.transform = 'translateX(' + ((availW - best.natW * best.k) / 2) + 'px) scale(' + best.k + ')';
   }
 
+  /* On a screen that sits open on a wall or a desk all morning, the useful
+     default is the class happening right now. Ten seconds after anyone stops
+     touching it, the view finds its way back there on its own. */
+  var IDLE_MS = 10000;
+  var idleTimer = null, selfScroll = false, selfScrollTimer = null;
+
+  function clearIdle() { clearTimeout(idleTimer); idleTimer = null; }
+
+  function armIdle() {
+    clearIdle();
+    if (!container.classList.contains('sched-fs') || mode !== 'today') return;
+    idleTimer = setTimeout(scrollToNow, IDLE_MS);
+  }
+
+  function scrollToNow() {
+    if (!container.classList.contains('sched-fs') || mode !== 'today') return;
+    var el = live.querySelector('.sched-live-slot.is-now');
+    var target = 0;                       // nothing running: back to the top
+    if (el) {
+      // Clear the sticky toolbar, so the slot heading is not hidden under it.
+      var tools = container.querySelector('.sched-tools');
+      var gap = (tools ? tools.getBoundingClientRect().height : 0) + 10;
+      target = container.scrollTop +
+        (el.getBoundingClientRect().top - container.getBoundingClientRect().top) - gap;
+      target = Math.max(0, target);
+    }
+    if (Math.abs(target - container.scrollTop) < 2) return;
+    // Our own scroll would otherwise read as activity and re-arm the timer
+    // against itself, so it is flagged and ignored while it settles.
+    selfScroll = true;
+    clearTimeout(selfScrollTimer);
+    selfScrollTimer = setTimeout(function () { selfScroll = false; }, 1200);
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (container.scrollTo) container.scrollTo({ top: target, behavior: still ? 'auto' : 'smooth' });
+    else container.scrollTop = target;
+  }
+
+  function activity() { if (!selfScroll) armIdle(); }
+  ['scroll', 'wheel', 'touchstart', 'touchmove', 'pointerdown'].forEach(function (ev) {
+    container.addEventListener(ev, activity, { passive: true });
+  });
+  document.addEventListener('keydown', activity);
+
   function setMode(next) {
     mode = next;
     container.classList.toggle('sched-mode-today', next === 'today');
@@ -696,7 +739,9 @@ body.sched-fs-lock .scroll-to-top{display:none}
       try { renderLive(); }
       catch (err) { if (window.console) console.error(err); setMode('week'); return; }
       container.scrollTop = 0;
+      armIdle();
     } else {
+      clearIdle();
       requestAnimationFrame(fit);
     }
   }
@@ -707,6 +752,7 @@ body.sched-fs-lock .scroll-to-top{display:none}
     document.documentElement.classList.toggle('sched-fs-lock', on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     if (on) { setMode('today'); return; }
+    clearIdle();
     container.classList.remove('sched-fs-key', 'sched-mode-today', 'sched-mode-week');
     if (keyBtn) keyBtn.setAttribute('aria-pressed', 'false');
     live.hidden = true;
@@ -761,9 +807,13 @@ body.sched-fs-lock .scroll-to-top{display:none}
   // may sit open all morning. Re-rendered rather than patched, which also picks
   // up the roll into a new day.
   setInterval(function () {
-    if (container.classList.contains('sched-fs') && mode === 'today') {
-      try { renderLive(); } catch (err) { if (window.console) console.error(err); }
-    }
+    if (!container.classList.contains('sched-fs') || mode !== 'today') return;
+    // Re-rendering must not yank the page out from under someone reading it:
+    // hold their place, and let the idle timer do the moving.
+    var where = container.scrollTop;
+    try { renderLive(); } catch (err) { if (window.console) console.error(err); return; }
+    container.scrollTop = where;
+    armIdle();
   }, 30000);
   // Rotating an iPad changes both dimensions; re-fit rather than leave it wrong.
   var pending;
