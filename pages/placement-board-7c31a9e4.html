@@ -25,6 +25,8 @@ h1{font-size:20px;margin-bottom:2px}
 #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
 .hsnote{color:#8a8a8e;font-size:12px;margin:6px 0 10px}
+.card.lifted{opacity:.35}
+.card.ghost{position:fixed;z-index:999;pointer-events:none;opacity:.92;box-shadow:0 10px 24px rgba(0,0,0,.35);margin:0;left:0;top:0;}
 </style>
 </head>
 <body>
@@ -81,6 +83,7 @@ function card(k,drag){
   el.className="card"+(k.status==="Committed"?" committed":"");
   el.innerHTML="<span>"+k.name+"</span><span class=a>"+(k.age===""?"?":k.age)+"</span>";
   if(drag){el.draggable=true;el.ondragstart=function(ev){ev.dataTransfer.setData("text",k.name);};}
+  if(drag)enableTouchDrag(el,k);
   return el;
 }
 function render(){
@@ -103,6 +106,7 @@ function colEl(code,label,members,draggable){
   var z=document.createElement("div");z.className="zone";
   members.sort(function(a,b){return (b.age||0)-(a.age||0);}).forEach(function(k){z.appendChild(card(k,draggable));});
   if(draggable){
+    z.dataset.code=code;
     z.ondragover=function(ev){ev.preventDefault();z.classList.add("over");};
     z.ondragleave=function(){z.classList.remove("over");};
     z.ondrop=function(ev){ev.preventDefault();z.classList.remove("over");var name=ev.dataTransfer.getData("text");move(name,code);};
@@ -122,6 +126,66 @@ function move(name,code){
 }
 function toast(m){var t=document.getElementById("toast");t.textContent=m;t.className="show";clearTimeout(t._x);t._x=setTimeout(function(){t.className="";},2600);}
 function fail(e){toast("FAILED: "+((e&&e.message)||e));}
+
+/* Touch drag (added 2026-08-28): HTML5 drag events never fire on touchscreens,
+   so cards could not move on iPad. Hold a card ~250ms, then drag; drop on a column.
+   A quick swipe still scrolls the page. Reuses move() exactly as mouse drag does. */
+var TD={el:null,ghost:null,name:null,timer:null,active:false,sx:0,sy:0};
+function enableTouchDrag(el,k){
+  el.addEventListener("touchstart",function(ev){
+    if(ev.touches.length!==1)return;
+    var t=ev.touches[0];TD.sx=t.clientX;TD.sy=t.clientY;TD.name=k.name;TD.el=el;TD.active=false;
+    clearTimeout(TD.timer);
+    TD.timer=setTimeout(function(){TD.active=true;el.classList.add("lifted");startGhost(el,TD.sx,TD.sy);if(navigator.vibrate)navigator.vibrate(30);},250);
+  },{passive:true});
+  el.addEventListener("touchmove",function(ev){
+    var t=ev.touches[0];
+    if(!TD.active){
+      if(Math.abs(t.clientX-TD.sx)>10||Math.abs(t.clientY-TD.sy)>10)clearTimeout(TD.timer);
+      return;
+    }
+    ev.preventDefault();
+    moveGhost(t.clientX,t.clientY);
+    highlightZone(t.clientX,t.clientY);
+  },{passive:false});
+  el.addEventListener("touchend",function(ev){
+    clearTimeout(TD.timer);
+    if(!TD.active)return;
+    var t=ev.changedTouches[0];
+    var z=zoneAt(t.clientX,t.clientY);
+    var name=TD.name;
+    cleanupTouch();
+    if(z)move(name,z.dataset.code);
+  });
+  el.addEventListener("touchcancel",function(){clearTimeout(TD.timer);cleanupTouch();});
+}
+function startGhost(el,x,y){
+  var g=el.cloneNode(true);g.className+=" ghost";
+  var r=el.getBoundingClientRect();g.style.width=r.width+"px";
+  document.body.appendChild(g);TD.ghost=g;moveGhost(x,y);
+}
+function moveGhost(x,y){if(TD.ghost){TD.ghost.style.left=(x-50)+"px";TD.ghost.style.top=(y-24)+"px";}}
+function zoneAt(x,y){
+  var n=document.elementFromPoint(x,y);
+  while(n&&n!==document.body){
+    if(n.classList&&n.classList.contains("zone")&&n.dataset&&n.dataset.code)return n;
+    n=n.parentNode;
+  }
+  return null;
+}
+function highlightZone(x,y){
+  var z=zoneAt(x,y);
+  [].forEach.call(document.querySelectorAll(".zone.over"),function(e){if(e!==z)e.classList.remove("over");});
+  if(z)z.classList.add("over");
+}
+function cleanupTouch(){
+  if(TD.ghost&&TD.ghost.parentNode)TD.ghost.parentNode.removeChild(TD.ghost);
+  TD.ghost=null;TD.active=false;
+  if(TD.el)TD.el.classList.remove("lifted");
+  TD.el=null;
+  [].forEach.call(document.querySelectorAll(".zone.over"),function(e){e.classList.remove("over");});
+}
+
 load();
 </script>
 </body>
