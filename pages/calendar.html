@@ -200,47 +200,86 @@
 .schedule-tabs-container .schedule-table .assembly-row td,
 .schedule-tabs-container .schedule-table .end-row td{color:#6b7280 !important;font-weight:400}
 .schedule-tabs-container .sfoot{font-size:.8rem;color:#666;font-style:italic;text-align:center;margin:.5rem 0 0;line-height:1.5}
-/* ---- Full-screen view -------------------------------------------------
-   The master table is 1000px wide inside a 1100px column, so on most laptops
-   it is read through a horizontal scroll. This hands the whole widget the
-   viewport instead. Driven by a CLASS, not :fullscreen alone: iOS Safari has
-   no element fullscreen at all, so there the class alone pins the widget over
-   the page and the feature still works. Lives outside the schedule-panel divs
-   so tools/build_schedule.py apply never rewrites it. */
-.sched-tools{display:flex;justify-content:flex-end;margin:14px 0 -10px}
-.sched-fs-btn{display:inline-flex;align-items:center;background:var(--color-white);
+/* ---- Full screen: the whole grid on one screen -------------------------
+   The point of this on an iPad is seeing the entire week at once, so the
+   container never scrolls in this state. The grid is laid out at whatever
+   width comes out shortest and then scaled by script to the room that is
+   left over -- see the fit() routine below the container. Everything here
+   sits outside the schedule-panel divs, so tools/build_schedule.py apply
+   never rewrites it. */
+.sched-tools{display:flex;justify-content:flex-end;gap:8px;margin:14px 0 -10px}
+.sched-fs-btn,.sched-key-btn{display:inline-flex;align-items:center;background:var(--color-white);
   border:1.5px solid #d8d2c4;border-radius:6px;font-family:var(--font-display);
   font-size:13px;font-weight:600;color:#555;padding:7px 14px;cursor:pointer;
   line-height:1;transition:border-color .18s,color .18s}
-.sched-fs-btn:hover{border-color:var(--color-red);color:var(--color-red)}
-.sched-fs-btn:focus-visible{outline:2px solid var(--color-red);outline-offset:2px}
+.sched-fs-btn:hover,.sched-key-btn:hover{border-color:var(--color-red);color:var(--color-red)}
+.sched-fs-btn:focus-visible,.sched-key-btn:focus-visible{outline:2px solid var(--color-red);outline-offset:2px}
 .sched-fs-btn > span{display:inline-flex;align-items:center;gap:7px}
 .sched-fs-btn svg{width:15px;height:15px;flex:none}
 .sched-fs-btn .sched-fs-exit{display:none}
 .sched-fs .sched-fs-btn .sched-fs-enter{display:none}
 .sched-fs .sched-fs-btn .sched-fs-exit{display:inline-flex}
+/* The key is already on the page below; it is only worth a button once the
+   legends have been folded away to give the grid the screen. */
+.sched-key-btn{display:none}
+.sched-fs .sched-key-btn{display:inline-flex}
+.sched-fs .sched-key-btn[aria-pressed="true"]{border-color:var(--color-red);color:var(--color-red)}
 
 .schedule-tabs-container.sched-fs{position:fixed;top:0;right:0;bottom:0;left:0;
-  z-index:2000;margin:0;background:var(--color-white);overflow:auto;
-  -webkit-overflow-scrolling:touch;padding:14px 22px 28px}
-/* The toolbar stays reachable while the grid scrolls. It is a direct child of
-   the container, so it sticks against the container's scrollport. The table's
-   own sticky header is NOT touched here: its scrollport is .schedule-table-wrap
-   (overflow-x:auto makes that element the scroller), so giving it a top offset
-   shifts it down over the first row instead of clearing the toolbar. */
-.schedule-tabs-container.sched-fs .sched-tools{position:sticky;top:0;z-index:4;
-  background:var(--color-white);margin:0;padding:4px 0 10px}
-.schedule-tabs-container.sched-fs .schedule-table-wrap{margin-bottom:0}
-body.sched-fs-lock{overflow:hidden}
+  z-index:2000;margin:0;background:var(--color-white);overflow:hidden;
+  padding:10px 12px 12px}
+.schedule-tabs-container.sched-fs .schedule-date{font-size:12px;margin:0 0 2px}
+.schedule-tabs-container.sched-fs .sched-tools{margin:0;padding:2px 0 6px}
+.schedule-tabs-container.sched-fs .schedule-tabs{margin:0}
+/* Folded away by default so the grid gets the whole screen; the Key button
+   brings them back and the grid rescales around them. */
+.schedule-tabs-container.sched-fs .schedule-legend,
+.schedule-tabs-container.sched-fs .sfoot{display:none}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-legend{display:flex}
+.schedule-tabs-container.sched-fs.sched-fs-key .sfoot{display:block}
+/* With the key and the notes open there is nothing left to fit them into, and
+   shrinking the lot to 5pt helps nobody. That state reads at full size and
+   scrolls instead; the fitted grid is one tap away. */
+.schedule-tabs-container.sched-fs.sched-fs-key{overflow:auto}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-table-wrap{overflow-x:auto}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-table{min-width:700px !important}
+/* The panel is measured and scaled as one block, so it must be free to lay out
+   at its own width: no inner scroller, no minimum, no stray margins. */
+.schedule-tabs-container.sched-fs .schedule-panel{transform-origin:top left}
+.schedule-tabs-container.sched-fs .schedule-table-wrap{overflow:visible;margin:0}
+.schedule-tabs-container.sched-fs .schedule-table-wrap::after{content:none !important;display:none !important}
+/* !important, not tidiness: #panel-all .schedule-table sets min-width:1000px
+   and an ID outranks any class selector. Without this the master grid cannot
+   lay out narrower than 1000px and overflows the screen in portrait. */
+.schedule-tabs-container.sched-fs .schedule-table{min-width:0 !important}
+/* The root has its own overflow-x, so body's overflow never propagates to the
+   viewport: without locking html as well the page keeps scrolling behind the
+   pinned view and its scrollbar eats 15px of the width the grid is fitted to. */
+html.sched-fs-lock,body.sched-fs-lock{overflow:hidden}
 body.sched-fs-lock .scroll-to-top{display:none}
 @media(max-width:700px){.sched-tools{justify-content:center;margin:14px 0 0}}
+
+/* Below 900px a site-wide rule raises every table cell to 15px !important for
+   phone reading. On an iPad in portrait that lands here and makes the grid
+   400px taller, which costs far more than the larger type gains -- the whole
+   block is about to be scaled to the screen anyway. Restore the desktop sizes,
+   which is all these declarations are. */
+@media(max-width:900px){
+  .sched-fs .schedule-table td,
+  .sched-fs .schedule-table th{font-size:13px !important}
+  .sched-fs #panel-all .schedule-table td,
+  .sched-fs #panel-all .schedule-table th{font-size:11.5px !important}
+  .sched-fs #panel-all .schedule-table .time-cell{font-size:12px !important}
+  .sched-fs .schedule-legend span{font-size:13px !important}
+  .sched-fs .sfoot{font-size:.8rem !important}
+}
 </style>
 <div class="schedule-tabs-container" data-default-tab="all">
 <p class="schedule-date"><strong>2026&ndash;27 &middot; Quarter 1</strong> &middot; The Heart Church, Post Falls</p>
 <div class="schedule-legend"><span><strong>Teachers:</strong></span> <span>(CA) Caitlyn</span> <span>(CR) Cristina</span> <span>(DA) Dan</span> <span>(JO) Jordan</span> <span>(LU) Luke</span> <span>(MA) Mary</span> <span>(PH) Phil</span> <span>(TI) Tiffany</span> <span>(PE) Penny</span> <span>(EM) Emily</span> <span>(RY) Ryan</span> <span>(KI) Kirsten</span> <span>(CH) Charlotte</span> <span>(EV) Evelyn</span> <span>(AN) Angie</span> <span>(KA) Kara</span></div>
 <div class="schedule-legend"><span><strong>Rooms:</strong></span> <span>☕ Cafe/Assembly</span> <span>🚀 Upper Middle School</span> <span>🌳 Younger Middle School</span> <span>☀ Upper Elementary</span> <span>💡 Younger Elementary</span> <span>🎨 Crafts Room</span> <span>📚 Study Room</span> <span>🎻 Music Rooms</span> <span>💃 Dance Hall</span> <span>🤖 Robotic Area</span> <span>🎤 Stage/Sanctuary</span></div>
 <div class="schedule-tabs"><button class="schedule-tab active" data-tab="all">All Classes<br><small>whole school</small></button><button class="schedule-tab" data-tab="elem">Elementary<br><small>1st&ndash;4th</small></button><button class="schedule-tab" data-tab="ms">Middle School<br><small>5th&ndash;6th</small></button><button class="schedule-tab" data-tab="jh">Junior High<br><small>7th&ndash;8th</small></button><button class="schedule-tab" data-tab="hs">High School<br><small>9th&ndash;12th</small></button><button class="schedule-tab" data-tab="home">Homeschoolers</button></div>
-<div class="sched-tools"><button type="button" class="sched-fs-btn" aria-pressed="false"><span class="sched-fs-enter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>Full screen</span><span class="sched-fs-exit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>Exit full screen</span></button></div>
+<div class="sched-tools"><button type="button" class="sched-fs-btn" aria-pressed="false"><span class="sched-fs-enter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>Full screen</span><span class="sched-fs-exit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>Exit full screen</span></button><button type="button" class="sched-key-btn" aria-pressed="false">Key &amp; notes</button></div>
 <div class="schedule-panel" id="panel-all"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr class="assembly-row"><td class="time-cell">8:30&ndash;8:45</td><td colspan="5">Assembly</td></tr><tr><td class="time-cell">8:45&ndash;9:35</td><td><span style="color:#B03A2E">English (CA) &#9749;</span><br><span style="color:#8A6D1B">Math (LU) 🚀</span><br><span style="color:#7D3C98">English (DA) 🌳</span><br><span style="color:#2471A3">Math (TI) 🎨</span></td><td><span style="color:#B03A2E">English (CA) &#9749;</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br><span style="color:#7D3C98">Math (LU) 🌳</span><br><span style="color:#1E8449">Math (TI) ☀</span><br><span style="color:#CA6F1E">Math (MA) 💡</span></td><td><span style="color:#B03A2E">English (CA) &#9749;</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br><span style="color:#7D3C98">Math (DA) 🌳</span><br><span style="color:#2471A3"><span style="color:#2471A3">P.E. at The Park or Library</span><br><span style="color:#2471A3">(LU &amp; TI)</span></span><br><span style="color:#2471A3"><small>8:45&ndash;10:20</small></span></td><td><span style="color:#B03A2E">English (CA) &#9749;</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br><span style="color:#7D3C98">Math (LU) 🌳</span><br><span style="color:#1E8449">Soc. Studies (TI) ☀</span><br><span style="color:#CA6F1E">Soc. Studies (MA) 💡</span></td><td><span style="color:#B03A2E">English (KI) &#9749;</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br><span style="color:#7D3C98">Math (LU) 🌳</span><br><span style="color:#2471A3">Math (TI &amp; EM) 🎨</span></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td><span style="color:#B03A2E">Math (LU) &#9749;</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br><span style="color:#7D3C98">Math (DA) 🌳</span><br><span style="color:#2471A3">English (TI) 🎨</span></td><td><span style="color:#B03A2E">Math (JO) &#9749;</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br><span style="color:#7D3C98">English (LU) 🌳</span><br><span style="color:#1E8449">English (TI) ☀</span><br><span style="color:#CA6F1E">English (MA) 💡</span></td><td><span style="color:#B03A2E">Math (JO) &#9749;</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br><span style="color:#7D3C98">English (DA) 🌳</span><br><span style="color:#2471A3"><span style="color:#2471A3">P.E. at The Park or Library</span><br><span style="color:#2471A3">(LU &amp; TI)</span></span><br><span style="color:#2471A3"><small>8:45&ndash;10:20</small></span></td><td><span style="color:#B03A2E">Math (JO) &#9749;</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br><span style="color:#7D3C98">English (LU) 🌳</span><br><span style="color:#1E8449">English (TI) ☀</span><br><span style="color:#CA6F1E">English (MA) 💡</span></td><td><span style="color:#B03A2E">Math (JO) &#9749;</span><br><span style="color:#8A6D1B">English (KI) 🚀</span><br><span style="color:#7D3C98">English (LU) 🌳</span><br><span style="color:#2471A3">English (TI &amp; EM) 🎨</span></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td class="prod" rowspan="2"><b>&#8220;Aladdin&#8221; &amp; Christmas Concert</b> &#127908;<br>(CH, EV &amp; DA)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alternative classes*</small></td><td><span style="color:#B03A2E">Organizational Design &amp; Management (PE) &#9749;</span><br><span style="color:#8A6D1B">Leadership Mindset (DA) 🚀</span><br><span style="color:#7D3C98">Filmmaking (LU) 🌳</span><br><span style="color:#1E8449">English (CA) ☀</span><br><span style="color:#CA6F1E">Math/English (TI) 💡</span><br><span style="color:#333333">Personal Finance &amp; Family Life [UH] (JO) 🎨</span><br><span style="color:#9AA0A6">Make &amp; Keep Friends [YH] (MA) 💃</span></td><td><span style="color:#B03A2E">Coding / AI (JO) &#9749;</span><br><span style="color:#8A6D1B">Literature (CA) 🎨</span><br><span style="color:#7D3C98">Robotics (LU) 🤖</span><br><span style="color:#2471A3">Games (TI) 💃</span></td><td><span style="color:#B03A2E">Coding / A.I. (JO) &#9749;</span><br><span style="color:#8A6D1B">Drill (LU) 💃</span><br><span style="color:#7D3C98">(A) Spanish (CR) 🎻</span><br><span style="color:#7D3C98">(B) Silent Reading (EV) 🎻</span><br><span style="color:#1E8449">Math (CH) ☀</span><br><span style="color:#CA6F1E">Math (MA) 💡</span><br><span style="color:#333333">Creative Writing [UH] (CA) 🚀</span><br><span style="color:#9AA0A6">Fine Arts [YH] (TI) 🎨</span></td><td><span style="color:#B03A2E">Fine Arts (TI) &#9749;</span><br><span style="color:#8A6D1B">Python (PH) 🚀</span><br><span style="color:#7D3C98">P.E. (MA) 💃</span><br><span style="color:#2471A3">P.E. (MA) 💃</span><br><span style="color:#333333">Robotics [UH] (JO &amp; EM) 🤖</span><br><span style="color:#9AA0A6">Film Making [YH] (LU &amp; KI) 🎨</span></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td><span style="color:#B03A2E">Leadership Mindset (PE) &#9749;</span><br><span style="color:#8A6D1B">Coding (JO) 🚀</span><br><span style="color:#7D3C98">Soc. Studies (CA) 🌳</span><br><span style="color:#1E8449">Science (TI) ☀</span><br><span style="color:#CA6F1E">Science (MA) 💡</span><br><span style="color:#333333">Leadership Mindset [UH] (DA) 🎨</span><br><span style="color:#9AA0A6">Money [YH] (LU) 💃</span></td><td><span style="color:#B03A2E">Soc. Studies (CA) &#128131;</span><br><span style="color:#8A6D1B">Coding (JO) 🚀</span><br><span style="color:#7D3C98">Coding (LU) 🎻</span><br><span style="color:#2471A3">Bible/Worship/Prayer (TI &amp; EV) 🎨</span></td><td><span style="color:#B03A2E">Year Book (JO) &#9749;</span><br><span style="color:#8A6D1B">Filmmaking (LU) 🚀</span><br><span style="color:#7D3C98">Fine Art (TI) 🎨</span><br><span style="color:#2471A3">(A) Spanish (CR) 🎻</span><br><span style="color:#2471A3">(B) Silent Reading (MA) 🎻</span><br><span style="color:#333333">Critical Thinking &amp; Debate [UH] (DA) 💃</span><br><span style="color:#9AA0A6">Creative Writing [YH] (CA) 🌳</span></td><td><span style="color:#B03A2E">Python (PH) &#9749;</span><br><span style="color:#8A6D1B">Bible (KI) 💃</span><br><span style="color:#7D3C98">Crafts (MA) 🎨</span><br><span style="color:#2471A3">Sketchbook Pro (TI) 🎻</span><br><span style="color:#333333">A.I. &amp; Machine Learning [UH] (JO &amp; DA) 🚀</span><br><span style="color:#9AA0A6">Robotics [YH] (LU &amp; EM) 🤖</span></td></tr><tr class="lunch-row"><td class="time-cell">Lunch</td><td><span style="color:#B03A2E">Lunch</span><br><span style="color:#8A6D1B">Lunch</span><br><span style="color:#7D3C98">Lunch</span><br><span style="color:#2471A3">Lunch</span><br><span style="color:#333333">Performers&#8217; Lunch (AN, KA, CH, EV)</span></td><td><span style="color:#B03A2E">P.E. &amp; Lunch at The Park (JO &amp; CA)</span><br><span style="color:#8A6D1B">Lunch</span><br><span style="color:#7D3C98">Lunch</span><br><span style="color:#2471A3">Lunch</span><br><span style="color:#333333">Lunch Rotation</span></td><td><span style="color:#B03A2E">Lunch</span><br><span style="color:#8A6D1B">Lunch</span><br><span style="color:#7D3C98">P.E. &amp; Lunch at The Park (JO &amp; CH)</span><br><span style="color:#2471A3">Lunch</span></td><td><span style="color:#B03A2E">Lunch</span><br><span style="color:#8A6D1B">P.E. &amp; Lunch at The Park (JO &amp; CA)</span><br><span style="color:#7D3C98">Lunch</span><br><span style="color:#2471A3">Lunch</span><br><span style="color:#333333">Lunch Rotation</span></td><td><span style="color:#B03A2E">Lunch</span><br><span style="color:#8A6D1B">Lunch</span><br><span style="color:#7D3C98">Lunch</span><br><span style="color:#2471A3">P.E. &amp; Lunch at The Park (JO &amp; LU)</span><br><span style="color:#333333">Lunch Rotation</span></td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td class="prod" rowspan="2"><b>&#8220;Peter &amp; Alice — The Way Home&#8221;</b> &#127908;<br>Talent Show &amp; Summer Concert<br>(DA, CH &amp; EV)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alternative classes*</small></td><td><span style="color:#B03A2E">Filmmaking (RY &amp; LU) &#128131;</span><br><span style="color:#8A6D1B">Study Hall (MA) 🎻</span><br><span style="color:#7D3C98">Literature (CA) 🌳</span><br><span style="color:#2471A3">Nutrition &amp; Health (TI &amp; EM) 🎨</span><br><span style="color:#333333">Chemistry [UH] (JO) ☕</span><br><span style="color:#9AA0A6">Big Picture Geography [YH] (KI) 🚀</span></td><td><span style="color:#B03A2E">(A) Dance (CA) &#127908;</span><br><span style="color:#B03A2E">(B) Piano (DA)</span><br><span style="color:#B03A2E">(C) Ukulele (LU)</span><br><span style="color:#8A6D1B">Physics (JO) ☕</span><br><span style="color:#7D3C98">Drawing / Silent Reading (EV) 🌳</span><br><span style="color:#2471A3">Performing Arts Production (TI &amp; CH) 💃</span></td><td><span style="color:#B03A2E">Literature (CA) &#128131;</span><br><span style="color:#8A6D1B">(A) Spanish (CR) 🎻</span><br><span style="color:#8A6D1B">(B) Study Hall (LU) 🎻</span><br><span style="color:#7D3C98">Science (JO) 🌳</span><br><span style="color:#2471A3">Drawing (CH &amp; EM) 🚀</span><br><span style="color:#333333">Fine Art [UH] (TI) ☕</span><br><span style="color:#9AA0A6">Crafts [YH] (MA) 🎨</span></td><td><span style="color:#B03A2E">Bible (KI) &#128131;</span><br><span style="color:#8A6D1B">Robotics (PH) 🤖</span><br><span style="color:#7D3C98">Sketchbook Pro (TI) 🌳</span><br><span style="color:#2471A3">Coding (LU) 🎨</span><br><span style="color:#333333">Coding [UH] (JO &amp; EV) ☕</span><br><span style="color:#9AA0A6">Coding [YH] (CH &amp; EM) 🚀</span></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td><span style="color:#B03A2E">Filmmaking (RY &amp; LU) &#128131;</span><br><span style="color:#8A6D1B">Soc. Studies (CA) 🚀</span><br><span style="color:#7D3C98">Study Hall (MA) 🎻</span><br><span style="color:#2471A3">Nutrition &amp; Health (TI &amp; EM) 🎨</span><br><span style="color:#333333">Big Picture Geography [UH] (KI) 🌳</span><br><span style="color:#9AA0A6">Chemistry [YH] (JO) ☕</span></td><td><span style="color:#B03A2E">Physics (JO) &#9749;</span><br><span style="color:#8A6D1B">(A) Dance (CA) 💃</span><br><span style="color:#8A6D1B">(B) Piano (DA) 🎻</span><br><span style="color:#8A6D1B">(C) Ukulele (LU) 🎻</span><br><span style="color:#7D3C98">(A) Dance (CA) 💃</span><br><span style="color:#7D3C98">(B) Piano (DA) 🎻</span><br><span style="color:#7D3C98">(C) Ukulele (LU) 🎻</span><br><span style="color:#2471A3">Free Play (TI) 🎨</span></td><td><span style="color:#B03A2E">(A) Spanish (CR)</span><br><span style="color:#B03A2E">(B) Study Hall (DA)</span><br><span style="color:#8A6D1B">Coding (JO) 🚀</span><br><span style="color:#7D3C98">Bible (LU) 🌳</span><br><span style="color:#2471A3">Crafts (MA &amp; EM) 🎨</span><br><span style="color:#333333">Fine Art [UH] (TI) ☕</span><br><span style="color:#9AA0A6">Critical Thinking &amp; Debate [YH] (CA) 💃</span></td><td><span style="color:#B03A2E">Robotics (PH) &#127950;</span><br><span style="color:#8A6D1B">Fine Arts (TI) ☕</span><br><span style="color:#7D3C98">Coding (JO) 🌳</span><br><span style="color:#2471A3">Fine Arts (MA &amp; EM) 🎨</span><br><span style="color:#333333">Film Making [UH] (LU &amp; KI) 💃</span><br><span style="color:#9AA0A6">Digital Arts [YH] (CH &amp; EV) 🚀</span></td></tr></tbody></table></div><p class="sfoot"><strong>Every class, every level, side by side.</strong> Colour shows the level: <span style="color:#B03A2E">High School</span> &middot; <span style="color:#8A6D1B">Junior High</span> &middot; <span style="color:#7D3C98">Middle School</span> &middot; <span style="color:#2471A3">Elementary</span> (<span style="color:#1E8449">3rd&ndash;4th</span>, <span style="color:#CA6F1E">1st&ndash;2nd</span>) &middot; <span style="color:#333">Homeschool [UH]</span> &middot; <span style="color:#9AA0A6">Homeschool [YH]</span>. The table is wide &mdash; scroll it sideways to reach Friday, or pick a level tab above to see that level on its own.</p><p class="sfoot">* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.</p><p class="sfoot">Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).</p><p class="sfoot">Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.</p><p class="sfoot">Q1, as of Aug 19, 2026 — subject to change.</p><p class="sfoot">Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.</p><p class="sfoot">Q1, as of Aug 19, 2026 &mdash; subject to change.</p><p class="sfoot">[UH] = upper homeschoolers &middot; [YH] = younger homeschoolers. Homeschoolers attend Monday, Tuesday, Thursday and Friday.</p></div><div class="schedule-panel" id="panel-elem"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr class="assembly-row"><td class="time-cell">8:30&ndash;8:45</td><td colspan="5">Assembly</td></tr><tr><td class="time-cell">8:45&ndash;9:35</td><td>Math (TI) 🎨</td><td><span style="color:#1E8449">Math (TI) ☀</span><br><span style="color:#CA6F1E">Math (MA) 💡</span></td><td rowspan="2"><span style="color:#2471A3">P.E. at The Park or Library<br>(LU &amp; TI)</span><br><small>8:45&ndash;10:20</small></td><td><span style="color:#1E8449">Soc. Studies (TI) ☀</span><br><span style="color:#CA6F1E">Soc. Studies (MA) 💡</span></td><td>Math (TI &amp; EM) 🎨</td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>English (TI) 🎨</td><td><span style="color:#1E8449">English (TI) ☀</span><br><span style="color:#CA6F1E">English (MA) 💡</span></td><td><span style="color:#1E8449">English (TI) ☀</span><br><span style="color:#CA6F1E">English (MA) 💡</span></td><td>English (TI &amp; EM) 🎨</td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td class="prod" rowspan="2"><b>&#8220;Aladdin&#8221; &amp; Christmas Concert</b> 🎤<br>(CH, EV &amp; DA)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td><span style="color:#1E8449">English (CA) ☀</span><br><span style="color:#CA6F1E">Math/English (TI) 💡</span></td><td>Games (TI) 💃</td><td><span style="color:#1E8449">Math (CH) ☀</span><br><span style="color:#CA6F1E">Math (MA) 💡</span></td><td>P.E. (MA) 💃</td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td><span style="color:#1E8449">Science (TI) ☀</span><br><span style="color:#CA6F1E">Science (MA) 💡</span></td><td>Bible/Worship/Prayer (TI &amp; EV) 🎨</td><td>(A) Spanish (CR) 🎻<br>(B) Silent Reading (MA) 🎻</td><td>Sketchbook Pro (TI) 🎻</td></tr><tr class="lunch-row"><td class="time-cell">Lunch</td><td>Lunch</td><td>Lunch</td><td>Lunch</td><td>Lunch</td><td>P.E. &amp; Lunch at The Park (JO &amp; LU)</td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td class="prod" rowspan="2"><b>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221;</b> 🎤<br>Talent Show &amp; Summer Concert<br>(DA, CH &amp; EV)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Nutrition &amp; Health (TI &amp; EM) 🎨</td><td>Performing Arts Production (TI &amp; CH) 💃</td><td>Drawing (CH &amp; EM) 🚀</td><td>Coding (LU) 🎨</td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td>Nutrition &amp; Health (TI &amp; EM) 🎨</td><td>Free Play (TI) 🎨</td><td>Crafts (MA &amp; EM) 🎨</td><td>Fine Arts (MA &amp; EM) 🎨</td></tr></tbody></table></div><p class="sfoot">* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.</p><p class="sfoot">Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).</p><p class="sfoot">Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.</p><p class="sfoot">Q1, as of Aug 19, 2026 &mdash; subject to change.</p></div>
 <div class="schedule-panel" id="panel-ms"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr class="assembly-row"><td class="time-cell">8:30&ndash;8:45</td><td colspan="5">Assembly</td></tr><tr><td class="time-cell">8:45&ndash;9:35</td><td>English (DA) 🌳</td><td>Math (LU) 🌳</td><td><span style="color:#B03A2E">English (CA) ☕</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br>Math (DA) 🌳</td><td><span style="color:#B03A2E">English (CA) ☕</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br>Math (LU) 🌳<br><span style="color:#1E8449">Soc. Studies (TI) ☀</span><br><span style="color:#CA6F1E">Soc. Studies (MA) 💡</span></td><td><span style="color:#B03A2E">English (KI) ☕</span><br><span style="color:#8A6D1B">Math (JO) 🚀</span><br>Math (LU) 🌳<br><span style="color:#2471A3">Math (TI &amp; EM) 🎨</span></td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>Math (DA) 🌳</td><td>English (LU) 🌳</td><td><span style="color:#B03A2E">Math (JO) ☕</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br>English (DA) 🌳</td><td><span style="color:#B03A2E">Math (JO) ☕</span><br><span style="color:#8A6D1B">English (CA) 🚀</span><br>English (LU) 🌳<br><span style="color:#1E8449">English (TI) ☀</span><br><span style="color:#CA6F1E">English (MA) 💡</span></td><td><span style="color:#B03A2E">Math (JO) ☕</span><br><span style="color:#8A6D1B">English (KI) 🚀</span><br>English (LU) 🌳<br><span style="color:#2471A3">English (TI &amp; EM) 🎨</span></td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td class="prod" rowspan="2"><b>&#8220;Aladdin&#8221; &amp; Christmas Concert</b> 🎤<br>(CH, EV &amp; DA)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Filmmaking (LU) 🌳</td><td>Robotics (LU) 🤖</td><td>(A) Spanish (CR) 🎻<br>(B) Silent Reading (EV) 🎻</td><td>P.E. (MA) 💃</td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td>Soc. Studies (CA) 🌳</td><td>Coding (LU) 🎻</td><td>Fine Art (TI) 🎨</td><td>Crafts (MA) 🎨</td></tr><tr class="lunch-row"><td class="time-cell">Lunch</td><td>Lunch</td><td>Lunch</td><td>P.E. &amp; Lunch at The Park (JO &amp; CH)</td><td>Lunch</td><td>Lunch</td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td class="prod" rowspan="2"><b>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221;</b> 🎤<br>Talent Show &amp; Summer Concert<br>(DA, CH &amp; EV)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Literature (CA) 🌳</td><td>Drawing / Silent Reading (EV) 🌳</td><td>Science (JO) 🌳</td><td>Sketchbook Pro (TI) 🌳</td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td>Study Hall (MA) 🎻</td><td>(A) Dance (CA) 💃<br>(B) Piano (DA) 🎻<br>(C) Ukulele (LU) 🎻</td><td>Bible (LU) 🌳</td><td>Coding (JO) 🌳</td></tr></tbody></table></div><p class="sfoot">* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.</p><p class="sfoot">Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).</p><p class="sfoot">Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.</p><p class="sfoot">Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.</p><p class="sfoot">Q1, as of Aug 19, 2026 &mdash; subject to change.</p></div>
 <div class="schedule-panel" id="panel-jh"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr class="assembly-row"><td class="time-cell">8:30&ndash;8:45</td><td colspan="5">Assembly</td></tr><tr><td class="time-cell">8:45&ndash;9:35</td><td>Math (LU) 🚀</td><td>Math (JO) 🚀</td><td>Math (JO) 🚀</td><td>Math (JO) 🚀</td><td>Math (JO) 🚀</td></tr><tr><td class="time-cell">9:35&ndash;10:25</td><td>English (CA) 🚀</td><td>English (CA) 🚀</td><td>English (CA) 🚀</td><td>English (CA) 🚀</td><td>English (KI) 🚀</td></tr><tr><td class="time-cell">10:25&ndash;11:05</td><td class="prod" rowspan="2"><b>&#8220;Aladdin&#8221; &amp; Christmas Concert</b> 🎤<br>(CH, EV &amp; DA)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Leadership Mindset (DA) 🚀</td><td>Literature (CA) 🎨</td><td>Drill (LU) 💃</td><td>Python (PH) 🚀</td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td>Coding (JO) 🚀</td><td>Coding (JO) 🚀</td><td>Filmmaking (LU) 🚀</td><td>Bible (KI) 💃</td></tr><tr class="lunch-row"><td class="time-cell">Lunch</td><td>Lunch</td><td>Lunch</td><td>Lunch</td><td>P.E. &amp; Lunch at The Park (JO &amp; CA)</td><td>Lunch</td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td class="prod" rowspan="2"><b>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221;</b> 🎤<br>Talent Show &amp; Summer Concert<br>(DA, CH &amp; EV)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Study Hall (MA) 🎻</td><td>Physics (JO) ☕</td><td>(A) Spanish (CR) 🎻<br>(B) Study Hall (LU) 🎻</td><td>Robotics (PH) 🤖</td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td>Soc. Studies (CA) 🚀</td><td>(A) Dance (CA) 💃<br>(B) Piano (DA) 🎻<br>(C) Ukulele (LU) 🎻</td><td>Coding (JO) 🚀</td><td>Fine Arts (TI) ☕</td></tr></tbody></table></div><p class="sfoot">* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.</p><p class="sfoot">Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).</p><p class="sfoot">Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.</p><p class="sfoot">Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.</p><p class="sfoot">Q1, as of Aug 19, 2026 &mdash; subject to change.</p></div>
@@ -248,23 +287,87 @@ body.sched-fs-lock .scroll-to-top{display:none}
 <div class="schedule-panel" id="panel-home"><div class="schedule-table-wrap"><table class="schedule-table"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody><tr><td class="time-cell">10:25&ndash;11:05</td><td class="prod" rowspan="2"><b>&#8220;Aladdin&#8221; &amp; Christmas Concert</b> 🎤<br>(CH, EV &amp; DA)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Personal Finance &amp; Family Life [UH] (JO) 🎨<br><span style="color:#9AA0A6">Make &amp; Keep Friends [YH] (MA) 💃</span></td><td>Creative Writing [UH] (CA) 🚀<br><span style="color:#9AA0A6">Fine Arts [YH] (TI) 🎨</span></td><td>Robotics [UH] (JO &amp; EM) 🤖<br><span style="color:#9AA0A6">Film Making [YH] (LU &amp; KI) 🎨</span></td></tr><tr><td class="time-cell">11:05&ndash;11:45</td><td>Leadership Mindset [UH] (DA) 🎨<br><span style="color:#9AA0A6">Money [YH] (LU) 💃</span></td><td>Critical Thinking &amp; Debate [UH] (DA) 💃<br><span style="color:#9AA0A6">Creative Writing [YH] (CA) 🌳</span></td><td>A.I. &amp; Machine Learning [UH] (JO &amp; DA) 🚀<br><span style="color:#9AA0A6">Robotics [YH] (LU &amp; EM) 🤖</span></td></tr><tr class="lunch-row"><td class="time-cell">Lunch</td><td>Performers&#8217; Lunch (AN, KA, CH, EV)</td><td>Lunch Rotation</td><td>Lunch Rotation</td><td>Lunch Rotation</td></tr><tr><td class="time-cell">1:00&ndash;1:40</td><td class="prod" rowspan="2"><b>&#8220;Peter &amp; Alice &mdash; The Way Home&#8221;</b> 🎤<br>Talent Show &amp; Summer Concert<br>(DA, CH &amp; EV)<br><small>Costumes: AN &amp; CA &middot; Props: KA</small><br><small>Non-performers: alt. classes*</small></td><td>Chemistry [UH] (JO) ☕<br><span style="color:#9AA0A6">Big Picture Geography [YH] (KI) 🚀</span></td><td>Fine Art [UH] (TI) ☕<br><span style="color:#9AA0A6">Crafts [YH] (MA) 🎨</span></td><td>Coding [UH] (JO &amp; EV) ☕<br><span style="color:#9AA0A6">Coding [YH] (CH &amp; EM) 🚀</span></td></tr><tr><td class="time-cell">1:40&ndash;2:20</td><td>Big Picture Geography [UH] (KI) 🌳<br><span style="color:#9AA0A6">Chemistry [YH] (JO) ☕</span></td><td>Fine Art [UH] (TI) ☕<br><span style="color:#9AA0A6">Critical Thinking &amp; Debate [YH] (CA) 💃</span></td><td>Film Making [UH] (LU &amp; KI) 💃<br><span style="color:#9AA0A6">Digital Arts [YH] (CH &amp; EV) 🚀</span></td></tr><tr class="assembly-row"><td class="time-cell">2:20&ndash;2:30</td><td colspan="4">Clean Up</td></tr></tbody></table></div><p class="sfoot">[UH] = upper homeschoolers &middot; [YH] = younger homeschoolers. Homeschoolers attend Monday, Tuesday, Thursday and Friday.</p><p class="sfoot">* Monday alternative classes for non-performers &mdash; <strong>10:25&ndash;11:45</strong>: Fine Art (TI) for the older half, and a class still to be named (MA) for the younger half; Music Class (LU) &#127925; runs in rotations at 10:25&ndash;10:50, 10:55&ndash;11:20 and 11:20&ndash;11:45. <strong>12:45&ndash;2:20</strong> (TI &amp; EM): a class still to be named (MA &amp; EM) for the older half, and Fine Arts (TI) for the younger half; Music Class (LU) &#127925; runs in rotations at 1:00&ndash;1:25, 1:30&ndash;1:55 and 2:00&ndash;2:25.</p><p class="sfoot">Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).</p><p class="sfoot">Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.</p><p class="sfoot">Q1, as of Aug 19, 2026 &mdash; subject to change.</p></div>
 </div>
 <script>
-/* Full-screen toggle for the schedule grid. Native Element.requestFullscreen
-   where the browser has it; iOS Safari has none, so the .sched-fs class alone
-   pins the widget over the viewport and gets the same result there. */
+/* Full screen for the schedule, sized so the whole grid lands on one screen --
+   an iPad in particular. Native Element.requestFullscreen where the browser has
+   it; iOS Safari has no element fullscreen at all, so the .sched-fs class alone
+   pins the widget over the page and the feature works there too. */
 (function () {
   var container = document.querySelector('.schedule-tabs-container');
   if (!container) return;
   var btn = container.querySelector('.sched-fs-btn');
+  var keyBtn = container.querySelector('.sched-key-btn');
   if (!btn) return;
+  var panels = [].slice.call(container.querySelectorAll('.schedule-panel'));
   var wentNative = false;
 
   function fsElement() {
     return document.fullscreenElement || document.webkitFullscreenElement || null;
   }
+  function shownPanel() {
+    for (var i = 0; i < panels.length; i++) {
+      if (panels[i].style.display !== 'none' && panels[i].offsetParent !== null) return panels[i];
+    }
+    return null;
+  }
+  function clearFit() {
+    panels.forEach(function (p) { p.style.width = ''; p.style.transform = ''; });
+  }
+
+  /* Lay the grid out at several widths and keep whichever scales up biggest.
+     Height falls as width rises (cells stop wrapping), so the best fit is a
+     trade-off rather than a formula -- cheaper to measure it than model it. */
+  var WIDTH_STEPS = [0.6, 0.75, 0.9, 1, 1.15, 1.3, 1.5, 1.75, 2];
+  var MAX_SCALE = 2;
+
+  function fit() {
+    if (!container.classList.contains('sched-fs')) return;
+    if (container.classList.contains('sched-fs-key')) { clearFit(); return; }
+    var panel = shownPanel();
+    if (!panel) return;
+    var table = panel.querySelector('.schedule-table');
+    if (!table) return;
+    panel.style.transform = 'none';
+    var cs = getComputedStyle(container);
+    var availW = container.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    var availH = container.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    // Whatever sits above the grid -- date line, legends when the key is open,
+    // the buttons, the tabs -- comes off the height the grid may use.
+    [].slice.call(container.children).forEach(function (el) {
+      if (el.classList.contains('schedule-panel')) return;
+      if (!el.offsetParent && el.offsetHeight === 0) return;
+      availH -= el.getBoundingClientRect().height;
+    });
+    availH -= 4;                                  // a hair, so nothing clips
+    if (availW <= 0 || availH <= 0) { panel.style.transform = ''; return; }
+
+    var best = null;
+    WIDTH_STEPS.forEach(function (f) {
+      var w = Math.round(availW * f);
+      if (w < 320) return;
+      panel.style.width = w + 'px';
+      // Measure what the grid ACTUALLY became, never assume it took the width
+      // it was given: a table has a minimum content width of its own and will
+      // quietly overflow the box rather than shrink below it.
+      var natW = table.getBoundingClientRect().width;
+      var natH = panel.getBoundingClientRect().height;
+      if (!natW || !natH) return;
+      var k = Math.min(availW / natW, availH / natH, MAX_SCALE);
+      if (!best || k > best.k) best = { k: k, w: w, natW: natW };
+    });
+    if (!best) { panel.style.width = ''; panel.style.transform = ''; return; }
+    panel.style.width = best.w + 'px';
+    panel.style.transform = 'translateX(' + ((availW - best.natW * best.k) / 2) + 'px) scale(' + best.k + ')';
+  }
+
   function paint(on) {
     container.classList.toggle('sched-fs', on);
     document.body.classList.toggle('sched-fs-lock', on);
+    document.documentElement.classList.toggle('sched-fs-lock', on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) { requestAnimationFrame(fit); return; }
+    container.classList.remove('sched-fs-key');
+    if (keyBtn) keyBtn.setAttribute('aria-pressed', 'false');
+    clearFit();
   }
   function enterFs() {
     paint(true);
@@ -283,8 +386,19 @@ body.sched-fs-lock .scroll-to-top{display:none}
     var exit = document.exitFullscreen || document.webkitExitFullscreen;
     if (exit && fsElement()) exit.call(document);
   }
+
   btn.addEventListener('click', function () {
     if (container.classList.contains('sched-fs')) leaveFs(); else enterFs();
+  });
+  if (keyBtn) keyBtn.addEventListener('click', function () {
+    var on = container.classList.toggle('sched-fs-key');
+    keyBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    fit();
+  });
+  // A different tab means a different grid, so re-fit after the tab script has
+  // swapped which panel is displayed.
+  container.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('.schedule-tab')) requestAnimationFrame(fit);
   });
   // Esc already leaves native fullscreen; this covers the pinned fallback.
   document.addEventListener('keydown', function (e) {
@@ -295,6 +409,14 @@ body.sched-fs-lock .scroll-to-top{display:none}
   ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (ev) {
     document.addEventListener(ev, function () {
       if (!fsElement() && wentNative) { wentNative = false; paint(false); }
+    });
+  });
+  // Rotating an iPad changes both dimensions; re-fit rather than leave it wrong.
+  var pending;
+  ['resize', 'orientationchange'].forEach(function (ev) {
+    window.addEventListener(ev, function () {
+      clearTimeout(pending);
+      pending = setTimeout(fit, 120);
     });
   });
 })();
