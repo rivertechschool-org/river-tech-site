@@ -1211,7 +1211,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Filmmaking (LU) 💃",
+         "text": "Filmmaking (LU) 🌳",
          "color": null,
          "role": null
         }
@@ -2115,33 +2115,33 @@
        "colspan": 1,
        "lines": [
         {
+         "text": "Lunch",
+         "color": null,
+         "role": null
+        }
+       ]
+      },
+      {
+       "tag": "td",
+       "class": null,
+       "rowspan": 1,
+       "colspan": 1,
+       "lines": [
+        {
+         "text": "Lunch",
+         "color": null,
+         "role": null
+        }
+       ]
+      },
+      {
+       "tag": "td",
+       "class": null,
+       "rowspan": 1,
+       "colspan": 1,
+       "lines": [
+        {
          "text": "P.E. &amp; Lunch at The Park (JO &amp; CA)",
-         "color": null,
-         "role": null
-        }
-       ]
-      },
-      {
-       "tag": "td",
-       "class": null,
-       "rowspan": 1,
-       "colspan": 1,
-       "lines": [
-        {
-         "text": "Lunch",
-         "color": null,
-         "role": null
-        }
-       ]
-      },
-      {
-       "tag": "td",
-       "class": null,
-       "rowspan": 1,
-       "colspan": 1,
-       "lines": [
-        {
-         "text": "Lunch",
          "color": null,
          "role": null
         }
@@ -2864,33 +2864,33 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
-         "color": null,
-         "role": null
-        }
-       ]
-      },
-      {
-       "tag": "td",
-       "class": null,
-       "rowspan": 1,
-       "colspan": 1,
-       "lines": [
-        {
-         "text": "Lunch",
-         "color": null,
-         "role": null
-        }
-       ]
-      },
-      {
-       "tag": "td",
-       "class": null,
-       "rowspan": 1,
-       "colspan": 1,
-       "lines": [
-        {
          "text": "P.E. &amp; Lunch at The Park (JO &amp; CA)",
+         "color": null,
+         "role": null
+        }
+       ]
+      },
+      {
+       "tag": "td",
+       "class": null,
+       "rowspan": 1,
+       "colspan": 1,
+       "lines": [
+        {
+         "text": "Lunch",
+         "color": null,
+         "role": null
+        }
+       ]
+      },
+      {
+       "tag": "td",
+       "class": null,
+       "rowspan": 1,
+       "colspan": 1,
+       "lines": [
+        {
+         "text": "Lunch",
          "color": null,
          "role": null
         }
@@ -2991,12 +2991,12 @@
          "role": null
         },
         {
-         "text": "(B) Piano (DA) 🎻",
+         "text": "(B) Piano (DA)",
          "color": null,
          "role": null
         },
         {
-         "text": "(C) Ukulele (LU) 🎻",
+         "text": "(C) Ukulele (LU)",
          "color": null,
          "role": null
         }
@@ -3080,12 +3080,12 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "(A) Spanish (CR) 🎻",
+         "text": "(A) Spanish (CR)",
          "color": null,
          "role": null
         },
         {
-         "text": "(B) Study Hall (DA) 🎻",
+         "text": "(B) Study Hall (DA)",
          "color": null,
          "role": null
         }
@@ -3249,7 +3249,7 @@
          "role": null
         },
         {
-         "text": "Make &amp; Keep Friends [YH] (MA) 🌳",
+         "text": "Make &amp; Keep Friends [YH] (MA) 💃",
          "color": "#9AA0A6",
          "role": null
         }
