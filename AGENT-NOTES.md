@@ -211,7 +211,9 @@ page still means the button is lying about what it hands out.
 
 ### The page's own copy
 
-The rotation is typed into `pages/lunch-rotations.html` by hand. It is not generated from
+The rotation is typed into `pages/lunch-rotations.html` by hand.
+LUKE OWNS THE LUNCH ROTATION (Dan, 2026-08-29): his plan trumps even the schedule PDF's
+lunch lists. Never update this page from a schedule PDF; changes come from Luke. It is not generated from
 `assets/data/schedule-q1-2026-27.json` — that source file holds the class schedule, which
 is a different grid with different groupings. Do not point the schedule generator at this
 page.
