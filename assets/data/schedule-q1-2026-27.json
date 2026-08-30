@@ -3,7 +3,7 @@
  "as_of": "2026-08-29",
  "header": "<strong>2026&ndash;27 &middot; Quarter 1</strong> &middot; The Heart Church, Post Falls",
  "legend": [
-  "<span><strong>Teachers:</strong></span> <span>(CA) Caitlyn</span> <span>(CR) Cristina</span> <span>(DA) Dan</span> <span>(JO) Jordan</span> <span>(LU) Luke</span> <span>(MA) Mary</span> <span>(PH) Phil</span> <span>(TI) Tiffany</span> <span>(PE) Penny</span> <span>(EM) Emily</span> <span>(RY) Ryan</span> <span>(KI) Kirsten</span> <span>(CH) Charlotte</span> <span>(EV) Evelyn</span> <span>(AN) Angie</span> <span>(KA) Kara</span>",
+  "<span><strong>Teachers:</strong></span> <span>(CA) Caitlyn</span> <span>(CR) Cristina</span> <span>(DA) Dan</span> <span>(JO) Jordan</span> <span>(LU) Luke</span> <span>(MA) Mary</span> <span>(PH) Phil</span> <span>(TI) Tiffany</span> <span>(PE) Penny</span> <span>(EM) Emily</span> <span>(KI) Kirsten</span> <span>(CH) Charlotte</span> <span>(EV) Evelyn</span> <span>(AN) Angie</span> <span>(KA) Kara</span>",
   "<span><strong>Rooms:</strong></span> <span>☕ Cafe/Assembly</span> <span>🚀 Upper Middle School</span> <span>🌳 Younger Middle School</span> <span>☀ Upper Elementary</span> <span>💡 Younger Elementary</span> <span>🎨 Crafts Room</span> <span>📚 Study Room</span> <span>🎻 Music Rooms</span> <span>💃 Dance Hall</span> <span>🤖 Robotic Area</span> <span>🎤 Stage/Sanctuary</span>"
  ],
  "panels": [
@@ -2973,7 +2973,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Filmmaking (RY &amp; LU) &#128131;",
+         "text": "Filmmaking (LU) &#128131;",
          "color": null,
          "role": null
         }
@@ -3054,7 +3054,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Filmmaking (RY &amp; LU) &#128131;",
+         "text": "Filmmaking (LU) &#128131;",
          "color": null,
          "role": null
         }
