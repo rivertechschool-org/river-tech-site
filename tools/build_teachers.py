@@ -380,7 +380,7 @@ JS = """
   });
 
   /* Approved biographies belong on the visible teacher cards. */
-  ["DA", "MA", "CA", "JO", "LU", "PH"].forEach(function(who){
+  ["DA", "MA", "CA", "JO", "LU", "PH", "CR"].forEach(function(who){
     var bio = document.querySelector("#tpw-" + who + " .tp-bio");
     var summary = document.querySelector('.tp-face[data-who="' + who + '"] .tp-line');
     if(!bio || !summary) return;
