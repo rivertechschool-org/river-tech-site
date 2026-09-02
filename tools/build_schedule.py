@@ -92,7 +92,7 @@ def parse_page(path):
                                          ("cells", cells)]))
         notes = [n.strip() for n in SFOOT_RE.findall(body)]
         panels.append(OrderedDict([("id", pid), ("rows", rows), ("notes", notes)]))
-    legend = re.findall(r'<div class="schedule-legend">(.*?)</div>', page, re.S)
+    legend = re.findall(r'<div class="schedule-legend[^"]*">(.*?)</div>', page, re.S)
     header = re.search(r'<p class="schedule-date">(.*?)</p>', page, re.S)
     return OrderedDict([
         ("schedule_version", "Q1 Semi-Final 1.3"),

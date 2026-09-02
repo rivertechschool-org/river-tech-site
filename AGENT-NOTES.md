@@ -86,6 +86,20 @@ The generator writes plain static HTML into the pages. Nothing runs in the visit
 browser and nothing is fetched at page load — the pages behave exactly as they did when
 the tables were typed by hand.
 
+### The key above the grid is NOT generated. Change it in both places.
+
+`apply` rewrites the five `<div class="schedule-panel">` blocks and nothing else, so the
+two `<div class="schedule-legend schedule-key">` rows that decode teacher initials and
+room emoji are still typed into each page by hand. The source file carries a copy of them
+under `"legend"`, which no command reads back out. **Edit the pages and that copy together**,
+or the two quietly disagree and the copy is the one nobody remembers exists.
+
+Keep the markup flat while you are in there: one `<span>` per entry, its text a two-letter
+code or a room emoji, then a space, then the name, with the badge wrapped in `<b>`. The
+Today view in `pages/calendar.html` reads teacher and room names straight out of these
+rows (`legendMaps()`), so a `<span>` wrapped around the set, or a code with no space after
+it, silently empties the names out of that view.
+
 ### The commands
 
 | Command | What it does |

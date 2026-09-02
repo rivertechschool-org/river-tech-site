@@ -1313,6 +1313,111 @@ body {
   color: #555;
   margin-bottom: 6px;
 }
+
+/* ---- The schedule key ---------------------------------------------------
+   The two rows that decode the grid: teacher initials, and the room emoji.
+   Set as one card of two labelled rows, each entry its own chip, so the key
+   reads as a list of things rather than one long sentence of names.
+
+   THE MARKUP IS LOAD-BEARING, so keep it flat. calendar.html's Today view
+   resolves every teacher and room name by reading these rows out of the page
+   (legendMaps()): it takes the first <strong> in the row as the row's label,
+   skips any <span> containing one, and parses the rest a span at a time as
+   "CA Caitlyn" or "<emoji> Room name". One span per entry, its text a code or
+   emoji then a space then the name, and no <span> wrapped around the set.
+   The <b> around the code is invisible to that reader, which is why the badge
+   is a <b> and not a <span>. */
+.schedule-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  margin: 0;
+  padding: 11px 14px 12px;
+  background: var(--color-white);
+  border: 1px solid #e2ddd2;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: #4b4636;
+}
+/* Two rows, one card: the teachers row loses its bottom corners and the rooms
+   row sits flush underneath. Where :has() is not supported both rows simply
+   stay rounded, which is the same key in two cards. */
+.schedule-key:has(+ .schedule-key) {
+  border-radius: 8px 8px 0 0;
+  padding-bottom: 11px;
+}
+.schedule-key + .schedule-key {
+  margin-top: -1px;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 6px;
+}
+/* The label takes the full row, so the chips below it start at the card's
+   edge instead of stepping around a word of different width. */
+.schedule-key .key-label {
+  flex: 0 0 100%;
+  margin-bottom: 3px;
+  font-family: var(--font-nav);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: #a09781;
+}
+.schedule-key > span:not(.key-label) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px 3px 3px;
+  background: #faf8f4;
+  border: 1px solid #e8e3d8;
+  border-radius: 20px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.schedule-key > span > b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  font-weight: 700;
+}
+.schedule-key--teachers > span > b {
+  background: var(--color-text);
+  color: var(--color-white);
+  font-size: 10.5px;
+  letter-spacing: .03em;
+}
+.schedule-key--rooms > span > b {
+  background: var(--color-white);
+  border: 1px solid #e8e3d8;
+  font-size: 13px;
+  font-weight: 400;
+}
+/* On a phone the entries are set larger (see the 900px block below), so the
+   same key costs a lot more screen before the grid starts. Everything here is
+   spent buying that back: the label sits on the line rather than above it, and
+   the chips are drawn tighter. Columns were tried and are worse -- the names
+   are short enough that letting them pack three to a line beats aligning them.
+   */
+@media (max-width: 600px) {
+  .schedule-key { gap: 4px; padding: 9px 10px 10px; }
+  .schedule-key .key-label {
+    flex: 0 0 auto;
+    align-self: center;
+    margin: 0 3px 0 0;
+  }
+  .schedule-key > span:not(.key-label) {
+    gap: 5px;
+    padding: 2px 9px 2px 2px;
+  }
+  .schedule-key > span > b { width: 20px; height: 20px; }
+}
 .schedule-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -2246,6 +2351,12 @@ body {
 
   .prod small,
   .rtd-sched__cell small { font-size: 14px !important; }
+
+  /* The row label is not one of the entries, so it is not one of the things
+     the rule above is making bigger. */
+  .schedule-key .key-label { font-size: 11px !important; }
+  .schedule-key > span > b { font-size: 12px !important; }
+  .schedule-key--rooms > span > b { font-size: 14px !important; }
 
   /* ---- 4. Tap targets nearer Apple's 44 pixel guidance ---- */
   .footer-col a,
