@@ -100,6 +100,11 @@ Today view in `pages/calendar.html` reads teacher and room names straight out of
 rows (`legendMaps()`), so a `<span>` wrapped around the set, or a code with no space after
 it, silently empties the names out of that view.
 
+The **level key under the master grid** is the opposite case: it is generated, by
+`tools/build_all_panel.py` along with the rest of the All Classes panel, from `LEVEL_KEY`
+in that script. Change it there. It is deliberately not given the `schedule-legend` class,
+because the Today view would then try to read the level colours as teachers.
+
 ### The commands
 
 | Command | What it does |

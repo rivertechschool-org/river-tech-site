@@ -8,8 +8,20 @@ the schedule JSON changes; do not hand-edit the generated panel.
 
 Usage:  python3 build_all_panel.py <schedule.json> <out.html>
 """
-import sys, json, re
+import sys, json, re, html
 from collections import OrderedDict
+
+# What the colours in the master grid mean, in the order the grid stacks them.
+LEVEL_KEY = [
+    ("#B03A2E", "High School"),
+    ("#8A6D1B", "Junior High"),
+    ("#7D3C98", "Middle School"),
+    ("#2471A3", "Elementary"),
+    ("#1E8449", "Elementary 3rd&ndash;4th"),
+    ("#CA6F1E", "Elementary 1st&ndash;2nd"),
+    ("#333333", "Homeschool [UH]"),
+    ("#9AA0A6", "Homeschool [YH]"),
+]
 
 # Level colours, in the reading order used by the Keynote master grid.
 DEFAULT_COLOR = {
@@ -58,6 +70,18 @@ def html_unescape(s):
 
 def rank(color):
     return LEVEL_ORDER.index(color) if color in LEVEL_ORDER else len(LEVEL_ORDER)
+
+
+def note_key(note):
+    """What makes two notes the same note.
+
+    The five panels repeat most of their footnotes word for word, and this
+    panel shows each one once. Comparing the raw strings is not enough: the
+    same sentence written with `&mdash;` in one panel and a literal em dash in
+    another looks identical on the page and printed twice under the master
+    grid for a week. Compare what a reader sees.
+    """
+    return re.sub(r"\s+", " ", html.unescape(note)).strip().lower()
 
 
 def collect(panels):
@@ -118,9 +142,14 @@ def collect(panels):
                 col += span
 
         for n in panel.get("notes", []):
-            notes.setdefault(n, True)
+            notes.setdefault(note_key(n), n)
 
-    return grid, prod, full, notes
+    # The "as of ... subject to change" stamp dates the whole grid, so it reads
+    # last rather than wherever the panel that happened to carry it fell.
+    def dated_last(item):
+        return 1 if "subject to change" in item[0] else 0
+
+    return grid, prod, full, OrderedDict(sorted(notes.items(), key=dated_last))
 
 
 def join_lines(lines):
@@ -172,18 +201,15 @@ def render(grid, prod, full, notes, meta):
         out.append("</tr>")
 
     out.append("</tbody></table></div>")
+    out.append('<div class="schedule-key schedule-key--levels">'
+               '<span class="key-label"><strong>Levels</strong></span>'
+               + "".join('<span><b style="background:%s"></b> %s</span>' % (c, name)
+                         for c, name in LEVEL_KEY) +
+               '</div>')
     out.append('<p class="sfoot"><strong>Every class, every level, side by side.</strong> '
-               'Colour shows the level: <span style="color:#B03A2E">High School</span> &middot; '
-               '<span style="color:#8A6D1B">Junior High</span> &middot; '
-               '<span style="color:#7D3C98">Middle School</span> &middot; '
-               '<span style="color:#2471A3">Elementary</span> '
-               '(<span style="color:#1E8449">3rd&ndash;4th</span>, '
-               '<span style="color:#CA6F1E">1st&ndash;2nd</span>) &middot; '
-               '<span style="color:#333">Homeschool [UH]</span> &middot; '
-               '<span style="color:#9AA0A6">Homeschool [YH]</span>. '
                'The table is wide &mdash; scroll it sideways to reach Friday, '
                'or pick a level tab above to see that level on its own.</p>')
-    for n in notes:
+    for n in notes.values():
         out.append('<p class="sfoot">%s</p>' % n)
     out.append("</div>")
     return "".join(out)
