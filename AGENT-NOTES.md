@@ -240,3 +240,32 @@ lunch lists. Never update this page from a schedule PDF; changes come from Luke.
 `assets/data/schedule-q1-2026-27.json` — that source file holds the class schedule, which
 is a different grid with different groupings. Do not point the schedule generator at this
 page.
+
+## 10. The Live view holds the screen awake. It is not a guarantee, and that is fine.
+
+Added 2026-09-02, at Luke's request: the tablet running the Live view on the wall was
+hitting its auto-lock, and a sleeping tablet also stops running the refresh, so it came
+back showing whatever time it fell asleep at.
+
+`pages/calendar.html` now takes a **Screen Wake Lock** (`navigator.wakeLock.request('screen')`)
+when the Live view is entered, and releases it when the view is left. Three properties of
+that API drive how it is written, and a future edit must not undo any of them:
+
+- **The browser releases the lock whenever the page stops being visible**, and does not
+  give it back on its own. It is therefore re-taken in the `visibilitychange` handler, and
+  on `pageshow`/`focus`/`online`, whenever the Live view is still open. Deleting those
+  calls looks like tidying and quietly restores the original bug.
+- **The request can be refused, and rejects rather than returning null.** Every path is
+  guarded and a refusal is swallowed on purpose. There is nothing useful to tell a wall
+  screen, and an unhandled rejection in this script would be worse than a dimming iPad.
+- **It is not everywhere.** It needs HTTPS (fine: the site is on Pages) and Safari only
+  got it in 16.4. On anything older the code is a no-op and the view works as before.
+
+It is scoped to the Live view, not the page. Someone reading the schedule on their phone
+did not ask us to hold their screen on.
+
+**What it cannot do:** it holds the screen only while Safari is in the foreground with the
+page visible. It does not survive the power button, another app, or the tab being
+backgrounded. If a tablet still sleeps, the device setting is the fix, not this code:
+Settings > Display & Brightness > Auto-Lock > Never, and ideally Guided Access to keep the
+page in front.

@@ -368,6 +368,7 @@ body.sched-fs-lock .scroll-to-top{display:none}
   var modeBtns = [].slice.call(container.querySelectorAll('.sched-mode'));
   var mode = 'today';
   var wentNative = false;
+  var wakeLock = null;
 
   /* ---------------------------------------------------------------- *
    * Today's view is DERIVED from the grid already on the page and the
@@ -773,12 +774,56 @@ body.sched-fs-lock .scroll-to-top{display:none}
     }
   }
 
+  /* Keeping the screen on.
+
+     The view is meant to sit open on a tablet on the wall, and a tablet that
+     hits its auto-lock stops being a wall display -- it also stops running the
+     refresh above, so it comes back showing whenever it fell asleep. The Screen
+     Wake Lock API asks the device not to do that.
+
+     Three things about it that the code has to respect:
+     - It is only held while the page is VISIBLE. The browser drops the lock on
+       its own the moment the tab is hidden or the app is backgrounded, so it
+       has to be taken again on the way back, which is why holdWake() is called
+       from the visibility handler and not only from the button.
+     - The request can be refused, and rejects rather than returning null, so
+       every path here is guarded. A refusal is not worth telling anyone about:
+       the view still works, the screen just dims on the device's own schedule.
+     - It is not offered everywhere (it needs HTTPS, and Safari only got it in
+       16.4). Where it is missing this is a no-op.
+
+     It is deliberately scoped to the Live view rather than the page: someone
+     reading the schedule on a phone did not ask us to hold their screen on. */
+  function holdWake() {
+    if (wakeLock || !navigator.wakeLock || document.hidden) return;
+    var p;
+    try { p = navigator.wakeLock.request('screen'); } catch (e) { return; }
+    if (!p || !p.then) return;
+    p.then(function (lock) {
+      // The view may have been left while the request was in flight.
+      if (!container.classList.contains('sched-fs')) {
+        try { lock.release(); } catch (e) {}
+        return;
+      }
+      wakeLock = lock;
+      lock.addEventListener('release', function () {
+        if (wakeLock === lock) wakeLock = null;
+      });
+    }, function () { /* refused; the device keeps its own auto-lock */ });
+  }
+  function dropWake() {
+    var lock = wakeLock;
+    wakeLock = null;
+    if (lock) { try { lock.release(); } catch (e) {} }
+  }
+
   function paint(on) {
     container.classList.toggle('sched-fs', on);
     document.body.classList.toggle('sched-fs-lock', on);
     document.documentElement.classList.toggle('sched-fs-lock', on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    if (on) { setMode('today'); return; }
+    if (on) { holdWake(); setMode('today'); return; }
+    dropWake();
     clearIdle();
     container.classList.remove('sched-fs-key', 'sched-mode-today', 'sched-mode-week');
     if (keyBtn) keyBtn.setAttribute('aria-pressed', 'false');
@@ -859,10 +904,16 @@ body.sched-fs-lock .scroll-to-top{display:none}
   // Coming back to the page is the moment a stale view is most obvious, and the
   // moment the timers have most likely been asleep. Catch up immediately.
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) refresh(true);
+    if (document.hidden) return;
+    refresh(true);
+    // The browser released the wake lock when the page went away. Take it back.
+    if (container.classList.contains('sched-fs')) holdWake();
   });
   ['pageshow', 'focus', 'online'].forEach(function (ev) {
-    window.addEventListener(ev, function () { refresh(true); });
+    window.addEventListener(ev, function () {
+      refresh(true);
+      if (container.classList.contains('sched-fs')) holdWake();
+    });
   });
   // Rotating an iPad changes both dimensions; re-fit rather than leave it wrong.
   var pending;
