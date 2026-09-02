@@ -89,10 +89,14 @@ the tables were typed by hand.
 ### The key above the grid is NOT generated. Change it in both places.
 
 `apply` rewrites the five `<div class="schedule-panel">` blocks and nothing else, so the
-two `<div class="schedule-legend schedule-key">` rows that decode teacher initials and
-room emoji are still typed into each page by hand. The source file carries a copy of them
-under `"legend"`, which no command reads back out. **Edit the pages and that copy together**,
-or the two quietly disagree and the copy is the one nobody remembers exists.
+three key rows above the grid &mdash; teacher initials, room emoji and level colours &mdash;
+are still typed into each page by hand. The source file carries a copy of them under
+`"legend"`, which no command reads back out. **Edit the pages and that copy together**, or
+the two quietly disagree and the copy is the one nobody remembers exists.
+
+The levels row is `schedule-key schedule-key--levels` and deliberately carries **no**
+`schedule-legend` class, unlike the other two. The Today view reads every `.schedule-legend`
+as a list of teachers or rooms to decode, and a colour is neither.
 
 Keep the markup flat while you are in there: one `<span>` per entry, its text a two-letter
 code or a room emoji, then a space, then the name, with the badge wrapped in `<b>`. The
@@ -100,10 +104,10 @@ Today view in `pages/calendar.html` reads teacher and room names straight out of
 rows (`legendMaps()`), so a `<span>` wrapped around the set, or a code with no space after
 it, silently empties the names out of that view.
 
-The **level key under the master grid** is the opposite case: it is generated, by
-`tools/build_all_panel.py` along with the rest of the All Classes panel, from `LEVEL_KEY`
-in that script. Change it there. It is deliberately not given the `schedule-legend` class,
-because the Today view would then try to read the level colours as teachers.
+**There are no footnotes under the schedule any more** (Luke, 2026-09-02). Every panel's
+`"notes"` list is empty and the master panel prints none of its own. The generator still
+merges notes if any are added back to the source file, so putting one in the JSON is all it
+takes; nothing needs re-wiring first.
 
 ### The commands
 

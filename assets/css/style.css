@@ -1354,6 +1354,11 @@ body {
   border-radius: 0 0 8px 8px;
   margin-bottom: 6px;
 }
+/* A row with a card above it and a card below it is square at both ends. */
+.schedule-key + .schedule-key:has(+ .schedule-key) {
+  border-radius: 0;
+  margin-bottom: 0;
+}
 /* The label takes the full row, so the chips below it start at the card's
    edge instead of stepping around a word of different width. */
 .schedule-key .key-label {
@@ -1399,42 +1404,15 @@ body {
   font-size: 13px;
   font-weight: 400;
 }
-/* The level key sits under the master grid and decodes its colours. It is
-   drawn like the key above the grid, but it is NOT given the .schedule-legend
-   class: the Today view reads every .schedule-legend as teachers or rooms. */
-.schedule-key--levels {
-  margin: 10px 0 0;
-  border-radius: 8px;
-}
+/* The levels row is the one key that is not a .schedule-legend: the Today view
+   reads every .schedule-legend as a list of teachers or rooms to decode, and a
+   colour is neither. It still stacks with them, so it needs nothing but its
+   swatch. */
 .schedule-key--levels > span > b {
   width: 11px;
   height: 11px;
   border-radius: 50%;
 }
-/* The notes under a grid are set inline on each page. Two things they do not
-   say for themselves: they are a group and not body copy, and the last of them
-   is the "as of ... subject to change" stamp, which dates this copy of the
-   schedule rather than telling you anything about the school week. */
-.schedule-tabs-container .schedule-panel > .sfoot:first-of-type {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #e8e3d8;
-}
-/* Under the master grid the key card has already drawn the line, and two of
-   them a few pixels apart reads as a mistake. */
-.schedule-tabs-container .schedule-panel > .schedule-key--levels + .sfoot:first-of-type {
-  margin-top: 10px;
-  padding-top: 0;
-  border-top: 0;
-}
-.schedule-tabs-container .schedule-panel > .sfoot:last-child {
-  margin-top: 8px;
-  font-size: .74rem;
-  font-style: normal;
-  letter-spacing: .04em;
-  color: #9a9384;
-}
-
 /* On a phone the entries are set larger (see the 900px block below), so the
    same key costs a lot more screen before the grid starts. Everything here is
    spent buying that back: the label sits on the line rather than above it, and

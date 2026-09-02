@@ -11,18 +11,6 @@ Usage:  python3 build_all_panel.py <schedule.json> <out.html>
 import sys, json, re, html
 from collections import OrderedDict
 
-# What the colours in the master grid mean, in the order the grid stacks them.
-LEVEL_KEY = [
-    ("#B03A2E", "High School"),
-    ("#8A6D1B", "Junior High"),
-    ("#7D3C98", "Middle School"),
-    ("#2471A3", "Elementary"),
-    ("#1E8449", "Elementary 3rd&ndash;4th"),
-    ("#CA6F1E", "Elementary 1st&ndash;2nd"),
-    ("#333333", "Homeschool [UH]"),
-    ("#9AA0A6", "Homeschool [YH]"),
-]
-
 # Level colours, in the reading order used by the Keynote master grid.
 DEFAULT_COLOR = {
     "hs":   "#B03A2E",   # High School
@@ -201,14 +189,6 @@ def render(grid, prod, full, notes, meta):
         out.append("</tr>")
 
     out.append("</tbody></table></div>")
-    out.append('<div class="schedule-key schedule-key--levels">'
-               '<span class="key-label"><strong>Levels</strong></span>'
-               + "".join('<span><b style="background:%s"></b> %s</span>' % (c, name)
-                         for c, name in LEVEL_KEY) +
-               '</div>')
-    out.append('<p class="sfoot"><strong>Every class, every level, side by side.</strong> '
-               'The table is wide &mdash; scroll it sideways to reach Friday, '
-               'or pick a level tab above to see that level on its own.</p>')
     for n in notes.values():
         out.append('<p class="sfoot">%s</p>' % n)
     out.append("</div>")

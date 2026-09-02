@@ -4,7 +4,8 @@
  "header": "<strong>2026&ndash;27 &middot; Quarter 1</strong> &middot; The Heart Church, Post Falls",
  "legend": [
   "<span class=\"key-label\"><strong>Teachers</strong></span><span><b>CA</b> Caitlyn</span><span><b>CR</b> Cristina</span><span><b>DA</b> Dan</span><span><b>JO</b> Jordan</span><span><b>LU</b> Luke</span><span><b>MA</b> Mary</span><span><b>PH</b> Phil</span><span><b>TI</b> Tiffany</span><span><b>PE</b> Penny</span><span><b>EM</b> Emily</span><span><b>KI</b> Kirsten</span><span><b>CH</b> Charlotte</span><span><b>EV</b> Evelyn</span><span><b>AN</b> Angie</span><span><b>KA</b> Kara</span>",
-  "<span class=\"key-label\"><strong>Rooms</strong></span><span><b>☕</b> Cafe/Assembly</span><span><b>🚀</b> Upper Middle School</span><span><b>🌳</b> Younger Middle School</span><span><b>☀</b> Upper Elementary</span><span><b>💡</b> Younger Elementary</span><span><b>🎨</b> Crafts Room</span><span><b>🎻</b> Music Rooms</span><span><b>💃</b> Dance Hall</span><span><b>🤖</b> Robotic Area</span><span><b>🎤</b> Stage/Sanctuary</span>"
+  "<span class=\"key-label\"><strong>Rooms</strong></span><span><b>☕</b> Cafe/Assembly</span><span><b>🚀</b> Upper Middle School</span><span><b>🌳</b> Younger Middle School</span><span><b>☀</b> Upper Elementary</span><span><b>💡</b> Younger Elementary</span><span><b>🎨</b> Crafts Room</span><span><b>🎻</b> Music Rooms</span><span><b>💃</b> Dance Hall</span><span><b>🤖</b> Robotic Area</span><span><b>🎤</b> Stage/Sanctuary</span>",
+  "<span class=\"key-label\"><strong>Levels</strong></span><span><b style=\"background:#B03A2E\"></b> High School</span><span><b style=\"background:#8A6D1B\"></b> Junior High</span><span><b style=\"background:#7D3C98\"></b> Middle School</span><span><b style=\"background:#2471A3\"></b> Elementary</span><span><b style=\"background:#1E8449\"></b> Elementary 3rd&ndash;4th</span><span><b style=\"background:#CA6F1E\"></b> Elementary 1st&ndash;2nd</span><span><b style=\"background:#333333\"></b> Homeschool [UH]</span><span><b style=\"background:#9AA0A6\"></b> Homeschool [YH]</span>"
  ],
  "panels": [
   {
@@ -771,11 +772,7 @@
      ]
     }
    ],
-   "notes": [
-    "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
-    "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 29, 2026 &mdash; subject to change."
-   ]
+   "notes": []
   },
   {
    "id": "ms",
@@ -1609,12 +1606,7 @@
      ]
     }
    ],
-   "notes": [
-    "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
-    "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.",
-    "Q1, as of Aug 29, 2026 &mdash; subject to change."
-   ]
+   "notes": []
   },
   {
    "id": "jh",
@@ -2358,12 +2350,7 @@
      ]
     }
    ],
-   "notes": [
-    "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
-    "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Wednesday 8:45&ndash;10:20: P.E. at the Park or Library (LU &amp; TI) is also offered for those not in the listed morning classes.",
-    "Q1, as of Aug 29, 2026 &mdash; subject to change."
-   ]
+   "notes": []
   },
   {
    "id": "hs",
@@ -3107,11 +3094,7 @@
      ]
     }
    ],
-   "notes": [
-    "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
-    "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 29, 2026 &mdash; subject to change."
-   ]
+   "notes": []
   },
   {
    "id": "home",
@@ -3654,12 +3637,7 @@
      ]
     }
    ],
-   "notes": [
-    "[UH] = upper homeschoolers &middot; [YH] = younger homeschoolers. Homeschoolers attend Monday, Tuesday, Thursday and Friday.",
-    "Monday lunch: lunch rotation (CA, MA) &middot; P.E. at the Park (LU &amp; TI) &middot; performers&rsquo; lunch (AN, KA, CH, EV).",
-    "Friday 10:25&ndash;11:45: Musical Prep (CH &amp; EV) &#127908; for members of the production casts.",
-    "Q1, as of Aug 29, 2026 &mdash; subject to change."
-   ]
+   "notes": []
   }
  ]
 }
