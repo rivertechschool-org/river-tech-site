@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Spanish self-test tracker</title>
+<!--
+  Spanish B2 to C1 - self-test tracker.  Phase 2: C-test + vocabulary size.
+  Standalone page.  Open it straight from disk (double click) or serve it locally.
+  Interface is English on purpose; Spanish only appears inside the test items.
+
+  Storage: Supabase project "Personal Assistant" (smicnyavqcnlwaejaxer).
+  Tables: spanish_test_sessions, spanish_test_items, spanish_scores,
+          spanish_samples, spanish_forms.  All five are row-level-secured,
+          so the key below can read nothing at all until you sign in.
+  The service_role key must NEVER go in this file.
+-->
+<style>
+  :root{
+    --ink:#12181f; --muted:#5b6572; --line:#dbe1e8; --bg:#f6f7f9; --card:#fff;
+    --accent:#1d5fd0; --good:#1a7f4b; --warn:#a8560c; --bad:#b3261e;
+    --radius:10px; --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:14px 20px;
+    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  header h1{font-size:17px;margin:0;letter-spacing:.2px}
+  header .sub{color:var(--muted);font-size:13px}
+  header .spacer{flex:1}
+  main{max-width:840px;margin:0 auto;padding:22px 18px 80px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:20px;margin-bottom:18px}
+  h2{font-size:16px;margin:0 0 10px}
+  h3{font-size:14px;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+  p{margin:0 0 10px}
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+  button{font:inherit;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);
+    background:var(--accent);color:#fff;cursor:pointer}
+  button:hover{filter:brightness(1.06)}
+  button:disabled{opacity:.5;cursor:default;filter:none}
+  button.ghost{background:var(--card);color:var(--accent)}
+  button.quiet{background:var(--card);color:var(--muted);border-color:var(--line)}
+  input[type=text],input[type=email],input[type=password],textarea{
+    font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff;color:inherit}
+  input:focus,textarea:focus{outline:2px solid #b9d0f7;outline-offset:1px;border-color:var(--accent)}
+  label{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .hidden{display:none !important}
+  .banner{padding:10px 12px;border-radius:8px;font-size:14px;margin-bottom:12px}
+  .banner.err{background:#fdecea;color:var(--bad);border:1px solid #f3c4c0}
+  .banner.ok{background:#e9f6ef;color:var(--good);border:1px solid #b9e2cb}
+  .banner.warn{background:#fdf3e7;color:var(--warn);border:1px solid #f0d5b0}
+  /* C-test */
+  .passage{font-size:18px;line-height:2.3;font-family:Georgia,"Times New Roman",serif}
+  .gap{display:inline-block;white-space:nowrap}
+  .gap .stub{font-family:inherit}
+  .gap input{display:inline-block;width:5.2em;padding:1px 4px;font:inherit;font-size:16px;
+    border:0;border-bottom:2px solid var(--accent);border-radius:0;background:#f2f6fd;text-align:left}
+  .gap input:focus{background:#e6eefc}
+  .gap.right input{border-bottom-color:var(--good);background:#eaf7f0}
+  .gap.wrong input{border-bottom-color:var(--bad);background:#fdeeed}
+  .answer{color:var(--good);font-size:14px;font-family:inherit}
+  /* vocab */
+  .word{font-size:30px;text-align:center;margin:26px 0 8px;font-family:Georgia,serif}
+  .progress{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin:4px 0 12px}
+  .progress > div{height:100%;background:var(--accent);width:0}
+  .choices{display:flex;gap:12px;justify-content:center;margin-top:14px}
+  .choices button{min-width:150px;padding:14px 16px;font-size:16px}
+  /* results */
+  .metric{display:flex;justify-content:space-between;align-items:baseline;
+    padding:9px 0;border-bottom:1px solid var(--line)}
+  .metric:last-child{border-bottom:0}
+  .metric .v{font-size:22px;font-variant-numeric:tabular-nums}
+  .delta{font-size:13px;margin-left:8px}
+  .up{color:var(--good)} .down{color:var(--bad)} .flat{color:var(--muted)}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  .timer{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+  @media (max-width:520px){ .choices{flex-direction:column} .choices button{width:100%} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Spanish self-test tracker</h1>
+  <span class="sub" id="hdr-sub">B2 to C1</span>
+  <span class="spacer"></span>
+  <span class="timer hidden" id="timer"></span>
+  <button class="quiet small hidden" id="btn-signout">Sign out</button>
+</header>
+<main>
+
+<!-- ============ SETUP / SIGN IN ============ -->
+<section id="view-setup" class="hidden">
+  <div class="card">
+    <h2>Sign in</h2>
+    <div id="setup-msg"></div>
+    <div id="cfg-block" class="hidden">
+      <p class="small muted">This copy has no Supabase key built in. Paste the project URL and the
+        publishable key once; they are kept in this browser only.</p>
+      <label for="cfg-url">Project URL</label>
+      <input id="cfg-url" type="text" placeholder="https://xxxx.supabase.co">
+      <label for="cfg-key">Publishable key (starts with sb_publishable_)</label>
+      <input id="cfg-key" type="text" placeholder="sb_publishable_...">
+      <div class="row" style="margin-top:12px"><button id="btn-cfg-save">Save connection</button></div>
+    </div>
+    <div id="login-block" class="hidden">
+      <label for="in-email">Email</label>
+      <input id="in-email" type="email" autocomplete="username">
+      <label for="in-pass">Password</label>
+      <input id="in-pass" type="password" autocomplete="current-password">
+      <div class="row" style="margin-top:14px">
+        <button id="btn-signin">Sign in</button>
+        <button class="quiet" id="btn-cfg-edit">Change connection</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOME ============ -->
+<section id="view-home" class="hidden">
+  <div class="card">
+    <h2>Your number to beat</h2>
+    <div id="beat"></div>
+  </div>
+  <div class="card">
+    <h2>Start a sitting</h2>
+    <p class="small muted">C-test and vocabulary size. About 15 minutes, scored automatically,
+      no AI involved. Every form is new: nothing you have already answered comes back.</p>
+    <div class="row">
+      <button id="btn-start">Start</button>
+      <span class="small muted" id="pool-note"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>History</h2>
+    <div id="history"></div>
+  </div>
+</section>
+
+<!-- ============ C-TEST ============ -->
+<section id="view-ctest" class="hidden">
+  <div class="card">
+    <h2>Part 1 of 2 &mdash; C-test</h2>
+    <p class="small muted">Every second word has lost its second half. Restore each word.
+      Type only the missing letters. Accents count in the strict score, so use them where they belong.
+      Do not look anything up; a rough guess is worth more than a blank.</p>
+    <div id="ctest-body"></div>
+    <div class="row" style="margin-top:18px">
+      <button id="btn-ctest-done">Finish part 1</button>
+      <span class="small muted" id="ctest-count"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOCABULARY ============ -->
+<section id="view-vocab" class="hidden">
+  <div class="card">
+    <h2>Part 2 of 2 &mdash; Vocabulary</h2>
+    <p class="small muted">Do you know this word? Answer yes only if you could explain it or use it.
+      Some of these words do not exist; saying yes to those costs you points, so guessing does not pay.</p>
+    <div class="progress"><div id="vocab-bar"></div></div>
+    <div class="small muted" id="vocab-count"></div>
+    <div class="word" id="vocab-word"></div>
+    <div class="choices">
+      <button class="ghost" id="btn-vocab-no">No (n)</button>
+      <button id="btn-vocab-yes">Yes (y)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section id="view-results" class="hidden">
+  <div class="card">
+    <h2>Results</h2>
+    <div id="results-msg"></div>
+    <div id="results-body"></div>
+    <div class="row" style="margin-top:18px">
+      <button id="btn-home">Back to the top</button>
+      <button class="quiet" id="btn-review">Show the C-test answers</button>
+    </div>
+  </div>
+  <div class="card hidden" id="review-card">
+    <h2>C-test, corrected</h2>
+    <div id="review-body"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================== CONNECTION ================== -->
+<script>
+// Publishable key only. It is powerless on its own: every spanish_* table has
+// row-level security and only answers to the owner account after sign-in.
+window.ST_CONFIG = {
+  SUPABASE_URL: "",
+  SUPABASE_ANON_KEY: ""
+};
+</script>
+
+<!-- ================== TEST CONTENT ================== -->
+<script>
+/* ---------------------------------------------------------------------------
+   C-TEST PASSAGES
+   Ten passages of roughly the same length and register (upper B2 / lower C1
+   journalistic prose).  Difficulty has to stay fixed across sittings or the
+   trend means nothing (guideline G3), so passages are written to one recipe:
+   ~85 words, no proper nouns, no numbers, no dialogue, no rare vocabulary.
+   Two unused passages are drawn per sitting and then retired in spanish_forms,
+   so an item is never served twice (guideline G2).
+--------------------------------------------------------------------------- */
+const PASSAGES = [
+ {id:"ct-transporte", topic:"city transport", text:
+"El transporte público de una ciudad revela más de lo que parece. Cuando los autobuses llegan puntuales, la gente organiza su día con confianza y llega al trabajo sin sobresaltos. Cuando el servicio falla, cada trayecto se convierte en una pequeña negociación con el reloj. Los ayuntamientos suelen medir el éxito en kilómetros de vía nueva, pero los pasajeros lo miden en minutos de espera. Por eso, invertir en frecuencia y en información fiable mejora la vida cotidiana más que cualquier obra espectacular."},
+
+ {id:"ct-sueno", topic:"sleep", text:
+"Dormir bien no es un lujo, sino una condición básica del rendimiento. Durante la noche, el cerebro repasa lo aprendido durante el día y descarta aquello que no necesita conservar. Quien recorta horas de sueño para estudiar más suele obtener el efecto contrario, porque la memoria se consolida precisamente mientras uno descansa. Los especialistas insisten en mantener horarios regulares, reducir la luz de las pantallas y evitar la cafeína por la tarde. Son medidas modestas, aunque su efecto acumulado resulta considerable."},
+
+ {id:"ct-comercio", topic:"local shops", text:
+"Las tiendas de barrio han resistido peor la última década que los grandes almacenes. Muchas cerraron porque no podían competir en precio ni en horarios, y otras sobrevivieron ofreciendo algo que ninguna plataforma vende: el trato directo y el consejo de quien conoce a sus clientes. Los ayuntamientos han ensayado ayudas y alquileres reducidos, con resultados desiguales. Al final, el destino de una calle comercial depende menos de las subvenciones que de si los vecinos deciden volver a caminar hasta ella."},
+
+ {id:"ct-bosques", topic:"forest fires", text:
+"Los veranos cada vez más secos han cambiado la manera de gestionar los bosques. Antes se apagaba el fuego y poco más; ahora se trabaja durante el invierno para que las llamas, cuando lleguen, encuentren menos combustible. Los equipos limpian el sotobosque, abren cortafuegos y recuperan pastos que antes mantenían los rebaños. Nada de esto sale en las noticias, porque el trabajo que evita una catástrofe nunca resulta espectacular. Sin embargo, es la única estrategia que ha demostrado reducir los daños."},
+
+ {id:"ct-teletrabajo", topic:"remote work", text:
+"El trabajo a distancia prometía acabar con los desplazamientos y devolver horas a quienes vivían lejos de la oficina. En parte lo ha conseguido, aunque ha traído problemas que pocos anticiparon. Las jornadas se alargan cuando el despacho está en el salón, y los empleados nuevos aprenden mucho más despacio sin nadie cerca a quien preguntar. Las empresas que mejor se han adaptado no eligieron entre casa y oficina, sino que definieron con claridad qué tareas convenía hacer en cada sitio."},
+
+ {id:"ct-lectura", topic:"reading in a foreign language", text:
+"Leer en una lengua extranjera exige una paciencia que no siempre estamos dispuestos a conceder. Al principio el diccionario interrumpe cada párrafo y la historia se deshace en fragmentos. Conviene entonces elegir textos algo por debajo del propio nivel y avanzar sin detenerse en cada palabra desconocida. El sentido general suele bastar, y los términos que de verdad importan reaparecen tantas veces que acaban aprendiéndose solos. La constancia rinde aquí más que el esfuerzo intenso de una sola tarde."},
+
+ {id:"ct-cocina", topic:"cooking at home", text:
+"Cocinar en casa se ha convertido en una afición para unos y en una carga para otros. Quien disfruta encuentra en ello una manera de terminar el día haciendo algo con las manos, lejos de las pantallas. Quien lo padece suele carecer de tiempo, no de talento. Las recetas breves y la compra planificada resuelven buena parte del problema, aunque casi nadie lo reconozca en voz alta. Al final, comer bien depende de la organización tanto como del gusto."},
+
+ {id:"ct-museos", topic:"museums", text:
+"Los museos han dejado de ser almacenes silenciosos de objetos antiguos. Hoy compiten por la atención de un público que llega con el móvil en la mano y poca disposición a leer carteles largos. Algunos han respondido con pantallas y experiencias inmersivas; otros han preferido reducir el número de piezas expuestas y explicarlas mejor. Los visitantes, según las encuestas, agradecen más lo segundo. Contar bien una sola historia deja un recuerdo más duradero que recorrer veinte salas sin entender nada."},
+
+ {id:"ct-deporte", topic:"youth sport", text:
+"El deporte infantil se ha profesionalizado hasta extremos que sorprenden a los propios entrenadores. Hay niños de diez años con calendarios más apretados que los de un adulto y familias que recorren cientos de kilómetros cada fin de semana. Los médicos advierten del aumento de lesiones por sobrecarga y de un abandono temprano que antes no existía. Jugar debería seguir siendo, sobre todo, un juego; cuando deja de serlo, el talento se pierde antes incluso de manifestarse."},
+
+ {id:"ct-agua", topic:"water scarcity", text:
+"La escasez de agua ya no es un problema exclusivo de las zonas más áridas. Las redes urbanas pierden por fugas una parte considerable de lo que transportan, y repararlas resulta caro, lento y poco visible para el votante. Mientras tanto, la agricultura consume la mayor parte de los recursos disponibles y depende de sistemas de riego que se modernizan con lentitud. Cualquier solución seria empieza por medir bien el consumo, algo que muchos municipios todavía no hacen."}
+];
+
+/* ---------------------------------------------------------------------------
+   VOCABULARY, YES/NO FORMAT
+   Real words are grouped into six frequency bands.  Ten are drawn from each
+   band every sitting, plus twenty pseudowords, so the shape of the test is
+   identical each time while the items themselves are new.
+   Bands: rough position in a Spanish frequency list, and the width of the
+   slice of the language each band stands for.
+--------------------------------------------------------------------------- */
+const BANDS = [
+  {band:1, label:"1-1000",      width:1000},
+  {band:2, label:"1001-2000",   width:1000},
+  {band:3, label:"2001-3000",   width:1000},
+  {band:4, label:"3001-5000",   width:2000},
+  {band:5, label:"5001-8000",   width:3000},
+  {band:6, label:"8001-12000",  width:4000}
+];
+
+const WORDS = {
+ 1:["agua","tiempo","hablar","trabajo","ciudad","dinero","escribir","camino","verdad","cuerpo",
+    "abrir","fuerte","historia","pueblo","tarde"],
+ 2:["riesgo","apoyo","mejorar","ejemplo","aumentar","sencillo","esfuerzo","crecer","ofrecer","resultado",
+    "herramienta","elegir","peligro","medida","costumbre"],
+ 3:["asunto","alcanzar","escaso","propósito","retraso","comprobar","aportar","orgullo","taller","encuesta",
+    "retirar","amable","rechazar","ventaja","ingreso"],
+ 4:["escasez","aliviar","ingenio","prescindir","tramo","sensato","aguantar","recorte","madrugada","sospecha",
+    "arrepentirse","tejado","patrón","cordura","desplome"],
+ 5:["descuido","rezagado","subrayar","atenuar","arraigar","colmar","apacible","resquicio","holgado","atisbar",
+    "desdeñar","cauce","mermar","tenaz","escueto"],
+ 6:["zozobra","ademán","ínfimo","aciago","socavar","adusto","lacónico","denodado","insoslayable","pertrechar",
+    "zaherir","boyante","atolondrado","soslayar","conculcar"]
+};
+
+/* Invented words.  They obey Spanish spelling and stress rules, so they look
+   entirely plausible, but none of them exists.  Saying yes to one of these is
+   a false alarm, and the score is corrected for it.
+   If you ever meet one of these in the wild, delete it from this list. */
+const PSEUDO = [
+ "brecosa","calmedo","dernizar","elmadura","fanquear","gorsero","halponar","ingarto","jempolo","lorquiña",
+ "mardujo","nespleto","ontrave","parnizo","quelbrar","rastufo","sembriso","tornaguo","ulmerio","vardeño",
+ "chalpero","prancile","quirbato","salguir","tefranio","urbisco","valdreno","zurbaco","mengrado","pelustre"
+];
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+"use strict";
+/* ============================================================================
+   Spanish self-test tracker - application code
+   Phase 2 of the build plan: C-test plus vocabulary size, fully auto-scored.
+   No AI anywhere in this file, by design: the objective measures are the spine
+   and AI ratings only ever sit on top of them (guideline G1).
+   ========================================================================= */
+
+const $  = (id) => document.getElementById(id);
+const VIEWS = ["view-setup","view-home","view-ctest","view-vocab","view-results"];
+function show(id){ VIEWS.forEach(v => $(v).classList.toggle("hidden", v !== id)); window.scrollTo(0,0); }
+function banner(el, kind, msg){ el.innerHTML = msg ? '<div class="banner '+kind+'">'+msg+'</div>' : ""; }
+const pct  = (x) => Math.round(x*1000)/10;
+const nfmt = (x) => (Math.round(x*10)/10).toLocaleString("en-US");
+
+// ---- connection -----------------------------------------------------------
+const CFG_KEY = "spanish_tracker_config";
+function loadConfig(){
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(CFG_KEY) || "null"); } catch(e){}
+  const built = window.ST_CONFIG || {};
+  return {
+    url: (built.SUPABASE_URL || (saved && saved.url) || "").trim(),
+    key: (built.SUPABASE_ANON_KEY || (saved && saved.key) || "").trim()
+  };
+}
+function saveConfig(url, key){ localStorage.setItem(CFG_KEY, JSON.stringify({url:url, key:key})); }
+
+let sb = null;
+let CFG = loadConfig();
+
+// ---- state ----------------------------------------------------------------
+let sitting = null;   // everything about the sitting in progress
+let tickHandle = null;
+
+// ---- normalising ----------------------------------------------------------
+const stripAccents = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const norm = (s) => stripAccents((s||"").trim().toLowerCase());
+
+// ---- random ---------------------------------------------------------------
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function sample(arr, n){ return shuffle(arr).slice(0, n); }
+
+/* ============================================================================
+   C-TEST GENERATOR AND SCORER
+   The classic rule: the first sentence is left whole so the reader can get his
+   bearings, and from then on the second half of every second word is deleted.
+   For a word of an odd number of letters the smaller half goes, so "casa" keeps
+   "ca" and "trabajo" keeps "trab".  Twenty gaps per passage.
+   ========================================================================= */
+const GAPS_PER_PASSAGE = 20;
+const WORD_RE = /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+/;
+
+function tokenize(text){
+  const out = []; let rest = text;
+  while (rest.length){
+    const m = rest.match(WORD_RE);
+    if (!m){ out.push({word:false, t:rest}); break; }
+    if (m.index > 0) out.push({word:false, t:rest.slice(0, m.index)});
+    out.push({word:true, t:m[0]});
+    rest = rest.slice(m.index + m[0].length);
+  }
+  return out;
+}
+
+function makeCTest(passage){
+  const tokens = tokenize(passage.text);
+  // where the first sentence ends
+  let intactUntil = 0;
+  for (let i=0;i<tokens.length;i++){
+    if (!tokens[i].word && tokens[i].t.indexOf(".") !== -1){ intactUntil = i; break; }
+  }
+  let counter = 0, gaps = 0;
+  const parts = [];
+  tokens.forEach((tok, i) => {
+    if (!tok.word || i <= intactUntil){ parts.push({gap:false, t:tok.t}); return; }
+    counter++;
+    const damage = (counter % 2 === 0) && tok.t.length >= 2 && gaps < GAPS_PER_PASSAGE;
+    if (!damage){ parts.push({gap:false, t:tok.t}); return; }
+    const keep    = Math.ceil(tok.t.length / 2);
+    const stub    = tok.t.slice(0, keep);
+    const missing = tok.t.slice(keep);
+    gaps++;
+    parts.push({gap:true, t:tok.t, stub:stub, missing:missing, index:gaps, form:passage.id});
+  });
+  return {form:passage.id, topic:passage.topic, parts:parts, gaps:gaps};
+}
+
+function renderCTest(tests){
+  const host = $("ctest-body");
+  host.innerHTML = "";
+  let n = 0;
+  tests.forEach((test, ti) => {
+    const h = document.createElement("h3");
+    h.textContent = "Text " + (ti+1) + " of " + tests.length;
+    host.appendChild(h);
+    const p = document.createElement("p");
+    p.className = "passage";
+    test.parts.forEach(part => {
+      if (!part.gap){ p.appendChild(document.createTextNode(part.t)); return; }
+      n++;
+      const span = document.createElement("span");
+      span.className = "gap";
+      const stub = document.createElement("span");
+      stub.className = "stub"; stub.textContent = part.stub;
+      const inp = document.createElement("input");
+      inp.type = "text"; inp.autocapitalize = "off"; inp.autocomplete = "off";
+      inp.spellcheck = false;
+      inp.dataset.test = ti; inp.dataset.gap = part.index;
+      inp.setAttribute("aria-label", "gap " + n);
+      inp.style.width = Math.max(3, part.missing.length + 1.2) * 0.62 + "em";
+      inp.addEventListener("input", updateCTestCount);
+      span.appendChild(stub); span.appendChild(inp);
+      p.appendChild(span);
+    });
+    host.appendChild(p);
+  });
+  updateCTestCount();
+}
+
+function ctestInputs(){ return Array.from($("ctest-body").querySelectorAll("input")); }
+
+function updateCTestCount(){
+  const ins = ctestInputs();
+  const filled = ins.filter(i => i.value.trim() !== "").length;
+  $("ctest-count").textContent = filled + " of " + ins.length + " filled in";
+}
+
+function scoreCTest(tests){
+  const rows = [];
+  let exact = 0, lenient = 0;
+  ctestInputs().forEach(inp => {
+    const test = tests[Number(inp.dataset.test)];
+    const part = test.parts.find(p => p.gap && p.index === Number(inp.dataset.gap));
+    const typed  = inp.value.trim();
+    const given  = part.stub + typed;
+    const okExact   = given.toLowerCase() === part.t.toLowerCase();
+    const okLenient = norm(given) === norm(part.t);
+    if (okExact) exact++;
+    if (okLenient) lenient++;
+    rows.push({
+      skill:"global", item_type:"ctest_gap", form_id:test.form, position:part.index,
+      prompt: part.stub + "_".repeat(part.missing.length),
+      expected: part.t, response: given,
+      is_correct: okExact, points: okExact ? 1 : 0
+    });
+    inp.parentElement.classList.add(okExact ? "right" : "wrong");
+    if (!okExact){
+      const a = document.createElement("span");
+      a.className = "answer"; a.textContent = " " + part.t;
+      inp.parentElement.appendChild(a);
+    }
+  });
+  const total = rows.length;
+  return {rows:rows, total:total, exact:exact, lenient:lenient,
+          exactPct: total ? exact/total : 0, lenientPct: total ? lenient/total : 0};
+}
+
+/* ============================================================================
+   VOCABULARY SIZE, YES/NO FORMAT
+   Ten real words from each of six frequency bands, plus twenty invented words.
+   Saying yes to an invented word is a false alarm, and the whole score is
+   corrected for it, so over-claiming cannot inflate the number.
+   Corrected score = (hits - false alarms) / (1 - false alarms).
+   Size estimate  = for each band, the corrected rate for that band times the
+   number of words the band stands for, added up.
+   ========================================================================= */
+const REAL_PER_BAND = 10;
+const PSEUDO_COUNT  = 20;
+
+function makeVocabForm(){
+  const items = [];
+  BANDS.forEach(b => {
+    sample(WORDS[b.band], REAL_PER_BAND).forEach(w =>
+      items.push({word:w, real:true, band:b.band}));
+  });
+  sample(PSEUDO, PSEUDO_COUNT).forEach(w => items.push({word:w, real:false, band:null}));
+  return {form:"vocab-" + new Date().toISOString().slice(0,19).replace(/[:T-]/g,""),
+          items: shuffle(items)};
+}
+
+function startVocab(){
+  sitting.vocab.pos = 0;
+  show("view-vocab");
+  paintVocab();
+}
+
+function paintVocab(){
+  const v = sitting.vocab;
+  if (v.pos >= v.items.length){ finishSitting(); return; }
+  const it = v.items[v.pos];
+  $("vocab-word").textContent = it.word;
+  $("vocab-count").textContent = "Word " + (v.pos+1) + " of " + v.items.length;
+  $("vocab-bar").style.width = (v.pos / v.items.length * 100) + "%";
+}
+
+function answerVocab(yes){
+  const v = sitting.vocab;
+  if (v.pos >= v.items.length) return;
+  v.items[v.pos].said_yes = yes;
+  v.pos++;
+  paintVocab();
+}
+
+function scoreVocab(form){
+  const real   = form.items.filter(i => i.real);
+  const fake   = form.items.filter(i => !i.real);
+  const hits   = real.filter(i => i.said_yes).length / real.length;
+  const alarms = fake.filter(i => i.said_yes).length / fake.length;
+  const correct = (h) => alarms >= 1 ? 0 : Math.max(0, Math.min(1, (h - alarms) / (1 - alarms)));
+  const corrected = correct(hits);
+
+  const perBand = BANDS.map(b => {
+    const inBand = real.filter(i => i.band === b.band);
+    const raw = inBand.filter(i => i.said_yes).length / inBand.length;
+    return {band:b.band, label:b.label, width:b.width, raw:raw, corrected:correct(raw)};
+  });
+  const size = perBand.reduce((sum, b) => sum + b.corrected * b.width, 0);
+
+  const rows = form.items.map((it, n) => ({
+    skill:"vocabulary",
+    item_type: it.real ? "vocab_yesno_real" : "vocab_yesno_pseudo",
+    form_id: form.form, position: n+1,
+    prompt: it.word,
+    expected: it.real ? ("real:band" + it.band) : "pseudoword",
+    response: it.said_yes ? "yes" : "no",
+    is_correct: it.real ? !!it.said_yes : !it.said_yes,
+    points: (it.real ? !!it.said_yes : !it.said_yes) ? 1 : 0
+  }));
+
+  return {rows:rows, hits:hits, alarms:alarms, corrected:corrected, perBand:perBand, size:size};
+}
+
+/* ============================================================================
+   RUNNING A SITTING
+   ========================================================================= */
+async function usedForms(){
+  const { data, error } = await sb.from("spanish_forms")
+    .select("form_id,times_used,first_used_on").eq("item_type","ctest");
+  if (error) throw error;
+  return data || [];
+}
+
+async function startSitting(){
+  $("btn-start").disabled = true;
+  try {
+    const used = await usedForms();
+    const usedIds = new Set(used.map(r => r.form_id));
+    const fresh = shuffle(PASSAGES.filter(p => !usedIds.has(p.id)));
+    let chosen = fresh.slice(0, 2);
+    let reused = false;
+    if (chosen.length < 2){
+      // The pool is spent.  Take the unused passage if there is one, then fall back
+      // to whichever has been served least often, and flag the sitting: a repeated
+      // passage inflates the score and the notes have to say so.
+      reused = true;
+      const seen = new Map(used.map(r => [r.form_id, r.times_used || 0]));
+      const rest = PASSAGES.filter(p => !chosen.includes(p))
+                           .sort((a,b) => (seen.get(a.id)||0) - (seen.get(b.id)||0));
+      chosen = chosen.concat(rest).slice(0, 2);
+    }
+    sitting = {
+      startedAt: Date.now(),
+      reusedPassages: reused,
+      ctests: chosen.map(makeCTest),
+      vocab: makeVocabForm(),
+      saved: false
+    };
+    renderCTest(sitting.ctests);
+    show("view-ctest");
+    startTimer();
+    const first = $("ctest-body").querySelector("input");
+    if (first) first.focus();
+  } catch (e) {
+    banner($("beat"), "err", "Could not start: " + (e.message || e));
+  } finally {
+    $("btn-start").disabled = false;
+  }
+}
+
+function startTimer(){
+  $("timer").classList.remove("hidden");
+  clearInterval(tickHandle);
+  tickHandle = setInterval(() => {
+    const s = Math.floor((Date.now() - sitting.startedAt)/1000);
+    $("timer").textContent = String(Math.floor(s/60)).padStart(2,"0") + ":" + String(s%60).padStart(2,"0");
+  }, 1000);
+}
+
+async function finishSitting(){
+  clearInterval(tickHandle);
+  $("timer").classList.add("hidden");
+  const ct = scoreCTest(sitting.ctests);
+  const vc = scoreVocab(sitting.vocab);
+  const minutes = Math.max(1, Math.round((Date.now() - sitting.startedAt)/60000));
+
+  sitting.result = {ct:ct, vc:vc, minutes:minutes};
+  show("view-results");
+  renderResults(sitting.result);
+  await saveSitting();
+}
+
+/* ---- saving ---------------------------------------------------------------
+   A sitting is never thrown away because the network hiccuped: the whole
+   payload is parked in localStorage until Supabase confirms the write.
+--------------------------------------------------------------------------- */
+const PENDING_KEY = "spanish_tracker_pending";
+
+function buildPayload(){
+  const {ct, vc, minutes} = sitting.result;
+  const notes = [
+    "C-test passages: " + sitting.ctests.map(t => t.form).join(", "),
+    "Vocabulary form: " + sitting.vocab.form,
+    sitting.reusedPassages ? "WARNING: passage pool exhausted, a passage was repeated. Treat this C-test score as inflated." : null
+  ].filter(Boolean).join(" | ");
+
+  return {
+    session: {session_type:"ctest_vocab", duration_minutes:minutes, notes:notes},
+    items: ct.rows.concat(vc.rows),
+    scores: [
+      {skill:"global", metric:"ctest_exact",       value:pct(ct.exactPct),   scale_max:100, source:"auto"},
+      {skill:"global", metric:"ctest_lenient",     value:pct(ct.lenientPct), scale_max:100, source:"auto"},
+      {skill:"global", metric:"ctest_gaps_total",  value:ct.total,           scale_max:null, source:"auto"},
+      {skill:"vocabulary", metric:"yesno_corrected",  value:pct(vc.corrected), scale_max:100, source:"auto"},
+      {skill:"vocabulary", metric:"yesno_hit_rate",   value:pct(vc.hits),      scale_max:100, source:"auto"},
+      {skill:"vocabulary", metric:"yesno_false_alarm_rate", value:pct(vc.alarms), scale_max:100, source:"auto"},
+      {skill:"vocabulary", metric:"vocab_size_estimate", value:Math.round(vc.size), scale_max:null, source:"auto"}
+    ],
+    forms: sitting.ctests.map(t => ({form_id:t.form, item_type:"ctest", source:"built into the page",
+                                     difficulty:"B2-C1", payload:{topic:t.topic, gaps:t.gaps}}))
+      .concat([{form_id:sitting.vocab.form, item_type:"vocab_yesno", source:"built into the page",
+                difficulty:"bands 1-6", payload:{items:sitting.vocab.items}}])
+  };
+}
+
+async function saveSitting(){
+  const payload = (sitting && !sitting.saved) ? buildPayload() : null;
+  if (payload) localStorage.setItem(PENDING_KEY, JSON.stringify(payload));
+  const p = payload || JSON.parse(localStorage.getItem(PENDING_KEY) || "null");
+  if (!p) return;
+  const msg = $("results-msg");
+  banner(msg, "warn", "Saving&hellip;");
+  try {
+    const { data: sess, error: e1 } = await sb.from("spanish_test_sessions")
+      .insert(p.session).select("id,taken_on").single();
+    if (e1) throw e1;
+
+    const { error: e2 } = await sb.from("spanish_test_items")
+      .insert(p.items.map(r => Object.assign({session_id: sess.id}, r)));
+    if (e2) throw e2;
+
+    const { error: e3 } = await sb.from("spanish_scores")
+      .insert(p.scores.map(r => Object.assign({session_id: sess.id}, r)));
+    if (e3) throw e3;
+
+    for (const f of p.forms){
+      const { error: e4 } = await sb.from("spanish_forms")
+        .upsert(Object.assign({first_used_on: sess.taken_on, times_used: 1}, f),
+                {onConflict:"form_id"});
+      if (e4) throw e4;
+    }
+    localStorage.removeItem(PENDING_KEY);
+    if (sitting) sitting.saved = true;
+    banner(msg, "ok", "Saved. Session " + sess.id.slice(0,8) + ", " + sess.taken_on + ".");
+    loadHistory();
+  } catch (e) {
+    banner(msg, "err", "Not saved: " + (e.message || e) +
+      ' &mdash; the sitting is held in this browser. <button class="quiet" id="btn-retry">Try again</button>');
+    const b = $("btn-retry");
+    if (b) b.onclick = () => saveSitting();
+  }
+}
+
+/* ============================================================================
+   RESULTS, HISTORY AND THE NUMBER TO BEAT
+   ========================================================================= */
+let BEST = {};   // metric -> best value so far, before this sitting
+
+function deltaSpan(now, before){
+  if (before === undefined || before === null) return '<span class="delta flat">first time</span>';
+  const d = Math.round((now - before)*10)/10;
+  if (Math.abs(d) < 0.05) return '<span class="delta flat">same as your best</span>';
+  const cls = d > 0 ? "up" : "down";
+  return '<span class="delta '+cls+'">' + (d>0?"+":"") + nfmt(d) + ' vs your best</span>';
+}
+
+function metricRow(label, value, unit, best){
+  return '<div class="metric"><div>' + label + '</div><div class="v">' + nfmt(value) + unit +
+         deltaSpan(value, best) + '</div></div>';
+}
+
+function renderResults(res){
+  const {ct, vc, minutes} = res;
+  let h = "";
+  h += metricRow("C-test, strict (accents count)", pct(ct.exactPct), "%", BEST.ctest_exact);
+  h += metricRow("C-test, accents forgiven", pct(ct.lenientPct), "%", BEST.ctest_lenient);
+  h += metricRow("Vocabulary, corrected score", pct(vc.corrected), "%", BEST.yesno_corrected);
+  h += metricRow("Estimated words known", Math.round(vc.size), "", BEST.vocab_size_estimate);
+  h += '<div class="metric"><div>Said yes to invented words</div><div class="v">' +
+       nfmt(pct(vc.alarms)) + '%</div></div>';
+  h += '<div class="metric"><div>Time taken</div><div class="v">' + minutes + ' min</div></div>';
+
+  h += '<h3>Vocabulary by frequency band</h3><table><tr><th>Band</th><th>Raw</th><th>Corrected</th><th>Words credited</th></tr>';
+  vc.perBand.forEach(b => {
+    h += '<tr><td>' + b.label + '</td><td>' + nfmt(pct(b.raw)) + '%</td><td>' +
+         nfmt(pct(b.corrected)) + '%</td><td>' + Math.round(b.corrected*b.width) + '</td></tr>';
+  });
+  h += '</table>';
+  h += '<p class="small muted" style="margin-top:12px">The corrected score subtracts your false alarms, ' +
+       'so it is the honest one. The word estimate is a rough figure from a short test; ' +
+       'watch which way it moves, not the exact number.</p>';
+  if (sitting && sitting.reusedPassages){
+    h += '<div class="banner warn" style="margin-top:12px">The passage pool ran out, so a C-test text ' +
+         'you have seen before came back. Treat this C-test score as inflated, and add new passages ' +
+         'to the page before the next sitting.</div>';
+  }
+  $("results-body").innerHTML = h;
+}
+
+async function loadScoreHistory(){
+  const { data: sessions, error: e1 } = await sb.from("spanish_test_sessions")
+    .select("id,taken_on,session_type,duration_minutes")
+    .order("taken_on", {ascending:false}).limit(40);
+  if (e1) throw e1;
+  if (!sessions || !sessions.length) return {sessions:[], byMetric:{}, rows:[]};
+
+  const ids = sessions.map(s => s.id);
+  const { data: scores, error: e2 } = await sb.from("spanish_scores")
+    .select("session_id,metric,value,source").in("session_id", ids).eq("source","auto");
+  if (e2) throw e2;
+
+  const byMetric = {};
+  (scores||[]).forEach(s => {
+    if (byMetric[s.metric] === undefined || Number(s.value) > byMetric[s.metric])
+      byMetric[s.metric] = Number(s.value);
+  });
+  const rows = sessions.map(s => {
+    const mine = {};
+    (scores||[]).filter(x => x.session_id === s.id).forEach(x => mine[x.metric] = Number(x.value));
+    return {session:s, m:mine};
+  });
+  return {sessions:sessions, byMetric:byMetric, rows:rows};
+}
+
+async function loadHistory(){
+  try {
+    const {rows, byMetric} = await loadScoreHistory();
+    BEST = byMetric;
+
+    if (!rows.length){
+      $("beat").innerHTML = '<p class="muted">No sittings yet. The first one becomes the number to beat.</p>';
+    } else {
+      $("beat").innerHTML =
+        metricRow("Best C-test, strict", byMetric.ctest_exact ?? 0, "%", null).replace(/<span class="delta.*?<\/span>/,"") +
+        metricRow("Best vocabulary, corrected", byMetric.yesno_corrected ?? 0, "%", null).replace(/<span class="delta.*?<\/span>/,"") +
+        metricRow("Best word estimate", byMetric.vocab_size_estimate ?? 0, "", null).replace(/<span class="delta.*?<\/span>/,"");
+    }
+
+    let h = '<table><tr><th>Date</th><th>C-test</th><th>Vocabulary</th><th>Words</th><th>False alarms</th><th>Min</th></tr>';
+    if (!rows.length) h += '<tr><td colspan="6" class="muted">nothing yet</td></tr>';
+    rows.forEach(r => {
+      h += '<tr><td>' + r.session.taken_on + '</td>' +
+           '<td>' + (r.m.ctest_exact !== undefined ? nfmt(r.m.ctest_exact)+"%" : "&mdash;") + '</td>' +
+           '<td>' + (r.m.yesno_corrected !== undefined ? nfmt(r.m.yesno_corrected)+"%" : "&mdash;") + '</td>' +
+           '<td>' + (r.m.vocab_size_estimate !== undefined ? Math.round(r.m.vocab_size_estimate) : "&mdash;") + '</td>' +
+           '<td>' + (r.m.yesno_false_alarm_rate !== undefined ? nfmt(r.m.yesno_false_alarm_rate)+"%" : "&mdash;") + '</td>' +
+           '<td>' + (r.session.duration_minutes || "&mdash;") + '</td></tr>';
+    });
+    $("history").innerHTML = h + '</table>';
+
+    const used = await usedForms();
+    const left = PASSAGES.filter(p => !used.some(u => u.form_id === p.id)).length;
+    $("pool-note").textContent = left >= 2
+      ? left + " unused C-test passages left (" + Math.floor(left/2) + " more sittings)"
+      : "Passage pool is spent. Add new passages to the page before the next sitting.";
+  } catch (e) {
+    banner($("beat"), "err", "Could not read your history: " + (e.message || e));
+  }
+}
+
+/* ============================================================================
+   SIGN IN AND BOOT
+   ========================================================================= */
+function showSetup(){
+  show("view-setup");
+  const haveCfg = CFG.url && CFG.key;
+  $("cfg-block").classList.toggle("hidden", !!haveCfg);
+  $("login-block").classList.toggle("hidden", !haveCfg);
+  if (haveCfg) $("in-email").focus(); else $("cfg-url").focus();
+}
+
+function makeClient(){
+  if (!window.supabase){
+    banner($("setup-msg"), "err",
+      "The Supabase library did not load. This page needs the internet the first time it opens " +
+      "in a browser session. Check the connection and reload.");
+    return null;
+  }
+  if (!CFG.url || !CFG.key) return null;
+  sb = window.supabase.createClient(CFG.url, CFG.key, {
+    auth: {persistSession:true, autoRefreshToken:true, storageKey:"spanish_tracker_auth"}
+  });
+  return sb;
+}
+
+async function enterApp(){
+  $("btn-signout").classList.remove("hidden");
+  show("view-home");
+  await loadHistory();
+  if (localStorage.getItem(PENDING_KEY)){
+    banner($("beat"), "warn",
+      'A sitting from earlier never made it to the database. ' +
+      '<button class="quiet" id="btn-flush">Save it now</button>');
+    const b = $("btn-flush");
+    if (b) b.onclick = async () => { show("view-results"); $("results-body").innerHTML = ""; await saveSitting(); };
+  }
+}
+
+async function boot(){
+  CFG = loadConfig();
+  if (!makeClient()){ showSetup(); return; }
+  const { data } = await sb.auth.getSession();
+  if (data && data.session) enterApp(); else showSetup();
+}
+
+// ---- wiring ---------------------------------------------------------------
+$("btn-cfg-save").onclick = () => {
+  const url = $("cfg-url").value.trim(), key = $("cfg-key").value.trim();
+  if (!url || !key){ banner($("setup-msg"), "err", "Both fields are needed."); return; }
+  saveConfig(url, key); CFG = loadConfig(); makeClient();
+  banner($("setup-msg"), "ok", "Connection saved.");
+  showSetup();
+};
+$("btn-cfg-edit").onclick = () => {
+  $("cfg-url").value = CFG.url; $("cfg-key").value = CFG.key;
+  $("cfg-block").classList.remove("hidden"); $("login-block").classList.add("hidden");
+};
+$("btn-signin").onclick = async () => {
+  const email = $("in-email").value.trim(), password = $("in-pass").value;
+  if (!email || !password){ banner($("setup-msg"), "err", "Email and password, please."); return; }
+  $("btn-signin").disabled = true;
+  banner($("setup-msg"), "warn", "Signing in&hellip;");
+  const { error } = await sb.auth.signInWithPassword({email:email, password:password});
+  $("btn-signin").disabled = false;
+  if (error){ banner($("setup-msg"), "err", error.message); return; }
+  banner($("setup-msg"), "", "");
+  $("in-pass").value = "";
+  enterApp();
+};
+$("in-pass").addEventListener("keydown", e => { if (e.key === "Enter") $("btn-signin").click(); });
+$("btn-signout").onclick = async () => { await sb.auth.signOut(); location.reload(); };
+$("btn-start").onclick = startSitting;
+$("btn-ctest-done").onclick = () => {
+  const ins = ctestInputs();
+  const blank = ins.filter(i => i.value.trim() === "").length;
+  if (blank && !confirm(blank + " gaps are still empty. A guess scores better than a blank. Move on anyway?")) return;
+  startVocab();
+};
+$("btn-vocab-yes").onclick = () => answerVocab(true);
+$("btn-vocab-no").onclick  = () => answerVocab(false);
+document.addEventListener("keydown", e => {
+  if ($("view-vocab").classList.contains("hidden")) return;
+  if (e.key === "y" || e.key === "Y" || e.key === "s" || e.key === "S") answerVocab(true);
+  if (e.key === "n" || e.key === "N") answerVocab(false);
+});
+$("btn-home").onclick = async () => { show("view-home"); await loadHistory(); };
+$("btn-review").onclick = () => {
+  const card = $("review-card");
+  card.classList.toggle("hidden");
+  if (!card.classList.contains("hidden")){
+    $("review-body").innerHTML = "";
+    $("review-body").appendChild($("ctest-body").cloneNode(true));
+  }
+};
+
+boot();
+</script>
+</body>
+</html>
