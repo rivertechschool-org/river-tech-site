@@ -7,10 +7,14 @@
 <title>Spanish self-test tracker</title>
 <!--
   Spanish B2 to C1 - self-test tracker.  Phase 2: C-test + vocabulary size.
-  Standalone page.  Open it straight from disk (double click) or serve it locally.
+  Lives at the root of the life-os repository, beside its other single-page apps,
+  but stands alone: it does not use js/supabase.js, the LifeOS db-proxy or auth-guard.
+  Open it straight from disk (double click) or serve it locally.
   Interface is English on purpose; Spanish only appears inside the test items.
 
-  Storage: Supabase project "Personal Assistant" (smicnyavqcnlwaejaxer).
+  Storage: Supabase project "Personal Assistant" (smicnyavqcnlwaejaxer), NOT the LifeOS
+  project, so it signs in on its own.  Decided Fri Sep 4 2026: the tables, the build
+  plan and the assistant all live in the PA project, so the scores stay there too.
   Tables: spanish_test_sessions, spanish_test_items, spanish_scores,
           spanish_samples, spanish_forms.  All five are row-level-secured,
           so the key below can read nothing at all until you sign in.
@@ -89,6 +93,7 @@
   <h1>Spanish self-test tracker</h1>
   <span class="sub" id="hdr-sub">B2 to C1</span>
   <span class="spacer"></span>
+  <a class="small" href="index.html" style="color:var(--muted);text-decoration:none">&larr; Life OS</a>
   <span class="timer hidden" id="timer"></span>
   <button class="quiet small hidden" id="btn-signout">Sign out</button>
 </header>

@@ -1,37 +1,50 @@
 # Spanish self-test tracker
 
-Personal tool, nothing to do with the River Tech website. It lives on the branch
-`claude/spanish-b2-c1-tracker-7j73w1` because that is where the session that built
-it was told to work.
+> **Staging copy.** This belongs in `lukehegelund/life-os`, at the repository root
+> (`spanish-tracker.html`, `README.md`, `tests/`). It is parked here only because the
+> session that built it could not reach a personal repository. Once it has been copied
+> across, delete the branch `claude/spanish-b2-c1-tracker-7j73w1` from this repository.
+> Never merge that branch into `main`: pushing `main` publishes to www.rivertechschool.com.
 
-**Do not merge this branch into `main`.** Pushing `main` publishes the whole
-repository to www.rivertechschool.com, and this page has no business being there.
-It belongs in its own home; moving it out is a one-line `git mv` once that home exists.
+> It signs in to the Personal Assistant Supabase project on its own. It does not use
+> LifeOS's `js/supabase.js`, its db-proxy or its auth-guard, and its scores do not go in
+> the LifeOS database. That was the call on Fri Sep 4 2026: the tables and the build plan
+> already live in the PA project, and the assistant reads them there.
 
-## What it is
+One HTML file that measures my Spanish the same way every time, scores it without
+any judgment involved, and stores every sitting in Supabase so each new score has
+an old score to beat.
 
-One HTML file. Open `spanish-tracker.html` in a browser, from disk or from a local
-server. It runs a sitting of two tests, scores them without any AI, and stores the
-result in the Supabase Personal Assistant project.
+It is not a course and not a certificate. It is a ruler.
 
-- **C-test.** Two short Spanish passages. The first sentence is left whole; after
-  that the second half of every second word is deleted and you restore it. Twenty
-  gaps per passage, forty in total. This is the spine of the tracker: it is fast,
-  it is scored by string comparison, and it tracks overall proficiency closely.
-- **Vocabulary size.** Eighty words, one at a time, yes or no. Sixty are real and
-  spread evenly across six frequency bands; twenty are invented. Saying yes to an
-  invented word is a false alarm, and the score is corrected for it, so claiming
-  everything gets you zero.
+## Running it
 
-Roughly fifteen minutes. Nothing is graded by judgment, so two sittings a month
-apart are directly comparable.
+Open `spanish-tracker.html` in a browser, from disk or from any local server.
 
-## First run
+The first time, it asks for the Supabase project URL and the publishable key, and
+keeps them in that browser. Then sign in with the owner account. The five
+`spanish_*` tables have row-level security, so the key can read nothing at all
+until you are signed in. The service_role key must never go anywhere near this file.
 
-The published copy in this repository carries no Supabase key. The first time you
-open it, paste the project URL and the publishable key; the browser keeps them.
-Then sign in with the owner account email and password. The five `spanish_*` tables
-are row-level-secured, so the key sees nothing at all until you are signed in.
+## What a sitting is
+
+About fifteen minutes, two parts, both scored by the page itself.
+
+**C-test.** Two short Spanish passages. The first sentence is left whole; after
+that the second half of every second word is deleted and you put it back. Twenty
+gaps per passage, forty in total. Cheap, fast, and it tracks overall proficiency
+closely, which is why it is the spine of the whole thing. Scored twice: strict,
+where accents count, and lenient, where they do not.
+
+**Vocabulary size.** Eighty words, one at a time, yes or no. Sixty are real, ten
+from each of six frequency bands; twenty are invented. Saying yes to an invented
+word is a false alarm, and the score is corrected for it:
+
+    corrected = (hits - false alarms) / (1 - false alarms)
+
+so claiming everything scores zero. The word estimate adds up the corrected rate
+for each band times the slice of the language that band stands for. It tops out
+at 12,000 words; treat the direction as the signal, not the digits.
 
 ## What it writes
 
@@ -42,27 +55,44 @@ are row-level-secured, so the key sees nothing at all until you are signed in.
 | `spanish_scores` | 7 auto-scored metrics |
 | `spanish_forms` | 3, so those items are never served again |
 
-If the save fails, the whole sitting is held in the browser and a "try again"
-button appears; it is also offered the next time you open the page.
+A sitting that cannot reach the database is parked in the browser and offered
+again the next time the page opens. Nothing is lost to a dropped connection.
 
-## Rules this page follows
+## The rules it follows
 
-From the build plan note in Supabase, *Spanish self-test tracker - build plan,
-findings & guidelines*:
+1. Objective auto-scoring is the spine. There is no AI in this file. AI ratings,
+   when they come, sit on top and never overrule the measured numbers.
+2. Fresh items every sitting. Used forms are retired in `spanish_forms`, because
+   reusing items makes the score climb without the Spanish climbing.
+3. Fixed difficulty. Every passage is written to one recipe: about 85 words of
+   upper-B2 journalistic prose, no proper nouns, no numbers, no dialogue.
+4. Every raw response is kept, so the whole history can be re-scored in one pass
+   if the method ever changes.
+5. English interface. Spanish only inside the items.
 
-- Objective auto-scoring only. No AI in this file (G1).
-- Fresh items every sitting; used forms are retired in `spanish_forms` (G2).
-- Passages are written to one recipe, about 85 words of upper-B2 journalistic
-  prose, no proper nouns and no numbers, so difficulty does not drift (G3).
-- Interface in English; Spanish only inside the items (G7).
+## Keeping it fed
 
-## Keeping it going
+Ten passages, two per sitting, so five sittings before the pool is spent. After
+that the page still runs, but it flags the sitting as inflated and says so in the
+session notes. Add more to the `PASSAGES` array, same recipe, before you get there.
 
-There are ten passages, two per sitting, so five sittings before the pool is
-spent. After that the page still runs but flags the sitting as inflated and says
-so in the session notes. Add more passages to the `PASSAGES` array in the file,
-same recipe, before you get there.
+The invented words are in `PSEUDO`. If one turns out to be a real Spanish word,
+delete it: a real word hiding in that list quietly deflates every score.
 
-The invented words are in the `PSEUDO` array. If one of them turns out to be a
-real Spanish word, delete it; a real word sitting in that list quietly deflates
-every score.
+## Tests
+
+    npm install playwright
+    node tests/logic.test.mjs           # generator and scoring maths
+    node tests/flow.test.mjs            # a whole sitting, against a fake database
+    node tests/exhausted-pool.test.mjs  # what happens when the passages run out
+
+The flow tests stub Supabase, so they touch nothing real.
+
+## Still to build
+
+- Speaking: record two minutes, transcribe, compute speech rate, pause ratio and
+  lexical diversity. No grading, just the objective metrics.
+- Reading and listening from the free Cervantes DELE papers, scored against their
+  published answer keys.
+- Writing: a timed DELE task graded against the official rating scale.
+- Trend charts, one per skill.
