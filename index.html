@@ -96,6 +96,8 @@
 
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/style.css?v=30">
+  <link rel="stylesheet" href="assets/illustrated-story/v24/story.css">
+  <script type="module" src="assets/illustrated-story/v24/story.js"></script>
 
   <link rel="canonical" href="https://www.rivertechschool.com/">
 </head>
@@ -168,11 +170,11 @@
 <div class="top-bar">
   <div class="topbar-ticker-wrap">
     <div class="topbar-ticker">
-      <span>Welcome back, families &mdash; we can&rsquo;t wait to see you! Classes begin Tuesday, September 1st. (Aladdin Auditions on Monday, August 31st.)</span>
-      <span>Welcome back, families &mdash; we can&rsquo;t wait to see you! Classes begin Tuesday, September 1st. (Aladdin Auditions on Monday, August 31st.)</span>
+      <span>Welcome to River Tech School: Christian education for artistic and tech-savvy students, grades 1–12, in Post Falls, Idaho.</span>
+      <span>Welcome to River Tech School: Christian education for artistic and tech-savvy students, grades 1–12, in Post Falls, Idaho.</span>
     </div>
   </div>
-  <a href="pages/enrollment.html" class="enroll-btn">School starts Sept 1</a>
+  <a href="pages/enrollment.html" class="enroll-btn">Enrollment</a>
   <div class="social-icons">
     <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
       <svg viewBox="0 0 24 24" fill="#c0392b"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="white" points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
@@ -237,16 +239,31 @@
     <a href="pages/vlog.html">Video Globe</a>
     <a href="pages/fieldtrips.html">Field Trips</a>
   </div>
-  <a href="pages/enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
+  <a href="pages/enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">Enrollment</a>
 </div>
 
 <!-- Main Content -->
 <div class="main-content">
 <a class="mobile-announce" href="pages/enrollment.html">
-  <b>Classes begin Tuesday, September 1st.</b>
-  Aladdin Auditions on Monday, August 31st.
+  <b>Welcome to River Tech School:</b>
+  Christian education for artistic and tech-savvy students, grades 1–12, in Post Falls, Idaho.
 </a>
   <div class="content-area">
+
+    <!-- Approved Little beginnings illustration; isolated styles and assets. -->
+    <section id="rt-home-story" aria-label="Life is a Stage. Love is our Script.">
+      <button type="button" disabled class="rt-story-stage" aria-label="Play the illustrated story" aria-describedby="rt-story-description">
+        <picture class="rt-story-poster">
+          <source media="(max-width:480px)" srcset="assets/illustrated-story/v24/poster-mobile.webp">
+          <img src="assets/illustrated-story/v24/poster-desktop.webp" width="740" height="350" alt="An illustrated boy and girl with a robot, beside the River Tech logo" fetchpriority="high">
+        </picture>
+        <canvas aria-hidden="true"></canvas>
+        <img class="rt-story-still" alt="" aria-hidden="true" hidden>
+        <span class="rt-story-caption" aria-hidden="true">Life is a Stage. Love is our Script.</span>
+        <span class="rt-story-focus-hint" aria-hidden="true">Space to pause or replay · Escape to finish</span>
+      </button>
+      <p id="rt-story-description" class="sr-only">A boy cartwheels in and launches a rocket. A girl dances in and plays with a robot. The River Tech logo appears between them. Press Space to pause or replay, or Escape to finish.</p>
+    </section>
 
     <!-- Hero -->
     <div class="hero-section">
