@@ -145,14 +145,20 @@ deck stays the human original, the JSON stays the machine one.
 
 Added 2026-08-25, at Luke's direction. Two standing rules for every future teachers-page change:
 
-- **A bio is not "published" until it is visible on the grid.** Bio copy is authored inside that
+- **`pages/teachers.html` is generated. Edit `assets/data/teachers.json`, then run
+  `python3 tools/build_teachers.py .`** — the same relationship the schedule has in section 7.
+  Bios, roles and the one-line summaries all live in that JSON. A bio may contain HTML;
+  `<br><br>` between paragraphs is the house pattern, because the bio also has to render
+  inside a `<p>`.
+- **A bio is not "published" until it is visible on the grid.** Bio copy is rendered inside that
   teacher's `<div class="tpw-panel" id="tpw-XX">` as `<p class="tp-bio">`, but a panel is `hidden`
   until someone clicks the card, so a bio left there alone is invisible to anyone scanning the page.
-  The inline script near the bottom of `pages/teachers.html` hoists it onto the visible card:
-  `["DA", "CA", "JO", "LU", "PH", "TI", "RY", "PE"].forEach(...)` copies the panel bio into that
-  card's `.tp-line` and removes the panel copy. **When you add a bio, add the teacher's two-letter
-  `data-who` code to that array.** Do not instead duplicate the bio text into the card markup — that
-  renders it twice, once from the markup and once from the hoist.
+  The inline script near the bottom of the page hoists it onto the visible card, copying the panel
+  bio into that card's `.tp-line` and removing the panel copy. **That list of teachers is now
+  generated from the JSON — everyone whose `bio` is not empty — so filling in a bio is the whole
+  job** (2026-09-08; it used to be hand-maintained and drifted, which is why this bullet existed).
+  Do not instead duplicate the bio text into the card markup — that renders it twice, once from the
+  markup and once from the hoist.
 - **Staff contact addresses are firstname@rivertech.me. Never personal addresses.** The page
   previously carried gmail/yahoo addresses for Dan, Mary, Caitlin, Jordan, and Luke; those were
   replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave

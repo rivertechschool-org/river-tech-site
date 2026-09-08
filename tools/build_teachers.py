@@ -379,8 +379,9 @@ JS = """
     btn.addEventListener("click", function(){ showWeek(btn.dataset.who, true); });
   });
 
-  /* Approved biographies belong on the visible teacher cards. */
-  ["DA", "MA", "CA", "JO", "LU", "PH", "CR"].forEach(function(who){
+  /* Approved biographies belong on the visible teacher cards. Generated from
+     teachers.json: everyone whose "bio" is not empty, so adding one is enough. */
+  %(bios)s.forEach(function(who){
     var bio = document.querySelector("#tpw-" + who + " .tp-bio");
     var summary = document.querySelector('.tp-face[data-who="' + who + '"] .tp-line');
     if(!bio || !summary) return;
@@ -575,7 +576,10 @@ def build():
     head = head.replace('<a href="why-river-tech.html" class="active">', '<a href="why-river-tech.html">')
 
     js = JS % {"slots": json.dumps(js_slots, ensure_ascii=False),
-               "names": json.dumps(names, ensure_ascii=False)}
+               "names": json.dumps(names, ensure_ascii=False),
+               "bios": json.dumps([p["initials"] for p in people
+                                   if p.get("bio") and not p.get("hidden")],
+                                  ensure_ascii=False)}
     tail = tail.replace("</body>", js + "</body>")
 
     with io.open(OUT, "w", encoding="utf-8") as fh:
