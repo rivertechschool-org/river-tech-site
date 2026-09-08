@@ -96,8 +96,8 @@
 
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/style.css?v=30">
-  <link rel="stylesheet" href="assets/illustrated-story/v24/story.css">
-  <script type="module" src="assets/illustrated-story/v24/story.js"></script>
+  <link rel="stylesheet" href="assets/illustrated-story/v24/story.css?v=24.2">
+  <script type="module" src="assets/illustrated-story/v24/story.js" onerror="document.querySelector('#rt-home-story .rt-story-stage')?.setAttribute('data-error','true')"></script>
 
   <link rel="canonical" href="https://www.rivertechschool.com/">
 </head>
@@ -253,6 +253,12 @@
     <!-- Approved Little beginnings illustration; isolated styles and assets. -->
     <section id="rt-home-story" aria-label="Life is a Stage. Love is our Script.">
       <button type="button" disabled class="rt-story-stage" aria-label="Play the illustrated story" aria-describedby="rt-story-description">
+        <script>
+          // Set before the poster is parsed so the ending never flashes before autoplay.
+          if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.currentScript.parentElement.dataset.autoplay = 'true';
+          }
+        </script>
         <picture class="rt-story-poster">
           <source media="(max-width:480px)" srcset="assets/illustrated-story/v24/poster-mobile.webp">
           <img src="assets/illustrated-story/v24/poster-desktop.webp" width="740" height="350" alt="An illustrated boy and girl with a robot, beside the River Tech logo" fetchpriority="high">
