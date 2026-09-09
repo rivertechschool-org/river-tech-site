@@ -7,9 +7,9 @@
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <title>Field Trips | River Tech Christian School | Post Falls, ID</title>
-  <meta name="description" content="River Tech field trips: real-world learning experiences for students. Monthly excursions from rock climbing to farm visits, museum tours, and more.">
+  <meta name="description" content="Hidden Acres Farm and Student Farmers Market on September 16, 2026. Full-time and homeschool family information, packing list, and September 17 NIC Robotics tour.">
   <meta property="og:title" content="Field Trips | River Tech Christian School">
-  <meta property="og:description" content="River Tech field trips: real-world learning experiences for students. Monthly excursions from rock climbing to farm visits, museum tours, and more.">
+  <meta property="og:description" content="Hidden Acres Farm and Student Farmers Market on September 16, 2026. Full-time and homeschool family information, packing list, and September 17 NIC Robotics tour.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
   <link rel="stylesheet" href="../assets/css/base.css">
@@ -31,6 +31,7 @@
     }
   }
   </script>
+<link rel="stylesheet" href="../assets/css/fieldtrips.css?v=hidden-acres-3">
 </head>
 <body>
 
@@ -167,31 +168,51 @@
   <a href="enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
 </div>
 
-<!-- Main Content -->
-<div class="main-content">
-  <div class="content-area">
-
-    <div class="page-hero-inner">
-      <h1>Field Trips</h1>
-    </div>
-
-
-    <p style="text-align: center; font-style: italic;">At River Tech, students engage in thoughtfully planned field trips that transform lessons into real-world experiences.</p>
-
-    <p>Our trips provide real-world learning and immersive experiences that textbooks alone cannot offer. We run monthly excursions, with more frequent trips during summer. From hands-on time at local farms to historical insights at museums, these experiences deepen students' understanding of what they learn in the classroom.</p>
-
-    <p>Field trips are optional, with spots offered first-come, first-served to both River Tech Premium (Full-Time) and River Tech &Agrave; La Carte (Home School) students and family members. Trips run monthly, with more during warmer months. Each field trip has a fee (starting at $20). We plan a trip, and if you want to go, you sign up and come!</p>
-
-    <p style="text-align: center; font-style: italic;">Below is our last trip before summer break. The next trip will be posted in August as we get closer to school start.</p>    <!-- Next Field Trip CTA -->
-    <div class="info-box" style="text-align: center; margin: 30px 0; border: 2px solid var(--color-red);">
-      <h3 style="margin-top:0;">🎢 Next Field Trip: Silverwood &mdash; Monday, June 1, 2026</h3>
-      <p style="margin:0.5rem 0;"><strong>Open to all River Tech full-time and homeschool families.</strong><br>
-      $35 per person &middot; free for Read 2 Ride students</p>
-      <p style="margin:0.5rem 0;">Sign up &amp; pay by <strong>Thursday, May 28</strong>.</p>
-      <a href="register-fieldtrip.html" class="cta-btn" style="display:inline-block; margin-top:10px;">Sign up for Silverwood &rarr;</a>
-    </div>
-
-    <h2 class="section-subheading">Past Trip Highlights</h2>
+<main class="main-content"><div class="trip-wrap" id="fieldtrip-hub">
+<header class="trip-hero">
+  <div><p class="trip-eyebrow">River Tech · September 2026 field trips</p>
+    <h1>Hidden Acres <em>Farm</em></h1>
+    <p class="trip-location">Green Bluff · Student Farmers Market</p>
+  </div>
+  <div class="trip-date" aria-label="Wednesday, September 16, 2026"><span>Wednesday</span><strong>16</strong><span>September</span></div>
+</header>
+<div class="trip-audience" id="family-information">
+<p class="trip-eyebrow" id="audience-label">Choose your family's information</p>
+<div class="trip-tabs" aria-labelledby="audience-label" data-trip-tabs>
+<button type="button" id="tab-full-time" data-family="full-time">Full-time families <span aria-hidden="true">↗</span></button>
+<button type="button" id="tab-homeschool" data-family="homeschool">Homeschool families <span aria-hidden="true">↗</span></button>
+</div>
+</div>
+<div class="trip-hub-layout">
+<aside class="trip-topic-side">
+<nav class="trip-topic-tabs" aria-label="Field trip topics" data-topic-tabs><button type="button" id="topic-tab-overview" data-topic="overview" data-audience="shared"><span class="trip-topic-label"><small class="trip-start-label" aria-hidden="true">Start here</small><span data-topic-label>Trip overview</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-full-time-details" data-topic="full-time-details" data-audience="full-time"><span class="trip-topic-label"><span data-topic-label>Schedule & cost</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-homeschool-details" data-topic="homeschool-details" data-audience="homeschool"><span class="trip-topic-label"><span data-topic-label>Arrival & supervision</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-farmers-market" data-topic="farmers-market" data-audience="shared"><span class="trip-topic-label"><span data-topic-label>Farmers market</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-what-to-bring" data-topic="what-to-bring" data-audience="shared"><span class="trip-topic-label"><span data-topic-label>What to bring</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-chaperones" data-topic="chaperones" data-audience="full-time"><span class="trip-topic-label"><span data-topic-label>Parent chaperones</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button><button type="button" id="topic-tab-nic-robotics" data-topic="nic-robotics" data-audience="full-time"><span class="trip-topic-label"><span data-topic-label>NIC robotics tour</span></span><span class="trip-topic-arrow" aria-hidden="true">›</span></button></nav>
+<div class="trip-signup-card" data-audience="full-time"><p class="trip-eyebrow">Full-time registration</p><p><strong>$10 per student</strong><br>Sign up &amp; pay by<br><strong>Sunday, September 13</strong></p><a class="trip-button" href="register-fieldtrip.html">Registration opens soon <span aria-hidden="true">↗</span></a></div>
+<a class="trip-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Hidden+Acres+Farm+Green+Bluff" target="_blank" rel="noopener">Find Hidden Acres Farm<br>on the map ↗</a>
+</aside>
+<div class="trip-topic-content"><section class="trip-topic-panel" id="topic-overview" data-topic-panel="overview" data-audience="shared" aria-labelledby="topic-tab-overview"><p class="trip-eyebrow">All River Tech families</p><h2>Trip overview</h2><p>Dear parents,</p>
+<p>Next week, River Tech students have two exciting field trips:</p>
+<ul class="trip-list"><li>Wednesday, September 16 — Hidden Acres Farm and Student Farmers Market</li><li>Thursday, September 17 — NIC Robotics Department Tour for full-time high school students</li></ul>
+<p>One of our favorite annual field trips is back! Students will visit Hidden Acres Farm at Green Bluff, pick fresh produce, and then sell it to River Tech families at our Student Farmers Market at 2:15 PM that afternoon.</p><div class="trip-market-reminder"><h3>Student Farmers Market · 2:15 PM</h3><p>The Student Farmers Market will take place on the lawn to the right of the school entrance. Please do not park on the right side of the school so we can keep that area open for the market.</p>
+<p>Please come support our students at 2:15 PM! Bring cash—especially small bills—and bags for your purchases. All proceeds will help cover field-trip expenses. The students will be excited and proud to sell the produce they picked!</p></div><div class="trip-inline-note" data-audience="full-time"><p>We need several parents of full-time students to volunteer as chaperones at Hidden Acres Farm from 10:45 AM to 1:00 PM. If you are available, please text Mary at 425-444-2271.</p></div></section><section class="trip-topic-panel" id="topic-full-time-details" data-topic-panel="full-time-details" data-audience="full-time" aria-labelledby="topic-tab-full-time-details"><p class="trip-eyebrow">Full-time families</p><h2>Hidden Acres Farm</h2><p class="trip-meta">Wednesday, September 16 | 8:30 AM–2:30 PM<br>Cost: $10 per full-time student</p><h3 class="trip-source-heading">Full-time students</h3><p>The $10 cost includes:</p>
+<ul class="trip-list"><li>School-bus transportation</li><li>Teacher supervision</li><li>Produce picked by the student and sold at the market</li></ul>
+<p>Students will begin the day at school at 8:30 AM with Math and English. The bus will leave at approximately 10:00 AM and return in time for the Student Farmers Market.</p><div class="trip-market-reminder"><h3>Student Farmers Market · 2:15 PM</h3><p>The Student Farmers Market will take place on the lawn to the right of the school entrance. Please do not park on the right side of the school so we can keep that area open for the market.</p>
+<p>Please come support our students at 2:15 PM! Bring cash—especially small bills—and bags for your purchases. All proceeds will help cover field-trip expenses. The students will be excited and proud to sell the produce they picked!</p></div><p>Participation in this field trip is optional, but there will not be a separate on-campus program for students who choose not to attend. Students may take their Math and English workbooks home on Tuesday to complete their assignments.</p><div class="trip-deadline"><p>Please carefully read the information below. Full-time students must sign up and pay through the form attached below by Sunday, September 13, unless other arrangements have been made with Mary.</p>
+<p>Please complete the Hidden Acres registration and payment form below by Sunday, September 13.</p><a class="trip-button" href="register-fieldtrip.html">Registration opens soon <span aria-hidden="true">↗</span></a></div></section><section class="trip-topic-panel" id="topic-homeschool-details" data-topic-panel="homeschool-details" data-audience="homeschool" aria-labelledby="topic-tab-homeschool-details"><p class="trip-eyebrow">Homeschool families</p><h2>Part-time homeschool families</h2><p class="trip-meta">Hidden Acres Farm at Green Bluff<br>Wednesday, September 16</p><p>Part-time homeschool families should meet us directly at Hidden Acres Farm at 10:45 AM. Please do not drop off part-time students at the school, as River Tech will not provide transportation for them.</p>
+<p>Part-time students are welcome to enjoy the farm alongside their full-time River Tech friends at no admission cost.</p>
+<p>Please note:</p>
+<ul class="trip-list"><li>A parent or designated adult must provide transportation and remain at the farm to supervise their student.</li><li>Families must pay for any produce their student picks.</li><li>River Tech will cover produce costs only for registered full-time students participating in the Student Farmers Market.</li><li>Part-time students may join a River Tech group when accompanied and supervised by their own adult.</li></ul><h3>When to finish</h3><p>Homeschool families attend of their own accord. They are welcome to finish when the full-time students finish, or at a time of their own choosing.</p></section><section class="trip-topic-panel" id="topic-farmers-market" data-topic-panel="farmers-market" data-audience="shared" aria-labelledby="topic-tab-farmers-market"><p class="trip-eyebrow">All River Tech families</p><h2>Student Farmers Market</h2><p class="trip-meta">Wednesday, September 16 | 2:15 PM</p><p>One of our favorite annual field trips is back! Students will visit Hidden Acres Farm at Green Bluff, pick fresh produce, and then sell it to River Tech families at our Student Farmers Market at 2:15 PM that afternoon.</p>
+<p>The Student Farmers Market will take place on the lawn to the right of the school entrance. Please do not park on the right side of the school so we can keep that area open for the market.</p>
+<p>This hands-on experience gives students an opportunity to:</p>
+<ul class="trip-list"><li>Learn where food comes from</li><li>Practice math and money-handling skills</li><li>Develop communication and sales skills</li><li>Experience running a small business</li></ul>
+<p>Please come support our students at 2:15 PM! Bring cash—especially small bills—and bags for your purchases. All proceeds will help cover field-trip expenses. The students will be excited and proud to sell the produce they picked!</p></section><section class="trip-topic-panel" id="topic-what-to-bring" data-topic-panel="what-to-bring" data-audience="shared" aria-labelledby="topic-tab-what-to-bring"><p class="trip-eyebrow">All River Tech families</p><h2>What to bring</h2><p class="trip-meta">Hidden Acres Farm at Green Bluff<br>Wednesday, September 16</p><p>Students should bring:</p>
+<ul class="trip-list"><li>A large water bottle filled with fresh water</li><li>A cold lunch</li><li>Closed-toe shoes</li><li>Weather-appropriate, farm-appropriate clothing that may get dirty</li><li>Optional spending money for the farm store</li></ul>
+<p>The regular school dress code will be relaxed for this field trip so students can dress appropriately for the weather and farm activities.</p><div class="trip-inline-note" data-audience="homeschool"><p>Families must pay for any produce their student picks.</p></div><div class="trip-market-reminder"><h3>Student Farmers Market · 2:15 PM</h3><p>The Student Farmers Market will take place on the lawn to the right of the school entrance. Please do not park on the right side of the school so we can keep that area open for the market.</p>
+<p>Please come support our students at 2:15 PM! Bring cash—especially small bills—and bags for your purchases. All proceeds will help cover field-trip expenses. The students will be excited and proud to sell the produce they picked!</p></div></section><section class="trip-topic-panel" id="topic-chaperones" data-topic-panel="chaperones" data-audience="full-time" aria-labelledby="topic-tab-chaperones"><p class="trip-eyebrow">Full-time families</p><h2>Parent chaperones needed</h2><p class="trip-meta">Hidden Acres Farm at Green Bluff<br>Wednesday, September 16</p><p>We need several parents of full-time students to volunteer as chaperones at Hidden Acres Farm from 10:45 AM to 1:00 PM. Chaperones will drive themselves to the farm and supervise a group of students as they pick produce.</p>
+<p>If you are available to volunteer, please text Mary at 425-444-2271.</p><a class="trip-text-link" href="sms:+14254442271">Text Mary ↗</a></section><section class="trip-topic-panel" id="topic-nic-robotics" data-topic-panel="nic-robotics" data-audience="full-time" aria-labelledby="topic-tab-nic-robotics"><p class="trip-eyebrow">Full-time families</p><h2>NIC Robotics Department Tour</h2><p class="trip-meta">Thursday, September 17 | 8:30 AM–2:30 PM</p><p>Full-time high school students will tour the Robotics Department at North Idaho College as part of their Robotics class.</p>
+<p>This is a regular school day, and no sign-up or additional payment is required. Students will travel in the school van and a private vehicle with Jordan and Mary.</p></section><nav class="trip-topic-next" aria-label="Continue reading field trip information" hidden><button type="button" data-topic-overview><span aria-hidden="true">← </span>Return to overview</button><button type="button" data-topic-next>Next topic <span aria-hidden="true">→</span></button></nav></div>
+</div>
+<div class="trip-closing"><p>We are looking forward to two excellent days of hands-on learning!</p></div>
+<details class="trip-past"><summary>Past field trips &amp; photo gallery</summary>    <h2 class="section-subheading">Past Trip Highlights</h2>
 
     <div class="info-box" style="text-align: left; margin: 30px 0;">
       <h3>🧗 Coeur Climbing Company: January 16, 2025</h3>
@@ -286,14 +307,8 @@
     </div>
 
   </div>
-</div>
-
-
-<div class="explore-links">
-  <a href="calendar.html">See our Calendar →</a>
-  <a href="tuition.html">View Tuition & Fees →</a>
-  <a href="enrollment.html">School starts Sept 1 →</a>
-</div>
+</details>
+</div></main>
 <!-- Footer -->
 <footer class="site-footer">
   <div class="footer-top">
@@ -344,5 +359,6 @@
   });
 })();
 </script>
+<script src="../assets/js/fieldtrips.js?v=hidden-acres-3" defer></script>
 </body>
 </html>
