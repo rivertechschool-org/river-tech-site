@@ -47,6 +47,9 @@ function doPost(e) {
     if (payload && payload.waiverType === "hs-super1-lunch") {
       return json_(handleWaiverSubmission_(payload));
     }
+    if (payload && payload.trip && payload.trip.id === "hidden-acres-2026-09-16") {
+      return json_(handleHiddenAcres_(payload));
+    }
     const result = handleSubmission(payload);
     return json_(result);
   } catch (err) {
@@ -57,6 +60,8 @@ function doPost(e) {
 
 function doGet(e) {
   const params = (e && e.parameter) || {};
+  if (params.action === "hiddenAcresConfig") return json_(hiddenAcresConfig_());
+  if (params.action === "hiddenAcresStatus") return json_(hiddenAcresStatus_(params.session_id));
   if (params.action === "silverwoodRoster") {
     return json_(silverwoodRoster_(params.token));
   }
