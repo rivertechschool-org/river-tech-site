@@ -164,7 +164,33 @@ Added 2026-08-25, at Luke's direction. Two standing rules for every future teach
   replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave
   their contact line off rather than guessing one.
 
-## 9. The lunch rotation PDF rebuilds itself. You do not have to know that it exists.
+## 9. ARCHIVED 2026-09-10 — the lunch rotation page, its button and its PDF are off the site
+
+Taken down at Luke's request on 2026-09-10, meant to go back up later. Nothing below is
+live right now; it is kept because it is what you need in order to put the page back.
+
+Removed in that commit: `pages/lunch-rotations.html`, the **View Lunch Rotations** card on
+`pages/calendar.html`, `assets/docs/river-tech-lunch-rotations.pdf` and its `.pdf.inputs`
+stamp, `tools/build_lunch_pdf.js`, `.github/workflows/lunch-rotation-pdf.yml`, and the page's
+entries in `sitemap.xml` and `llms.txt`.
+
+To put it all back, from a current checkout of `main`:
+
+```
+git checkout 4bda8c3 -- pages/lunch-rotations.html \
+  assets/docs/river-tech-lunch-rotations.pdf assets/docs/river-tech-lunch-rotations.pdf.inputs \
+  tools/build_lunch_pdf.js .github/workflows/lunch-rotation-pdf.yml
+```
+
+then restore the calendar card (the marker comment left in `pages/calendar.html` shows where
+it went), and re-add the two index entries. Check the rotation itself against Luke before
+republishing — it was current as of 2026-08-26 and the group sizes were expected to change.
+Dan's approval column still covers it: the page publishes staffing responsibilities and
+student numbers.
+
+---
+
+Everything below is the original section, unchanged, and applies again once the page is back.
 
 Added 2026-08-26. `pages/lunch-rotations.html` carries a **Download the one-page PDF**
 button, and that button hands out a file committed to the repo:
