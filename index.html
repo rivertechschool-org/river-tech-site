@@ -96,8 +96,8 @@
 
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/style.css?v=30">
-  <link rel="stylesheet" href="assets/illustrated-story/v24/story.css?v=24.2">
-  <script type="module" src="assets/illustrated-story/v24/story.js" onerror="document.querySelector('#rt-home-story .rt-story-stage')?.setAttribute('data-error','true')"></script>
+  <link rel="stylesheet" href="assets/living-world/v1/embed.css">
+  <script defer src="assets/living-world/v1/embed.js"></script>
 
   <link rel="canonical" href="https://www.rivertechschool.com/">
 </head>
@@ -250,27 +250,6 @@
 </a>
   <div class="content-area">
 
-    <!-- Approved Little beginnings illustration; isolated styles and assets. -->
-    <section id="rt-home-story" aria-label="Life is a Stage. Love is our Script.">
-      <button type="button" disabled class="rt-story-stage" aria-label="Play the illustrated story" aria-describedby="rt-story-description">
-        <script>
-          // Set before the poster is parsed so the ending never flashes before autoplay.
-          if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.currentScript.parentElement.dataset.autoplay = 'true';
-          }
-        </script>
-        <picture class="rt-story-poster">
-          <source media="(max-width:480px)" srcset="assets/illustrated-story/v24/poster-mobile.webp">
-          <img src="assets/illustrated-story/v24/poster-desktop.webp" width="740" height="350" alt="An illustrated boy and girl with a robot, beside the River Tech logo" fetchpriority="high">
-        </picture>
-        <canvas aria-hidden="true"></canvas>
-        <img class="rt-story-still" alt="" aria-hidden="true" hidden>
-        <span class="rt-story-caption" aria-hidden="true">Life is a Stage. Love is our Script.</span>
-        <span class="rt-story-focus-hint" aria-hidden="true">Space to pause or replay · Escape to finish</span>
-      </button>
-      <p id="rt-story-description" class="sr-only">A boy cartwheels in and launches a rocket. A girl dances in and plays with a robot. The River Tech logo appears between them. Press Space to pause or replay, or Escape to finish.</p>
-    </section>
-
     <!-- Hero -->
     <div class="hero-section">
       <div class="hero-welcome">Welcome to</div>
@@ -278,6 +257,18 @@
       <div style="width:60px; height:3px; background:var(--color-red); margin:0 auto 16px; border-radius:2px;"></div>
       <p class="hero-subtitle">Christian education for artistic and tech-savvy students, grades 1–12, in Post Falls, Idaho.</p>
     </div>
+
+    <!-- The continuing illustrated world; placement C, below the introduction. -->
+    <section id="rt-living-world" aria-label="Life is a Stage. Love is our Script.">
+      <figure class="rt-world-fallback">
+        <img src="assets/illustrated-story/v24/assets/story-v14/river-tech-logo.webp" width="108" height="108" alt="River Tech">
+        <figcaption>Life is a Stage. Love is our Script.</figcaption>
+      </figure>
+      <iframe data-src="https://river-tech-living-world-pilot.onrender.com/embed.html?v=1"
+        title="River Tech’s illustrated living world — fictional students creating and learning together"
+        width="740" height="330" tabindex="-1" aria-hidden="true"
+        sandbox="allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </section>
 
     <!-- Who We Are -->
     <h2 class="section-subheading">Who We Are</h2>

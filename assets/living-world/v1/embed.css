@@ -1,0 +1,10 @@
+/* Scoped to this illustration. Shared page, typography and navigation stay intact. */
+#rt-living-world{position:relative;width:100%;height:330px;margin:0 0 32px;isolation:isolate;background:#f6f4f0}
+#rt-living-world iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .65s ease-in-out}
+#rt-living-world[data-ready=true] iframe{opacity:1;pointer-events:auto}
+#rt-living-world .rt-world-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;margin:0;pointer-events:none}
+#rt-living-world .rt-world-fallback img{width:108px;height:108px;object-fit:contain}
+#rt-living-world .rt-world-fallback figcaption{font:italic 15px/1.5 var(--font-body);color:#8b3a3a;text-align:center}
+#rt-living-world[data-ready=true] .rt-world-fallback{visibility:hidden}
+@media(max-width:550px){#rt-living-world{height:300px;margin-bottom:24px}#rt-living-world .rt-world-fallback figcaption{font-size:13px}}
+@media(prefers-reduced-motion:reduce){#rt-living-world iframe{transition:none}}
