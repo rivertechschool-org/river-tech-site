@@ -42,6 +42,7 @@ const PRICE_PER_PERSON_USD = 35;
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents);
+    if (payload && payload.formType === "hs-lunch-opt-out") return json_(handleLunchOptOut_(payload));
     // Route by payload type. Waiver submissions tag themselves with
     // `waiverType`; everything else is treated as a field-trip submission.
     if (payload && payload.waiverType === "hs-super1-lunch") {
@@ -60,6 +61,7 @@ function doPost(e) {
 
 function doGet(e) {
   const params = (e && e.parameter) || {};
+  if (params.action === "lunchOptOutConfig") return json_(lunchOptOutConfig_());
   if (params.action === "hiddenAcresConfig") return json_(hiddenAcresConfig_());
   if (params.action === "hiddenAcresStatus") return json_(hiddenAcresStatus_(params.session_id));
   if (params.action === "silverwoodRoster") {

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <title>High School Lunch Opt-Out | River Tech School</title>
+  <meta name="description" content="Parent opt-out for high school off-campus lunch, 2026–27. Complete this form only if your student must stay on campus.">
+
+  <meta property="og:title" content="High School Lunch Opt-Out — River Tech School">
+  <meta property="og:description" content="High school students may leave campus after P.E. at 12:10 p.m. Parents may opt out.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rivertechschool.com/pages/hs-lunch-opt-out.html">
+  <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/style.css?v=30">
+
+  <link rel="canonical" href="https://www.rivertechschool.com/pages/hs-lunch-opt-out.html">
+
+  <meta name="robots" content="noindex,follow">
+
+  <style>
+    .reg-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px 0 60px;
+    }
+    .reg-hero {
+      text-align: center;
+      padding: 30px 0 20px;
+    }
+    .reg-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--color-text);
+    }
+    .reg-hero .reg-subtitle {
+      font-size: 18px;
+      color: var(--color-text);
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    /* At-a-glance policy summary */
+    .at-a-glance {
+      background: var(--color-white);
+      border: 1px solid rgba(39, 36, 67, 0.12);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .at-a-glance .ag-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 3px 0;
+    }
+    .at-a-glance .ag-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 24px;
+    }
+    .at-a-glance strong { color: var(--color-text); }
+
+    /* Form sections */
+    .reg-section {
+      background: var(--color-white);
+      border: 1px solid rgba(39, 36, 67, 0.12);
+      padding: 26px 28px;
+      margin-bottom: 22px;
+    }
+    .reg-section-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+    .reg-section-subtitle {
+      font-size: 15px;
+      color: var(--color-text);
+      opacity: 0.75;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .reg-row { margin-bottom: 18px; }
+    .reg-row-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 520px) {
+      .reg-row-grid-2 { grid-template-columns: 1fr; }
+    }
+    .reg-label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+    .reg-label .req { color: var(--color-red); margin-left: 3px; }
+    .reg-input, .reg-select {
+      width: 100%;
+      padding: 10px 12px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--color-text);
+      background: var(--color-white);
+      border: 1.5px solid rgba(39, 36, 67, 0.25);
+      border-radius: 2px;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .reg-input:focus, .reg-select:focus {
+      outline: none;
+      border-color: var(--color-red);
+    }
+
+    .reg-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1.5px solid rgba(39, 36, 67, 0.18);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .reg-check:hover { border-color: var(--color-red); }
+    .reg-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-red);
+      cursor: pointer;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .reg-check.checked { border-color: var(--color-red); background: var(--color-pink-btn); }
+
+    .reg-release {
+      background: var(--color-bg);
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .reg-release h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 12px 0 4px;
+    }
+    .reg-release h3:first-child { margin-top: 0; }
+    .reg-release p { margin-bottom: 8px; }
+
+    .reg-submit {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: var(--color-enroll-bg);
+      color: var(--color-white);
+      font-family: var(--font-nav);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .reg-submit:hover { opacity: 0.9; }
+    .reg-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .reg-error {
+      background: #fef0f0;
+      border-left: 4px solid var(--color-red);
+      color: var(--color-red);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      display: none;
+    }
+    .reg-error.show { display: block; }
+    .reg-success {
+      background: #f0f7f0;
+      border-left: 4px solid #2d7a2d;
+      color: #1a4d1a;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.5;
+      display: none;
+    }
+    .reg-success.show { display: block; }
+
+    .reg-back {
+      display: inline-block;
+      font-size: 15px;
+      color: var(--color-text);
+      opacity: 0.7;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    .reg-back:hover { opacity: 1; color: var(--color-red); }
+
+    .sig-date {
+      display: inline-block;
+      margin-left: 12px;
+      padding: 6px 10px;
+      background: var(--color-bg);
+      border-radius: 2px;
+      font-size: 14px;
+      color: var(--color-text);
+      opacity: 0.75;
+    }
+
+    [hidden] { display: none !important; }
+    .lo-year { font-family: var(--font-nav); font-size: 12px; letter-spacing: .12em; color: var(--color-red); font-weight: 700; }
+    .lo-intro { padding: 20px 24px; margin-bottom: 24px; border-left: 4px solid var(--color-red); background: #fff4f3; font-size: 17px; line-height: 1.6; }
+    .lo-intro p { margin: 0 0 10px; } .lo-intro p:last-child { margin-bottom: 0; }
+    .lo-schedule { margin: 16px 0 0; } .lo-schedule > div { display: grid; grid-template-columns: 180px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid rgba(39,36,67,.12); }
+    .lo-schedule dt { font-weight: 700; } .lo-schedule dd { margin: 0; }
+    .lo-form-title { margin-top: 36px; } .lo-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+    .lo-student { padding: 18px 20px; border: 1px solid rgba(39,36,67,.2); margin: 16px 0; background: var(--color-bg); }
+    .lo-student-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 14px; }
+    .lo-secondary { background: white; color: var(--color-text); font: inherit; padding: 10px 14px; border: 1px solid rgba(39,36,67,.4); cursor: pointer; min-height: 44px; }
+    .lo-optional { font-weight: 400; } .lo-signature { margin-top: 24px; }
+    .lo-agreement { padding: 16px; line-height: 1.6; }
+    .lo-receipt { border-top: 4px solid #2d7a2d; line-height: 1.6; scroll-margin-top: 80px; } #receipt-reference { overflow-wrap: anywhere; }
+    .lo-preview { border: 1px dashed #8a5e02; padding: 12px 16px; margin: 12px 0; background: #fffce8; font-size: 14px; }
+    .reg-input:focus-visible, .reg-select:focus-visible, button:focus-visible, input[type=checkbox]:focus-visible { outline: 3px solid #153e75; outline-offset: 3px; }
+    .lo-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    @media (max-width: 600px) { .lo-schedule > div { grid-template-columns: 1fr; gap: 4px; } .reg-section { padding: 20px 16px; } .lo-student { padding: 16px 12px; } .lo-secondary { font-size: 15px; } }
+    @media print { .sidebar, .mobile-menu, .mobile-header, .site-footer, .scroll-to-top, .reg-back, .lo-preview, #lunch-opt-out-form, #receipt-print { display: none !important; } .main-content { margin: 0 !important; } .content-area { padding: 0 !important; } }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+    <a href="../index.html">River Tech School</a>
+    <div class="sidebar-submenu">
+      <a href="../index.html">About River Tech</a>
+      <a href="elementary-school.html">Elementary School</a>
+      <a href="middle-school.html">Middle School</a>
+      <a href="high-school.html">High School</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="a-la-carte.html">River Tech À La Carte</a>
+    <div class="sidebar-submenu">
+      <a href="a-la-carte.html">Homeschooling</a>
+      <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+      <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+      <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+      <a href="friday-technology.html">Friday: Technology</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="why-river-tech.html">Why River Tech?</a>
+    <div class="sidebar-submenu">
+      <a href="teachers.html">Teachers</a>
+      <a href="our-culture.html">Our Culture</a>
+      <a href="reviews.html">References & Reviews</a>
+      <a href="technology.html">Technology</a>
+      <a href="performing-arts.html">Performing Arts</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="enrollment.html">Enrollment</a>
+    <div class="sidebar-submenu">
+      <a href="enrollment.html">How to Enroll</a>
+      <a href="tuition.html">Tuition</a>
+      <a href="faq.html">FAQs</a>
+      <a href="tax-credit.html">Tax Credit</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="school-resources.html" class="active">School Resources</a>
+    <div class="sidebar-submenu">
+      <a href="calendar.html">Schedule & Calendar</a>
+      <a href="school-start-hub.html">School Start Hub</a>
+      <a href="policies.html">Policy Hub</a>
+      <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+      <a href="scholarships.html">Scholarships</a>
+      <a href="volunteer.html">Volunteer</a>
+    </div>
+    </div>
+    <div class="nav-group">
+    <a href="../pages/gallery.html">Media</a>
+    <div class="sidebar-submenu">
+      <a href="../pages/gallery.html">Photo Gallery</a>
+      <a href="../pages/vlog.html">Video Globe</a>
+      <a href="../pages/fieldtrips.html">Field Trips</a>
+    </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <a href="enrollment.html" class="enroll-btn">School starts Sept 1</a>
+  <div class="social-icons">
+    <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" fill="#c0392b"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="white" points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
+    </a>
+    <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="#3b5998"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile Header -->
+<div class="mobile-header">
+  <a href="../index.html" class="mobile-logo">River Tech</a>
+  <button class="hamburger" aria-label="Open menu">☰</button>
+</div>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay">
+  <button class="close-btn" aria-label="Close menu">✕</button>
+  <a href="../index.html">River Tech School</a>
+        <div class="mobile-submenu">
+    <a href="../index.html">About River Tech</a>
+    <a href="elementary-school.html">Elementary School</a>
+    <a href="middle-school.html">Middle School</a>
+    <a href="high-school.html">High School</a>
+  </div>
+  <a href="a-la-carte.html">River Tech À La Carte</a>
+        <div class="mobile-submenu">
+    <a href="a-la-carte.html">Homeschooling</a>
+    <a href="monday-performing-arts.html">Monday: Performing Arts</a>
+    <a href="tuesday-science.html">Tuesday: Science & Social Studies</a>
+    <a href="thursday-life-skills.html">Thursday: Life Skills</a>
+    <a href="friday-technology.html">Friday: Technology</a>
+  </div>
+  <a href="why-river-tech.html">Why River Tech?</a>
+        <div class="mobile-submenu">
+    <a href="teachers.html">Teachers</a>
+    <a href="our-culture.html">Our Culture</a>
+    <a href="reviews.html">References & Reviews</a>
+    <a href="technology.html">Technology</a>
+    <a href="performing-arts.html">Performing Arts</a>
+  </div>
+  <a href="enrollment.html">Enrollment</a>
+        <div class="mobile-submenu">
+    <a href="enrollment.html">How to Enroll</a>
+    <a href="tuition.html">Tuition</a>
+    <a href="faq.html">FAQs</a>
+    <a href="tax-credit.html">Tax Credit</a>
+  </div>
+  <a href="school-resources.html" class="active">School Resources</a>
+        <div class="mobile-submenu">
+    <a href="calendar.html">Schedule & Calendar</a>
+      <a href="school-start-hub.html">School Start Hub</a>
+      <a href="policies.html">Policy Hub</a>
+    <a href="nonprofit.html">Nonprofit (Faithful Five)</a>
+    <a href="scholarships.html">Scholarships</a>
+    <a href="volunteer.html">Volunteer</a>
+  </div>
+  <a href="../pages/gallery.html">Media</a>
+        <div class="mobile-submenu">
+    <a href="../pages/gallery.html">Photo Gallery</a>
+    <a href="../pages/vlog.html">Video Globe</a>
+    <a href="../pages/fieldtrips.html">Field Trips</a>
+  </div>
+  <a href="enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="content-area">
+
+    <main class="reg-wrap" id="main-content">
+      <a href="school-resources.html" class="reg-back">← Back to School Resources</a>
+      <div id="preview-notice" class="lo-preview" hidden>Private preview · Use fictional details to try the form. Test submissions stay on this computer.</div>
+      <div class="reg-hero">
+        <p class="lo-year">2026–27 SCHOOL YEAR</p>
+        <h1>High School Off-Campus Lunch</h1>
+        <p class="reg-subtitle">Parent opt-out form</p>
+      </div>
+      <div class="lo-intro">
+        <p><strong>High school students may leave campus during lunch rotation unless their parent or guardian opts them out.</strong></p>
+        <p>We recommend allowing your student to participate. <strong>If you agree, no form is needed.</strong></p>
+      </div>
+      <section class="at-a-glance" aria-labelledby="lunch-details">
+        <h2 id="lunch-details" class="reg-section-title">How lunch works</h2>
+        <dl class="lo-schedule">
+          <div><dt>11:45 a.m.–12:10 p.m.</dt><dd>Teacher-directed P.E. activity. Students must complete this before leaving.</dd></div>
+          <div><dt>From 12:10 p.m.</dt><dd>Students may leave campus during the regular lunch rotation. They must return in time for their next class or required school activity.</dd></div>
+          <div><dt>Special activities</dt><dd>On days with a field trip, school party, or another activity requiring their participation, students must follow the activity schedule and may not leave for off-campus lunch.</dd></div>
+        </dl>
+      </section>
+      <section id="lo-receipt" class="reg-section lo-receipt" aria-labelledby="receipt-title" tabindex="-1" hidden>
+        <h2 id="receipt-title" class="reg-section-title">Your opt-out has been recorded.</h2>
+        <p>The following students must remain on campus during lunch rotation for the 2026–27 school year:</p>
+        <ul id="receipt-students"></ul>
+        <p><strong>Confirmation reference</strong><br><span id="receipt-reference"></span></p>
+        <p>You can print or save this confirmation for your records.</p>
+        <button type="button" id="receipt-print" class="lo-secondary">Print confirmation</button>
+      </section>
+      <form id="lunch-opt-out-form" novalidate>
+        <h2 class="reg-section-title lo-form-title">Want your student to stay on campus?</h2>
+        <p class="reg-section-subtitle">Complete the form below. List only the high school students you are opting out. Fields marked * are required.</p>
+        <noscript><p class="lo-intro">Please enable JavaScript to submit this form, or email <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>.</p></noscript>
+        <div id="reg-error" class="reg-error" role="alert" tabindex="-1"></div>
+        <p id="form-status" role="status" aria-live="polite">Checking form availability…</p>
+        <fieldset id="lo-fields" class="lo-fields">
+          <legend class="lo-sr-only">Parent lunch opt-out</legend>
+          <section class="reg-section" aria-labelledby="parent-title">
+            <h3 id="parent-title" class="reg-section-title">Parent or guardian</h3>
+            <div class="reg-row">
+              <label class="reg-label" for="parentName">Your full name <span class="req">*</span></label>
+              <input class="reg-input" id="parentName" name="parentName" autocomplete="name" maxlength="160" required>
+            </div>
+            <div class="reg-row-grid-2">
+              <div><label class="reg-label" for="parentEmail">Email <span class="req">*</span></label>
+                <input class="reg-input" type="email" id="parentEmail" name="parentEmail" autocomplete="email" maxlength="254" required></div>
+              <div><label class="reg-label" for="parentPhone">Phone <span class="lo-optional">(optional)</span></label>
+                <input class="reg-input" type="tel" id="parentPhone" name="parentPhone" autocomplete="tel" maxlength="40"></div>
+            </div>
+          </section>
+          <section class="reg-section" aria-labelledby="students-title">
+            <h3 id="students-title" class="reg-section-title">Students who must stay on campus</h3>
+            <p class="reg-section-subtitle">One form can cover more than one high school student in your family.</p>
+            <div id="student-list"></div>
+            <button type="button" id="add-student" class="lo-secondary">+ Add another high school student</button>
+          </section>
+          <section class="reg-section" aria-labelledby="opt-out-title">
+            <h3 id="opt-out-title" class="reg-section-title">Confirm your opt-out</h3>
+            <label class="reg-check lo-agreement" for="optOutConfirmed">
+              <input type="checkbox" id="optOutConfirmed" name="optOutConfirmed" required>
+              <span>I am opting the high school students listed on this form out of off-campus lunch. <strong>They must remain on campus during lunch rotation.</strong> <span class="req">*</span></span>
+            </label>
+            <div class="reg-row lo-signature">
+              <label class="reg-label" for="signatureName">Parent/guardian signature <span class="req">*</span></label>
+              <p id="signature-help" class="reg-section-subtitle">Type your full name to sign this opt-out for the 2026–27 school year.</p>
+              <input class="reg-input" id="signatureName" name="signatureName" maxlength="160" aria-describedby="signature-help" required>
+            </div>
+          </section>
+          <button type="submit" id="reg-submit" class="reg-submit" disabled>Submit opt-out →</button>
+        </fieldset>
+      </form>
+    </main>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <a href="../index.html" class="footer-logo">rivertechschool.com</a>
+    <div class="footer-tagline">Life is a Stage. <span class="love">Love</span> is our Script.</div>
+  </div>
+
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>
+      <span>Tel: 425-444-2081</span>
+      <span>The Heart</span>
+      <span>927 E Polston Ave</span>
+      <span>Post Falls, ID 83854</span>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="why-river-tech.html">Why River Tech?</a>
+      <a href="enrollment.html">Enrollment</a>
+      <a href="school-resources.html">School Resources</a>
+      <a href="a-la-carte.html">À La Carte</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/rivertechschool/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/rivertechschool" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 by Faithful Five Inc. (d.b.a. River Tech and Post Falls Art). <em>Life is a Stage. <span class="love">Love</span> is our Script.</em></p>
+    <p><strong>Notice of Nondiscriminatory Policy as to Students:</strong> River Tech School admits students of any race, color, national and ethnic origin to all the rights, privileges, programs, and activities generally accorded or made available to students at the school. It does not discriminate on the basis of race, color, national and ethnic origin in administration of its educational policies, admissions policies, scholarship and loan programs, and athletic and other school-administered programs.</p>
+    <p>River Tech School is a ministry of Faithful Five Inc., an Idaho nonprofit corporation. <a href="policies.html">Read the full policy.</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js?v=4" defer></script>
+<script src="../assets/js/hs-lunch-opt-out.js?v=2026-27-1" defer></script>
+
+<button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+(function(){
+  var btn=document.querySelector('.scroll-to-top');
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>400);
+  });
+})();
+</script>
+</body>
+</html>
