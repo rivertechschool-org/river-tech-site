@@ -3,11 +3,12 @@
   if (!host) return;
   const frame = host.querySelector('iframe');
   const origin = new URL(frame.dataset.src).origin;
+  const mobileLayout = matchMedia('(max-width: 900px)');
   const menu = document.querySelector('.mobile-nav-overlay');
   let visible = false, started = false, retry;
   function active() { return visible && !document.hidden && !menu?.classList.contains('open'); }
   function signal() {
-    if (started) frame.contentWindow?.postMessage({type:'rt-world-visibility', visible:active()}, origin);
+    if (started) frame.contentWindow?.postMessage({type:'rt-world-visibility', visible:active(), mobileLayout:mobileLayout.matches}, origin);
   }
   function start() {
     if (!active() || started) return;
@@ -28,6 +29,7 @@
     }
   });
   frame.addEventListener('load', signal);
+  mobileLayout.addEventListener('change', signal);
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; start(); signal(); }, {threshold:.05}).observe(host);
   document.addEventListener('visibilitychange', () => { start(); signal(); });
   addEventListener('online', () => { start(); signal(); });
