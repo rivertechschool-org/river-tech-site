@@ -1,0 +1,96 @@
+# The lunch rotation page hands out a PDF that is committed to the repo, not
+# generated when someone clicks. So the file goes stale the moment anything it
+# is printed from changes, and a stale sheet looks exactly like a fresh one.
+#
+# Nobody has to know that. This rebuilds the sheet on the push that changed it
+# and commits the result. Edit the rotation page in the GitHub web UI, or change
+# style.css without ever hearing about any of this, and the download stays right.
+#
+# It fails loudly, on the commit that caused it, if the sheet stops fitting on
+# one page. That is the one case a person has to look at.
+
+name: Lunch rotation PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pages/lunch-rotations.html'
+      - 'assets/css/style.css'
+      - 'assets/css/base.css'
+      - 'tools/build_lunch_pdf.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+# Never two of these landing commits at once. Queue them; do not cancel a run
+# that may be halfway through a push.
+concurrency:
+  group: lunch-rotation-pdf
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # a shallow clone cannot rebase
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22        # the build script uses Node's built-in WebSocket
+
+      - name: Find Chrome
+        run: |
+          CHROME=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)
+          if [ -z "$CHROME" ]; then
+            echo "No Chrome on the runner, so the sheet cannot be rendered." >&2
+            exit 1
+          fi
+          echo "CHROME=$CHROME" >> "$GITHUB_ENV"
+
+      # Rebuilds only if an input actually changed, and rewrites the file only if
+      # the sheet actually looks different. See the header of the script.
+      - name: Rebuild the sheet
+        run: node tools/build_lunch_pdf.js
+
+      - name: Commit it
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- assets/docs)" ]; then
+            echo "Sheet already current; nothing to commit."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/docs/river-tech-lunch-rotations.pdf assets/docs/river-tech-lunch-rotations.pdf.inputs
+          git commit -m 'Rebuild the lunch rotation PDF from the page it is printed from'
+          # Someone else may land a commit while this runs. Rebase onto them and
+          # retry; never force, never drop their work.
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              echo "landed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "Could not land the rebuilt sheet after three tries." >&2
+          exit 1
+
+      # A push made with GITHUB_TOKEN does not always start a Pages deploy, which
+      # would leave the corrected sheet sitting in the repo unpublished. Ask for a
+      # build explicitly. Best effort: if this repo is not on branch-based Pages
+      # the call is a no-op and the sheet publishes with the next push anyway.
+      - name: Ask Pages to publish it
+        if: steps.commit.outputs.landed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -sS -X POST -o /dev/null -w '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" || echo 000)
+          echo "Pages build request: HTTP $code"

@@ -1,6 +1,6 @@
 {
- "schedule_version": "Q1 Semi-Final 1.6",
- "as_of": "2026-08-29",
+ "schedule_version": "Q1 Semi-Final 1.7",
+ "as_of": "2026-09-15",
  "header": "<strong>2026&ndash;27 &middot; Quarter 1</strong> &middot; The Heart Church, Post Falls",
  "legend": [
   "<span class=\"key-label\"><strong>Teachers</strong></span><span><b>CA</b> Caitlyn</span><span><b>CR</b> Cristina</span><span><b>DA</b> Dan</span><span><b>JO</b> Jordan</span><span><b>LU</b> Luke</span><span><b>MA</b> Mary</span><span><b>PH</b> Phil</span><span><b>TI</b> Tiffany</span><span><b>PE</b> Penny</span><span><b>EM</b> Emily</span><span><b>KI</b> Kirsten</span><span><b>CH</b> Charlotte</span><span><b>EV</b> Evelyn</span><span><b>AN</b> Angie</span><span><b>KA</b> Kara</span>",
@@ -178,23 +178,18 @@
       {
        "tag": "td",
        "class": null,
-       "rowspan": 2,
+       "rowspan": 1,
        "colspan": 1,
        "lines": [
         {
-         "text": "<span style=\"color:#2471A3\">P.E. at The Park or Library",
-         "color": null,
+         "text": "Math (TI) ☀",
+         "color": "#1E8449",
          "role": null
         },
         {
-         "text": "(LU &amp; TI)</span>",
-         "color": null,
+         "text": "Math (CH) 💡",
+         "color": "#CA6F1E",
          "role": null
-        },
-        {
-         "text": "8:45&ndash;10:20",
-         "color": null,
-         "role": "small"
         }
        ]
       },
@@ -223,7 +218,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Math (TI &amp; EM) 🎨",
+         "text": "Math (TI) 🎨",
          "color": null,
          "role": null
         }
@@ -291,6 +286,24 @@
          "role": null
         },
         {
+         "text": "English (CH) 💡",
+         "color": "#CA6F1E",
+         "role": null
+        }
+       ]
+      },
+      {
+       "tag": "td",
+       "class": null,
+       "rowspan": 1,
+       "colspan": 1,
+       "lines": [
+        {
+         "text": "English (TI) ☀",
+         "color": "#1E8449",
+         "role": null
+        },
+        {
          "text": "English (MA) 💡",
          "color": "#CA6F1E",
          "role": null
@@ -304,7 +317,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "English (TI &amp; EM) 🎨",
+         "text": "English (TI) 🎨",
          "color": null,
          "role": null
         }
@@ -351,7 +364,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA)",
+         "text": "Non-performers &mdash; Y: Music (LU), Art (TI) &middot; O: Projects (MA)",
          "color": null,
          "role": "small"
         },
@@ -420,6 +433,11 @@
         {
          "text": "P.E. (MA) 💃",
          "color": null,
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -502,6 +520,11 @@
          "text": "Sketchbook Pro (TI) 🎻",
          "color": null,
          "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
+         "role": null
         }
        ]
       }
@@ -531,8 +554,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
-         "color": null,
+         "text": "Older half: Lunch Rotation (CA &amp; MA)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Younger half: P.E. at the Park (LU &amp; TI)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Performers: Lunch (AN, KA, CH &amp; EV)",
+         "color": "#6b7280",
          "role": null
         }
        ]
@@ -583,7 +616,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "P.E. &amp; Lunch at The Park (JO &amp; LU)",
+         "text": "Lunch",
          "color": null,
          "role": null
         }
@@ -635,7 +668,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA, EM)",
+         "text": "Non-performers &mdash; 1:00&ndash;1:45 Y: P.E. &amp; Reading (TI &amp; EM), O: Music (LU), Study Hall (MA) &middot; 1:45&ndash;2:20 Y: Super Book &amp; Games (MA &amp; EM), O: Art (TI)",
          "color": null,
          "role": "small"
         },
@@ -692,7 +725,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Coding (LU) 🎨",
+         "text": "Coding (CH) 🎨",
          "color": null,
          "role": null
         }
@@ -917,7 +950,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "English (CH) 🌳",
+         "text": "Math (CH) 🌳",
          "color": null,
          "role": null
         }
@@ -953,7 +986,7 @@
          "role": null
         },
         {
-         "text": "Math (CH) 🌳",
+         "text": "Math (LU) 🌳",
          "color": null,
          "role": null
         }
@@ -1014,7 +1047,7 @@
          "role": null
         },
         {
-         "text": "Math (TI &amp; EM) 🎨",
+         "text": "Math (TI) 🎨",
          "color": "#2471A3",
          "role": null
         }
@@ -1046,7 +1079,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Math (DA) 🌳",
+         "text": "English (CH) 🌳",
          "color": null,
          "role": null
         }
@@ -1082,7 +1115,7 @@
          "role": null
         },
         {
-         "text": "English (DA) 🌳",
+         "text": "English (LU) 🌳",
          "color": null,
          "role": null
         }
@@ -1133,7 +1166,7 @@
          "role": null
         },
         {
-         "text": "English (KI) 🚀",
+         "text": "English (KI &amp; EM) 🚀",
          "color": "#8A6D1B",
          "role": null
         },
@@ -1143,7 +1176,7 @@
          "role": null
         },
         {
-         "text": "English (TI &amp; EM) 🎨",
+         "text": "English (TI) 🎨",
          "color": "#2471A3",
          "role": null
         }
@@ -1190,7 +1223,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA)",
+         "text": "Non-performers &mdash; Y: Music (LU), Art (TI) &middot; O: Projects (MA)",
          "color": null,
          "role": "small"
         },
@@ -1254,6 +1287,11 @@
         {
          "text": "P.E. (MA) 💃",
          "color": null,
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -1326,6 +1364,11 @@
          "text": "Crafts (MA) 🎨",
          "color": null,
          "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
+         "role": null
         }
        ]
       }
@@ -1355,8 +1398,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
-         "color": null,
+         "text": "Older half: Lunch Rotation (CA &amp; MA)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Younger half: P.E. at the Park (LU &amp; TI)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Performers: Lunch (AN, KA, CH &amp; EV)",
+         "color": "#6b7280",
          "role": null
         }
        ]
@@ -1381,7 +1434,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "P.E. &amp; Lunch at The Park (JO &amp; CH)",
+         "text": "Lunch",
          "color": null,
          "role": null
         }
@@ -1394,7 +1447,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
+         "text": "P.E. &amp; Lunch at The Park (JO &amp; CA)",
          "color": null,
          "role": null
         }
@@ -1459,7 +1512,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA, EM)",
+         "text": "Non-performers &mdash; 1:00&ndash;1:45 Y: P.E. &amp; Reading (TI &amp; EM), O: Music (LU), Study Hall (MA) &middot; 1:45&ndash;2:20 Y: Super Book &amp; Games (MA &amp; EM), O: Art (TI)",
          "color": null,
          "role": "small"
         },
@@ -1887,7 +1940,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "English (KI) 🚀",
+         "text": "English (KI &amp; EM) 🚀",
          "color": null,
          "role": null
         }
@@ -1934,7 +1987,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA)",
+         "text": "Non-performers &mdash; Y: Music (LU), Art (TI) &middot; O: Projects (MA)",
          "color": null,
          "role": "small"
         },
@@ -1993,6 +2046,11 @@
         {
          "text": "Python (PH) 🚀",
          "color": null,
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -2065,6 +2123,11 @@
          "text": "Bible (KI) 💃",
          "color": null,
          "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
+         "role": null
         }
        ]
       }
@@ -2094,8 +2157,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
-         "color": null,
+         "text": "Older half: Lunch Rotation (CA &amp; MA)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Younger half: P.E. at the Park (LU &amp; TI)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Performers: Lunch (AN, KA, CH &amp; EV)",
+         "color": "#6b7280",
          "role": null
         }
        ]
@@ -2198,7 +2271,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA, EM)",
+         "text": "Non-performers &mdash; 1:00&ndash;1:45 Y: P.E. &amp; Reading (TI &amp; EM), O: Music (LU), Study Hall (MA) &middot; 1:45&ndash;2:20 Y: Super Book &amp; Games (MA &amp; EM), O: Art (TI)",
          "color": null,
          "role": "small"
         },
@@ -2678,7 +2751,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA)",
+         "text": "Non-performers &mdash; Y: Music (LU), Art (TI) &middot; O: Projects (MA)",
          "color": null,
          "role": "small"
         },
@@ -2737,6 +2810,11 @@
         {
          "text": "Fine Arts (TI) &#9749;",
          "color": null,
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -2809,6 +2887,11 @@
          "text": "Python (PH) &#9749;",
          "color": null,
          "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
+         "role": null
         }
        ]
       }
@@ -2838,8 +2921,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
-         "color": null,
+         "text": "Older half: Lunch Rotation (CA &amp; MA)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Younger half: P.E. at the Park (LU &amp; TI)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Performers: Lunch (AN, KA, CH &amp; EV)",
+         "color": "#6b7280",
          "role": null
         }
        ]
@@ -2877,7 +2970,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "P.E. &amp; Lunch at The Park (JO &amp; CA)",
+         "text": "Lunch",
          "color": null,
          "role": null
         }
@@ -2890,7 +2983,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Lunch",
+         "text": "P.E. &amp; Lunch at The Park (JO)",
          "color": null,
          "role": null
         }
@@ -2942,7 +3035,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA, EM)",
+         "text": "Non-performers &mdash; 1:00&ndash;1:45 Y: P.E. &amp; Reading (TI &amp; EM), O: Music (LU), Study Hall (MA) &middot; 1:45&ndash;2:20 Y: Super Book &amp; Games (MA &amp; EM), O: Art (TI)",
          "color": null,
          "role": "small"
         },
@@ -2960,7 +3053,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Filmmaking (LU) &#128131;",
+         "text": "Filmmaking (RY &amp; LU) &#128131;",
          "color": null,
          "role": null
         }
@@ -3041,7 +3134,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Filmmaking (LU) &#128131;",
+         "text": "Filmmaking (RY &amp; LU) &#128131;",
          "color": null,
          "role": null
         }
@@ -3085,7 +3178,7 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Robotics (PH) &#127950;",
+         "text": "Robotics (PH) 🤖",
          "color": null,
          "role": null
         }
@@ -3209,7 +3302,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA)",
+         "text": "Non-performers &mdash; Y: Music (LU), Art (TI) &middot; O: Projects (MA)",
          "color": null,
          "role": "small"
         },
@@ -3270,6 +3363,11 @@
         {
          "text": "Film Making [YH] (LU &amp; KI) 🎨",
          "color": "#9AA0A6",
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -3336,13 +3434,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "A.I. &amp; Machine Learning [UH] (JO &amp; DA) 🚀",
+         "text": "A.I. &amp; Machine Learning [UH] (JO) 🚀",
          "color": null,
          "role": null
         },
         {
          "text": "Robotics [YH] (LU &amp; EM) 🤖",
          "color": "#9AA0A6",
+         "role": null
+        },
+        {
+         "text": "<i>Musical Prep (CH &amp; EV) 🎤</i>",
+         "color": "#4D4D4D",
          "role": null
         }
        ]
@@ -3373,8 +3476,18 @@
        "colspan": 1,
        "lines": [
         {
-         "text": "Performers&#8217; Lunch (AN, KA, CH, EV)",
-         "color": null,
+         "text": "Older half: Lunch Rotation (CA &amp; MA)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Younger half: P.E. at the Park (LU &amp; TI)",
+         "color": "#6b7280",
+         "role": null
+        },
+        {
+         "text": "Performers: Lunch (AN, KA, CH &amp; EV)",
+         "color": "#6b7280",
          "role": null
         }
        ]
@@ -3464,7 +3577,7 @@
          "role": "small"
         },
         {
-         "text": "Non-performers: Music Instrument, Fine Arts &amp; more (LU, TI, MA, EM)",
+         "text": "Non-performers &mdash; 1:00&ndash;1:45 Y: P.E. &amp; Reading (TI &amp; EM), O: Music (LU), Study Hall (MA) &middot; 1:45&ndash;2:20 Y: Super Book &amp; Games (MA &amp; EM), O: Art (TI)",
          "color": null,
          "role": "small"
         },
@@ -3523,7 +3636,7 @@
          "role": null
         },
         {
-         "text": "Coding [YH] (CH &amp; EM) 🚀",
+         "text": "Coding [YH] (LU &amp; EM) 🚀",
          "color": "#9AA0A6",
          "role": null
         }

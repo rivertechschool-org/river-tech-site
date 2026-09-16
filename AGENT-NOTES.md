@@ -164,33 +164,31 @@ Added 2026-08-25, at Luke's direction. Two standing rules for every future teach
   replaced on 2026-08-25. If you do not have a verified @rivertech.me address for someone, leave
   their contact line off rather than guessing one.
 
-## 9. ARCHIVED 2026-09-10 — the lunch rotation page, its button and its PDF are off the site
+## 9. The lunch rotation page — back on the site 2026-09-15, and rebuilt from Dan's sheet
 
-Taken down at Luke's request on 2026-09-10, meant to go back up later. Nothing below is
-live right now; it is kept because it is what you need in order to put the page back.
+Taken down on 2026-09-10 (commit `8ebec83`) and restored on 2026-09-15. The page, the
+**View Lunch Rotations** card on `pages/calendar.html`, the PDF, the build script, the
+workflow and the `sitemap.xml` / `llms.txt` entries are all live again.
 
-Removed in that commit: `pages/lunch-rotations.html`, the **View Lunch Rotations** card on
-`pages/calendar.html`, `assets/docs/river-tech-lunch-rotations.pdf` and its `.pdf.inputs`
-stamp, `tools/build_lunch_pdf.js`, `.github/workflows/lunch-rotation-pdf.yml`, and the page's
-entries in `sitemap.xml` and `llms.txt`.
+The content is no longer the August rotation. It is Dan's sheet
+`Lunch Rotation, 9:15 Ver 1.1.pdf`, emailed to staff on 2026-09-15, which the page stamps
+as **Version 9/4/26** because that is the version line printed on the sheet itself.
 
-To put it all back, from a current checkout of `main`:
+What changed in the rebuild, so nobody puts the old shape back:
 
-```
-git checkout 4bda8c3 -- pages/lunch-rotations.html \
-  assets/docs/river-tech-lunch-rotations.pdf assets/docs/river-tech-lunch-rotations.pdf.inputs \
-  tools/build_lunch_pdf.js .github/workflows/lunch-rotation-pdf.yml
-```
+- **The columns are places, not groups.** Dan's sheet is laid out by where each group is
+  — E.S. area, outside by Super 1, the cafe, M.S. area, downstairs, the van — with the
+  three slots (11:45, 12:10, 12:35) down the side. The page mirrors that.
+- **Monday is not on the rotation.** Dan's sheet runs Tuesday to Friday. Monday is a
+  production day and its lunch split lives on the class schedule instead.
+- **Group sizes are gone.** The old page printed headcounts per group ("18 + 12 = 30").
+  Dan's sheet does not carry them, so the page no longer publishes student numbers.
+- **Group colours match the class schedule's level key** (`#2471A3` Elementary,
+  `#7D3C98` Y Mid, `#8A6D1B` O Mid, `#B03A2E` High School, `#333333` OHS, `#6B7075` YHS),
+  so a parent reading both pages sees one colour scheme.
 
-then restore the calendar card (the marker comment left in `pages/calendar.html` shows where
-it went), and re-add the two index entries. Check the rotation itself against Luke before
-republishing — it was current as of 2026-08-26 and the group sizes were expected to change.
-Dan's approval column still covers it: the page publishes staffing responsibilities and
-student numbers.
-
----
-
-Everything below is the original section, unchanged, and applies again once the page is back.
+Dan's `O Mid` is Junior High 7th–8th and his `Y Mid` is Middle School 5th–6th. Getting
+that backwards puts the wrong group in the van; the colours on his sheet are the check.
 
 Added 2026-08-26. `pages/lunch-rotations.html` carries a **Download the one-page PDF**
 button, and that button hands out a file committed to the repo:
