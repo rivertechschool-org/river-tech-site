@@ -1,5 +1,6 @@
 /* Homepage phone layout. Desktop and the established menu behavior stay intact. */
 .home-mobile-actions { display: none; }
+.home-intro { display: contents; }
 
 @media screen and (max-width: 900px) {
   .home-page { font-size: 17px; line-height: 1.6; }
@@ -7,6 +8,9 @@
   /* The hero already carries this welcome; avoid repeating it above the fold. */
   .home-page .mobile-announce { display: none; }
   .home-page .content-area { padding: 24px 20px 40px; }
+  .home-page .main-content > .content-area:first-of-type { padding-top: 0; }
+  .home-intro { display: flex; flex-direction: column; }
+  .home-intro #rt-living-world { order: -1; margin-bottom: 16px; }
   .home-page .hero-section { padding: 8px 0 12px; }
   .home-page .hero-welcome {
     font-size: 18px;
