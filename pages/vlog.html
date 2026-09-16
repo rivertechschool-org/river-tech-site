@@ -163,6 +163,15 @@
       pointer-events: none;
       white-space: nowrap;
     }
+    /* Keep the phone title clear of the back button and controls easy to tap. */
+    @media screen and (max-width: 600px) {
+      #back-btn { min-height: 44px; }
+      .scroll-to-top { display: none; }
+      #globe-title { top: 76px; width: calc(100% - 32px); max-width: calc(100% - 32px); font-size: 12px; letter-spacing: 2px; text-align: center; white-space: normal; }
+      #hint { width: calc(100% - 40px); text-align: center; bottom: max(24px, env(safe-area-inset-bottom)); }
+      #modal-close { width: 44px; height: 44px; }
+      #modal-box { max-height: 90vh; max-height: 90dvh; overflow-y: auto; }
+    }
   </style>
 
   <script type="importmap">
@@ -190,7 +199,7 @@
 
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal-box">
-    <button id="modal-close" onclick="closeModal(event)">&times;</button>
+    <button id="modal-close" aria-label="Close video" onclick="closeModal(event)">&times;</button>
     <div id="modal-video-wrap">
       <iframe id="modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
@@ -246,7 +255,11 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x020810);
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 12;
+// Keep the whole globe in view on portrait phones; desktop framing stays at 12.
+function fitCamera() {
+  camera.position.z = window.innerWidth <= 600 ? 12 / Math.min(1, camera.aspect) : 12;
+}
+fitCamera();
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -528,6 +541,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 // ── Resize ──
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
+  fitCamera();
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });

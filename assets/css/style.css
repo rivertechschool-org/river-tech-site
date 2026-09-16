@@ -2409,3 +2409,87 @@ body {
   .grow, .muted, p.v, .v { font-size: 15px !important; }
   .carousel-dots button { border-width: 15px; }
 }
+
+/* Site-wide phone polish. Screen-only rules leave desktop and print intact. */
+@media screen and (max-width: 900px) {
+  /* These two-column information tables are not weekly schedule grids. */
+  .content-area > .schedule-table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+  .content-area > .schedule-table th,
+  .content-area > .schedule-table td {
+    padding: 12px 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }
+  .reg-wrap .reg-hero h1 {
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body { font-size: 17px; line-height: 1.65; }
+  .content-area { padding: 20px 20px 40px; }
+  .page-hero-inner { padding: 24px 0 16px; }
+  .page-hero-inner h1 { padding: 0; line-height: 1.2; text-wrap: balance; }
+  .page-hero-inner p { font-size: 17px; }
+  .section-subheading { font-size: 27px; line-height: 1.3; margin-top: 32px; text-wrap: balance; }
+  .section-heading,
+  .competency-heading {
+    font-size: 28px;
+    line-height: 1.25;
+    margin-top: 36px;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+  .section-tagline { font-size: 17px; }
+  .resource-grid { gap: 18px; margin: 28px 0; }
+  .resource-card { padding: 22px 18px; min-width: 0; }
+  .content-area .cta-btn { max-width: 100%; }
+  .cta-buttons { gap: 12px; }
+  .reg-wrap .reg-hero { padding: 20px 0 16px; }
+  .reg-wrap .reg-hero h1 { font-size: clamp(24px, 6vw, 30px); }
+  .reg-wrap .reg-info,
+  .reg-wrap .reg-section { padding: 20px 16px; }
+  .main-content .success-wrap h1 { font-size: 28px; line-height: 1.3; text-wrap: balance; }
+  .main-content .success-wrap .next-steps { padding: 20px 18px; }
+  .site-footer { padding: 32px 20px 24px; }
+  .site-footer .footer-bottom p,
+  .site-footer .footer-col a,
+  .site-footer .footer-col span { color: #666; }
+}
+
+@media screen and (max-width: 600px) {
+  .content-area > .teachers-section { margin-left: -20px; width: calc(100% + 40px); }
+  .teachers-inner { padding: 0 20px; }
+  .teachers-heading { font-size: 32px; line-height: 1.25; margin-bottom: 24px; }
+}
+
+@media screen and (max-width: 760px) {
+  /* In stacked hub layouts, wide tables must scroll inside their own panel. */
+  #famhub .layout .content,
+  #polhub .layout .content { width: 100%; max-width: 100%; scroll-margin-top: 76px; }
+}
+@media screen and (max-width: 600px) {
+  .content-area #famhub .wrap,
+  .content-area #polhub .wrap { padding: 16px 0 36px; }
+  .content-area #famhub .hero,
+  .content-area #polhub .hero { padding: 22px 20px; }
+  #famhub .layout .content,
+  #polhub .layout .content { padding: 20px 16px; overflow-wrap: break-word; }
+  #famhub .content table.dates,
+  #polhub .content table.meta-t { table-layout: fixed; }
+  #famhub .content table.dates td.d,
+  #polhub .content table.meta-t td.k { width: 40%; white-space: normal; }
+  #famhub .content table.dates td,
+  #polhub .content table.meta-t td { padding: 8px; overflow-wrap: anywhere; }
+}
+
+@media screen and (max-width: 600px) {
+  .content-area .success-home-btn { color: var(--color-white); text-decoration: none; min-height: 44px; }
+}
