@@ -1,0 +1,674 @@
+{
+  "services": [
+    {
+      "type": "web",
+      "name": "postfalls-art-redirect",
+      "runtime": "static",
+      "repo": "https://github.com/rivertechschool-org/river-tech-site",
+      "branch": "postfalls-redirect",
+      "buildCommand": "true",
+      "staticPublishPath": "postfalls-redirect/public",
+      "autoDeployTrigger": "off",
+      "domains": [
+        "www.postfalls.art"
+      ],
+      "routes": [
+        {
+          "type": "redirect",
+          "source": "/",
+          "destination": "https://www.rivertechschool.com/"
+        },
+        {
+          "type": "redirect",
+          "source": "/index.html",
+          "destination": "https://www.rivertechschool.com/"
+        },
+        {
+          "type": "redirect",
+          "source": "/elementary-school",
+          "destination": "https://www.rivertechschool.com/pages/elementary-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/elementary-school/",
+          "destination": "https://www.rivertechschool.com/pages/elementary-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/middle-school",
+          "destination": "https://www.rivertechschool.com/pages/middle-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/middle-school/",
+          "destination": "https://www.rivertechschool.com/pages/middle-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/high-school",
+          "destination": "https://www.rivertechschool.com/pages/high-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/high-school/",
+          "destination": "https://www.rivertechschool.com/pages/high-school.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/homeschool",
+          "destination": "https://www.rivertechschool.com/pages/a-la-carte.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/homeschool/",
+          "destination": "https://www.rivertechschool.com/pages/a-la-carte.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-courses-classes-1",
+          "destination": "https://www.rivertechschool.com/pages/a-la-carte.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-courses-classes-1/",
+          "destination": "https://www.rivertechschool.com/pages/a-la-carte.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/monday-musical",
+          "destination": "https://www.rivertechschool.com/pages/monday-performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/monday-musical/",
+          "destination": "https://www.rivertechschool.com/pages/monday-performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tuesday-science",
+          "destination": "https://www.rivertechschool.com/pages/tuesday-science.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tuesday-science/",
+          "destination": "https://www.rivertechschool.com/pages/tuesday-science.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-tuesday-science",
+          "destination": "https://www.rivertechschool.com/pages/thursday-life-skills.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-tuesday-science/",
+          "destination": "https://www.rivertechschool.com/pages/thursday-life-skills.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-thursday-life",
+          "destination": "https://www.rivertechschool.com/pages/friday-technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-thursday-life/",
+          "destination": "https://www.rivertechschool.com/pages/friday-technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/why-river-tech",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/why-river-tech/",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/about",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/about/",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/curriculum-roadmap",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/curriculum-roadmap/",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/where-your-child-s-gift-meets-their-future",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/where-your-child-s-gift-meets-their-future/",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/fame-meets-mit-private-school",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/fame-meets-mit-private-school/",
+          "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/technology",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/technology/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-technology",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-technology/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/robotics",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/robotics/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/coding",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/coding/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/digital-arts",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/digital-arts/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/design-template",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/design-template/",
+          "destination": "https://www.rivertechschool.com/pages/technology.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/performing-arts",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/performing-arts/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/musical-theater",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/musical-theater/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-performing-arts",
+          "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-performing-arts/",
+          "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/s-projects-side-by-side",
+          "destination": "https://www.rivertechschool.com/pages/fieldtrips.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/s-projects-side-by-side/",
+          "destination": "https://www.rivertechschool.com/pages/fieldtrips.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/why-river-tech/fieldtrips",
+          "destination": "https://www.rivertechschool.com/pages/fieldtrips.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/why-river-tech/fieldtrips/",
+          "destination": "https://www.rivertechschool.com/pages/fieldtrips.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/reviews",
+          "destination": "https://www.rivertechschool.com/pages/reviews.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/reviews/",
+          "destination": "https://www.rivertechschool.com/pages/reviews.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-references-reviews",
+          "destination": "https://www.rivertechschool.com/pages/reviews.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-references-reviews/",
+          "destination": "https://www.rivertechschool.com/pages/reviews.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/enroll",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/enroll/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/enrollment",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/enrollment/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/research-phase",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/research-phase/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-1-research-phase",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-1-research-phase/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/secure-your-spot",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/secure-your-spot/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-2-secure-your-spot",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/copy-of-2-secure-your-spot/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/connect-and-engage",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/connect-and-engage/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/staff-interview",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/staff-interview/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/application-outcome",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/application-outcome/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/welcome-to-river-tech",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/welcome-to-river-tech/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tuition",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tuition/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/temp",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/temp/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/plans-pricing",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/plans-pricing/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-siblings-4-days",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-siblings-4-days/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-5-day-sibl-in-full",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-5-day-sibl-in-full/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/pay-in-full-4-days",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/pay-in-full-4-days/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/river-tech-599-month",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/river-tech-599-month/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-siblings-5-days",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-siblings-5-days/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/split-cost-599-2-299-month",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/split-cost-599-2-299-month/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/river-tech-549-month",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/river-tech-549-month/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-4-day-sibl-in-full",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/two-4-day-sibl-in-full/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/pay-in-full-5-days",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/service-page/pay-in-full-5-days/",
+          "destination": "https://www.rivertechschool.com/pages/tuition.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/faq",
+          "destination": "https://www.rivertechschool.com/pages/faq.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/faq/",
+          "destination": "https://www.rivertechschool.com/pages/faq.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tax-credit",
+          "destination": "https://www.rivertechschool.com/pages/tax-credit.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/tax-credit/",
+          "destination": "https://www.rivertechschool.com/pages/tax-credit.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/school-resources",
+          "destination": "https://www.rivertechschool.com/pages/school-resources.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/school-resources/",
+          "destination": "https://www.rivertechschool.com/pages/school-resources.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/members",
+          "destination": "https://www.rivertechschool.com/pages/school-resources.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/members/",
+          "destination": "https://www.rivertechschool.com/pages/school-resources.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/calendar",
+          "destination": "https://www.rivertechschool.com/pages/calendar.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/calendar/",
+          "destination": "https://www.rivertechschool.com/pages/calendar.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/nonprofit",
+          "destination": "https://www.rivertechschool.com/pages/nonprofit.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/nonprofit/",
+          "destination": "https://www.rivertechschool.com/pages/nonprofit.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/scholarships",
+          "destination": "https://www.rivertechschool.com/pages/scholarships.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/scholarships/",
+          "destination": "https://www.rivertechschool.com/pages/scholarships.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/volunteer",
+          "destination": "https://www.rivertechschool.com/pages/volunteer.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/volunteer/",
+          "destination": "https://www.rivertechschool.com/pages/volunteer.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/careers",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/careers/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/career-opportunities",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/career-opportunities/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/community-manager-position",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/community-manager-position/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/qa-tester-position",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/qa-tester-position/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/game-developer-position",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/game-developer-position/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/game-designer-position",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/game-designer-position/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/now-hiring-robotics-drone-engineering-teacher",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/now-hiring-robotics-drone-engineering-teacher/",
+          "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/pages/*",
+          "destination": "https://www.rivertechschool.com/pages/*"
+        }
+      ]
+    }
+  ]
+}
