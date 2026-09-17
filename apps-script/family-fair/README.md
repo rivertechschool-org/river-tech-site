@@ -1,6 +1,6 @@
 # Family Fair
 
-Family Fair adds a public, searchable community directory to the existing River Tech website. Parents verify an email, submit a listing, and wait for school approval. There are no accounts to create, passwords, payments, or new paid services.
+Family Fair is a free service for River Tech school families: a public, searchable directory where parents and children introduce themselves and share what they do with one another. River Tech charges no listing fees, receives no commissions, and earns no income from the directory or arrangements between families. Parents verify an email, submit a listing, and wait for school approval. There are no accounts to create, passwords, payments, or new paid services.
 
 ## Architecture and inspected sources
 

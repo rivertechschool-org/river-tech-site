@@ -49,7 +49,7 @@
     const q=$('ff-search')?.value.trim().toLowerCase()||'',category=$('ff-category')?.value||'';
     const visible=listings.filter(i=>(!category||i.category===category)&&(!q||[i.title,i.name,i.description,i.category].join(' ').toLowerCase().includes(q)));
     const grid=$('ff-listings');grid.replaceChildren(...visible.map(i=>card(i,admin?'admin':'public')));
-    if(!visible.length)grid.append(empty(admin?'All caught up':q||category?'No listings found':'A little community. A lot to offer.',admin?'New submissions will appear here for your review.':q||category?'Try a different search or category.':'Be the first to share a business, a handmade creation, or a helping hand.'));
+    if(!visible.length)grid.append(empty(admin?'All caught up':q||category?'No listings found':'Get to know our school families',admin?'New submissions will appear here for your review.':q||category?'Try a different search or category.':'Introduce your family and share the work, skills, or projects you would like our community to know about.'));
     $('ff-count').textContent=visible.length+' '+(visible.length===1?'listing':'listings')+(admin?' to manage':' to explore');
   }
   async function load(){try{if(admin&&!session)return;const d=await api(admin?'reviewList':'list',{},!admin);listings=d.listings;render();}catch(e){message(e.message,true);$('ff-count').textContent='Listings unavailable';$('ff-listings').replaceChildren(button('Try again',load));}}

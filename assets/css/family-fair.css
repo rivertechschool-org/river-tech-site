@@ -1,9 +1,11 @@
 .ff{--ff-green:#31594b;--ff-ink:#2d3932;--ff-muted:#5f6a62;--ff-line:#dedfd4;max-width:1100px!important;color:var(--ff-ink);padding-bottom:60px!important}
+.ff p{text-align:left}
 .ff [hidden],.ff-dialog [hidden]{display:none!important}
 .ff-hero{padding:42px 0 30px;border-bottom:1px solid var(--ff-line);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
 .ff-eyebrow{font:700 12px/1.5 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--ff-green)}
 .ff h1{font:500 clamp(42px,6vw,70px)/1.12 var(--font-body);margin:10px 0 16px!important;text-align:left!important;color:var(--ff-ink)}
 .ff-intro{font-size:21px;max-width:570px;line-height:1.6}
+.ff-purpose{font:16px/1.65 var(--font-display);max-width:620px;margin-top:16px;color:var(--ff-ink)}
 .ff-hero-art{width:165px;height:165px;color:var(--ff-green);background:#e5eadd;border-radius:50%;padding:22px;transform:rotate(-4deg)}
 .ff-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:23px}
 .ff button,.ff-dialog button,.ff .ff-button{font:600 15px/1.4 var(--font-display);border-radius:7px;padding:12px 18px;min-height:44px;transition:background .15s;text-decoration:none}
