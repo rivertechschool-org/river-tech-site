@@ -110,7 +110,10 @@ function ffText_(s,max,label) { if(typeof s!=='string' || !s.trim() || s.trim().
 function ffListing_(p,email) {
   if(p.consent!==true)ffError_('INVALID','A parent or guardian must approve the public listing.');
   if(p.kind!=='parent' && p.kind!=='student')ffError_('INVALID','Choose who this listing is for.');
-  var d={title:ffText_(p.title,80,'the title'),name:ffText_(p.name,60,'the name'),kind:p.kind,category:ffText_(p.category,30,'the category'),description:ffText_(p.description,600,'the description')};
+  var d={title:ffText_(p.title,80,'the title'),name:ffText_(p.name,60,'the name'),kind:p.kind,category:ffText_(p.category,30,'the category'),description:ffText_(p.description,300,'the description')};
+  var descriptionCheck=FamilyFairFormat.description(p.description);
+  if(descriptionCheck.error)ffError_('INVALID',descriptionCheck.error);
+  d.description=descriptionCheck.text;
   if(FF_CATEGORIES.indexOf(d.category)<0)ffError_('INVALID','Choose a category.');
   if(d.kind==='student' && !/^[\p{L}\p{M}]+(?:[-’'][\p{L}\p{M}]+)*$/u.test(d.name))ffError_('INVALID','For a student, use a first name only.');
   d.contactEmail=d.kind==='student'?email:ffEmail_(p.contactEmail);
@@ -135,7 +138,7 @@ function ffPhotoBytes_(data) {
     if(marker===218){if(!frame || len<2 || i+2+len>=b.length)ffError_('INVALID','Invalid JPEG photo.');for(var j=i+2+len;j<b.length-2;j++){if(b[j]===255){var next=b[++j];if(next!==0 && !(next>=208&&next<=215))ffError_('INVALID','Unsupported JPEG photo.');}}return out.concat(b.slice(i)).map(function(v){return v>127?v-256:v;});}
     if(len<2 || i+2+len>b.length)ffError_('INVALID','Invalid JPEG photo.');
     if(marker===194)ffError_('INVALID','Please reselect the photo so it can be prepared for upload.');
-    if(marker===192){var h=(b[i+5]<<8)+b[i+6],w=(b[i+7]<<8)+b[i+8];if(!w||!h||w>1600||h>1600)ffError_('INVALID','Please resize the photo to 1600 pixels or less.');frame=true;}
+    if(marker===192){var h=(b[i+5]<<8)+b[i+6],w=(b[i+7]<<8)+b[i+8];if(w!==h)ffError_('INVALID','Please crop the photo to a square before submitting.');if(!w||!h||w>1600||h>1600)ffError_('INVALID','Please resize the photo to 1600 pixels or less.');frame=true;}
     if(!((marker>=225&&marker<=239)||marker===254))out=out.concat(b.slice(i,i+2+len));
     i+=2+len;
   }

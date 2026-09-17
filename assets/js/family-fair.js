@@ -5,6 +5,7 @@
   const endpoint = window.FAMILY_FAIR_API;
   let session = null, listings = [], mine = [], editing = null, requestId = '', intent = 'create', photo = '', photoBusy = false, photoGeneration = 0;
   const auth = $('ff-auth'), editor = $('ff-editor');
+  let cropBitmap = null;
   function message(text, error = false, target = 'ff-status') { const el = $(target); el.textContent = text; el.classList.toggle('error', error); }
   async function api(action, data = {}, publicRead = false) {
     if (!endpoint) throw new Error('Family Fair is being prepared. Please check back soon.');
@@ -56,7 +57,7 @@
   function openAuth(next){intent=next;message('',false,'ff-auth-status');$('ff-email-step').hidden=false;$('ff-code-step').hidden=true;auth.showModal();$('ff-email').focus();}
   async function authenticated(next){if(!session){openAuth(next);return;}if(next==='create')openEditor();else if(next==='mine')await loadMine();else await load();}
   async function loadMine(){try{const d=await api('mine');mine=d.listings;$('ff-mine').hidden=false;$('ff-mine-list').replaceChildren(...mine.map(i=>card(i,'mine')));if(!mine.length)$('ff-mine-list').append(empty('Your corner of the fair','Create a listing to share something with the community.'));$('ff-mine').scrollIntoView({behavior:'smooth'});}catch(e){message(e.message,true);}}
-  function openEditor(item=null){editing=item;photo='';photoBusy=false;photoGeneration++;requestId=crypto.randomUUID();$('ff-listing-form').reset();message('',false,'ff-editor-status');$('ff-editor-title').textContent=item?'Edit your listing':'Share something with the community';['title','name','kind','category','description','contactEmail','contactPhone','website'].forEach(k=>{$(k==='category'?'ff-category-input':'ff-'+k).value=item?.[k] || (k==='kind'?'parent':k==='category'?'Services':k==='contactEmail'?session.email:'');});$('ff-remove-photo-wrap').hidden=!item?.hasPhoto;$('ff-photo-preview').hidden=true;updateKind();editor.showModal();$('ff-title').focus();}
+  function openEditor(item=null){editing=item;photo='';photoBusy=false;photoGeneration++;releaseCrop();requestId=crypto.randomUUID();$('ff-listing-form').reset();message('',false,'ff-editor-status');$('ff-editor-title').textContent=item?'Edit your listing':'Share something with the community';['title','name','kind','category','description','contactEmail','contactPhone','website'].forEach(k=>{$(k==='category'?'ff-category-input':'ff-'+k).value=item?.[k] || (k==='kind'?'parent':k==='category'?'Services':k==='contactEmail'?session.email:'');});$('ff-remove-photo-wrap').hidden=!item?.hasPhoto;$('ff-photo-preview').hidden=true;updateDescription();updateKind();editor.showModal();$('ff-title').focus();}
   function updateKind(){const student=$('ff-kind').value==='student';$('ff-name-label').textContent=student?'Student’s first name':'Parent or business name';$('ff-student-help').hidden=!student;$('ff-contactEmail').readOnly=student;if(student)$('ff-contactEmail').value=session.email;$('ff-adult-contact').hidden=student;}
   async function busy(form,work){const buttons=[...form.querySelectorAll('button[type=submit]')];buttons.forEach(b=>b.disabled=true);try{await work();}finally{buttons.forEach(b=>b.disabled=false);}}
   $('ff-email-form').addEventListener('submit',e=>{e.preventDefault();busy(e.currentTarget,async()=>{try{message('',false,'ff-auth-status');const d=await api('requestCode',{email:$('ff-email').value,purpose:admin?'admin':'parent'});$('ff-email-step').hidden=true;$('ff-code-step').hidden=false;message(d.message,false,'ff-auth-status');$('ff-code').value='';$('ff-code').focus();}catch(err){message(err.message,true,'ff-auth-status');}});});
@@ -68,20 +69,77 @@
   $('ff-search')?.addEventListener('input',render);$('ff-category')?.addEventListener('change',render);
   $('ff-kind')?.addEventListener('change',updateKind);
   document.querySelectorAll('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
-  async function resize(file){
-    if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024)throw new Error('Choose a JPG, PNG, or WebP photo under 10 MB.');
-    const bitmap=await createImageBitmap(file);if(bitmap.width*bitmap.height>40000000){bitmap.close();throw new Error('That photo is too large. Choose a smaller image.');}
-    const scale=Math.min(1,1000/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();
-    for(const quality of [.8,.65,.5,.35]){const data=canvas.toDataURL('image/jpeg',quality);if(data.length<=180000)return data;}throw new Error('That photo has too much detail. Please crop it or choose a smaller one.');
+  function updateDescription() {
+    const field=$('ff-description');if(!field)return;
+    const result=FamilyFairFormat.description(field.value);
+    field.setCustomValidity(result.error);
+    $('ff-description-count').textContent=field.value.length+' / 300 characters · '+result.sentences+' / 5 sentences';
   }
-  $('ff-photo')?.addEventListener('change',async e=>{
-    const generation=++photoGeneration, file=e.target.files[0];photo='';photoBusy=false;$('ff-photo-preview').hidden=true;
-    if(!file)return;photoBusy=true;message('Preparing photo…',false,'ff-editor-status');
-    try{const prepared=await resize(file);if(generation!==photoGeneration)return;photo=prepared;$('ff-photo-preview').src=photo;$('ff-photo-preview').hidden=false;message('',false,'ff-editor-status');}
-    catch(err){if(generation===photoGeneration){e.target.value='';message(err.message,true,'ff-editor-status');}}
-    finally{if(generation===photoGeneration)photoBusy=false;}
+  $('ff-description')?.addEventListener('input',updateDescription);
+  function releaseCrop() {
+    if(cropBitmap){cropBitmap.close();cropBitmap=null;}
+    if($('ff-crop-panel'))$('ff-crop-panel').hidden=true;
+  }
+  function cropArea() { return FamilyFairFormat.crop(cropBitmap.width,cropBitmap.height,Number($('ff-crop-zoom').value),Number($('ff-crop-x').value),Number($('ff-crop-y').value)); }
+  function drawCrop() {
+    if(!cropBitmap)return;
+    const area=cropArea(), canvas=$('ff-crop-canvas'), ctx=canvas.getContext('2d');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(cropBitmap,area.x,area.y,area.size,area.size,0,0,canvas.width,canvas.height);
+    $('ff-crop-x-wrap').hidden=cropBitmap.width-area.size<1;
+    $('ff-crop-y-wrap').hidden=cropBitmap.height-area.size<1;
+  }
+  function encodeCrop() {
+    const area=cropArea(), canvas=document.createElement('canvas');
+    for(const size of [...new Set([Math.min(800,Math.round(area.size)),Math.min(600,Math.round(area.size)),Math.min(400,Math.round(area.size))])]){
+      canvas.width=canvas.height=Math.max(1,size);
+      const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(cropBitmap,area.x,area.y,area.size,area.size,0,0,canvas.width,canvas.height);
+      for(const quality of [.8,.65,.5,.35]){const result=canvas.toDataURL('image/jpeg',quality);if(result.length<=180000)return result;}
+    }
+    throw new Error('Please choose a smaller photo.');
+  }
+  function acceptCrop() {
+    try{photo=encodeCrop();$('ff-photo-preview').src=photo;$('ff-photo-preview').hidden=false;$('ff-remove-photo').checked=false;releaseCrop();photoBusy=false;message('',false,'ff-editor-status');}
+    catch(err){message(err.message,true,'ff-editor-status');}
+  }
+  $('ff-crop-use')?.addEventListener('click',acceptCrop);
+  $('ff-crop-cancel')?.addEventListener('click',()=>{photoGeneration++;releaseCrop();photoBusy=false;$('ff-photo').value='';message('Photo selection cancelled.',false,'ff-editor-status');});
+  ['ff-crop-zoom','ff-crop-x','ff-crop-y'].forEach(id=>$(id)?.addEventListener('input',drawCrop));
+  // Sliders work with touch and keyboard; dragging offers a direct way to position the photo.
+  let drag=null;
+  $('ff-crop-canvas')?.addEventListener('pointerdown',e=>{
+    if(!cropBitmap)return;
+    drag={x:e.clientX,y:e.clientY,horizontal:Number($('ff-crop-x').value),vertical:Number($('ff-crop-y').value)};
+    e.currentTarget.setPointerCapture(e.pointerId);
   });
-  $('ff-listing-form')?.addEventListener('submit',e=>{e.preventDefault();if(photoBusy){message('Please wait for the photo to finish.',false,'ff-editor-status');return;}busy(e.currentTarget,async()=>{try{const listing={};['title','name','kind','category','description','contactEmail','contactPhone','website'].forEach(k=>listing[k]=$(k==='category'?'ff-category-input':'ff-'+k).value);listing.consent=$('ff-consent').checked;await api('save',{id:editing?.id,version:editing?.version,requestId,listing,photo,removePhoto:$('ff-remove-photo').checked});editor.close();message('Your listing is awaiting school approval. It will appear publicly after approval.');await load();await loadMine();}catch(err){message(err.message,true,'ff-editor-status');}});});
+  $('ff-crop-canvas')?.addEventListener('pointermove',e=>{
+    if(!drag||!cropBitmap)return;
+    const area=cropArea(),scale=area.size/e.currentTarget.getBoundingClientRect().width;
+    const dx=cropBitmap.width-area.size,dy=cropBitmap.height-area.size;
+    if(dx>0)$('ff-crop-x').value=String(Math.max(0,Math.min(100,drag.horizontal-(e.clientX-drag.x)*scale/dx*100)));
+    if(dy>0)$('ff-crop-y').value=String(Math.max(0,Math.min(100,drag.vertical-(e.clientY-drag.y)*scale/dy*100)));
+    drawCrop();
+  });
+  ['pointerup','pointercancel','lostpointercapture'].forEach(event=>$('ff-crop-canvas')?.addEventListener(event,()=>{drag=null;}));
+  $('ff-photo')?.addEventListener('change',async e=>{
+    const generation=++photoGeneration,file=e.target.files[0];releaseCrop();photoBusy=false;
+    if(!file)return;photoBusy=true;message('Preparing photo…',false,'ff-editor-status');
+    // Allow the same file to be selected again for a different crop.
+    e.target.value='';
+    try{
+      if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024)throw new Error('Choose a JPG, PNG, or WebP photo under 10 MB.');
+      const bitmap=await createImageBitmap(file);
+      if(generation!==photoGeneration){bitmap.close();return;}
+      if(bitmap.width*bitmap.height>40000000){bitmap.close();throw new Error('That photo is too large. Choose a smaller image.');}
+      cropBitmap=bitmap;$('ff-crop-zoom').value='1';$('ff-crop-x').value='50';$('ff-crop-y').value='50';
+      if(bitmap.width===bitmap.height){acceptCrop();return;}
+      $('ff-crop-panel').hidden=false;drawCrop();message('Choose the square crop, then select “Use this photo”.',false,'ff-editor-status');
+      $('ff-crop-panel').scrollIntoView({block:'nearest',behavior:'smooth'});$('ff-crop-zoom').focus({preventScroll:true});
+    }catch(err){if(generation===photoGeneration){releaseCrop();photoBusy=false;e.target.value='';message(err.message,true,'ff-editor-status');}}
+  });
+  editor?.addEventListener('close',()=>{photoGeneration++;releaseCrop();photoBusy=false;});
+  $('ff-listing-form')?.addEventListener('submit',e=>{e.preventDefault();if(photoBusy){message(cropBitmap?'Choose “Use this photo” or cancel the crop before submitting.':'Please wait for the photo to finish.',false,'ff-editor-status');return;}busy(e.currentTarget,async()=>{try{const listing={};['title','name','kind','category','description','contactEmail','contactPhone','website'].forEach(k=>listing[k]=$(k==='category'?'ff-category-input':'ff-'+k).value);listing.consent=$('ff-consent').checked;await api('save',{id:editing?.id,version:editing?.version,requestId,listing,photo,removePhoto:$('ff-remove-photo').checked});editor.close();message('Your listing is awaiting school approval. It will appear publicly after approval.');await load();await loadMine();}catch(err){message(err.message,true,'ff-editor-status');}});});
   let removing=null;
   function remove(item){removing=item;$('ff-remove-title').textContent='Remove “'+item.title+'”?';$('ff-remove-dialog').showModal();}
   $('ff-remove-confirm')?.addEventListener('click',async e=>{e.currentTarget.disabled=true;try{await api('remove',{id:removing.id,version:removing.version});$('ff-remove-dialog').close();message('Listing removed.');await load();await loadMine();}catch(err){$('ff-remove-dialog').close();message(err.message,true);}finally{$('ff-remove-confirm').disabled=false;}});

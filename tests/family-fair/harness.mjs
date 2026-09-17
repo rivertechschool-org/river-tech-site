@@ -26,6 +26,7 @@ export function harness(){
     Utilities:{getUuid:randomUUID,computeHmacSha256Signature:(s,key)=>Array.from(createHmac('sha256',key).update(s).digest()),base64Decode:s=>Array.from(Buffer.from(s,'base64')),base64Encode:bytes=>Buffer.from(bytes.map(b=>(b+256)%256)).toString('base64'),newBlob:bytes=>blob(bytes)},
     ContentService:{MimeType:{JSON:'application/json'},createTextOutput:value=>({value,setMimeType(){return this;}})}
   });
+  vm.runInContext(readFileSync(new URL('../../assets/js/family-fair-format.js',import.meta.url),'utf8'),ctx);
   vm.runInContext(source,ctx);ctx.setupFamilyFair();writes.length=0;reads.length=0;
   function call(input,post=true){return JSON.parse(post?ctx.doPost({postData:{contents:JSON.stringify(input)}}).value:ctx.doGet({parameter:input}).value);}
   function signIn(email='parent@example.test',purpose='parent'){

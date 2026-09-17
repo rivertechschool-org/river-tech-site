@@ -98,7 +98,7 @@ test('GET cannot send email, verify, mutate or return private views; configurati
 });
 
 test('private photos, approved-only delivery, EXIF removal, ownership and cleanup',async()=>{
- const {readFileSync}=await import('node:fs');const raw=readFileSync(new URL('./fixture.jpg',import.meta.url));
+ const {readFileSync}=await import('node:fs');const raw=readFileSync(new URL('./square.jpg',import.meta.url));
  const exif=Buffer.from('Exif\0\0GPS PRIVATE LOCATION');const app1=Buffer.concat([Buffer.from([255,225,0,exif.length+2]),exif]);
  const uploaded='data:image/jpeg;base64,'+Buffer.concat([raw.subarray(0,2),app1,raw.subarray(2)]).toString('base64');
  const h=harness(),p=h.signIn(),q=h.signIn('other@example.test'),a=h.signIn('reviewer@example.test','admin');
@@ -112,7 +112,7 @@ test('private photos, approved-only delivery, EXIF removal, ownership and cleanu
 });
 
 test('service failures fail closed and ambiguous writes recover without losing photos',async()=>{
- const {readFileSync}=await import('node:fs');const photo='data:image/jpeg;base64,'+readFileSync(new URL('./fixture.jpg',import.meta.url)).toString('base64');
+ const {readFileSync}=await import('node:fs');const photo='data:image/jpeg;base64,'+readFileSync(new URL('./square.jpg',import.meta.url)).toString('base64');
  const h=harness(),p=h.signIn(),request=save(p,{photo});
  h.ctx.SpreadsheetApp.flush=()=>{throw Error('provider internals and secrets');};
  const failure=h.call(request);fail(failure,'UNAVAILABLE');assert(!failure.error.includes('provider'));
@@ -130,4 +130,14 @@ test('parent and administrator challenges cannot be exchanged or replayed across
  fail(h.call({action:'verifyCode',email:'parent@example.test',code,purpose:'admin'}),'CODE');
  const p=ok(h.call({action:'verifyCode',email:'parent@example.test',code,purpose:'parent'}));fail(h.call({action:'reviewList',token:p.token}),'AUTH');
  const a=h.signIn('parent@example.test','admin');fail(h.call(save(a)),'AUTH');
+});
+
+test('server enforces concise single-paragraph descriptions and square photos',async()=>{
+ const {readFileSync}=await import('node:fs');const h=harness(),p=h.signIn();
+ for(const description of ['One. Two. Three. Four. Five. Six.', 'First paragraph.\nSecond paragraph.', 'x'.repeat(301)])fail(h.call(save(p,{listing:listing({description})})),'INVALID');
+ ok(h.call(save(p,{listing:listing({description:'One. Two. Three. Four. Five.'})})));
+ const rectangular='data:image/jpeg;base64,'+readFileSync(new URL('./fixture.jpg',import.meta.url)).toString('base64');
+ fail(h.call(save(p,{photo:rectangular})),'INVALID');assert.equal(h.files.size,0);
+ const square='data:image/jpeg;base64,'+readFileSync(new URL('./square.jpg',import.meta.url)).toString('base64');
+ assert.equal(ok(h.call(save(p,{photo:square}))).listing.hasPhoto,true);
 });
