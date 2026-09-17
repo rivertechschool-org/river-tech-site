@@ -23,7 +23,21 @@
    "role": "Teacher",
    "line": "English, literature, social studies, and dance.",
    "photo": "caitlin-relvas.jpg",
-   "bio": "Caitlin Relvas has a B.A. in English and Classical Civilizations. She has a minor in Dance and has been studying and teaching dance for most of her life. Caitlin loves to teach K-1 students problem-solving skills and responsibility and teach middle and high school English students the art of writing and an appreciation for story."
+   "bio": "Caitlin Relvas has a B.A. in English and Classical Civilizations. She has a minor in Dance and has been studying and teaching dance for most of her life. Caitlin loves to teach K-1 students problem-solving skills and responsibility and teach middle and high school English students the art of writing and an appreciation for story.",
+   "manual_slots": [
+    {
+     "day": "Monday",
+     "time": "10:25&ndash;12:00",
+     "group": "Productions",
+     "what": "Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"
+    },
+    {
+     "day": "Monday",
+     "time": "12:45&ndash;2:20",
+     "group": "Productions",
+     "what": "Costumes for &ldquo;Peter &amp; Alice&rdquo;, Talent Show &amp; Summer Concert &#127908;"
+    }
+   ]
   },
   {
    "initials": "JO",
@@ -116,7 +130,7 @@
    "manual_slots": [
     {
      "day": "Monday",
-     "time": "10:25&ndash;11:45",
+     "time": "10:25&ndash;12:00",
      "group": "Productions",
      "what": "Costumes for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"
     },
@@ -138,7 +152,7 @@
    "manual_slots": [
     {
      "day": "Monday",
-     "time": "10:25&ndash;11:45",
+     "time": "10:25&ndash;12:00",
      "group": "Productions",
      "what": "Props for &ldquo;Aladdin&rdquo; &amp; Christmas Concert &#127908;"
     },
@@ -155,6 +169,14 @@
    "name": "Brooke Donnelly",
    "role": "Executive Assistant",
    "line": "The first person you will hear back from when you write to the school.",
+   "photo": null,
+   "bio": ""
+  },
+  {
+   "initials": "RY",
+   "name": "Ryan",
+   "role": "Filmmaking",
+   "line": "Filmmaking.",
    "photo": null,
    "bio": ""
   }
@@ -244,7 +266,7 @@
    "Study Room"
   ],
   [
-   "🎻",
+   "🎸",
    "Music Rooms"
   ],
   [
@@ -252,7 +274,7 @@
    "Dance Hall"
   ],
   [
-   "🤖",
+   "🏎",
    "Robotics"
   ],
   [

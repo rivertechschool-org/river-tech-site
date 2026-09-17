@@ -79,20 +79,25 @@ generator runs, and your change will vanish silently.
 ### Changing the schedule
 
 1. Edit `assets/data/schedule-q1-2026-27.json`.
-2. `python3 tools/build_schedule.py apply assets/data/schedule-q1-2026-27.json pages/school-start-hub.html pages/calendar.html`
-3. `git --no-pager diff` and **read it** before committing.
+2. `python3 tools/build_schedule_everywhere.py .`
+3. `python3 tools/build_schedule_everywhere.py . --check`
+4. `git --no-pager diff` and **read it** before committing.
 
 The generator writes plain static HTML into the pages. Nothing runs in the visitor's
 browser and nothing is fetched at page load — the pages behave exactly as they did when
 the tables were typed by hand.
 
-### The key above the grid is NOT generated. Change it in both places.
+### The grid and key are generated together
 
-`apply` rewrites the five `<div class="schedule-panel">` blocks and nothing else, so the
-three key rows above the grid &mdash; teacher initials, room emoji and level colours &mdash;
-are still typed into each page by hand. The source file carries a copy of them under
-`"legend"`, which no command reads back out. **Edit the pages and that copy together**, or
-the two quietly disagree and the copy is the one nobody remembers exists.
+As of September 17, 2026, `build_schedule_everywhere.py` updates all master and grade
+pages, teacher weeks, and À La Carte day schedules from the source JSON. It also
+refreshes legacy public page copies and the compatibility `schedule-q1-2026-27 2.json`;
+edit only the canonical file. Teacher, room and level keys come from `"legend"`.
+The `--check` command checks these outputs and the teacher page for drift.
+
+Monday non-performer lines can carry `activity` metadata (time, group, subject) so
+teacher weeks use their actual times. The day pages are generated tables rather than
+old schedule images. Rehearsal times come from the explicit time in each production cell.
 
 The levels row is `schedule-key schedule-key--levels` and deliberately carries **no**
 `schedule-legend` class, unlike the other two. The Today view reads every `.schedule-legend`

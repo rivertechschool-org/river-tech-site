@@ -22,7 +22,7 @@ DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 PANEL_LABEL = {"elem": "Elementary", "ms": "Middle School", "jh": "Junior High",
                "hs": "High School", "home": "Homeschool"}
 INITIALS = re.compile(r'\(((?:[A-Z]{2})(?:\s*(?:,|&amp;|&)\s*[A-Z]{2})*)\)')
-ROOM_CHARS = "☕🚀🌳☀💡🎨📚🎻💃🤖🎤"
+ROOM_CHARS = "☕🚀🌳☀💡🎨📚🎻🎸💃🤖🏎🎤"
 
 # ---------------------------------------------------------------- helpers
 
@@ -43,6 +43,7 @@ def parse_time(label):
 
 
 def room_of(text):
+    text = htmlmod.unescape(text)
     for ch in text:
         if ch in ROOM_CHARS:
             return ch
@@ -50,7 +51,7 @@ def room_of(text):
 
 
 def clean_subject(text):
-    text = strip_tags(text)
+    text = htmlmod.unescape(strip_tags(text))
     for ch in ROOM_CHARS:
         text = text.replace(ch, "")
     for ent in ("&#9749;", "&#128131;", "&#127908;", "&#127950;", "&#127925;"):
@@ -122,8 +123,25 @@ def build_slots(schedule, grades):
                 if day is None:
                     continue
                 dayset = days if width > 1 else [day]
+                cell_time = time_label
+                if c.get("class") == "prod":
+                    for ln in c["lines"]:
+                        if ln.get("role") == "small" and re.fullmatch(r'[\d:;&a-z–-]+', ln["text"]) and parse_time(ln["text"]):
+                            cell_time = ln["text"]
+                            cell_span = parse_time(cell_time)
                 for idx, ln in enumerate(c["lines"]):
                     text = ln["text"]
+                    activity = ln.get("activity")
+                    if activity:
+                        # Repeated on each class tab for readers; pivot once only.
+                        if pid == "elem":
+                            subject = activity["subject"]
+                            who = re.split(r'\s*(?:,|&amp;|&)\s*', INITIALS.search(subject).group(1))
+                            slots.append(dict(who=who, day=day, time=activity["time"],
+                                              span=parse_time(activity["time"]), group=activity["group"],
+                                              grades=[], what=clean_subject(subject), plain=plain_subject(subject),
+                                              room=room_of(subject), duty=False))
+                        continue
                     if ln.get("role") == "small":
                         continue
                     m = INITIALS.search(text)
@@ -153,7 +171,7 @@ def build_slots(schedule, grades):
                         continue
                     for d in dayset:
                         slots.append(OrderedDict([
-                            ("who", who), ("day", d), ("time", time_label), ("span", cell_span),
+                            ("who", who), ("day", d), ("time", cell_time), ("span", cell_span),
                             ("group", PANEL_LABEL.get(pid, pid)), ("grades", gids),
                             ("what", what), ("plain", plain_subject(text) or plain_subject(what)),
                             ("room", room), ("duty", row.get("class") == "lunch-row"),
@@ -582,8 +600,14 @@ def build():
                                   ensure_ascii=False)}
     tail = tail.replace("</body>", js + "</body>")
 
+    rendered = head + body + tail
+    if "--check" in sys.argv:
+        if io.open(OUT, encoding="utf-8").read() != rendered:
+            raise SystemExit("teachers.html disagrees with the schedule or people source")
+        print("teachers.html matches the source")
+        return
     with io.open(OUT, "w", encoding="utf-8") as fh:
-        fh.write(head + body + tail)
+        fh.write(rendered)
 
     print("Wrote %s" % OUT)
     print("  %d people, %d with a scheduled week, %d portraits, %d timed slots for the live line"
