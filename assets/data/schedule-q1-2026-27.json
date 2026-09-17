@@ -367,6 +367,41 @@
          "text": "10:25&ndash;12:00",
          "color": null,
          "role": "small"
+        },
+        {
+         "text": "Non-performers",
+         "color": null,
+         "role": "small"
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Music (LU)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Music (LU)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Art (TI)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Art (TI)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Older: Projects (MA)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Older non-performers",
+          "subject": "Projects (MA)"
+         }
         }
        ]
       },
@@ -1161,6 +1196,41 @@
          "text": "10:25&ndash;12:00",
          "color": null,
          "role": "small"
+        },
+        {
+         "text": "Non-performers",
+         "color": null,
+         "role": "small"
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Music (LU)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Music (LU)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Art (TI)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Art (TI)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Older: Projects (MA)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Older non-performers",
+          "subject": "Projects (MA)"
+         }
         }
        ]
       },
@@ -1955,6 +2025,41 @@
          "text": "10:25&ndash;12:00",
          "color": null,
          "role": "small"
+        },
+        {
+         "text": "Non-performers",
+         "color": null,
+         "role": "small"
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Music (LU)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Music (LU)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Art (TI)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Art (TI)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Older: Projects (MA)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Older non-performers",
+          "subject": "Projects (MA)"
+         }
         }
        ]
       },
@@ -2749,6 +2854,41 @@
          "text": "10:25&ndash;12:00",
          "color": null,
          "role": "small"
+        },
+        {
+         "text": "Non-performers",
+         "color": null,
+         "role": "small"
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Music (LU)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Music (LU)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Art (TI)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Art (TI)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Older: Projects (MA)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Older non-performers",
+          "subject": "Projects (MA)"
+         }
         }
        ]
       },
@@ -3330,6 +3470,41 @@
          "text": "10:25&ndash;12:00",
          "color": null,
          "role": "small"
+        },
+        {
+         "text": "Non-performers",
+         "color": null,
+         "role": "small"
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Music (LU)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Music (LU)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Younger: Art (TI)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Younger non-performers",
+          "subject": "Art (TI)"
+         }
+        },
+        {
+         "text": "10:25&ndash;12:00 &middot; Older: Projects (MA)",
+         "color": null,
+         "role": "small",
+         "activity": {
+          "time": "10:25&ndash;12:00",
+          "group": "Older non-performers",
+          "subject": "Projects (MA)"
+         }
         }
        ]
       },

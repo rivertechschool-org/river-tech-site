@@ -57,6 +57,11 @@ class ScheduleViews(unittest.TestCase):
         self.assertEqual(len(activities), 5, 'Activities repeated on tabs must pivot only once')
         self.assertEqual({tuple(s['span']) for s in activities}, {(780, 825), (825, 860)})
         self.assertTrue(all(not s['grades'] for s in activities), 'The PDF does not define ages for younger/older')
+        morning = [s for s in self.slots if s['group'].endswith('non-performers') and s['span'][0] < 780]
+        self.assertEqual({(s['what'], tuple(s['who']), tuple(s['span'])) for s in morning},
+                         {('Music', ('LU',), (625, 720)), ('Art', ('TI',), (625, 720)),
+                          ('Projects', ('MA',), (625, 720))})
+        self.assertEqual(len(morning), 3)
 
     def test_new_teacher_and_split_wednesday_survive_pivot(self):
         weeks = per_teacher(self.slots, self.people['people'])
