@@ -7,7 +7,7 @@ const source=readFileSync(new URL('../../apps-script/family-fair/Code.gs',import
 export function harness(){
   let now=Date.now();
   const outbox=[],files=new Map(),reads=[],writes=[];
-  const props=new Map(Object.entries({REGISTER_ID:'test-register',REGISTER_TAB:'Register',LISTINGS_ID:'test-listings',PHOTOS_FOLDER_ID:'test-photos',AUTH_SECRET:randomBytes(32).toString('base64'),ADMIN_EMAILS:'reviewer@example.test'}));
+  const props=new Map(Object.entries({REGISTER_ID:'test-register',REGISTER_TAB:'Register',LISTINGS_ID:'test-listings',PHOTOS_FOLDER_ID:'test-photos',AUTH_SECRET:randomBytes(32).toString('base64'),ADMIN_EMAILS:'reviewer@example.test',STAFF_EMAILS:'staff@example.test'}));
   const register=[['Unrelated private column','Parent 2 email','Status','Parent email'],['NEVER RETURN PRIVATE DATA','second@example.test','Enrolled','parent@example.test'],['SECRET','other2@example.test','Committed','other@example.test'],['SECRET','','Withdrawn','withdrawn@example.test'],['SECRET','','Waiting','waiting@example.test'],['SECRET','','Declined','declined@example.test'],['SECRET','','','blank@example.test']];
   const records=[];
   function sheet(rows,name){return {getLastColumn:()=>rows[0]?.length||0,getLastRow:()=>rows.length,setFrozenRows(){},getRange(r,c,n=1,m=1){return {getValues(){reads.push({name,r,c,n,m});return Array.from({length:n},(_,i)=>Array.from({length:m},(_,j)=>rows[r+i-1]?.[c+j-1]??''));},getDisplayValues(){return this.getValues().map(row=>row.map(String));},setValues(values){writes.push({name,r,c,n,m});for(let i=0;i<n;i++){rows[r+i-1]??=[];for(let j=0;j<m;j++)rows[r+i-1][c+j-1]=values[i][j];}return this;}};}};}

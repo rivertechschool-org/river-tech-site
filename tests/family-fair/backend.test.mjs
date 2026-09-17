@@ -141,3 +141,57 @@ test('server enforces concise single-paragraph descriptions and square photos',a
  const square='data:image/jpeg;base64,'+readFileSync(new URL('./square.jpg',import.meta.url)).toString('base64');
  assert.equal(ok(h.call(save(p,{photo:square}))).listing.hasPhoto,true);
 });
+
+test('verified staff can publish their own listing, with the same approval and photo privacy',async()=>{
+ const {readFileSync}=await import('node:fs');
+ const h=harness(),s=h.signIn('staff@example.test'),a=h.signIn('reviewer@example.test','admin');
+ assert.equal(s.canPostStudent,false);assert.equal(h.signIn().canPostStudent,true);
+ const photo='data:image/jpeg;base64,'+readFileSync(new URL('./square.jpg',import.meta.url)).toString('base64');
+ const adult=listing({kind:'parent',name:'Test Video Studio',category:'Services',contactEmail:s.email});
+ const r=ok(h.call(save(s,{listing:adult,photo}))).listing;
+ assert.equal(r.status,'pending');assert.equal(ok(h.call({action:'list'},false)).listings.length,0);
+ fail(h.call({action:'photo',id:r.id},false),'NOT_FOUND');fail(h.call({action:'reviewList',token:s.token}),'AUTH');
+ fail(h.call(save(s)),'INVALID'); // staff status cannot stand in for parental approval
+ ok(h.call({action:'review',token:a.token,id:r.id,version:1,decision:'approved'}));
+ assert.equal(ok(h.call({action:'list'},false)).listings[0].name,adult.name);
+ assert.equal(ok(h.call({action:'photo',id:r.id},false)).photo,photo);
+ const edited=ok(h.call(save(s,{id:r.id,version:2,listing:{...adult,description:'An updated introduction.'}}))).listing;
+ assert.equal(edited.status,'pending');assert.equal(ok(h.call({action:'list'},false)).listings.length,0);
+ ok(h.call({action:'review',token:a.token,id:r.id,version:3,decision:'approved'}));
+ ok(h.call({action:'remove',token:s.token,id:r.id,version:4}));assert([...h.files.values()].every(f=>f.trashed));
+ assert(h.writes.every(w=>w.name==='Listings'));
+});
+
+test('staff allowlist is exact, normalized, private, optional, and grants no administrator rights',()=>{
+ const h=harness();h.props.set('STAFF_EMAILS','  STAFF@EXAMPLE.TEST , malformed, ');
+ const s=h.signIn('staff@example.test');assert(s.token);
+ for(const [email,purpose] of [['stranger@example.test','parent'],['staff+alias@example.test','parent'],['staff@example.test','admin']]){
+  const n=h.outbox.length;ok(h.call({action:'requestCode',email,purpose}));assert.equal(h.outbox.length,n);
+ }
+ h.props.delete('STAFF_EMAILS');fail(h.call({action:'mine',token:s.token}),'AUTH');assert(h.signIn().token);
+ assert(!JSON.stringify(ok(h.call({action:'list'},false))).includes('staff@example.test'));
+});
+
+test('staff removal revokes existing codes and sessions, hides photos and blocks pending approval',async()=>{
+ const {readFileSync}=await import('node:fs');const h=harness(),s=h.signIn('staff@example.test'),a=h.signIn('reviewer@example.test','admin');
+ const adult=listing({kind:'parent',name:'A staff business',category:'Services'});
+ const r=ok(h.call(save(s,{listing:adult,photo:'data:image/jpeg;base64,'+readFileSync(new URL('./square.jpg',import.meta.url)).toString('base64')}))).listing;
+ ok(h.call({action:'review',token:a.token,id:r.id,version:1,decision:'approved'}));
+ const pending=ok(h.call(save(s,{listing:adult}))).listing;
+ h.advance(61000);ok(h.call({action:'requestCode',email:s.email}));const code=h.outbox.at(-1).body.match(/\b\d{8}\b/)[0];
+ h.props.set('STAFF_EMAILS','');
+ fail(h.call({action:'verifyCode',email:s.email,code}),'AUTH');fail(h.call(save(s,{listing:adult})),'AUTH');
+ assert.equal(ok(h.call({action:'list'},false)).listings.length,0);fail(h.call({action:'photo',id:r.id},false),'NOT_FOUND');
+ fail(h.call({action:'review',token:a.token,id:pending.id,version:1,decision:'approved'}),'INVALID');
+});
+
+test('staff who are also parents lose student-listing rights when their family leaves',()=>{
+ const h=harness();h.props.set('STAFF_EMAILS','parent@example.test');
+ const p=h.signIn(),a=h.signIn('reviewer@example.test','admin');assert.equal(p.canPostStudent,true);
+ const child=ok(h.call(save(p))).listing,pendingChild=ok(h.call(save(p))).listing;
+ const adult=ok(h.call(save(p,{listing:listing({kind:'parent',name:'Adult business',category:'Services'})}))).listing;
+ for(const r of [child,adult])ok(h.call({action:'review',token:a.token,id:r.id,version:1,decision:'approved'}));
+ h.register[1][2]='Withdrawn';assert.deepEqual(ok(h.call({action:'list'},false)).listings.map(r=>r.id),[adult.id]);
+ fail(h.call(save(p)),'INVALID');fail(h.call({action:'review',token:a.token,id:pendingChild.id,version:1,decision:'approved'}),'INVALID');
+ assert.equal(ok(h.call({action:'mine',token:p.token})).listings.length,3);
+});

@@ -28,7 +28,7 @@ function ffRespond_(input, post) {
 }
 function ffConfig_() {
   var p = PropertiesService.getScriptProperties();
-  var cfg = {props:p, register:p.getProperty('REGISTER_ID'), registerTab:p.getProperty('REGISTER_TAB') || 'Register', book:p.getProperty('LISTINGS_ID'), photos:p.getProperty('PHOTOS_FOLDER_ID'), secret:p.getProperty('AUTH_SECRET'), admins:(p.getProperty('ADMIN_EMAILS') || '').split(',').map(ffEmail_).filter(Boolean)};
+  var cfg = {props:p, register:p.getProperty('REGISTER_ID'), registerTab:p.getProperty('REGISTER_TAB') || 'Register', book:p.getProperty('LISTINGS_ID'), photos:p.getProperty('PHOTOS_FOLDER_ID'), secret:p.getProperty('AUTH_SECRET'), admins:(p.getProperty('ADMIN_EMAILS') || '').split(',').map(ffEmail_).filter(Boolean), staff:(p.getProperty('STAFF_EMAILS') || '').split(',').map(ffEmail_).filter(ffValidEmail_)};
   if (!cfg.register || !cfg.book || !cfg.photos || !cfg.secret || cfg.secret.length < 43 || !cfg.admins.length || cfg.register === cfg.book) throw new Error('Configuration incomplete');
   return cfg;
 }
@@ -52,7 +52,9 @@ function ffFamilies_(cfg) {
   for(var r=0;r<n;r++) if(['Enrolled','Committed'].indexOf(data[0][r][0].trim())>=0) [1,2].forEach(function(c){var email=ffEmail_(data[c][r][0]);if(ffValidEmail_(email))eligible[email]=true;});
   return eligible;
 }
-function ffAllowed_(email,purpose,cfg) { return purpose==='admin' ? cfg.admins.indexOf(email)>=0 : !!ffFamilies_(cfg)[email]; }
+// The legacy 'parent' session purpose covers listing owners, including verified staff.
+function ffAllowed_(email,purpose,cfg) { return purpose==='admin' ? cfg.admins.indexOf(email)>=0 : !!ffFamilies_(cfg)[email] || cfg.staff.indexOf(email)>=0; }
+function ffListingEligible_(r,families,cfg) { return !!families[r.owner] || (r.data.kind==='parent' && cfg.staff.indexOf(r.owner)>=0); }
 function ffRate_(key,limit,ms,cfg) { var state=ffReadState_(key,cfg)||{count:0,expires:Date.now()+ms};if(state.count>=limit)return false;state.count++;ffWriteState_(key,state,cfg);return true; }
 function ffRequestCode_(p,cfg) {
   var email=ffEmail_(p.email), purpose=p.purpose==='admin'?'admin':'parent';
@@ -84,7 +86,7 @@ function ffVerifyCode_(p,cfg) {
   if(!ffAllowed_(email,purpose,cfg))ffError_('AUTH','This email is no longer eligible. Please contact the school.');
   var token=ffRandom_(cfg), expires=Date.now()+8*3600000;
   ffWriteState_('session:'+ffHash_(token,cfg),{email:email,purpose:purpose,expires:expires},cfg);
-  return {token:token,email:email,expires:expires};
+  return {token:token,email:email,expires:expires,canPostStudent:purpose!=='admin' && !!ffFamilies_(cfg)[email]};
 }
 function ffSession_(p,cfg,purpose) {
   if(typeof p.token!=='string' || !/^[0-9a-f]{64}$/.test(p.token))ffError_('AUTH','Please sign in again.');
@@ -108,7 +110,7 @@ function ffPublic_(r) { return {id:r.id,title:r.data.title,name:r.data.name,kind
 function ffPrivate_(r) { var v=ffPublic_(r);v.status=r.status;v.version=r.version;v.updated=r.updated;v.reviewNote=r.note||'';return v; }
 function ffText_(s,max,label) { if(typeof s!=='string' || !s.trim() || s.trim().length>max || /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/.test(s))ffError_('INVALID','Please check '+label+'.');return s.trim(); }
 function ffListing_(p,email) {
-  if(p.consent!==true)ffError_('INVALID','A parent or guardian must approve the public listing.');
+  if(p.consent!==true)ffError_('INVALID','Please approve the listing and photo for public display.');
   if(p.kind!=='parent' && p.kind!=='student')ffError_('INVALID','Choose who this listing is for.');
   var d={title:ffText_(p.title,80,'the title'),name:ffText_(p.name,60,'the name'),kind:p.kind,category:ffText_(p.category,30,'the category'),description:ffText_(p.description,300,'the description')};
   var descriptionCheck=FamilyFairFormat.description(p.description);
@@ -122,7 +124,7 @@ function ffListing_(p,email) {
   if(d.contactPhone && (!/^[+()\d .-]{7,24}$/.test(d.contactPhone) || d.contactPhone.replace(/\D/g,'').length<7))ffError_('INVALID','Enter a valid phone number.');
   d.website=d.kind==='student'?'':String(p.website||'').trim();
   if(d.website && (d.website.length>300 || !/^https:\/\/[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,}(?::443)?(?:[/?#][^\s<>"\\]*)?$/i.test(d.website)))ffError_('INVALID','Use a complete https:// website address.');
-  d.consentAt=new Date().toISOString();d.consentVersion='family-fair-1';
+  d.consentAt=new Date().toISOString();d.consentVersion='family-fair-2';
   return d;
 }
 
@@ -148,11 +150,11 @@ function ffDispatch_(p,post,cfg) {
   if(!p || typeof p!=='object')ffError_('INVALID','Invalid request.');
   if(p.action==='list'){
     var families=ffFamilies_(cfg);
-    return {listings:ffRows_(ffSheet_(cfg)).filter(function(r){return r.status==='approved' && families[r.owner];}).sort(function(a,b){return String(b.updated).localeCompare(String(a.updated));}).map(ffPublic_)};
+    return {listings:ffRows_(ffSheet_(cfg)).filter(function(r){return r.status==='approved' && ffListingEligible_(r,families,cfg);}).sort(function(a,b){return String(b.updated).localeCompare(String(a.updated));}).map(ffPublic_)};
   }
   if(p.action==='photo' && !post){
     var r=ffRows_(ffSheet_(cfg)).find(function(r){return r.id===p.id;});
-    if(!r || r.status!=='approved' || !r.photo || !ffFamilies_(cfg)[r.owner])ffError_('NOT_FOUND','Photo unavailable.');
+    if(!r || r.status!=='approved' || !r.photo || !ffListingEligible_(r,ffFamilies_(cfg),cfg))ffError_('NOT_FOUND','Photo unavailable.');
     return {photo:'data:image/jpeg;base64,'+Utilities.base64Encode(DriveApp.getFileById(r.photo).getBlob().getBytes())};
   }
   if(!post)ffError_('METHOD','Use a secure submission for this action.');
@@ -172,6 +174,7 @@ function ffDispatch_(p,post,cfg) {
     if(p.id && (!current || current.owner!==session.email || current.status==='removed'))ffError_('NOT_FOUND','Listing unavailable.');
     if(typeof p.requestId!=='string'||!/^[-a-zA-Z0-9]{16,80}$/.test(p.requestId))ffError_('INVALID','Please reopen the listing form.');
     var data=ffListing_(p.listing||{},session.email), hash=ffHash_(JSON.stringify(p.listing)+':'+String(p.photo||'')+':'+!!p.removePhoto,cfg);
+    if(data.kind==='student' && !ffFamilies_(cfg)[session.email])ffError_('INVALID','Student listings require a parent email on file for a current family. Please sign in with that email.');
     var prior=rows.find(function(r){return r.owner===session.email&&r.request===p.requestId;});
     if(prior){if(prior.hash!==hash)ffError_('CONFLICT','This request changed. Reopen the listing form.');return {listing:ffPrivate_(prior)};}
     if(current && p.version!==current.version)ffError_('CONFLICT','This listing changed. Refresh your listings before editing it.');
@@ -192,9 +195,9 @@ function ffDispatch_(p,post,cfg) {
     if(p.version!==current.version)ffError_('CONFLICT','This listing changed. Refresh before trying again.');
     if(p.action==='review'){
       if(['approved','rejected'].indexOf(p.decision)<0)ffError_('INVALID','Choose approve or decline.');
-      if(p.decision==='approved' && (current.status!=='pending' || !ffFamilies_(cfg)[current.owner]))ffError_('INVALID','Only a pending listing from a current family can be approved.');
+      if(p.decision==='approved' && (current.status!=='pending' || !ffListingEligible_(current,ffFamilies_(cfg),cfg)))ffError_('INVALID','Only a pending listing from an eligible family or staff member can be approved.');
       current.status=p.decision;current.reviewer=session.email;current.reviewed=new Date().toISOString();
-      current.note=p.decision==='rejected'?ffText_(p.note,300,'a short reason for the family'):'';
+      current.note=p.decision==='rejected'?ffText_(p.note,300,'a short reason for the listing owner'):'';
     }else{current.status='removed';}
     current.version++;current.updated=new Date().toISOString();ffSaveRow_(sh,current);
     if(current.status==='removed'&&current.photo){try{DriveApp.getFileById(current.photo).setTrashed(true);}catch(err){/* remains private */}}
