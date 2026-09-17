@@ -30,7 +30,7 @@ Only approved public fields are returned to visitors. Owner identity, status, co
 
 Square photos are resized directly. Rectangular photos open an inline square crop with drag positioning, keyboard-accessible position/zoom sliders, and an explicit confirmation. Cancelling preserves any previously chosen photo. Accepted crops are resized to at most 800 × 800 and re-encoded as JPEG. All public photo areas remain square at every screen size. The server rejects rectangular uploads, validates size and JPEG structure and strips EXIF/GPS and comment metadata. Files stay private in Drive. The API returns image bytes only for an approved listing or an authenticated owner/reviewer, never a public Drive link. Removed/replaced photos are trashed after the listing is saved. An ambiguous storage failure can leave a private orphan photo; it is never made public.
 
-## Deployment — not performed yet
+## Production deployment — not performed yet
 
 Publishing the feature and granting a new script access to school data are launch steps. The committed endpoint is deliberately blank until configuration and staging checks pass.
 
@@ -53,7 +53,7 @@ Publishing the feature and granting a new script access to school data are launc
 
 For a school-year rollover, verify the new Register's three headers/status values, change `REGISTER_ID`, and clear `session:` and `otp:` properties. Do not copy forward an old eligibility snapshot. To roll back a launch, restore the website commit and disable the dedicated Apps Script deployment; retain the private listing records.
 
-Google service behavior checked against the official [Content Service](https://developers.google.com/apps-script/guides/content), [Utilities](https://developers.google.com/apps-script/reference/utilities/utilities), and [Lock Service](https://developers.google.com/apps-script/reference/lock/lock-service) documentation. The live redirect, mail quota, permissions, and storage behavior still require the deployed staging test.
+Google service behavior checked against the official [Content Service](https://developers.google.com/apps-script/guides/content), [Utilities](https://developers.google.com/apps-script/reference/utilities/utilities), and [Lock Service](https://developers.google.com/apps-script/reference/lock/lock-service) documentation. The real Google staging checks below passed on September 17, 2026; production setup and its smoke test remain separate launch steps.
 
 ## Local verification
 
@@ -78,4 +78,12 @@ For the Google staging check, run the same preview with `FAMILY_FAIR_STAGING_API
 - **Browser flow passed against the local adapters:** wrong code → valid code → parent listing with photo → hidden pending → admin approval → signed-out public viewing/search/category filtering → edit hides listing → admin requests changes → parent reads note and resubmits → reapproval. Student creation, second-parent sign-in, removal confirmation, and logout were also exercised through the UI.
 - **Revised form verified:** six sentences and line breaks rejected; square photos accepted directly; rectangular crop adjusted by drag and keyboard sliders; confirmation produces a square JPEG; cancellation preserves the prior selection; the same file can be selected again for a new crop. A square photo passed submission, approval, and public display. The crop controls and square card fit the 390-pixel phone layout without horizontal overflow.
 - **Visual checks:** desktop, 390-pixel phone layout and listing dialog, and 320-pixel width; no horizontal overflow. Existing mobile menu opens/closes; its intentional slow fade is preserved. No browser console warnings/errors were observed in the final check. Page IDs and local asset references are valid. The shared navigation script and stylesheet are byte-identical to baseline.
-- **Not yet tested:** deployed Google Apps Script redirects/CORS, actual Google mail delivery, real Sheets/Drive permissions and persistence, and a production smoke test. These require the deployment sequence above. Local adapters establish application behavior, not live-provider delivery.
+
+### Deployed staging verification on September 17, 2026
+
+- A dedicated Google Apps Script web app ran the reviewed source, with separate private listing/photo storage and a fictional Register. The real enrollment Register and production website were unchanged. The deployment owner completed Google authorization; `setupFamilyFair` completed successfully.
+- The local website called the deployed Google endpoint directly, with no proxy or local service adapters. Anonymous listing reads, cross-origin POST requests, Google redirects, actual parent and reviewer code emails, and both sign-ins passed. A wrong code was rejected. Expiry, replay, and rate-limit edge cases remain covered by the automated tests above.
+- A fictional parent listing with a rectangular photo was cropped to a 500 × 500 JPEG, submitted, and read back as pending in the actual private spreadsheet. Signed-out visitors saw no listing. Drive permission readback confirmed the photo was private to the deployment owner.
+- School approval made the listing and square photo available to signed-out visitors. Search and category filters passed. A stale parent edit was rejected; after refreshing, an edit saved as pending and disappeared from public view. A reviewer note reached the parent's My listings view; the parent corrected and resubmitted it, and reapproval published the corrected text.
+- Removal persisted as `removed` in the spreadsheet. The public directory and review queue returned to empty. The photo folder was empty, and Google Drive's viewer confirmed the test photo was in the trash. Both authenticated sessions were signed out after testing.
+- **Remaining launch work:** authorize publication, configure the real Register with empty production storage, deploy production, set the website endpoint, publish, and verify the actual public destination. The committed endpoint remains blank; this staging pass does not claim a production launch.
