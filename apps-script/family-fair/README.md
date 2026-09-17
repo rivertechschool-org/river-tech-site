@@ -70,6 +70,8 @@ The preview executes the production `Code.gs` through local Google-service adapt
 
 Do not deploy the preview server or expose its port. It binds only to `127.0.0.1`, rejects other hosts/origins, and loses its fictional data when stopped.
 
+For the Google staging check, run the same preview with `FAMILY_FAIR_STAGING_API` set to the dedicated staging `/exec` URL. The browser calls Google directly, so this tests the real cross-origin path without editing the website's production configuration. This mode disables the local API and test mailbox and clearly labels that verification codes are delivered by email. Use only the separate test Register and storage described above.
+
 ### Verification performed on September 16, 2026
 
 - **16/16 automated tests passed**, including 13 executing the real `Code.gs`: lifecycle, eligibility in both parent columns, code expiry/replay/attempts/rate limits, role separation, ownership, revocation, withdrawal, validation, duplicate retry, stale-version conflicts, student restrictions, photo privacy/EXIF removal, recovery from provider failures, and server rejection of rectangular photos and long/multi-paragraph descriptions. Shared-format tests cover sentence counting, abbreviations, and square crop bounds for landscape, portrait, and square images.
