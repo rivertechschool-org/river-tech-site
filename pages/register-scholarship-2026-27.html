@@ -6,11 +6,11 @@
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
-  <title>Scholarship Application 2026&ndash;27 | River Tech School</title>
-  <meta name="description" content="Apply for a River Tech need-based scholarship for the 2026&ndash;27 school year. A short application plus a $20 processing fee; all applications are reviewed together in late July.">
+  <title>Scholarship Applications Closed | River Tech School</title>
+  <meta name="description" content="River Tech is at full capacity and is not accepting scholarship applications. Join the free wait pool and indicate financial need there.">
 
-  <meta property="og:title" content="Scholarship Application 2026&ndash;27 | River Tech School">
-  <meta property="og:description" content="Apply for a River Tech need-based scholarship for the 2026&ndash;27 school year.">
+  <meta property="og:title" content="Scholarship Applications Closed | River Tech School">
+  <meta property="og:description" content="River Tech is at full capacity and is not accepting scholarship applications. Join the free wait pool and indicate financial need there.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.rivertechschool.com/pages/register-scholarship-2026-27.html">
   <meta property="og:image" content="https://www.rivertechschool.com/assets/images/og-image.png">
@@ -437,7 +437,7 @@
 
 <!-- Top Bar -->
 <div class="top-bar">
-  <a href="enrollment.html" class="enroll-btn">School starts Sept 1</a>
+  <a href="join-wait-pool.html" class="enroll-btn">Join the Wait Pool</a>
   <div class="social-icons">
     <a href="https://www.youtube.com/@PostFalls" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
       <svg viewBox="0 0 24 24" fill="#c0392b"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="white" points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg>
@@ -499,229 +499,13 @@
     <a href="../pages/vlog.html">Video Globe</a>
     <a href="../pages/fieldtrips.html">Field Trips</a>
   </div>
-  <a href="enrollment.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">School starts Sept 1</a>
+  <a href="join-wait-pool.html" style="color: var(--color-red); font-weight: 700; border-bottom: none;">Join the Wait Pool</a>
 </div>
 
 <!-- Main Content -->
-<div class="main-content">
-  <div class="content-area">
-
-    <div class="reg-wrap">
-
-      <a href="scholarships.html" class="reg-back">← Back to Scholarships</a>
-
-      <div class="reg-hero">
-        <span class="reg-pill">2026&ndash;27 School Year</span>
-        <h1>Scholarship Application</h1>
-        <p class="reg-subtitle">River Tech School of Performing Arts &amp; Technology</p>
-      </div>
-
-      <div class="reg-info">
-        <p><strong>Welcome.</strong> This application is for families seeking need-based tuition assistance for the 2026&ndash;27 school year. It takes about five minutes.</p>
-        <p>Idaho&rsquo;s Parental Choice Tax Credit covers up to $5,000 per child ($7,500 for special-needs students) and is the starting point for every family. River Tech&rsquo;s own scholarship program is smaller and more selective than in past years, with priority given to current students and to families who are actively volunteering with the school. <a href="tax-credit.html">Learn about the tax credit &rarr;</a></p>
-        <p>All applications are held on file and reviewed together in late July, once enrollment has taken shape. You&rsquo;ll receive an email then with the decision and next steps; additional documentation may be requested if your application advances. A non-refundable <strong>$20 processing fee</strong> is collected at submit. Questions? <a href="mailto:learn@rivertech.me">learn@rivertech.me</a>.</p>
-      </div>
-
-      <div id="reg-error" class="reg-error" role="alert"></div>
-
-      <form id="reg-form" novalidate>
-
-        <!-- 1. Children -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">1</div>
-            <div>
-              <div class="reg-section-title">Who are you applying for?</div>
-              <p class="reg-section-subtitle">Add each child you&rsquo;re requesting assistance for. You can include up to 6.</p>
-            </div>
-          </div>
-          <div class="reg-row">
-            <label class="reg-label" for="childCount">Number of children<span class="req">*</span></label>
-            <select class="reg-select" id="childCount" name="childCount" required style="max-width: 200px;">
-              <option value="">Select…</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div id="children-container" style="margin-top: 4px;"></div>
-        </div>
-
-        <!-- 2. Family -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">2</div>
-            <div>
-              <div class="reg-section-title">Parent / Guardian</div>
-              <p class="reg-section-subtitle">We&rsquo;ll send the scholarship decision and any follow-up here.</p>
-            </div>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-label" for="parentName">Full name<span class="req">*</span></label>
-            <input class="reg-input" type="text" id="parentName" name="parentName" required autocomplete="name">
-          </div>
-          <div class="reg-row-grid-2">
-            <div>
-              <label class="reg-label" for="parentEmail">Email<span class="req">*</span></label>
-              <input class="reg-input" type="email" id="parentEmail" name="parentEmail" required autocomplete="email">
-            </div>
-            <div>
-              <label class="reg-label" for="parentPhone">Phone<span class="req">*</span></label>
-              <input class="reg-input" type="tel" id="parentPhone" name="parentPhone" required autocomplete="tel">
-            </div>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-check">
-              <input type="checkbox" id="addParent2Toggle" name="addParent2Toggle">
-              <span>Add a second parent / guardian</span>
-            </label>
-          </div>
-
-          <div id="parent2-block" class="conditional" style="padding-top: 4px;">
-            <div class="reg-row">
-              <label class="reg-label" for="parent2Name">Full name</label>
-              <input class="reg-input" type="text" id="parent2Name" name="parent2Name">
-            </div>
-            <div class="reg-row-grid-2">
-              <div>
-                <label class="reg-label" for="parent2Email">Email</label>
-                <input class="reg-input" type="email" id="parent2Email" name="parent2Email">
-              </div>
-              <div>
-                <label class="reg-label" for="parent2Phone">Phone</label>
-                <input class="reg-input" type="tel" id="parent2Phone" name="parent2Phone">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Assistance needed -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">3</div>
-            <div>
-              <div class="reg-section-title">How much assistance would help?</div>
-              <p class="reg-section-subtitle">After the tax credit and your own planning, what additional support would bridge the gap to affording enrollment?</p>
-            </div>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-label">Level of tuition assistance needed<span class="req">*</span></label>
-            <div class="reg-choices" id="assistance-choices">
-              <label class="reg-check"><input type="radio" name="assistance" value="up-to-10" required><span>Up to 10% of tuition</span></label>
-              <label class="reg-check"><input type="radio" name="assistance" value="11-20"><span>Between 11% and 20% of tuition</span></label>
-              <label class="reg-check"><input type="radio" name="assistance" value="more-than-20"><span>More than 20% of tuition</span></label>
-              <label class="reg-check"><input type="radio" name="assistance" value="unsure"><span>I&rsquo;m not sure yet</span></label>
-            </div>
-            <div id="assistance-elaborate" class="conditional">
-              <label class="reg-label" for="assistanceNotes">Since you need more than 20%, please tell us a little more</label>
-              <textarea class="reg-textarea" id="assistanceNotes" name="assistanceNotes" rows="3" placeholder="What would make enrollment workable for your family this year?"></textarea>
-            </div>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-label" for="hardship">Financial hardship (optional)</label>
-            <span class="reg-help" style="margin-bottom: 6px;">Briefly describe any financial hardship your family is experiencing. Share only what you&rsquo;re comfortable with &mdash; no proof of income is required at this stage.</span>
-            <textarea class="reg-textarea" id="hardship" name="hardship" rows="4"></textarea>
-          </div>
-        </div>
-
-        <!-- 4. Volunteering -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">4</div>
-            <div>
-              <div class="reg-section-title">Volunteering</div>
-              <p class="reg-section-subtitle">Volunteering strengthens our community and factors positively into scholarship consideration. There&rsquo;s no wrong answer here.</p>
-            </div>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-label">Your family&rsquo;s volunteer status<span class="req">*</span></label>
-            <div class="reg-choices">
-              <label class="reg-check"><input type="radio" name="volunteer" value="currently" required><span>We currently volunteer at River Tech</span></label>
-              <label class="reg-check"><input type="radio" name="volunteer" value="willing"><span>We&rsquo;re willing and able to volunteer this year</span></label>
-              <label class="reg-check"><input type="radio" name="volunteer" value="limited"><span>We&rsquo;d like to help in limited ways</span></label>
-              <label class="reg-check"><input type="radio" name="volunteer" value="unable"><span>We&rsquo;re not able to volunteer right now</span></label>
-            </div>
-          </div>
-          <div class="reg-row">
-            <label class="reg-label" for="volunteerNotes">How you&rsquo;d like to help (optional)</label>
-            <span class="reg-help" style="margin-bottom: 6px;">Skills, availability, or roles that interest you. <a href="volunteer.html" target="_blank" style="color: var(--color-red);">See volunteer roles &rarr;</a></span>
-            <textarea class="reg-textarea" id="volunteerNotes" name="volunteerNotes" rows="2"></textarea>
-          </div>
-        </div>
-
-        <!-- 5. Consent + signature -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">5</div>
-            <div>
-              <div class="reg-section-title">Consent &amp; Signature</div>
-              <p class="reg-section-subtitle">Please read before signing below.</p>
-            </div>
-          </div>
-
-          <div class="reg-consent">
-            <h4>Accuracy of Information</h4>
-            <p>I certify that the information provided in this application is true, complete, and accurate to the best of my knowledge. I understand that false or misleading information may result in the rejection of this application.</p>
-            <h4>Data Use &amp; Privacy</h4>
-            <p>I consent to River Tech&rsquo;s use of the personal information in this form for scholarship administration, in line with the school&rsquo;s privacy practices. I understand the information is kept confidential and accessible only to relevant staff and to the parents/guardians themselves, except where disclosure is required by law. I may ask to access or correct this information, and I will inform the school of any changes.</p>
-          </div>
-
-          <div class="reg-row">
-            <label class="reg-check" style="border-color: var(--color-red); background: var(--color-pink-btn);">
-              <input type="checkbox" id="consentAgree" name="consentAgree" required>
-              <span>I have read and agree to the statements above.<span class="req">*</span></span>
-            </label>
-          </div>
-
-          <div class="reg-row-grid-2">
-            <div>
-              <label class="reg-label" for="signature">Typed full name (signature)<span class="req">*</span></label>
-              <input class="reg-input" type="text" id="signature" name="signature" required placeholder="Type your full legal name">
-            </div>
-            <div>
-              <label class="reg-label" for="signatureDate">Today&rsquo;s date<span class="req">*</span></label>
-              <input class="reg-input" type="date" id="signatureDate" name="signatureDate" required>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Fee -->
-        <div class="reg-section">
-          <div class="reg-section-head">
-            <div class="reg-step">6</div>
-            <div>
-              <div class="reg-section-title">Processing Fee</div>
-              <p class="reg-section-subtitle">A nominal, non-refundable $20 fee keeps the process focused on genuine need and helps us steward our limited resources well.</p>
-            </div>
-          </div>
-          <div class="reg-summary">
-            <div class="reg-summary-row"><span>Children on this application</span><span id="summary-child-count">0</span></div>
-            <div class="reg-summary-row reg-summary-total"><span>Application Processing Fee</span><span>$20</span></div>
-          </div>
-        </div>
-
-        <!-- Sticky submit bar -->
-        <div class="reg-stickybar">
-          <div class="sb-fee">$20 processing fee<small>Paid securely by card via Stripe</small></div>
-          <button type="submit" id="reg-submit" class="reg-submit">Continue to Payment →</button>
-        </div>
-        <p id="reg-progress" class="reg-progress"></p>
-        <p style="text-align:center; font-size:13px; color:var(--color-text); opacity:0.6; margin-top:12px;">You&rsquo;ll be taken to Stripe to pay by card. We don&rsquo;t store your card details.</p>
-
-      </form>
-
-    </div>
-  </div>
-</div>
-
+<main class="main-content"><div class="content-area">
+<div class="page-hero-inner"><h1>Scholarship Applications Are Closed</h1></div><p>River Tech is at full capacity. Please join our free wait pool and indicate whether your child would need a scholarship to attend. There is no wait-pool application fee.</p><div class="cta-buttons"><a class="cta-btn" href="join-wait-pool.html">Join the Wait Pool</a></div>
+</div></main>
 <!-- Footer -->
 <footer class="site-footer">
   <div class="footer-top">
@@ -761,7 +545,7 @@
 </footer>
 
 <script src="../assets/js/main.js?v=4" defer></script>
-<script src="../assets/js/register-scholarship-2026-27.js?v=3" defer></script>
+
 
 <button class="scroll-to-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
