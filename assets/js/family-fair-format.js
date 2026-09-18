@@ -1,5 +1,12 @@
 // Shared browser/server rules. In Apps Script, add this file as Format.gs.
 var FamilyFairFormat = (() => {
+  function website(value) {
+    const text = typeof value === 'string' ? value.trim() : '';
+    if (!text) return {url:'', error:''};
+    const url = 'https://' + text.replace(/^https?:\/\//i, '');
+    const valid = url.length <= 300 && /^https:\/\/[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,}(?::443)?(?:[/?#][^\s<>"\\]*)?$/i.test(url);
+    return {url, error:valid ? '' : 'Enter a website address such as example.com, or leave this blank.'};
+  }
   function description(value) {
     const text = typeof value === 'string' ? value.trim() : '';
     // Keep ordinary abbreviations, web addresses and decimals from counting as sentences.
@@ -21,6 +28,6 @@ var FamilyFairFormat = (() => {
     return {x:(width - size) * clamp(horizontal, 0, 100) / 100,
       y:(height - size) * clamp(vertical, 0, 100) / 100, size};
   }
-  return {description, crop};
+  return {website, description, crop};
 })();
 if (typeof module !== 'undefined') module.exports = FamilyFairFormat;
