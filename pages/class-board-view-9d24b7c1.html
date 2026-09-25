@@ -73,13 +73,21 @@ function api(params){
   });
 }
 
-function load(){
+// Auto-refresh: re-fetch the feed every REFRESH_MS while the tab is visible,
+// and right away when the tab comes back into view, so sheet edits show up
+// without a manual reload. Only re-renders when the data actually changed.
+var REFRESH_MS=30000,LAST="",LOADING=false;
+function load(quiet){
+  if(LOADING)return;
+  LOADING=true;
   api({action:"board_view",rk:RK}).then(function(d){
     if(!d.ok)throw new Error(d.error||"feed failed");
-    KIDS=d.kids;
-    render();
-  }).catch(fail);
+    var sig=JSON.stringify(d.kids);
+    if(sig!==LAST){LAST=sig;KIDS=d.kids;render();}
+  }).catch(function(e){if(!quiet)fail(e);}).then(function(){LOADING=false;});
 }
+setInterval(function(){if(!document.hidden)load(true);},REFRESH_MS);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)load(true);});
 function setView(v){VIEW=v;document.getElementById("btnFT").className=v==="ft"?"on":"";document.getElementById("btnHS").className=v==="hs"?"on":"";document.getElementById("hsn").style.display=v==="hs"?"block":"none";render();}
 function card(k,drag){
   var el=document.createElement("div");
