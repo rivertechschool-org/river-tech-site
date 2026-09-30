@@ -1,4 +1,4 @@
-/* September field trips. Scoped to these pages; shared navigation stays intact. */
+/* River Tech field trips. Scoped to these pages; shared navigation stays intact. */
 .trip-wrap{--trip-ink:#203f35;--trip-muted:#526359;--trip-line:#d6ded5;--trip-paper:#fffefa;max-width:1220px;margin:0 auto;padding:24px 38px 70px;font:16px/1.65 var(--font-display);color:var(--trip-ink)}
 .trip-wrap p,.trip-confirmation p{text-align:left;margin:0 0 16px}
 .trip-wrap a{color:inherit}
@@ -181,3 +181,10 @@
 }
 .trip-inline-note{background:#edf0e6;border-left:3px solid #7c8c63;padding:18px 20px;margin-top:24px;font-size:14px}
 .trip-inline-note p:last-child{margin-bottom:0}
+
+/* Pumpkin Patch registration: retain the established field-trip layout. */
+.trip-top-deadline{display:flex;justify-content:space-between;align-items:center;gap:18px}
+.trip-top-deadline p{margin:0}
+.trip-top-deadline .trip-button{flex:none}
+.trip-archive-content .trip-topic-panel{margin:24px 0;padding-bottom:18px;border-bottom:1px solid var(--trip-line)}
+@media(max-width:720px){.trip-top-deadline{align-items:stretch;flex-direction:column}.trip-top-deadline .trip-button{width:100%}}

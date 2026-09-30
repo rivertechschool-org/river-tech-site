@@ -5,7 +5,7 @@
   const status = document.getElementById('confirmation-status');
   const session = new URLSearchParams(location.search).get('session_id');
   if (!session || !/^cs_(test|live)_[a-zA-Z0-9]+$/.test(session)) {
-    title.textContent = 'Hidden Acres registration';
+    title.textContent = 'Pumpkin Patch registration';
     status.textContent = 'There is no payment confirmation to check on this page. Please use the registration form to sign up.';
     return;
   }
@@ -14,15 +14,23 @@
     status.textContent = 'No payment is checked or recorded in this preview.'; return;
   }
   try {
-    const response = await fetch(endpoint + '?action=hiddenAcresStatus&session_id=' + encodeURIComponent(session));
+    const response = await fetch(endpoint + '?action=pumpkin_status&session_id=' + encodeURIComponent(session));
     if (!response.ok) throw new Error('connection');
-    const result = await response.json();
-    if (!result.ok || result.tripId !== 'hidden-acres-2026-09-16') throw new Error('unverified');
+    let result = await response.json();
+    // Preserve confirmation links for the previous trip, using its own verifier.
+    if (!result.ok) {
+      const previous = await fetch(endpoint + '?action=hiddenAcresStatus&session_id=' + encodeURIComponent(session));
+      if (previous.ok) {const old = await previous.json(); if (old.ok && old.tripId === 'hidden-acres-2026-09-16') result = old;}
+    }
+    if (!result.ok || !['pumpkin-patch-2026-10-07','hidden-acres-2026-09-16'].includes(result.tripId)) throw new Error('unverified');
+    document.getElementById('upcoming-trip-details').hidden = result.tripId !== 'pumpkin-patch-2026-10-07';
     if (result.paid) {
-      title.textContent = 'You’re signed up';
-      status.textContent = 'Your Hidden Acres registration and payment are confirmed. We look forward to seeing your student on Wednesday, September 16.';
+      title.textContent = result.tripId === 'pumpkin-patch-2026-10-07' ? 'You’re signed up' : 'Previous payment confirmed';
+      status.textContent = result.tripId === 'pumpkin-patch-2026-10-07'
+        ? 'Your Pumpkin Patch registration and payment are confirmed. We look forward to seeing you on Wednesday, October 7.'
+        : 'Your previous Hidden Acres registration and payment for September 16, 2026 are confirmed.';
       document.getElementById('confirmation-reference').textContent = 'Registration reference: ' + result.registrationId;
-      sessionStorage.removeItem('hidden-acres-2026-09-16');
+      sessionStorage.removeItem(result.tripId);
     } else {
       title.textContent = 'Payment is not yet confirmed';
       status.textContent = 'If you just paid, refresh this page shortly. If you did not finish payment, return to the registration form or contact Mary.';
