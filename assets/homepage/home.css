@@ -33,3 +33,6 @@ body{font-size:var(--text-body)}
  .interest p,.intro-words p{font-size:var(--text-body)}
  .per-student{font-size:21px}
 }
+/* Keep the smallest phone widths readable without horizontal scrolling. */
+.program-pair article,.interest>*{min-width:0}.program-pair .button{max-width:100%;white-space:normal}
+@media(max-width:360px){.tabs{flex-direction:column}.tabs button{text-align:left;padding:12px 16px}.sitebar nav{gap:5px}.sitebar{padding-inline:10px}.sitebar .mobile-brand{font-size:14px}.program-pair article{padding:20px}.program-pair h3{font-size:36px}}
