@@ -1,20 +1,19 @@
 /** Pumpkin Patch add-on for the existing Field Trip Backend.
  * Uses a dedicated tab in the existing private signup spreadsheet.
- * PP_REGISTRATION_OPEN=true enables the form through October 4, Pacific time.
+ * PP_REGISTRATION_OPEN=true enables registration, including after the requested deadline.
  * The existing Hidden Acres hourly recovery also runs reconcilePumpkinPayments.
  * No email is sent by this module.
  */
 const PP_TRIP_ID = 'pumpkin-patch-2026-10-07';
 const PP_TAB = 'Pumpkin Patch 2026-10-07';
 const PP_PRICE_USD = 12;
-const PP_CLOSE_AT = '2026-10-05T07:00:00Z'; // October 5, 00:00 America/Los_Angeles
 let PP_RUNTIME_CONFIG = null; // Owner-run isolated verification only; never set from public input.
 function ppCfg_(key) { return PP_RUNTIME_CONFIG ? PP_RUNTIME_CONFIG[key] : cfg(key); }
 function ppTab_() { return PP_RUNTIME_CONFIG && PP_RUNTIME_CONFIG.PP_QA_TAB ? PP_RUNTIME_CONFIG.PP_QA_TAB : PP_TAB; }
 const PP_HEADERS = ['Registration ID','Submitted (UTC)','Status','Student Program','Parent First','Parent Last','Parent Email','Parent Phone','Participant First','Participant Last','Participant Age','Participant Type','Transportation','Price (USD)','Registration Total (USD)','Paid','Signature Name','Signature Date','Ack: Schedule Read','Request Hash','Stripe Session ID','Checkout URL','Release Agreed','Release Version'];
 
 function pumpkinConfig_() {
-  const closed = new Date().getTime() >= new Date(PP_CLOSE_AT).getTime();
+  const closed = ppCfg_('PP_REGISTRATION_OPEN') !== 'true';
   return {ok:true,tripId:PP_TRIP_ID,priceUSD:PP_PRICE_USD,deadline:'2026-10-04',closed:closed,
     ready:!closed && ppCfg_('PP_REGISTRATION_OPEN')==='true' && !!ppCfg_('SHEET_ID') && (ppCfg_('STRIPE_SECRET_KEY') || '').startsWith(PP_RUNTIME_CONFIG?'sk_test_':'sk_live_'),mode:PP_RUNTIME_CONFIG?'test':'live'};
 }
@@ -85,7 +84,7 @@ function ppSaveSession_(sh,rows,session) {
 function handlePumpkin_(payload) {
   let p;try{p=ppNormalize_(payload);}catch(err){return {ok:false,error:err.message};}
   const config=pumpkinConfig_();
-  if(!config.ready)return {ok:false,error:config.closed?'Pumpkin Patch signup closed after Sunday, October 4. Please contact Mary.':'Pumpkin Patch registration is not open yet. Please contact Mary.'};
+  if(!config.ready)return {ok:false,error:'Pumpkin Patch registration is not open. Please contact Mary.'};
   const lock=LockService.getScriptLock();
   if(!lock.tryLock(20000))return {ok:false,error:'Registration is busy. Please try again with the same details.'};
   try {

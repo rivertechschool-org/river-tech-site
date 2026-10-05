@@ -4,7 +4,6 @@
   const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwhK9l0Ve9IVj9GU4F0BttzPtPD52tMxWNIBs2EUIf5Xg8prXlOQ8UD2Bon74K2aOtH/exec';
   const TRIP_ID = 'pumpkin-patch-2026-10-07';
   const PRICE = 12;
-  const CUTOFF = Date.parse('2026-10-05T00:00:00-07:00');
   const preview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   const form = document.getElementById('reg-form');
   const list = document.getElementById('participant-list');
@@ -20,11 +19,9 @@
   document.getElementById('sig-date-display').textContent = new Date().toLocaleDateString('en-US', {timeZone:'America/Los_Angeles',year:'numeric',month:'long',day:'numeric'});
   function updateTotal() {
     const cards = Array.from(list.children), count = cards.length;
-    const closed = Date.now() >= CUTOFF;
-    document.getElementById('registration-closed').hidden = !closed;
     document.getElementById('total-amount').textContent = '$' + count * PRICE;
     document.getElementById('total-breakdown').textContent = count + ' participant' + (count === 1 ? '' : 's') + ' × $' + PRICE;
-    if (!inFlight) {submit.textContent = closed ? 'Registration closed' : 'Continue to payment · $' + count * PRICE + ' ↗'; submit.disabled = closed;}
+    if (!inFlight) {submit.textContent = 'Continue to payment · $' + count * PRICE + ' ↗'; submit.disabled = false;}
     document.getElementById('add-participant').disabled = count >= 50;
     cards.forEach(function(card, index) {
       card.querySelector('.pc-title').textContent = 'Participant ' + (index + 1);
@@ -86,7 +83,6 @@
     event.preventDefault();
     if (inFlight) return;
     document.getElementById('reg-error').hidden = true;
-    if (Date.now() >= CUTOFF) {updateTotal(); showError('Registration closed after Sunday, October 4. Please contact Mary about this trip.'); return;}
     for (const input of form.querySelectorAll('input:not([type="checkbox"])')) input.value = input.value.trim();
     if (!form.reportValidity()) return;
     const payload = buildPayload();
