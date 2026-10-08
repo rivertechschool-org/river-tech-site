@@ -1,0 +1,19 @@
+.growing-story .rig-stage{width:74%;max-width:800px;margin:0 auto}
+.growing-story .rig-caption{height:72px;min-height:72px;box-sizing:border-box;line-height:1.5;margin-top:0;padding:4px 0 8px;font-size:20px}
+.growing-story .story-copy{padding-bottom:8px}
+.growing-story .story-intro{margin-bottom:16px}
+.growing-story .story-hint{margin-top:0}
+.growing-story{margin-bottom:32px}
+@media(max-width:600px){
+ .growing-story .rig-stage{width:100%;margin:0 auto}
+ .growing-story .rig-caption{font-size:19px;padding:4px 8px}
+ .growing-story{margin-bottom:24px}
+}
+
+/* Keep captions and playback controls in the layout while the scene moves. */
+.growing-story .story-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:340px;margin-inline:auto;align-items:center}
+.growing-story .story-controls #skip[hidden]{display:block!important;visibility:hidden;pointer-events:none}
+
+.growing-story .rig-caption{transition:opacity .45s ease}
+@media(prefers-reduced-motion:reduce){.growing-story .rig-caption{transition:none}}
+

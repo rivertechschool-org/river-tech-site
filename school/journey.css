@@ -1,0 +1,5 @@
+@import url('./school-motion.css?v=1');
+.rig-stage{max-width:1120px;margin:auto}.rig-stage canvas{width:100%;max-width:none;height:auto;display:block;background:transparent}.rig-caption{min-height:2.7em;font-size:clamp(18px,2vw,26px);padding:8px 15px}.story-controls{margin-top:0}.story-copy{padding-bottom:20px}.story-tabs a{min-height:90px}.story-tabs a span{font-size:14px}.story-hint{font-size:17px}
+@media(max-width:600px){.story-tabs a{font-size:18px;padding:12px 4px;min-height:76px}.story-tabs a span{font-size:10px;letter-spacing:.05em}.rig-stage{margin-left:-10px;margin-right:-10px}.rig-caption{font-size:19px}.story-controls button{font-size:16px}.story-copy h1{font-size:38px}}
+/* Use this player's actual canvas dimensions, not the retired square stills. */
+.rig-stage canvas{aspect-ratio:auto;max-height:none;object-fit:fill}
