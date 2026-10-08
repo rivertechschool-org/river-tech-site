@@ -19,8 +19,8 @@ LEGACY_SOURCE = 'assets/data/schedule-q1-2026-27 2.json'
 DAY_PAGES = {'a-la-carte.html': None, 'monday-performing-arts.html': 'Monday',
              'tuesday-science.html': 'Tuesday', 'thursday-life-skills.html': 'Thursday',
              'friday-technology.html': 'Friday'}
-CLASS_PAGES = {'calendar.html', 'school-start-hub.html', 'elementary-school.html',
-               'middle-school.html', 'high-school.html'}
+# The public calendar and school-level URLs redirect to their canonical pages.
+CLASS_PAGES = {'family-hub.html'}
 BLOCK = re.compile(r'<!-- current-homeschool-schedule:start -->.*?<!-- current-homeschool-schedule:end -->', re.S)
 OLD_IMAGE = re.compile(r'<img\b[^>]*src="\.\./assets/images/(?:alacarte-schedule-2026-27\.png|wix/Alacarte_Schedule_2026-27_\d\.jpg)"[^>]*>')
 KEYS = re.compile(r'<div class="(?:schedule-legend|schedule-key)[^"]*">.*?</div>', re.S)

@@ -1,0 +1,29 @@
+.page-family-hub .hub-calendar-nav{display:flex;flex-wrap:wrap;gap:12px;margin:25px 0 32px;padding-bottom:20px;border-bottom:1px solid #cbc4c4}
+.page-family-hub .hub-calendar-nav a{display:block;text-decoration:none;background:#eae4d9;color:#272443;border:1px solid #9a93a1;border-radius:4px;padding:13px 20px;font:600 18px/1.4 Arial,sans-serif}
+.page-family-hub .hub-calendar-nav a[aria-current]{background:#272443;color:#fff}
+.page-family-hub .hub-calendar-view{min-width:0;scroll-margin-top:90px}
+.page-family-hub .hub-calendar-view>h3{font-size:30px;margin-bottom:25px}
+.page-family-hub .hub-calendar-filters{display:flex;flex-wrap:wrap;gap:24px;margin:25px 0}
+.page-family-hub .hub-calendar-filters label{display:block;flex:1;min-width:220px;font:600 17px/1.5 Arial,sans-serif}
+.page-family-hub .hub-calendar-filters select{display:block;width:100%;margin-top:8px;background:#f6f4f0;color:#272443;border:1px solid #9a93a1;border-radius:4px;padding:13px;font-size:18px}
+.page-family-hub .hub-date-list{display:grid;gap:12px}
+.page-family-hub .hub-date-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding:24px;background:#eae4d9;border-radius:5px;scroll-margin-top:100px}
+.page-family-hub .hub-date-row[data-attention=plan],.page-family-hub .hub-trip-card{background:#f0dddd}
+.page-family-hub .hub-date-row time{font:600 18px/1.5 Arial;color:#963c37}
+.page-family-hub .hub-date-row h4,.page-family-hub .hub-trip-card h4{font:600 25px/1.3 Palatino,Georgia,serif;margin:0 0 12px;color:#272443}
+.page-family-hub .hub-date-row p{margin:0 0 8px}.page-family-hub .hub-date-row a{font-size:18px}
+.page-family-hub .hub-trip-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:24px 0}
+.page-family-hub .hub-trip-card{padding:25px;border-radius:5px}
+.page-family-hub .hub-trip-archive{margin-top:35px}.page-family-hub .hub-trip-archive .trip-topic-panel{display:block!important;margin:25px 0;padding-bottom:20px;border-bottom:1px solid #cbc4c4}
+.page-family-hub .hub-trip-archive .trip-past{margin:25px 0}.page-family-hub .hub-trip-archive img{max-width:100%;height:auto}.page-family-hub .hub-trip-archive h1{font-size:30px}.page-family-hub .hub-trip-archive h2{font-size:27px}.page-family-hub .hub-trip-archive h3{font-size:23px}
+.page-family-hub .hub-faq-answer{scroll-margin-top:100px}.page-family-hub .hub-faq-answer summary{font-size:22px}.page-family-hub .hub-faq-answer>div{padding:0 12px;max-width:900px}.page-family-hub .hub-faq-answer .accordion-body{display:block;max-height:none;overflow:visible;opacity:1;visibility:visible;padding:10px 0}
+.page-family-hub .hub-answer-label{display:block;font:600 19px/1.5 Arial;margin:20px 0 10px}.page-family-hub #hub-answer-query{display:block;width:100%;padding:17px;background:#f6f4f0;border:2px solid #a59da8;border-radius:5px;color:#272443;font:20px Arial}
+.page-family-hub #hub-answer-count{font-size:17px;margin-top:12px}.page-family-hub .hub-answer-result{display:grid;grid-template-columns:1fr auto;gap:6px;padding:24px 0;border-bottom:1px solid #cbc4c4;text-decoration:none}.page-family-hub .hub-answer-result span{grid-column:1;font:600 13px/1.5 Arial;text-transform:uppercase;letter-spacing:.08em;color:#963c37}.page-family-hub .hub-answer-result strong{grid-column:1;font:600 23px/1.4 Palatino,Georgia,serif}.page-family-hub .hub-answer-result b{grid-column:2;grid-row:1/3;align-self:center}
+/* Preserve the original schedule controls and tables without its page shell. */
+.hub-schedule{--color-white:#f6f4f0;--color-red:#a63c33;--font-display:Arial,sans-serif;--font-body:Georgia,serif;--font-nav:Arial,sans-serif}
+.page-family-hub .hub-schedule .schedule-tabs-container{max-width:100%;min-width:0}.page-family-hub .hub-schedule .schedule-tabs{display:flex;flex-wrap:wrap;gap:6px}.page-family-hub .hub-schedule .schedule-tab{flex:1;min-width:100px;font:600 17px/1.4 Arial;padding:14px 10px;white-space:normal}.page-family-hub .hub-schedule .schedule-tab small{font-size:14px}.page-family-hub .hub-schedule .schedule-table-wrap{max-width:100%;overflow:auto}.page-family-hub .hub-schedule .schedule-table{min-width:900px;font:16px/1.5 Arial}.page-family-hub .hub-schedule .schedule-table td,.page-family-hub .hub-schedule .schedule-table th{font-size:16px;padding:12px 10px}.page-family-hub .hub-schedule .schedule-legend{font-size:16px}.page-family-hub .hub-schedule .schedule-date{font-size:17px}.page-family-hub .hub-schedule .sched-fs-btn{font-size:17px;min-height:44px}.page-family-hub .hub-schedule .sched-fs .schedule-table{min-width:0}.page-family-hub .hub-schedule .sched-fs .schedule-table td,.page-family-hub .hub-schedule .sched-fs .schedule-table th{font-size:13px;padding:6px}
+@media(max-width:650px){.page-family-hub .hub-calendar-nav{gap:7px}.page-family-hub .hub-calendar-nav a{padding:12px 10px;font-size:16px}.page-family-hub .hub-date-row{grid-template-columns:1fr;gap:12px;padding:20px}.page-family-hub .hub-calendar-filters{gap:15px}.page-family-hub .hub-calendar-filters label{min-width:100%}.page-family-hub .hub-trip-list{grid-template-columns:1fr}.page-family-hub .hub-answer-result strong{font-size:21px}}
+.page-family-hub .hub-schedule .schedule-tab{background:#eae4d9;color:#272443;border:1px solid #b7aeb8}
+.page-family-hub .hub-schedule .schedule-tab.active{background:#272443;color:#fff;border-color:#272443}
+/* The timetable scrolls inside its own frame, never the whole phone page. */
+.page-family-hub .hub-schedule{overflow-x:clip}

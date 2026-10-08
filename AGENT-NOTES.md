@@ -306,3 +306,14 @@ page visible. It does not survive the power button, another app, or the tab bein
 backgrounded. If a tablet still sleeps, the device setting is the fix, not this code:
 Settings > Display & Brightness > Auto-Lock > Never, and ideally Guided Access to keep the
 page in front.
+
+## 11. Family Hub consolidation — October 8, 2026
+
+`pages/family-hub.html` now holds calendar dates, class schedules, trips, family FAQs,
+policies, tuition, scholarships and tax-credit guidance. Former page addresses redirect
+there; keep those redirects and menu deep links working. The schedule generator now
+updates the Hub from the same canonical schedule JSON. Run its `--check` after edits.
+The homepage and school animation assets were deliberately unchanged in this release.
+Culture uses its approved photo-story design; the Hub's restrained event accents must
+not be applied across the rest of the website. Registration forms retain their existing
+submission code and endpoints.

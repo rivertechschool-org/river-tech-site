@@ -1,0 +1,62 @@
+/* River Tech family pages: layout and shared original River Tech palette. */
+.page-family-hub .family-hub{--hub-line:var(--rt-line);padding-top:32px}
+.page-family-hub .site-rail{background:var(--rt-paper);border-right:1px solid var(--rt-line)}
+.page-family-hub .site-rail .sidebar-nav>.nav-group>a{border-color:var(--rt-line);color:var(--rt-ink);border-radius:3px;background:var(--rt-paper)}
+.page-family-hub .site-rail .sidebar-nav>.nav-group:first-child>a{background:var(--rt-sand);color:var(--rt-white);border-color:var(--rt-line)}
+.page-family-hub .site-rail .sidebar-nav>.nav-group>a[href="/pages/family-hub.html"]{background:var(--rt-sand);border-color:var(--rt-line);color:var(--rt-ink)}
+.page-family-hub .preview-ribbon{background:var(--rt-sand);color:var(--rt-ink)}
+.page-family-hub .draft-header{border-color:var(--rt-line)}
+.page-family-hub .family-hub h1,.page-family-hub .family-hub h2,.page-family-hub .family-hub h3{font-family:Palatino,'Palatino Linotype','Book Antiqua',Georgia,serif;letter-spacing:-.025em;font-weight:600;line-height:1.15}
+.page-family-hub .hub-heading{align-items:center;position:relative;min-height:195px;gap:24px;padding-bottom:28px}
+.page-family-hub .hub-heading h1{color:var(--rt-ink);font-size:clamp(48px,5.5vw,75px);margin:0 0 8px}
+.page-family-hub .hub-heading .eyebrow{color:var(--rt-ink);letter-spacing:.1em;font-size:12px;margin-bottom:10px}
+.page-family-hub .hub-welcome{font-size:22px;color:var(--rt-ink);font-style:italic;margin:0}
+.hub-school-photo{width:245px;height:174px;flex:0 0 245px;margin:0;transform:rotate(2deg);border:7px solid var(--rt-line);box-shadow:0 3px 12px #27244318;border-radius:5px}
+.hub-school-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;border-radius:1px}
+.page-family-hub .hub-nav{background:var(--rt-paper);padding:9px 0;border-color:var(--rt-line);gap:3px;margin-bottom:30px}
+.page-family-hub .hub-nav a{color:var(--rt-ink);font-size:15px;padding:12px 13px;font-weight:500;border-radius:4px}
+.page-family-hub .hub-nav a:hover{background:var(--rt-sand)}
+.page-family-hub .hub-nav a[aria-current]{background:var(--rt-sand);color:var(--rt-white)}
+.page-family-hub .hub-section-heading .eyebrow{color:var(--rt-ink);font-size:12px;margin-bottom:8px}
+.page-family-hub .hub-section-heading h2{font-size:39px;margin-bottom:22px}
+.page-family-hub .hub-feature{background:var(--rt-sand);color:var(--rt-ink);border:1px solid var(--rt-line);border-radius:7px;padding:28px;position:relative;box-shadow:0 2px 3px #27244318}
+.page-family-hub .hub-feature .eyebrow{color:var(--rt-ink)}
+.page-family-hub .hub-feature h3{font-size:34px;color:var(--rt-ink)}
+.page-family-hub .hub-feature a{color:var(--rt-ink)}
+.page-family-hub .hub-date{color:var(--rt-ink);border-color:var(--rt-line)}
+.page-family-hub .hub-quick{padding:12px 0}
+.page-family-hub .hub-quick h3{font-size:25px;font-weight:500;color:var(--rt-ink)}
+.page-family-hub .hub-quick>a{color:var(--rt-ink);padding:15px 0}
+.page-family-hub .hub-quick>a span{color:var(--rt-ink)}
+.page-family-hub .hub-upcoming{gap:16px;border:0;margin-top:25px}
+.page-family-hub .hub-event{background:var(--rt-sand);border:1px solid var(--rt-line);border-radius:6px;padding:22px}
+.page-family-hub .hub-event:hover{box-shadow:0 3px 12px #27244318}
+.page-family-hub .hub-event h3{font-size:27px;font-weight:500}
+.page-family-hub .hub-event .eyebrow{color:var(--rt-ink);font-size:12px}
+.page-family-hub .hub-event>span:last-child{color:var(--rt-ink)}
+.page-family-hub .hub-show-nav{border:0;gap:8px}
+.page-family-hub .hub-show-nav a{background:var(--rt-sand);border:1px solid var(--rt-line);border-radius:4px;color:var(--rt-ink)}
+.page-family-hub .hub-show-nav a[aria-current]{background:var(--rt-sand);color:var(--rt-ink);border-color:var(--rt-line)}
+.page-family-hub .hub-show-nav a[aria-current] span{color:var(--rt-ink)}
+.page-family-hub .hub-show-nav span{color:var(--rt-ink)}
+.page-family-hub .hub-show{border-color:var(--rt-line)}
+.page-family-hub .hub-show h2{color:var(--rt-ink)}
+.page-family-hub .hub-show-picker select{background:var(--rt-sand);color:var(--rt-ink);border-color:var(--rt-line);border-radius:4px}
+.page-family-hub .family-hub .notice{background:var(--rt-sand);border-color:var(--rt-line);border-radius:0 6px 6px 0}
+.page-family-hub .family-hub .times{background:var(--rt-sand);border:0;padding:22px 25px;border-radius:6px;color:var(--rt-ink)}
+.page-family-hub .family-hub .address,.page-family-hub .family-hub .muted,.page-family-hub .cast-status{color:var(--rt-ink)}
+.page-family-hub .family-hub th{background:var(--rt-sand)}
+.page-family-hub .family-hub .file{border-color:var(--rt-line);border-radius:4px;color:var(--rt-ink);background:var(--rt-paper)}
+.page-family-hub .family-hub .route-card{border-top:2px solid var(--rt-line);border-radius:6px;padding:22px 24px 40px;background:var(--rt-sand)}
+.page-family-hub .family-hub .route-card:nth-child(2n){border-color:var(--rt-line);background:var(--rt-sand)}
+.page-family-hub .family-hub .route-card h3{font-size:29px;color:var(--rt-ink)}
+.page-family-hub .family-hub .card-arrow{right:23px;bottom:10px;color:var(--rt-ink)}
+.page-family-hub .draft-footer{border-color:var(--rt-line);color:var(--rt-ink)}
+.page-family-hub .footer-intro>a{font-family:Palatino,Georgia,serif;color:var(--rt-ink)}
+.page-family-hub .family-hub .recordings span{color:var(--rt-ink)}
+@media(max-width:650px){.page-family-hub .family-hub{padding-top:22px}.page-family-hub .hub-heading{display:flex;min-height:0;gap:14px;align-items:center;padding-bottom:24px}.page-family-hub .hub-heading h1{font-size:40px}.page-family-hub .hub-welcome{font-size:18px;line-height:1.4}.page-family-hub .hub-heading .eyebrow{font-size:10px;line-height:1.5}.hub-school-photo{width:94px;height:128px;flex-basis:94px;border-width:4px;transform:rotate(2deg)}.hub-school-photo img{object-position:27% center}.page-family-hub .hub-nav{gap:3px}.page-family-hub .hub-nav a{font-size:15px;padding:12px 9px}.page-family-hub .hub-section-heading h2{font-size:33px}.page-family-hub .hub-feature{padding:21px;gap:18px}.page-family-hub .hub-feature h3{font-size:29px}.page-family-hub .hub-event{padding:17px 14px}.page-family-hub .hub-event h3{font-size:24px}.page-family-hub .hub-upcoming{gap:10px}.page-family-hub .hub-show-nav{display:none}.page-family-hub .family-hub .times{padding:18px}.page-family-hub .family-hub .times b{font-size:24px}}
+
+.page-family-hub .hub-show-nav a[aria-current]{background:var(--rt-navy);color:var(--rt-white)}
+.page-family-hub .hub-show-nav a[aria-current] span{color:var(--rt-white)}
+.page-family-hub .hub-feature a,.page-family-hub .family-hub .file{color:var(--rt-red-dark)}
+.hub-school-photo{border-color:var(--rt-white)}

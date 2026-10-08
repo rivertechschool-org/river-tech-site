@@ -1,0 +1,30 @@
+.page-family-hub .hub-money-intro{padding:30px 0 20px;max-width:850px}
+.page-family-hub .hub-money-intro h2{font-size:clamp(2.6rem,5vw,4.8rem);line-height:1.05;margin:18px 0 24px;color:#272440}
+.page-family-hub .hub-money-intro em{color:#b93729;font-weight:400}
+.page-family-hub .hub-money-nav{display:flex;gap:12px 28px;flex-wrap:wrap;border-block:1px solid #ccc8cf;padding:18px 0;margin-bottom:36px}
+.page-family-hub .hub-money-nav a{font-size:18px;text-decoration:none;border-bottom:2px solid #bb3729;padding:6px 0}
+.page-family-hub .hub-money-overview{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+.page-family-hub .hub-money-overview h3{margin-top:0}
+.page-family-hub .hub-money-guide{margin:0}
+.page-family-hub .hub-money-guide img{display:block;width:100%;height:auto;border:1px solid #ccc8cf}
+.page-family-hub .hub-money-guide figcaption{font-size:17px;line-height:1.5;padding:12px 0}
+.page-family-hub .hub-money-calculator .tuition-lab{display:flex;flex-direction:column;margin:0;border:0;gap:0}
+.page-family-hub .hub-money-calculator .tuition-inputs{padding:24px;background:transparent;border:1px solid #ccc8cf}
+.page-family-hub .hub-money-calculator select{width:100%;font-size:18px;min-height:50px;background:white;color:#272440}
+.page-family-hub .hub-money-calculator .tuition-output{padding:30px;background:#272440;color:#fff}
+.page-family-hub .hub-money-calculator .tuition-output p,.page-family-hub .hub-money-calculator .tuition-output strong{color:#fff}
+.page-family-hub .hub-money-calculator .tuition-output .eyebrow{color:#dfc79e}
+.page-family-hub #tuition-amount{font-size:clamp(3.5rem,6vw,5rem);line-height:1;margin:20px 0}
+.page-family-hub .hub-money-section{padding:38px 0;border-top:1px solid #ccc8cf;margin-top:35px;scroll-margin-top:120px}
+.page-family-hub .hub-money-included{padding:28px 0;max-width:850px}
+.page-family-hub .hub-money-support{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.page-family-hub .hub-money-support h4{font-size:1.6rem;margin:0 0 20px}
+.page-family-hub .hub-money-support .hero-lead{font-size:1.2rem}
+.page-family-hub .hub-tax-section{padding:20px 0;background:transparent;color:#272440}
+.page-family-hub .hub-tax-section h2{font-size:1.7rem}
+.page-family-hub .hub-tax-section .card-grid{display:block}
+.page-family-hub [data-hub-panel="billing"] table{width:100%;font-size:18px}
+.page-family-hub [data-hub-panel="billing"] .data-scroll{overflow:auto}
+.page-family-hub [data-hub-panel="billing"] .hub-faq-answer>div{overflow-x:auto}
+.page-family-hub [data-hub-panel="billing"] #tuition{scroll-margin-top:120px}
+@media(max-width:800px){.page-family-hub .hub-money-overview,.page-family-hub .hub-money-support{grid-template-columns:1fr}.page-family-hub .hub-money-nav{gap:8px 20px}.page-family-hub .hub-money-nav a{font-size:16px}.page-family-hub .hub-money-calculator .tuition-inputs,.page-family-hub .hub-money-calculator .tuition-output{padding:22px}}

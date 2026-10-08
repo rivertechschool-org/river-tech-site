@@ -1,0 +1,429 @@
+.schedule-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+}
+.schedule-table th{
+  background: var(--color-text);
+  color: var(--color-white);
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 700;
+}
+.schedule-table td{
+  padding: 14px 20px;
+  border-bottom: 1px solid #ddd;
+  color: var(--color-text);
+}
+.schedule-table tr:nth-child(even) td{
+  background: rgba(0, 0, 0, 0.03);
+}
+.schedule-tabs-container{
+  margin: 2rem 0;
+}
+.schedule-date{
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 12px;
+}
+.schedule-legend{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  justify-content: center;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+}
+.schedule-key{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  margin: 0;
+  padding: 11px 14px 12px;
+  background: var(--color-white);
+  border: 1px solid #e2ddd2;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: #4b4636;
+}
+.schedule-key:has(+ .schedule-key){
+  border-radius: 8px 8px 0 0;
+  padding-bottom: 11px;
+}
+.schedule-key + .schedule-key{
+  margin-top: -1px;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 6px;
+}
+.schedule-key + .schedule-key:has(+ .schedule-key){
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.schedule-key .key-label{
+  flex: 0 0 100%;
+  margin-bottom: 3px;
+  font-family: var(--font-nav);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: #a09781;
+}
+.schedule-key > span:not(.key-label){
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px 3px 3px;
+  background: #faf8f4;
+  border: 1px solid #e8e3d8;
+  border-radius: 20px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.schedule-key > span > b{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  font-weight: 700;
+}
+.schedule-key--teachers > span > b{
+  background: var(--color-text);
+  color: var(--color-white);
+  font-size: 10.5px;
+  letter-spacing: .03em;
+}
+.schedule-key--rooms > span > b{
+  background: var(--color-white);
+  border: 1px solid #e8e3d8;
+  font-size: 13px;
+  font-weight: 400;
+}
+.schedule-key--levels > span > b{
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+@media (max-width: 600px){.schedule-key{ gap: 4px; padding: 9px 10px 10px; }
+.schedule-key .key-label{
+    flex: 0 0 auto;
+    align-self: center;
+    margin: 0 3px 0 0;
+  }
+.schedule-key > span:not(.key-label){
+    gap: 5px;
+    padding: 2px 9px 2px 2px;
+  }
+.schedule-key > span > b{ width: 20px; height: 20px; }
+.schedule-key--levels > span > b{ width: 12px; height: 12px; }}
+.schedule-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 18px 0 0;
+  justify-content: center;
+}
+.schedule-tab{
+  background: var(--color-pink-btn);
+  border: 2px solid transparent;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.3;
+  text-align: center;
+}
+.schedule-tab small{
+  font-size: 11px;
+  opacity: 0.7;
+}
+.schedule-tab:hover{
+  background: #e8c8c8;
+}
+.schedule-tab.active{
+  background: var(--color-red);
+  color: white;
+  border-color: var(--color-red);
+}
+.schedule-tab.active small{
+  opacity: 0.9;
+}
+.schedule-table-wrap{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 18px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.schedule-table{
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.schedule-table .hs{ color: #c0392b; }
+.schedule-table .ms{ color: #2471a3; }
+.schedule-table .ue{ color: #27864a; }
+.schedule-table .ye{ color: #d4880f; }
+#panel-hs .schedule-table td:not(.time-cell){ color: #c0392b; }
+#panel-ms .schedule-table td:not(.time-cell){ color: #2471a3; }
+#panel-ue .schedule-table td:not(.time-cell){ color: #27864a; }
+#panel-ye .schedule-table td:not(.time-cell){ color: #d4880f; }
+#panel-hs .schedule-table .assembly-row td,#panel-ms .schedule-table .assembly-row td,#panel-ue .schedule-table .assembly-row td,#panel-ye .schedule-table .assembly-row td,#panel-hs .schedule-table .end-row td,#panel-ms .schedule-table .end-row td,#panel-ue .schedule-table .end-row td,#panel-ye .schedule-table .end-row td{ color: #888; }
+.schedule-table thead th{
+  background: var(--color-text);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 8px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.schedule-table td{
+  padding: 8px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+  text-align: center;
+}
+.schedule-table .time-cell{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  background: #f9f7f3;
+  text-align: center;
+  min-width: 80px;
+}
+.schedule-table .assembly-row td{
+  background: #f0ede8;
+  font-style: italic;
+  color: #888;
+  padding: 6px 8px;
+}
+.schedule-table .lunch-row td{
+  background: #fdf6e3;
+  border-top: 2px solid #e2d5b0;
+  border-bottom: 2px solid #e2d5b0;
+}
+.schedule-table .end-row td{
+  background: #f0ede8;
+  font-weight: 600;
+  font-size: 12px;
+  color: #888;
+  padding: 6px 8px;
+}
+@media (max-width: 768px){.schedule-table-wrap{
+    position: relative;
+  }
+.schedule-table-wrap::after{
+    content: 'Scroll →';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    color: #999;
+    background: rgba(255,255,255,0.85);
+    padding: 2px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+.schedule-tabs{
+    gap: 4px;
+  }
+.schedule-tab{
+    font-size: 12px;
+    padding: 8px 10px;
+  }}
+@media print{.schedule-table{ font-size: 10pt; page-break-inside: avoid; }
+.schedule-table th,.schedule-table td{ padding: 4px 6px; }}
+@media (max-width: 900px){.schedule-legend span{ font-size: 15px !important; }
+.schedule-key .key-label{ font-size: 11px !important; }
+.schedule-key > span > b{ font-size: 12px !important; }
+.schedule-key--rooms > span > b{ font-size: 14px !important; }}
+@media screen and (max-width: 900px){.content-area > .schedule-table{
+    min-width: 0;
+    table-layout: fixed;
+  }
+.content-area > .schedule-table th,.content-area > .schedule-table td{
+    padding: 12px 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }}
+
+.schedule-tabs-container .schedule-table td:not(.time-cell){font-weight:600}
+#panel-all .schedule-table{min-width:1000px;font-size:11.5px;line-height:1.4}
+#panel-all .schedule-table td{padding:6px 5px;vertical-align:top}
+#panel-all .schedule-table td:not(.time-cell){font-weight:600}
+#panel-all .schedule-table .time-cell{white-space:nowrap;font-size:12px}
+#panel-all .schedule-table td.prod{font-size:11px}
+
+#panel-elem .schedule-table td:not(.time-cell){color:#2471A3}
+#panel-ms .schedule-table td:not(.time-cell){color:#7D3C98}
+#panel-jh .schedule-table td:not(.time-cell){color:#8A6D1B}
+#panel-hs .schedule-table td:not(.time-cell){color:#B03A2E}
+#panel-home .schedule-table td:not(.time-cell){color:#4D4D4D}
+.schedule-tabs-container .schedule-table td.prod{background:#fdf7ef}
+.schedule-tabs-container .schedule-table td.prod,
+.schedule-tabs-container .schedule-table td.prod b,
+.schedule-tabs-container .schedule-table td.prod small{color:#111 !important;font-weight:600}
+.schedule-tabs-container .schedule-table .lunch-row td,
+.schedule-tabs-container .schedule-table .assembly-row td,
+.schedule-tabs-container .schedule-table .end-row td{color:#6b7280 !important;font-weight:400}
+.schedule-tabs-container .sfoot{font-size:.8rem;color:#666;font-style:italic;text-align:center;margin:.5rem 0 0;line-height:1.5}
+/* ---- Full screen: the whole grid on one screen -------------------------
+   The point of this on an iPad is seeing the entire week at once, so the
+   container never scrolls in this state. The grid is laid out at whatever
+   width comes out shortest and then scaled by script to the room that is
+   left over -- see the fit() routine below the container. Everything here
+   sits outside the schedule-panel divs, so tools/build_schedule.py apply
+   never rewrites it. */
+.sched-tools{display:flex;justify-content:flex-end;gap:8px;margin:14px 0 -10px}
+.sched-fs-btn,.sched-key-btn,.sched-mode{display:inline-flex;align-items:center;background:var(--color-white);
+  border:1.5px solid #d8d2c4;border-radius:6px;font-family:var(--font-display);
+  font-size:13px;font-weight:600;color:#555;padding:7px 14px;cursor:pointer;
+  line-height:1;transition:border-color .18s,color .18s}
+.sched-fs-btn:hover,.sched-key-btn:hover,.sched-mode:hover{border-color:var(--color-red);color:var(--color-red)}
+.sched-fs-btn:focus-visible,.sched-key-btn:focus-visible,.sched-mode:focus-visible{outline:2px solid var(--color-red);outline-offset:2px}
+.sched-fs-btn > span{display:inline-flex;align-items:center;gap:7px}
+.sched-fs-btn svg{width:15px;height:15px;flex:none}
+.sched-fs-btn .sched-fs-exit{display:none}
+.sched-fs .sched-fs-btn .sched-fs-enter{display:none}
+.sched-fs .sched-fs-btn .sched-fs-exit{display:inline-flex}
+/* The key is already on the page below; it is only worth a button once the
+   legends have been folded away to give the grid the screen. */
+.sched-key-btn,.sched-modes{display:none}
+.sched-fs .sched-key-btn,.sched-fs .sched-modes{display:inline-flex}
+/* The key decodes initials and room emoji. Today's view has already spelled
+   both out, so it is only offered beside the week grid. */
+.sched-fs.sched-mode-today .sched-key-btn{display:none}
+.sched-modes{gap:0;margin-right:auto}
+.sched-mode{border-radius:0}
+.sched-mode:first-child{border-radius:6px 0 0 6px}
+.sched-mode:last-child{border-radius:0 6px 6px 0;margin-left:-1.5px}
+.sched-mode[aria-pressed="true"]{background:var(--color-red);border-color:var(--color-red);color:#fff}
+.sched-mode[aria-pressed="true"]:hover{color:#fff}
+.sched-fs .sched-key-btn[aria-pressed="true"]{border-color:var(--color-red);color:var(--color-red)}
+
+.schedule-tabs-container.sched-fs{position:fixed;top:0;right:0;bottom:0;left:0;
+  z-index:2000;margin:0;background:var(--color-white);overflow:hidden;
+  padding:10px 12px 12px}
+.schedule-tabs-container.sched-fs .schedule-date{font-size:12px;margin:0 0 2px}
+.schedule-tabs-container.sched-fs .sched-tools{margin:0;padding:2px 0 6px}
+.schedule-tabs-container.sched-fs .schedule-tabs{margin:0}
+/* Folded away by default so the grid gets the whole screen; the Key button
+   brings them back and the grid rescales around them. */
+.schedule-tabs-container.sched-fs .schedule-key{padding:8px 11px 9px;gap:4px}
+.schedule-tabs-container.sched-fs .schedule-legend,
+.schedule-tabs-container.sched-fs .schedule-key--levels,
+.schedule-tabs-container.sched-fs .sfoot{display:none}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-legend{display:flex}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-key--levels{display:flex}
+.schedule-tabs-container.sched-fs.sched-fs-key .sfoot{display:block}
+/* With the key and the notes open there is nothing left to fit them into, and
+   shrinking the lot to 5pt helps nobody. That state reads at full size and
+   scrolls instead; the fitted grid is one tap away. */
+.schedule-tabs-container.sched-fs.sched-fs-key{overflow:auto}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-table-wrap{overflow-x:auto}
+.schedule-tabs-container.sched-fs.sched-fs-key .schedule-table{min-width:700px !important}
+/* The panel is measured and scaled as one block, so it must be free to lay out
+   at its own width: no inner scroller, no minimum, no stray margins. */
+.schedule-tabs-container.sched-fs .schedule-panel{transform-origin:top left}
+/* Today's view replaces the grid rather than sitting beside it. !important
+   because the tab script drives panel display with inline styles. */
+.sched-fs.sched-mode-today .schedule-panel{display:none !important}
+.sched-fs.sched-mode-today .schedule-tabs,
+.sched-fs.sched-mode-today .schedule-date,
+.sched-fs.sched-mode-today .schedule-legend{display:none}
+.sched-fs.sched-mode-today{overflow:auto}
+.sched-live{display:none}
+.sched-fs.sched-mode-today .sched-live{display:block}
+.schedule-tabs-container.sched-fs .schedule-table-wrap{overflow:visible;margin:0}
+.schedule-tabs-container.sched-fs .schedule-table-wrap::after{content:none !important;display:none !important}
+/* !important, not tidiness: #panel-all .schedule-table sets min-width:1000px
+   and an ID outranks any class selector. Without this the master grid cannot
+   lay out narrower than 1000px and overflows the screen in portrait. */
+.schedule-tabs-container.sched-fs .schedule-table{min-width:0 !important}
+/* The root has its own overflow-x, so body's overflow never propagates to the
+   viewport: without locking html as well the page keeps scrolling behind the
+   pinned view and its scrollbar eats 15px of the width the grid is fitted to. */
+html.sched-fs-lock,body.sched-fs-lock{overflow:hidden}
+/* ---- Live view: today, spelled out ------------------------------------
+   Every name here is resolved at runtime from the grid that is already on
+   the page and from the two legends above it, so this view cannot drift
+   from the published schedule and there is no second copy to update. */
+.sched-live-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:2px solid #e2d5b0;padding-bottom:8px;margin:2px 0 14px}
+.sched-live-day{font-family:var(--font-body);font-size:26px;font-weight:700;color:#000;line-height:1.1}
+.sched-live-date{font-family:var(--font-display);font-size:14px;color:#777}
+.sched-live-note{font-family:var(--font-display);font-size:14px;color:#b03a2e;font-weight:600}
+
+.sched-live-slot{margin:0 0 18px;padding:0 0 0 14px;border-left:3px solid #e6e0d4}
+.sched-live-slot.is-now{border-left-color:var(--color-red);background:#fdf6f4;
+  padding:8px 0 8px 14px;border-radius:0 6px 6px 0}
+.sched-live-slot.is-past{opacity:.5}
+.sched-live-time{display:flex;align-items:center;gap:10px;font-family:var(--font-display);
+  font-size:17px;font-weight:700;color:#333;margin:0 0 8px}
+.sched-live-now{background:var(--color-red);color:#fff;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.sched-live-next{background:#efeadf;color:#6b6250;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.sched-live-slot.is-next{border-left-color:#c9bfa6}
+.sched-live-cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.sched-live-card{background:var(--color-white);border:1px solid #e2ddd2;border-left:4px solid #bbb;
+  border-radius:6px;padding:11px 14px}
+.sched-live-card.is-soft{background:#fbfaf8}
+.sched-live-title{font-family:var(--font-body);font-size:17px;font-weight:700;color:#111;
+  margin:0 0 7px;line-height:1.25}
+.sched-live-card dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0;
+  font-size:14.5px;line-height:1.4}
+.sched-live-card dt{font-family:var(--font-nav);font-size:.62rem;letter-spacing:.11em;
+  text-transform:uppercase;color:#999;font-weight:700;padding-top:3px}
+.sched-live-card dd{margin:0;color:#333}
+.sched-live-card .sched-live-who{font-weight:600;color:#111}
+.sched-live-small{font-size:13px;color:#777;font-style:italic;margin:6px 0 0}
+.sched-live-empty{font-size:15px;color:#777;font-style:italic;margin:0}
+@media(max-width:640px){
+  .sched-live-cards{grid-template-columns:1fr}
+  .sched-live-day{font-size:22px}
+}
+
+body.sched-fs-lock .scroll-to-top{display:none}
+@media(max-width:700px){.sched-tools{justify-content:center;margin:14px 0 0}}
+
+/* Below 900px a site-wide rule raises every table cell to 15px !important for
+   phone reading. On an iPad in portrait that lands here and makes the grid
+   400px taller, which costs far more than the larger type gains -- the whole
+   block is about to be scaled to the screen anyway. Restore the desktop sizes,
+   which is all these declarations are. */
+@media(max-width:900px){
+  .sched-fs .schedule-table td,
+  .sched-fs .schedule-table th{font-size:13px !important}
+  .sched-fs #panel-all .schedule-table td,
+  .sched-fs #panel-all .schedule-table th{font-size:11.5px !important}
+  .sched-fs #panel-all .schedule-table .time-cell{font-size:12px !important}
+  .sched-fs .schedule-legend span{font-size:13px !important}
+  .sched-fs .schedule-key .key-label{font-size:10.5px !important}
+  .sched-fs .schedule-key > span > b{font-size:11px !important}
+  .sched-fs .schedule-key--rooms > span > b{font-size:13px !important}
+  .sched-fs .sfoot{font-size:.8rem !important}
+}

@@ -1,0 +1,142 @@
+:root{--nav-fade:.7s;--nav-fade-ease:ease-in-out;--color-text:#272443;--color-red:#bd382b;--color-white:#fff;--color-bg:#f6f4f0;--font-nav:Palatino,Georgia,serif}
+/* --- Sidebar Submenus --- */
+.sidebar-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 12px;
+  margin-top: 2px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  /* LOCKED fade — see /AGENT-NOTES.md. Do not shorten. */
+  transition: max-height var(--nav-fade) var(--nav-fade-ease),
+              opacity var(--nav-fade) var(--nav-fade-ease);
+  margin-bottom: 2px;
+}
+
+.sidebar-submenu.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Submenus controlled by JS hover/open class — no CSS :hover rule needed */
+
+.sidebar-submenu a {
+  font-family: var(--font-nav);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 10px;
+  color: var(--color-text);
+  border: none;
+  text-align: left;
+  transition: color 0.35s ease;
+  border-left: 2px solid #ddd;
+}
+
+.sidebar-submenu a:hover {
+  color: var(--color-red);
+  border-left-color: var(--color-red);
+  background: transparent;
+}
+
+.sidebar-submenu a.active {
+  color: var(--color-red);
+  font-weight: 700;
+  border-left-color: var(--color-red);
+  background: transparent;
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 300;
+  flex-direction: column;
+  display: flex;
+  padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  visibility: hidden;
+  /* LOCKED fade — see /AGENT-NOTES.md. Do not shorten. */
+  transition: opacity var(--nav-fade) var(--nav-fade-ease),
+              visibility var(--nav-fade) var(--nav-fade-ease);
+}
+
+.mobile-nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-overlay .close-btn {
+  align-self: flex-end;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: var(--color-text);
+}
+
+.mobile-nav-overlay a {
+  display: block;
+  font-family: var(--font-nav);
+  font-size: 18px;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid #ddd;
+}
+
+.mobile-nav-overlay a.active {
+  color: var(--color-red);
+  font-weight: 700;
+}
+
+/* --- Mobile Submenus --- */
+/* display toggle = bulletproof on iOS. Opacity fade is driven by the
+   .visible class added a tick AFTER .open (see main.js). */
+.mobile-submenu {
+  display: none;
+  padding-left: 20px;
+  background: rgba(0,0,0,0.02);
+  opacity: 0;
+  /* LOCKED fade — see /AGENT-NOTES.md. Do not shorten. */
+  transition: opacity var(--nav-fade) var(--nav-fade-ease);
+}
+
+.mobile-submenu.open {
+  display: block;
+}
+
+.mobile-submenu.visible {
+  opacity: 1;
+}
+
+.mobile-submenu a {
+  font-size: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.mobile-submenu a.active {
+  color: var(--color-red);
+  font-weight: 700;
+}
+
+/* Arrow indicator on mobile parent links */
+.mobile-nav-overlay > a[data-has-submenu]::after {
+  content: '▸';
+  float: right;
+  font-size: 14px;
+  transition: transform 0.35s ease;
+}
+
+.mobile-nav-overlay > a[data-has-submenu].expanded::after {
+  transform: rotate(90deg);
+}
+
+
+.site-rail .nav-group>a{background:transparent;color:#272443;border-color:#272443}.site-rail .nav-group:first-child>a{background:#bd382b;color:white;border-color:#bd382b}.site-rail .sidebar-submenu a{background:transparent;color:#272443;border:0;border-left:2px solid #ddd;text-align:left;font-size:17px;font-weight:400;margin:0;padding:8px 10px}.site-rail .sidebar-submenu a:hover{color:#bd382b;border-left-color:#bd382b}.sidebar-submenu:not(.open){visibility:hidden}.sidebar-submenu{margin-top:-8px;margin-bottom:8px}.mobile-nav-overlay .close-btn{background:none;border:0;min-width:44px;min-height:44px}.mobile-nav-overlay{overscroll-behavior:contain}.mobile-nav-overlay a{min-height:44px}.mobile-submenu a{font-size:17px}body.menu-open{overflow:hidden}.menu-open .site-rail{display:none}@media(min-width:901px){.mobile-nav-overlay{display:none}}
+
+.site-rail{overflow-y:auto}.site-rail .nav-group>a{display:block;text-align:center;border:1px solid #272443;padding:15px 3px;margin-bottom:10px;font-size:20px;font-weight:bold}.site-rail .sidebar-submenu a{font-size:17px}.top .hamburger{display:none;background:none;border:0;color:#272443;padding:10px;font-size:17px}@media(max-width:900px){.top .hamburger{display:inline-block}.top .home{display:none}}

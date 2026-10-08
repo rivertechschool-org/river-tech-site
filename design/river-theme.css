@@ -1,0 +1,188 @@
+/* Family Hub theme ONLY. The builder must never attach this to other pages.
+   Original River Tech cream, navy, red, and soft rose.
+   Paper matches the approved illustrated scenes. Semantic schedule/status colors stay untouched. */
+body.rt-design {
+  --rt-paper:#f6f4f0; --rt-white:#ffffff; --rt-ink:#272443; --rt-muted:#696575;
+  --rt-red:#c0392b; --rt-red-dark:#8b3a3a; --rt-rose:#f0dddd;
+  --rt-navy:#272443; --rt-tint:#f0dddd; --rt-sand:#eae4d9;
+  --rt-line:#cecad0; --rt-line-strong:#777181;
+  --rt-serif:Palatino,'Palatino Linotype','Book Antiqua',Georgia,serif;
+  --rt-ui:Arial,Helvetica,sans-serif;
+  --paper:var(--rt-paper); --ink:var(--rt-ink); --red:var(--rt-red);
+  --gold:var(--rt-sand); --line:var(--rt-line);
+  --color-bg:var(--rt-paper); --color-text:var(--rt-ink); --color-red:var(--rt-red);
+  --color-white:var(--rt-white); --font-display:var(--rt-serif); --font-nav:var(--rt-serif);
+  --color-pink-btn:var(--rt-rose); --color-teacher-bg:var(--rt-red);
+  --color-enroll-bg:var(--rt-red); --color-link:var(--rt-red);
+  background:var(--rt-paper); color:var(--rt-ink);
+}
+.rt-design :is(.page-main h1,.page-main h2,.page-main h3,.parent-content h2,.parent-content h3) {
+  font-family:var(--rt-serif); letter-spacing:-.025em; line-height:1.16;
+}
+.rt-design :is(.page-hero h1,.story-copy h1,.footer-intro>a){color:var(--rt-ink)}
+.rt-design :is(.hero-lead,.support-copy,.search-status,#photo-count,.footer-notice){color:var(--rt-muted)}
+.rt-design :is(.page-main .eyebrow,.section-label,.mini){color:var(--rt-navy)}
+.rt-design :is(.site-rail,aside.side){background:var(--rt-paper);border-right:1px solid var(--rt-line)}
+.rt-design :is(.site-rail,aside.side) .sidebar-nav>.nav-group>a {
+  background:var(--rt-white);color:var(--rt-ink);border:1px solid var(--rt-line-strong);
+  border-radius:3px;font-family:var(--rt-serif);font-size:19px;line-height:1.45;
+  display:block;padding:17px 8px;margin:0 0 10px;text-align:center;font-weight:700;text-decoration:none;
+}
+.rt-design :is(.site-rail,aside.side) .sidebar-nav>.nav-group:first-child>a {
+  background:var(--rt-red);border-color:var(--rt-red);color:var(--rt-white);
+}
+.rt-design :is(.site-rail,aside.side) .sidebar-submenu a{color:var(--rt-ink);border-left-color:var(--rt-line);font-size:16px}
+.rt-design :is(.site-rail,aside.side) .sidebar-submenu a:hover{color:var(--rt-red);border-left-color:var(--rt-red)}
+.rt-design :is(.site-rail,aside.side)>p{color:var(--rt-red)}
+.rt-design :is(.draft-header,.top,.sitebar){background:var(--rt-paper);border-color:var(--rt-line)}
+.rt-design :is(.draft-header p,.top em,.ticker,.ticker-track){color:var(--rt-red)}
+.rt-design :is(.preview-ribbon,.parent-review,.home-draft-link){background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design :is(.enroll-link,.solid-link,.top .button,.button:not(.light),.sitebar .enroll-top){background:var(--rt-red);border-color:var(--rt-red);color:var(--rt-white);border-radius:3px}
+.rt-design :is(.solid-link,.enroll-link):hover{background:var(--rt-red-dark);color:var(--rt-white)}
+.rt-design :is(.text-link,.underlined,.textlink){color:var(--rt-red)}
+.rt-design :is(.draft-footer,.footer-notice){border-color:var(--rt-line)}
+.rt-design .footer-intro>a{font-family:var(--rt-serif)}
+.rt-design .footer-notice{font-size:16px;line-height:1.65}
+.rt-design .mobile-nav-overlay{background:var(--rt-paper);color:var(--rt-ink)}
+.rt-design :is(a,button,input,select,textarea,summary):focus-visible{outline:3px solid var(--rt-red);outline-offset:4px}
+.rt-design #site-search{background:var(--rt-paper);color:var(--rt-ink);border-color:var(--rt-line-strong)}
+.rt-design #site-search-open{color:var(--rt-ink)}
+/* Editorial pages and the homeschool week planner. */
+.rt-design .ink-section{background:var(--rt-tint);color:var(--rt-ink)}
+.rt-design .ink-section :is(.eyebrow,.progression){color:var(--rt-navy)}
+.rt-design .ink-section :is(.support-copy,.week-result small){color:var(--rt-muted)}
+.rt-design .ink-section :is(.text-link,.week-result a){color:var(--rt-red)}
+.rt-design :is(.week-path,.week-path button,.week-path a,.week-result,.explorer-tabs,.explorer-tabs button){border-color:var(--rt-line-strong)}
+.rt-design :is(.week-path button>span,.week-path button b,.week-path a>span,.week-path a b,.week-result strong){color:var(--rt-navy)}
+.rt-design .week-path button[aria-pressed=true],.rt-design .explorer-tabs button[aria-selected=true]{background:var(--rt-navy);color:var(--rt-white)}
+.rt-design .week-path button[aria-pressed=true] :is(span,b){color:var(--rt-white)}
+.rt-design .week-path button:hover{box-shadow:inset 0 0 0 2px var(--rt-navy)}
+.rt-design .week-result strong{font-family:var(--rt-serif)}
+.rt-design :is(.next-step,.status-note){background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design .route-card{border-color:var(--rt-line-strong)}
+.rt-design .ink-section .route-card{border-color:var(--rt-line-strong)}
+.rt-design .chapter-number{color:var(--rt-red)}
+.rt-design .chapter-nav a:hover{background:var(--rt-sand)}
+.rt-design .tuition-lab{background:var(--rt-navy);color:var(--rt-white)}
+.rt-design .tuition-inputs p{color:var(--rt-white)}
+.rt-design .tuition-output{background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design .tuition-output .eyebrow{color:var(--rt-navy)}
+.rt-design #tuition-amount{color:var(--rt-red);font-family:var(--rt-serif);letter-spacing:-.04em}
+.rt-design :is(.photo-filters button[aria-pressed=true],.ff-primary){background:var(--rt-navy);border-color:var(--rt-navy);color:var(--rt-white)}
+.rt-design #photo-viewer{background:#191727;color:var(--rt-white)}
+.rt-design :is(.tp-now,.tp-contact,.wp-section){background:var(--rt-white);border-color:var(--rt-line);box-shadow:none}
+.rt-design :is(.tp-teaches,.tp-pending span,.wp-help,.wp-section-sub){color:var(--rt-muted);opacity:1}
+.rt-design :is(.wp-label,.wp-check,.wp-radio){font-size:17px}
+.rt-design :is(.wp-help,.wp-section-sub){font-size:16px}
+.rt-design .wp-section-title{font-family:var(--rt-serif);font-size:27px}
+/* The school keeps its illustrated opening, with the original navy learning panels. */
+.rt-design .parent-content{--ink:var(--rt-ink);--gold:var(--rt-sand);--paper:var(--rt-paper);color:var(--rt-ink)}
+.rt-design .parent-intro{background:var(--rt-tint);color:var(--rt-ink)}
+.rt-design .parent-intro :is(.section-index,.parent-facts strong){color:var(--rt-navy)}
+.rt-design .parent-facts,.rt-design .parent-facts>div{border-color:var(--rt-line-strong)}
+.rt-design :is(.parent-shortcuts,.practical-panel,.parent-next){background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design :is(.education,.compare-levels){background:var(--rt-navy);color:var(--rt-white)}
+.rt-design .education :is(.section-index,.kicker,.schedule-note){color:var(--rt-sand)}
+.rt-design .education-tabs button{color:var(--rt-white)}
+.rt-design .education-tabs button[aria-selected=true]{background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design .compare-levels button[aria-pressed=true]{background:var(--rt-sand);color:var(--rt-ink)}
+.rt-design .school-values{background:var(--rt-tint);border-color:var(--rt-navy)}
+.rt-design .parent-content h2{font-size:clamp(36px,4vw,62px)}
+.rt-design .parent-content .parent-next h2{font-size:clamp(38px,4.5vw,68px)}
+.rt-design .parent-content .solid-link{background:var(--rt-red);color:var(--rt-white)}
+.rt-design .story-tabs{background:var(--rt-paper)}
+.rt-design .story-tabs a{color:var(--rt-ink);border-color:var(--rt-line)}
+.rt-design .story-tabs a.selected{background:var(--rt-navy);color:var(--rt-white)}
+.rt-design .story-copy :is(h1 em,.eyebrow),.rt-design .rig-caption{color:var(--rt-red)}
+.rt-design .story-copy h1{color:var(--rt-ink)}
+.rt-design .story-copy>p:not(.eyebrow){color:var(--rt-muted)}
+/* Homepage retains its composition and bright illustrated welcome. */
+.rt-design :is(.program-pair article+article,.interest,.faith-section){background:var(--rt-rose)}
+.rt-design :is(.tuition-result,.closing){background:var(--rt-sand)}
+.rt-design .tabs button[aria-selected=true],.rt-design #day-buttons button[aria-pressed=true]{background:var(--rt-navy);color:var(--rt-white);border-color:var(--rt-navy)}
+.rt-design :is(.price,.closing p){color:var(--rt-red)}
+.rt-design .button.light{color:var(--rt-red);border-color:var(--rt-red);background:transparent}
+/* The hub keeps its varied cards, but draws from the same three surface colors. */
+.rt-design.page-family-hub .hub-nav{background:var(--rt-paper);border-color:var(--rt-line)}
+.rt-design.page-family-hub :is(.hub-heading h1,.hub-show h2){color:var(--rt-ink)}
+.rt-design.page-family-hub :is(.hub-welcome,.cast-status,.family-hub .muted,.family-hub .address){color:var(--rt-muted)}
+.rt-design.page-family-hub .hub-feature,.rt-design.page-family-hub .hub-event{background:var(--rt-sand);color:var(--rt-ink);border-color:var(--rt-line)}
+.rt-design.page-family-hub .family-hub .times{background:var(--rt-sand)}
+/* Performance arrival/show times retain the same pink signal as the agenda. */
+.rt-design.page-family-hub .hub-show .times{background:var(--rt-rose)}
+.rt-design.page-family-hub :is(.hub-event,.hub-feature)[data-attention="plan"]{background:var(--rt-rose)}
+.rt-design.page-family-hub .hub-event[data-attention="know"]{background:var(--rt-sand)}
+.rt-design.page-family-hub .hub-nav a[aria-current]{background:var(--rt-red);color:var(--rt-white)}
+.rt-design :is(.school-videos,.school-video-dialog){color:var(--rt-ink)}
+.rt-design .school-video-play{background:var(--rt-red)}
+.rt-design .school-video-card:hover .school-video-play{background:var(--rt-navy)}
+.rt-design .school-videos h2{font-family:var(--rt-serif)}
+.rt-design.rt-globe{background:#020810}
+.rt-globe #back-btn{background:var(--rt-sand);color:var(--rt-ink);font:16px/1.4 var(--rt-serif);min-height:44px;border-color:var(--rt-line);border-radius:3px}
+.rt-globe :is(#globe-title,#hint,#loading p){color:var(--rt-sand);font-family:var(--rt-serif)}
+.rt-globe #hint{font-size:16px;line-height:1.5;text-align:center}
+.rt-globe #globe-title{font-size:20px;letter-spacing:.03em;text-transform:none}
+.rt-globe #modal-box{background:var(--rt-paper);border-color:var(--rt-line);border-radius:6px}
+.rt-globe #modal-title{color:var(--rt-ink);font:600 24px/1.3 var(--rt-serif)}
+.rt-globe #modal-close{min-width:44px;min-height:44px}
+@media(min-width:901px){
+ .rt-design.parent-design aside.side{top:0;width:280px;padding:18px 16px;z-index:20}
+ .rt-design.parent-design :is(main,.top,.parent-review){margin-left:280px}
+}
+@media(max-width:600px){
+ .rt-globe #globe-title{top:76px;width:90%;text-align:center}
+ .rt-design .footer-notice{font-size:15px}
+ .rt-design .parent-content h2{font-size:36px}
+ .rt-design .education-tabs button{font-size:15px}
+ .rt-design .page-main .eyebrow{font-size:13px}
+ .rt-design.page-a-la-carte .page-hero h1{font-size:44px}
+}
+@media(max-width:380px){
+ .rt-design .education-tabs{grid-template-columns:1fr}
+ .rt-design .education-tabs button{display:flex;gap:12px;padding:13px 16px;font-size:16px}
+ .rt-design .education-tabs button span{margin:0}
+ .rt-design .education-tabs button b{display:block}
+}
+
+/* Original homepage accents, retained across the newer layouts. */
+.rt-design :is(.site-rail,aside.side) .sidebar-nav>.nav-group>a{background:var(--rt-paper);border-color:var(--rt-ink)}
+.rt-design :is(.site-rail,aside.side) .sidebar-nav>.nav-group:first-child>a{background:#e21c21;border-color:#e21c21;color:#fff}
+.rt-design :is(.page-main .eyebrow,.section-label,.mini){color:#8b3a3a}
+
+/* Agenda colors carry meaning, never alternate by card position. */
+.hub-event-legend{display:flex;flex-wrap:wrap;gap:12px 26px;margin:-4px 0 25px;font:16px/1.5 var(--rt-ui);color:var(--rt-ink)}
+.hub-event-legend>span{display:flex;align-items:center;gap:9px}
+.hub-event-legend i{width:20px;height:20px;border:1px solid var(--rt-line);border-radius:3px;display:inline-block}
+.hub-event-legend .legend-plan{background:var(--rt-rose)}
+.hub-event-legend .legend-know{background:var(--rt-sand)}
+
+/* Routine family resources use coffee; pink is never decorative. */
+.rt-design.page-family-hub .family-hub :is(.callout,.ap-card){background:var(--rt-sand);color:var(--rt-ink);border-color:var(--rt-line)}
+
+/* Family Hub: quiet surfaces. Pink and coffee are signals, not page fills. */
+.rt-design.page-family-hub .preview-ribbon{background:var(--rt-navy);color:#fff}
+.rt-design.page-family-hub .site-rail .sidebar-nav>.nav-group>a[href="/pages/family-hub.html"]{background:transparent;border-color:var(--rt-red);color:var(--rt-ink)}
+.rt-design.page-family-hub .family-hub .hub-feature{background:#fff;box-shadow:none;border:1px solid var(--rt-line);border-top:4px solid #d9c4a2;border-radius:2px}
+.rt-design.page-family-hub .family-hub .hub-event,
+.rt-design.page-family-hub .family-hub .hub-date-row,
+.rt-design.page-family-hub .family-hub .hub-trip-card{background:transparent;border:0;border-top:1px solid var(--rt-line);border-left:5px solid #d9c4a2;border-radius:0;box-shadow:none}
+.rt-design.page-family-hub .family-hub .hub-event[data-attention="plan"],
+.rt-design.page-family-hub .family-hub .hub-date-row[data-attention="plan"],
+.rt-design.page-family-hub .family-hub .hub-trip-card[data-attention="plan"]{border-left-color:#d9a5ae;background:transparent}
+.rt-design.page-family-hub .family-hub .hub-event:hover{background:#fff;box-shadow:none}
+.rt-design.page-family-hub .family-hub :is(.notice,.callout,.ap-card){background:transparent;border:0;border-left:3px solid #d9c4a2;border-radius:0;box-shadow:none}
+.rt-design.page-family-hub .family-hub .times{background:#fff;border:1px solid var(--rt-line);border-left:5px solid #d9a5ae;border-radius:0}
+.rt-design.page-family-hub .family-hub .route-card,
+.rt-design.page-family-hub .family-hub .route-card:nth-child(2n){background:transparent;border-radius:0;box-shadow:none;border-top:1px solid var(--rt-line)}
+.rt-design.page-family-hub .family-hub th{background:transparent;border-bottom:2px solid var(--rt-line)}
+.rt-design.page-family-hub .family-hub .hub-show-nav a{background:transparent;box-shadow:none}
+.rt-design.page-family-hub .family-hub .hub-show-nav a:hover{background:#fff;border-color:var(--rt-red)}
+.rt-design.page-family-hub .family-hub .hub-show-nav a[aria-current]{background:var(--rt-navy);color:#fff;box-shadow:0 4px 0 var(--rt-red);border-color:var(--rt-navy)}
+.rt-design.page-family-hub .family-hub .hub-show-picker select,
+.rt-design.page-family-hub .family-hub .hub-calendar-nav a{background:transparent}
+.rt-design.page-family-hub .family-hub .hub-calendar-nav a[aria-current]{background:var(--rt-navy);color:#fff}
+.rt-design.page-family-hub .family-hub .hub-schedule .schedule-tab{background:transparent;border:1px solid var(--rt-line-strong)}
+.rt-design.page-family-hub .family-hub .hub-schedule .schedule-tab.active{background:var(--rt-navy);color:#fff;border-color:var(--rt-navy)}
+.rt-design.page-family-hub .hub-event-legend .legend-plan{background:#d9a5ae;border-color:#d9a5ae}
+.rt-design.page-family-hub .hub-event-legend .legend-know{background:#d9c4a2;border-color:#d9c4a2}
+.rt-design.page-family-hub .hub-event-legend i{width:5px;height:19px;border-radius:0}
