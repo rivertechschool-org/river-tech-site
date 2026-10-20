@@ -1,0 +1,141 @@
+/* Page-specific compositions, derived from River Tech's original navy/red/gold.
+   Loaded only on the explicit unapproved-page allowlist. */
+.page-a-la-carte .page-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;padding:58px 0}
+.page-a-la-carte .opening-copy{min-width:0}
+.page-a-la-carte .page-hero h1{font-size:clamp(44px,4.8vw,72px);line-height:1.02;letter-spacing:-.05em}
+.page-a-la-carte .alacarte-tagline{font-family:Palatino,Georgia,serif;font-size:27px}
+.page-a-la-carte .page-hero .opening-photo{position:relative;margin:12px 0 24px;min-height:420px;transform:rotate(1.5deg);border:10px solid white;box-shadow:16px 18px 0 #d9c4a2}
+.page-a-la-carte .opening-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% center}
+.page-a-la-carte .opening-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:50px 18px 18px;color:white;background:linear-gradient(transparent,#191727e8);font:italic 24px/1.3 Palatino,Georgia,serif}
+.page-a-la-carte .status-note{background:transparent;border-left:3px solid #a63c33;padding:10px 22px;margin:30px 0}
+.page-a-la-carte .status-note strong{display:inline}
+.page-a-la-carte #build-your-week{scroll-margin-top:25px;padding:42px 28px}
+.page-a-la-carte .week-path{gap:12px;border:0}
+.page-a-la-carte .week-path button{padding:0 0 18px;overflow:hidden;border:1px solid #ffffff50;position:relative;transition:background .18s ease,border-color .18s ease}
+.page-a-la-carte .week-path .day-photo{width:100%;height:160px;object-fit:cover;display:block;margin-bottom:20px}
+.page-a-la-carte .week-path button>span,.page-a-la-carte .week-path h3,.page-a-la-carte .week-path p{margin-left:18px;margin-right:18px}
+.page-a-la-carte .week-path button>span{margin-bottom:15px;font-size:16px}
+.page-a-la-carte .week-path h3{font-size:25px;letter-spacing:-.025em}
+.page-a-la-carte .week-path p{font-size:18px}
+.page-a-la-carte .week-path b{margin-right:18px}
+.page-a-la-carte .week-path button[aria-pressed=true]{border-color:#d9c4a2;box-shadow:inset 0 0 0 2px #d9c4a2}
+.page-a-la-carte .week-result{border-top:1px solid #ffffff40;border-bottom:0;padding:24px 0 0}
+.page-our-culture .page-hero{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:40px;padding:55px 0}
+.page-our-culture .page-hero h1{font-size:clamp(42px,4.5vw,66px)}
+.page-our-culture .page-hero .culture-people{min-height:0;position:relative;align-self:center;margin:0}
+.page-our-culture .culture-people img{position:static;display:block;width:100%;height:auto;border-bottom:6px solid #a63c33}
+.page-our-culture .culture-people figcaption{font:italic 20px/1.5 Palatino,Georgia,serif;padding:16px 0 0;color:#696575}
+.page-our-culture .river-values{padding:48px 40px;background:#272443;color:#f6f4f0;border:0}
+.page-our-culture .river-values .eyebrow{color:#d9c4a2}
+.page-our-culture .values-list article{border-color:#ffffff40;grid-template-columns:.9fr 1.1fr;gap:28px;padding:26px 0}
+.page-our-culture .values-list h3{font-size:30px;color:#f6f4f0}
+.page-our-culture .value-initial{color:#d9c4a2;font-size:62px}
+.page-our-culture .values-list p{font-size:21px}
+.page-our-culture .chapter-nav{gap:0;border-bottom:1px solid #d0cacf;margin-top:25px}
+.page-our-culture .chapter-nav a{border:0;border-bottom:2px solid transparent;padding:12px 18px 12px 0}
+.page-our-culture .chapter-nav a:hover{border-bottom-color:#a63c33}
+.page-enrollment .page-hero{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center}
+.page-enrollment .page-hero h1{font-size:clamp(42px,4.5vw,68px)}
+.enrollment-start{padding:36px;background:#272443;color:#f6f4f0;border-top:5px solid #d9c4a2}
+.page-enrollment .enrollment-start .eyebrow{color:#d9c4a2}
+.page-enrollment .enrollment-start h2{font-size:38px;letter-spacing:-.03em}
+.enrollment-start p{font-size:19px;line-height:1.6}
+.enrollment-start .solid-link{background:#d9c4a2;color:#272443;gap:16px;font-size:17px;width:100%;margin-bottom:0}
+.page-enrollment .enrollment-path article>span{font-size:42px;letter-spacing:-.06em;color:#a63c33;line-height:1.15}
+.page-enrollment .enrollment-path article h2{font-size:34px}
+.page-tuition .page-hero{display:grid;grid-template-columns:1fr 1fr;gap:0 35px;align-items:center;padding:35px 0}
+.page-tuition .page-hero .eyebrow{grid-column:1/-1;margin-bottom:20px}
+.page-tuition .page-hero h1{font-size:clamp(38px,3.7vw,54px);margin-bottom:0}
+.page-tuition .hero-lead{font-size:22px;margin-bottom:0}
+.page-tuition .tuition-lab{margin-top:32px;border-top:5px solid #a63c33}
+.page-tuition .tuition-output{padding:42px}
+.page-tuition #tuition-amount{font-size:clamp(58px,6vw,88px);letter-spacing:-.055em}
+.page-tuition .tuition-output>strong{font-size:21px}
+.page-tuition .tuition-inputs label{font-size:18px}
+.page-tuition .tuition-inputs select{border:0;border-bottom:3px solid #d9c4a2;min-height:54px}
+.page-performing-arts .page-hero.with-photo{grid-template-columns:1fr 1.25fr;gap:40px;padding:50px 0 65px}
+.page-performing-arts .page-hero figure{min-height:440px;border-bottom:8px solid #a63c33}
+.page-performing-arts .page-hero h1{font-size:clamp(44px,4.7vw,70px)}
+.page-performing-arts .three-facts article{border-top:2px solid #d9c4a2;padding-top:26px}
+.page-technology .page-hero figure{border:10px solid #272443;outline:1px solid #d9c4a2;outline-offset:9px}
+.page-technology .explorer-tabs button[aria-selected=true]{border-top:4px solid #a63c33}
+.page-technology .explorer-panel .progression{border-top:1px solid #ffffff40;font-size:21px}
+.page-why-river-tech .statement-grid p:first-child:first-letter{float:left;font:700 68px/.9 Georgia;color:#a63c33;padding:7px 10px 0 0}
+@media(max-width:1100px){
+ .page-a-la-carte .page-hero,.page-our-culture .page-hero,.page-enrollment .page-hero{gap:30px;grid-template-columns:1fr}
+ .page-a-la-carte .page-hero .opening-photo{min-height:340px;transform:none;margin:0 16px 18px 0}
+ .page-our-culture .culture-people{max-width:720px}
+ .page-our-culture .page-hero{gap:20px}
+ .page-performing-arts .page-hero.with-photo{grid-template-columns:1fr}
+ .page-performing-arts .page-hero figure{min-height:380px}
+ .enrollment-start{max-width:680px}
+}
+@media(max-width:600px){
+ .page-a-la-carte .page-hero,.page-our-culture .page-hero,.page-enrollment .page-hero{padding:32px 0}
+ .page-a-la-carte .page-hero h1{font-size:46px}
+ .page-a-la-carte .page-hero .opening-photo{min-height:300px;border-width:6px;box-shadow:10px 12px 0 #d9c4a2}
+ .page-a-la-carte #build-your-week{padding:30px 16px}
+ .page-a-la-carte .week-path{grid-template-columns:1fr;gap:18px}
+ .page-a-la-carte .week-path .day-photo{height:180px}
+ .page-a-la-carte .week-path p{margin-bottom:15px}
+ .page-our-culture .river-values{padding:32px 24px}
+ .page-our-culture .values-list article{grid-template-columns:1fr;gap:10px;padding:24px 0}
+ .page-our-culture .values-list h3{font-size:28px;margin-bottom:0}
+ .page-our-culture .values-list p{font-size:19px;margin-bottom:0}
+ .page-our-culture .value-initial{font-size:48px}
+ .page-enrollment .enrollment-start{padding:28px 24px}
+ .page-enrollment .enrollment-start h2{font-size:34px}
+ .page-tuition .page-hero{grid-template-columns:1fr;gap:18px;padding:30px 0}
+ .page-tuition .page-hero h1{font-size:40px}
+ .page-tuition .page-hero .eyebrow{margin-bottom:0}
+ .page-tuition .hero-lead{font-size:20px}
+ .page-tuition .tuition-output{padding:30px}
+ .page-performing-arts .page-hero figure{min-height:300px}
+}
+@media(prefers-reduced-motion:reduce){.page-a-la-carte .week-path button{transition:none}}
+
+/* On phones, make all four choices quick to scan rather than four tall posters. */
+@media(max-width:600px){
+ .page-a-la-carte .alacarte-tagline{font-size:24px;line-height:1.35}
+ .page-a-la-carte .week-path{gap:12px}
+ .page-a-la-carte .week-path button{display:grid;grid-template-columns:82px minmax(0,1fr);gap:4px 14px;text-align:left;padding:16px 12px 28px;min-height:185px}
+ .page-a-la-carte .week-path .day-photo{grid-column:1;grid-row:1/4;width:82px;height:110px;margin:0;align-self:start}
+ .page-a-la-carte .week-path button>span,.page-a-la-carte .week-path h3,.page-a-la-carte .week-path p{grid-column:2;margin:0}
+ .page-a-la-carte .week-path button>span{font-size:15px}
+ .page-a-la-carte .week-path h3{font-size:22px}
+ .page-a-la-carte .week-path p{font-size:17px;line-height:1.45}
+ .page-a-la-carte .week-path b{position:absolute;right:14px;bottom:6px;margin:0;font-size:24px}
+}
+.page-performing-arts .page-hero.with-photo>div{min-width:0}
+.page-performing-arts .page-hero.with-photo figure{width:100%;min-width:0;aspect-ratio:auto}
+@media(max-width:600px){.page-tuition .hero-lead{margin-top:16px}}
+/* Keep every student's face in the technology team photograph. */
+.page-technology .page-hero.with-photo figure{aspect-ratio:auto;min-height:0}
+.page-technology .page-hero.with-photo img{position:static;display:block;width:100%;height:auto}
+/* Approved À La Carte color direction C: cream, restrained red, navy selections. */
+
+body.page-a-la-carte{--ink:#272443;--red:#a63c33}
+.page-a-la-carte .page-hero h1{color:var(--red)}
+.page-a-la-carte .page-hero .eyebrow{color:var(--ink)}
+.page-a-la-carte .enroll-link{background:var(--red);border-color:var(--red)}
+.page-a-la-carte .status-note{border-color:var(--red)}
+
+.page-a-la-carte .site-rail .sidebar-nav>.nav-group:first-child>a{background:var(--ink);border-color:var(--ink)}
+.page-a-la-carte .ink-section{background:#f6f4f0;color:var(--ink);border-top:4px solid var(--red);border-bottom:1px solid var(--line)}
+.page-a-la-carte .ink-section .eyebrow{color:var(--red)}
+.page-a-la-carte .week-path button{background:#fff;border:1px solid #d0cacf}
+.page-a-la-carte .week-path button>span,
+.page-a-la-carte .week-path button b,
+.page-a-la-carte .week-result strong,
+.page-a-la-carte .week-result a{color:var(--red)}
+.page-a-la-carte .week-result{border-top-color:var(--line)}
+.page-a-la-carte .week-result small{color:#696575}
+.page-a-la-carte .week-path button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:none}
+.page-a-la-carte .week-path button[aria-pressed=true]>span,
+.page-a-la-carte .week-path button[aria-pressed=true] b{color:var(--gold)}
+.page-a-la-carte .next-step{background:var(--ink);color:var(--paper)}
+.page-a-la-carte .next-step .eyebrow{color:var(--gold)}
+.page-a-la-carte .next-step .solid-link{background:var(--red)}
+/* Red emphasis for the À La Carte day explorer. */
+.page-a-la-carte .opening-copy > .solid-link{background:var(--red)}
+.page-a-la-carte #build-your-week > h2{color:var(--ink)}
