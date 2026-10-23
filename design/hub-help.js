@@ -27,14 +27,15 @@ function el(tag, cls, text) { const n=document.createElement(tag); if(cls)n.clas
 function personCard(key, subject) {
  const p=people[key]||people.brooke, card=el('div','hub-help-person');
  const copy=el('div'); copy.append(el('p','hub-help-name',p[0]),el('p','hub-help-role',p[1]));
- const action=el('div','hub-help-action'); const a=el('a','hub-help-email',key==='brooke'?'Email Brooke':'Contact '+(key==='teacher'?'your teacher':p[0].split(' ')[0]));
- a.href='mailto:'+office+'?subject='+encodeURIComponent('For '+p[0]+' — '+subject);
- action.append(a,el('p','hub-help-via',key==='brooke'?office:'Through Brooke at the school office'));
+ const action=el('div','hub-help-action'); const a=el('a','hub-help-email','Open the Parent Portal');
+ a.href='https://rivertech.me';
+ const fallback=el('p','hub-help-via','Need help signing in? ');const email=el('a','','Email the office');email.href='mailto:'+office;fallback.append(email);
+ action.append(a,fallback);
  card.append(copy,action); return card;
 }
 function helpBlock(id, choices) {
  const box=el('aside','hub-help');box.id='help-'+id;box.setAttribute('aria-label','Contact help for '+id);
- box.append(el('p','eyebrow','A PERSON WHEN YOU NEED ONE'),el('h3','','Still need help?'));
+ box.append(el('p','eyebrow','A PERSON WHEN YOU NEED ONE'),el('h3','','Still need help?'),el('p','hub-help-description','Message your teacher or the office through the Parent Portal. Sign in, choose Messages, pick who to contact, and press Send Message.'));
  const result=el('div','hub-help-result');result.setAttribute('aria-live','polite');
  function update(i){result.replaceChildren(personCard(choices[i][1],choices[i][0]));}
  if(choices.length>1){const label=el('label','hub-help-label','What is your question about?');label.htmlFor='help-choice-'+id;const select=el('select');select.id=label.htmlFor;choices.forEach((c,i)=>{const opt=el('option','',c[0]);opt.value=i;select.append(opt)});select.addEventListener('change',()=>update(+select.value));box.append(label,select);}else box.append(el('p','hub-help-description',choices[0][0]+'.'));
@@ -92,7 +93,7 @@ function show(entry){detail.replaceChildren();if(!entry){detail.append(el('h3','
  const title=el('h3','hub-find-title',entry.q);detail.append(el('p','eyebrow',entry.group),title,answerBody(entry));
  const link=el('a','hub-find-source','Open the full Hub section →');link.href=entry.href;detail.append(link);
  if(entry.id==='request-0'){const a=el('a','hub-help-email','Open the Parent Portal');a.href='https://rivertech.me';detail.append(a);return;}
- const choices=[[entry.q,entry.owner]];if(entry.second)choices.push(['Production props',entry.second]);const help=helpBlock('answer',choices);if(!entry.second)help.querySelector('.hub-help-description')?.remove();detail.append(help);
+ const choices=[[entry.q,entry.owner]];if(entry.second)choices.push(['Production props',entry.second]);const help=helpBlock('answer',choices);if(!entry.second)help.querySelectorAll('.hub-help-description')[1]?.remove();detail.append(help);
 }
 function render(){const words=normalize(input.value).split(' ').filter(Boolean);const matches=entries.filter(e=>(category===categories[0]||e.group===category)&&words.every(w=>normalize(e.q+' '+e.search).includes(w)));
  if(!matches.some(e=>e.id===selected))selected=matches[0]?.id;
