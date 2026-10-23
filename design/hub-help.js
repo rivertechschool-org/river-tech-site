@@ -49,7 +49,7 @@ function ownerFor(group,q){if(group===categories[3]||group===categories[4])retur
 const entries=sourceLinks.map((a,i)=>{const href=a.getAttribute('href'),q=a.querySelector('strong').textContent,group=groupFor(href,q);return {id:'hub-'+i,q,group,href,owner:ownerFor(group,q),search:a.dataset.search};});
 // These are personal requests rather than general policy answers.
 const personal=[
- ['How do I report an absence or arrange an early pickup?',categories[1],'teacher','For an attendance update or time-sensitive pickup, follow the current instructions in Contact & forms.','#contact','late absent sick attendance pickup door'],
+ ['How do I report an absence or arrange an early pickup?',categories[1],'teacher','Sign in at rivertech.me and select Portal. Choose Report an Absence or Late Arrival / Early Pickup. Enter the details and press Tell the school.','#contact/attendance','late absent sick attendance pickup door'],
  ['How can I discuss my child’s progress or classwork?',categories[1],'teacher','Start with the teacher for the class or subject. Include your child’s name and what you would like to discuss.','/pages/teachers.html','homework grade assessment lesson teacher struggling'],
  ['Who can help with a student or friendship concern?',categories[1],'mary','Contact Mary about student wellbeing, friendship difficulties or a family concern. If something is happening at school right now, tell a staff member on site.','#contact','bullying behavior conflict wellbeing health support'],
  ['Who can help with apps, accounts or setup?',categories[2],'luke','For a device, app or account problem, contact Luke. For help with the work assigned in a class, contact that class’s teacher.','#daily/devices','login password software programs install computer laptop'],
@@ -75,6 +75,7 @@ const detail=el('article','hub-find-detail');detail.setAttribute('aria-live','po
 function normalize(s){return s.toLowerCase().normalize('NFKD').replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
 function answerBody(entry){
  const container=el('div','hub-find-copy');
+ if(entry.id==='request-0'){const source=document.getElementById('attendance');[...source.children].slice(1).forEach(n=>container.append(n.cloneNode(true)));return container;}
  if(entry.answer){container.append(el('p','',entry.answer));return container;}
  if(/pay tuition by check/i.test(entry.q)){const h=[...root.querySelectorAll('#payments summary')].find(n=>/paying by check/i.test(n.textContent));if(h?.nextElementSibling){container.append(h.nextElementSibling.cloneNode(true));return container;}}
  const parts=entry.href.slice(1).split('/'),target=document.getElementById(parts[parts.length-1]);
@@ -90,7 +91,7 @@ function answerBody(entry){
 function show(entry){detail.replaceChildren();if(!entry){detail.append(el('h3','','Can’t find your question?'),el('p','','Try a simpler word, choose another category, or ask Brooke to connect you with the right person.'),helpBlock('answer',[['Help finding the right person','brooke']]));return;}
  const title=el('h3','hub-find-title',entry.q);detail.append(el('p','eyebrow',entry.group),title,answerBody(entry));
  const link=el('a','hub-find-source','Open the full Hub section →');link.href=entry.href;detail.append(link);
- if(entry.id==='request-0'){const box=el('aside','hub-help');box.append(el('h3','','Need someone today?'));const a=el('a','hub-help-email','View same-day contact instructions');a.href='#contact';box.append(a);detail.append(box);return;}
+ if(entry.id==='request-0'){const a=el('a','hub-help-email','Open the Parent Portal');a.href='https://rivertech.me';detail.append(a);return;}
  const choices=[[entry.q,entry.owner]];if(entry.second)choices.push(['Production props',entry.second]);const help=helpBlock('answer',choices);if(!entry.second)help.querySelector('.hub-help-description')?.remove();detail.append(help);
 }
 function render(){const words=normalize(input.value).split(' ').filter(Boolean);const matches=entries.filter(e=>(category===categories[0]||e.group===category)&&words.every(w=>normalize(e.q+' '+e.search).includes(w)));
@@ -106,9 +107,9 @@ const tabQuestions={
  home: ['Where can I find the class schedule?','Where are field-trip details?','Where are casts, scripts, and practice recordings?'],
  shows: ['Where are casts, scripts, and practice recordings?','Who can help with an Aladdin rehearsal question?','How can I help with costumes or props?'],
  calendar: ['Where can I find the class schedule?','Where are field-trip details?','How do I request a change to days, classes or enrollment?'],
- daily: ['What is the dress code?','What devices should students bring?','What supplies do students need?','How can I discuss my child’s progress or classwork?','Who can help with apps, accounts or setup?'],
+ daily: ['How do I report an absence or arrange an early pickup?','What is the dress code?','What devices should students bring?','What supplies do students need?','How can I discuss my child’s progress or classwork?','Who can help with apps, accounts or setup?'],
  billing: ['How much does River Tech cost?','Can I pay tuition by check?','Are there enrollment fees or sibling discounts?','I have a question about my invoice, payment or refund.'],
- contact: ['How do I update records or pickup permissions?','How do I request a change to days, classes or enrollment?','How can I volunteer at River Tech?','How does the wait pool work?']
+ contact: ['How do I report an absence or arrange an early pickup?','How do I update records or pickup permissions?','How do I request a change to days, classes or enrollment?','How can I volunteer at River Tech?','How does the wait pool work?']
 };
 Object.entries(tabQuestions).forEach(([id,questions])=>{
  const faq=el('section','hub-tab-faq');faq.id='questions-'+id;
