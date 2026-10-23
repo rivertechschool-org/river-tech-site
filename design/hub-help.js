@@ -35,7 +35,7 @@ function personCard(key, subject) {
 }
 function helpBlock(id, choices) {
  const box=el('aside','hub-help');box.id='help-'+id;box.setAttribute('aria-label','Contact help for '+id);
- box.append(el('p','eyebrow','A PERSON WHEN YOU NEED ONE'),el('h3','','Still need help?'),el('p','hub-help-description','Message your teacher or the office through the Parent Portal. Sign in, choose Messages, pick who to contact, and press Send Message.'));
+ box.append(el('p','eyebrow','A PERSON WHEN YOU NEED ONE'),el('h3','','Still need help?'),el('p','hub-help-description','Message your teacher or the office through the Parent Portal. Sign in, choose Messages, pick who to contact, write your message, and press Send Message.'));
  const result=el('div','hub-help-result');result.setAttribute('aria-live','polite');
  function update(i){result.replaceChildren(personCard(choices[i][1],choices[i][0]));}
  if(choices.length>1){const label=el('label','hub-help-label','What is your question about?');label.htmlFor='help-choice-'+id;const select=el('select');select.id=label.htmlFor;choices.forEach((c,i)=>{const opt=el('option','',c[0]);opt.value=i;select.append(opt)});select.addEventListener('change',()=>update(+select.value));box.append(label,select);}else box.append(el('p','hub-help-description',choices[0][0]+'.'));
