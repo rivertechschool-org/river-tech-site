@@ -1,9 +1,11 @@
-/* Pumpkin Patch: shared endpoint, trip-specific registration and payment. */
+/* Bowling: shared endpoint, trip-specific registration and payment. */
 (function () {
   'use strict';
   const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwhK9l0Ve9IVj9GU4F0BttzPtPD52tMxWNIBs2EUIf5Xg8prXlOQ8UD2Bon74K2aOtH/exec';
-  const TRIP_ID = 'pumpkin-patch-2026-10-07';
+  const TRIP_ID = 'bowling-2026-11-04';
   const PRICE = 12;
+  const CLOSE_AT = Date.parse('2026-11-02T08:00:00Z');
+  const isClosed = () => Date.now() >= CLOSE_AT;
   const preview = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
   const form = document.getElementById('reg-form');
   const list = document.getElementById('participant-list');
@@ -11,18 +13,14 @@
   let counter = 0, inFlight = false, retryKey = '', retryBody = '';
   document.getElementById('preview-notice').hidden = !preview;
   document.getElementById('checkout-cancelled').hidden = new URLSearchParams(location.search).get('cancelled') !== '1';
-  function pacificDate() {
-    const parts = new Intl.DateTimeFormat('en-US', {timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
-    const part = function(type) {return parts.find(item => item.type === type).value;};
-    return part('year') + '-' + part('month') + '-' + part('day');
-  }
-  document.getElementById('sig-date-display').textContent = new Date().toLocaleDateString('en-US', {timeZone:'America/Los_Angeles',year:'numeric',month:'long',day:'numeric'});
+
   function updateTotal() {
     const cards = Array.from(list.children), count = cards.length;
     document.getElementById('total-amount').textContent = '$' + count * PRICE;
     document.getElementById('total-breakdown').textContent = count + ' participant' + (count === 1 ? '' : 's') + ' × $' + PRICE;
-    if (!inFlight) {submit.textContent = 'Continue to payment · $' + count * PRICE + ' ↗'; submit.disabled = false;}
-    document.getElementById('add-participant').disabled = count >= 50;
+    if (!inFlight) {submit.textContent = 'Continue to payment · $' + count * PRICE + ' ↗'; submit.disabled = isClosed();}
+    document.getElementById('add-participant').disabled = count >= 50 || isClosed();
+    document.getElementById('registration-closed').hidden = !isClosed();
     cards.forEach(function(card, index) {
       card.querySelector('.pc-title').textContent = 'Participant ' + (index + 1);
       card.querySelector('legend').textContent = 'Participant ' + (index + 1);
@@ -30,8 +28,7 @@
       remove.hidden = count === 1;
       remove.setAttribute('aria-label', 'Remove participant ' + (index + 1));
     });
-    const fullTime = cards.some(card => card.querySelector('[data-field="type"]').value === 'student' && card.querySelector('[data-field="program"]').value === 'full-time');
-    document.getElementById('full-time-transport-consent').hidden = !fullTime;
+
   }
   function addParticipant() {
     if (list.children.length >= 50) return null;
@@ -42,9 +39,27 @@
     card.innerHTML = '<legend class="sr-only">Participant '+counter+'</legend><div class="pc-header"><span class="pc-title"></span><button type="button" class="pc-remove">Remove</button></div>' +
       '<div class="reg-row-grid-2"><div><label class="reg-label" for="'+prefix+'-first">First name<span class="req">*</span></label><input class="reg-input" id="'+prefix+'-first" data-field="firstName" required autocomplete="off" maxlength="100"></div>' +
       '<div><label class="reg-label" for="'+prefix+'-last">Last name<span class="req">*</span></label><input class="reg-input" id="'+prefix+'-last" data-field="lastName" required autocomplete="off" maxlength="100"></div></div>' +
-      '<div><label class="reg-label" for="'+prefix+'-type">Participant type<span class="req">*</span></label><select class="reg-select" id="'+prefix+'-type" data-field="type" required><option value="student">Student</option><option value="adult">Adult</option></select></div>' +
+      '<div><label class="reg-label" for="'+prefix+'-type">Participant type<span class="req">*</span></label><select class="reg-select" id="'+prefix+'-type" data-field="type" required><option value="student">Student</option><option value="adult">Adult who will bowl</option></select></div>' +
       '<div class="reg-row-grid-2" data-student-fields><div><label class="reg-label" for="'+prefix+'-program">Student program<span class="req">*</span></label><select class="reg-select" id="'+prefix+'-program" data-field="program" required><option value="">Choose a program</option><option value="full-time">Full-time</option><option value="homeschool">Part-time / homeschool</option></select></div>' +
       '<div><label class="reg-label" for="'+prefix+'-age">Student age<span class="req">*</span></label><input class="reg-input" id="'+prefix+'-age" data-field="age" type="number" min="1" max="99" step="1" inputmode="numeric" required></div></div>';
+    const supervision = document.createElement('div');
+    supervision.innerHTML = '<div data-supervision hidden><label class="reg-label" for="'+prefix+'-supervision">Part-time student supervision<span class="req">*</span></label><select class="reg-select" id="'+prefix+'-supervision" data-field="supervision"><option value="">Choose an arrangement</option><option value="adult">Attending with a supervising adult</option><option value="teacher">Teacher drop-off (age 13 or older)</option><option value="mary-approved">Mary-approved teacher drop-off (age 12 or younger)</option></select><label class="reg-check" data-mary-confirm hidden><input type="checkbox" data-field="maryApproved"><span>Mary has personally approved my child attending without our own supervising adult. Text Mary before selecting this option.</span></label></div>';
+    card.appendChild(supervision);
+    function updateSupervision() {
+      const show = card.querySelector('[data-field="type"]').value === 'student' && card.querySelector('[data-field="program"]').value === 'homeschool';
+      const select = card.querySelector('[data-field="supervision"]');
+      const approved = card.querySelector('[data-field="maryApproved"]');
+      const age = Number(card.querySelector('[data-field="age"]').value);
+      card.querySelector('[data-supervision]').hidden = !show;
+      select.required = show; select.disabled = !show;
+      for(const option of select.options) {option.disabled = option.value === 'teacher' ? age < 13 : option.value === 'mary-approved' ? age > 12 : false;}
+      if(select.selectedOptions[0].disabled)select.value='';
+      const confirm = show && select.value === 'mary-approved';
+      card.querySelector('[data-mary-confirm]').hidden = !confirm; approved.required = confirm; approved.disabled = !confirm;
+    }
+    card.addEventListener('change', updateSupervision);
+    card.addEventListener('input', updateSupervision);
+    updateSupervision();
     card.querySelector('.pc-remove').addEventListener('click', function() {
       if (list.children.length > 1) {card.remove(); updateTotal(); document.getElementById('add-participant').focus();}
     });
@@ -62,26 +77,26 @@
   }
   document.getElementById('add-participant').addEventListener('click', function() {const card = addParticipant(); if (card) card.querySelector('input').focus();});
   addParticipant();
+  setInterval(updateTotal, 30000);
   function showError(message) {const box = document.getElementById('reg-error'); box.textContent = message; box.hidden = false; box.focus();}
   function value(name) {return form.elements.namedItem(name).value.trim();}
   function buildPayload() {
     return {
-      action:'pumpkin_submit',
-      trip:{id:TRIP_ID,name:'Pumpkin Patch at Hidden Acres Orchard',date:'2026-10-07',deadline:'2026-10-04',pricePerPersonUSD:PRICE},
+      action:'bowling_submit',
+      trip:{id:TRIP_ID,name:'Bowling at River City Lanes',date:'2026-11-04',deadline:'2026-11-01',pricePerPersonUSD:PRICE},
       parent:{firstName:value('parentFirstName'),lastName:value('parentLastName'),email:value('parentEmail'),phone:value('parentPhone')},
       participants:Array.from(list.children).map(function(card) {
         const field = function(name) {return card.querySelector('[data-field="'+name+'"]').value.trim();};
         const student = field('type') === 'student';
-        return {firstName:field('firstName'),lastName:field('lastName'),age:student ? field('age') : '',type:field('type'),program:student ? field('program') : '',priceUSD:PRICE};
-      }),
-      acknowledgments:{scheduleRead:form.elements.namedItem('ackSchedule').checked},
-      release:{agreed:form.elements.namedItem('releaseAgree').checked,signatureName:value('signatureName'),signatureDate:pacificDate()}
+        return {firstName:field('firstName'),lastName:field('lastName'),age:student ? field('age') : '',type:field('type'),program:student ? field('program') : '',priceUSD:PRICE,supervision:field('supervision'),maryApproved:card.querySelector('[data-field="maryApproved"]').checked};
+      })
     };
   }
   async function readJSON(url, options) {const response = await fetch(url, options); if (!response.ok) throw new Error('connection'); return response.json();}
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
     if (inFlight) return;
+    if (isClosed()) {updateTotal();showError('Online signup is closed. Text Mary to ask whether space remains. Approved late places are paid to Mary in cash.');return;}
     document.getElementById('reg-error').hidden = true;
     for (const input of form.querySelectorAll('input:not([type="checkbox"])')) input.value = input.value.trim();
     if (!form.reportValidity()) return;
@@ -102,9 +117,9 @@
         } catch (_) {retryKey = crypto.randomUUID();}
       }
       payload.requestId = retryKey;
-      const config = await readJSON(BACKEND_URL + '?action=pumpkin_config');
+      const config = await readJSON(BACKEND_URL + '?action=bowling_config');
       if (config.mode !== 'live' || !config.ok || config.tripId !== TRIP_ID || config.priceUSD !== PRICE || !config.ready) {
-        showError('Pumpkin Patch registration is not open. Please contact Mary.'); return;
+        showError('Bowling registration is not open. Please contact Mary.'); return;
       }
       const result = await readJSON(BACKEND_URL, {method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
       if (!result.ok) {showError(result.error || 'We could not save your registration. Please try again.');return;}

@@ -143,6 +143,7 @@ function hiddenAcresStatus_(sessionId) {
 }
 // Recovery for a parent who paid but closed Stripe without returning to the site.
 function reconcileHiddenAcresPayments() {
+  try { reconcileBowlingPayments(); } catch(err) { Logger.log('Bowling recovery pending: '+err.message); }
   // Keep the existing hourly trigger and recover the new trip independently.
   try { if(typeof reconcilePumpkinPayments==='function')reconcilePumpkinPayments(); }
   catch(err) { Logger.log('Pumpkin Patch recovery pending: '+err.message); }

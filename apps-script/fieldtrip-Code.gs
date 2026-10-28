@@ -54,6 +54,7 @@ function doPost(e) {
     if (payload && (payload.action === "pumpkin_submit" || (payload.trip && payload.trip.id === "pumpkin-patch-2026-10-07"))) {
       return json_(handlePumpkin_(payload));
     }
+    if(payload && (payload.action === "bowling_submit" || (payload.trip && payload.trip.id === "bowling-2026-11-04"))) return json_(handleBowling_(payload));
     const result = handleSubmission(payload);
     return json_(result);
   } catch (err) {
@@ -67,6 +68,8 @@ function doGet(e) {
   if (params.action === "lunchOptOutConfig") return json_(lunchOptOutConfig_());
   if (params.action === "hiddenAcresConfig") return json_(hiddenAcresConfig_());
   if (params.action === "hiddenAcresStatus") return json_(hiddenAcresStatus_(params.session_id));
+  if (params.action === "bowling_config") return json_(bowlingConfig_());
+  if (params.action === "bowling_status") return json_(bowlingStatus_(params.session_id));
   if (params.action === "pumpkin_config") return json_(pumpkinConfig_());
   if (params.action === "pumpkin_status") return json_(pumpkinStatus_(params.session_id));
   if (params.action === "silverwoodRoster") {
