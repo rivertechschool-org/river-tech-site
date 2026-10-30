@@ -1,0 +1,17 @@
+**
+!ask/
+!ask/index.html
+!ask/ask.js
+!ask/ask.css
+!ask/stream.js
+!tools/
+!tools/ask-river-tech/
+!tools/ask-river-tech/launch/
+!tools/ask-river-tech/engine.mjs
+!tools/ask-river-tech/answers.mjs
+!tools/ask-river-tech/website.mjs
+!tools/ask-river-tech/website-index.json
+!tools/ask-river-tech/index_website.py
+!tools/ask-river-tech/launch/server.mjs
+!tools/ask-river-tech/launch/limits.mjs
+!Dockerfile

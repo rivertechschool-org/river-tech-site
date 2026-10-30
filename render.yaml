@@ -1,0 +1,34 @@
+# Deploy only after Dan approves hosting, limits, and public publication.
+services:
+  - type: web
+    name: ask-river-tech
+    runtime: docker
+    plan: 0.5c-512mb
+    region: oregon
+    numInstances: 1
+    autoDeployTrigger: off
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    disk:
+      name: ask-river-tech-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ASK_VISITOR_SALT
+        generateValue: true
+      - key: ASK_PUBLIC_ORIGIN
+        sync: false
+      - key: ASK_MONTHLY_USD
+        sync: false
+      - key: ASK_DAILY_USD
+        sync: false
+      - key: ASK_TRUST_RENDER_PROXY
+        value: "1"
+      - key: ASK_MAX_CONCURRENT
+        value: "5"
+      - key: ASK_PER_MINUTE
+        value: "5"
+      - key: ASK_PER_DAY
+        value: "20"

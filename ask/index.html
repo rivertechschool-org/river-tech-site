@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Find your way at River Tech. Ask about our programs, school life, and your family's next step.">
+  <title>Ask River Tech</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/ask/ask.css">
+  <script type="module" src="/ask/ask.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#question">Skip to your question</a>
+  <div class="preview-banner" id="mode-banner">Private preview · Connecting…</div>
+  <header class="masthead">
+    <a href="/" class="wordmark" aria-label="River Tech home">River Tech<span>School of Performing Arts &amp; Technology</span></a>
+    <nav aria-label="Quick links"><a href="/pages/family-hub.html">Family Hub <span aria-hidden="true">↗</span></a><a href="/pages/enrollment.html">Enrollment <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main class="layout">
+    <aside class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">A little guidance goes a long way.</p>
+      <h1 id="intro-title">Ask <br>River Tech<span class="period">.</span></h1>
+      <p class="lead">Your family has questions. <br>Let’s find your next step.</p>
+      <p class="intro-copy">Explore our programs, make sense of the school day, or find that one page you need.</p>
+      <div class="human-help"><span class="small-label">SOMETIMES, YOU NEED A PERSON.</span><a href="mailto:learn@rivertech.me">Talk with our team <span aria-hidden="true">↗</span></a></div>
+      <p class="motto">Life is a Stage.<br><em>Love is our Script.</em></p>
+    </aside>
+    <section class="assistant" aria-labelledby="conversation-title">
+      <div class="assistant-heading"><span class="assistant-mark" aria-hidden="true">r.</span><div><h2 id="conversation-title">Your River Tech guide</h2><p id="mode-label">Programs. Practical answers. A place to begin.</p></div><button id="reset" class="reset" type="button" hidden>Start over</button></div>
+      <div class="conversation" id="conversation" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+        <div class="welcome" id="welcome">
+          <p class="welcome-title">What would you like to know?</p>
+          <p>Start with a question below, or ask your own.</p>
+          <div class="suggestions" aria-label="Questions to try">
+            <button type="button" data-sample="programs"><span>We homeschool. Can we come for acting and robotics?</span><span aria-hidden="true">↗</span></button>
+            <button type="button" data-sample="tuition"><span>How much would two days a week cost?</span><span aria-hidden="true">↗</span></button>
+            <button type="button" data-sample="devices"><span>Does my homeschooler need a laptop?</span><span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+      </div>
+      <p id="request-status" class="request-status" role="status"></p>
+      <form id="ask-form" class="composer">
+        <label for="question" class="sr-only">Your question about River Tech</label>
+        <textarea id="question" name="question" rows="2" maxlength="1200" placeholder="Ask a question about River Tech…" required></textarea>
+        <div class="composer-bottom"><span id="composer-hint">No account needed.</span><button id="send" type="submit" aria-label="Send your question">Ask <span aria-hidden="true">↑</span></button></div>
+      </form>
+      <p class="privacy-note">AI can make mistakes. Check the linked school information. Please leave out student names and private details.</p>
+      <details class="about"><summary>How this guide works</summary><p>Live answers search River Tech’s public website, including readable linked PDFs and content from school-level tabs. Images and videos remain linked rather than transcribed. Questions and the recent conversation are sent to OpenAI when live answers are connected. This preview does not save conversations to disk. It cannot see private student records, accept enrollment, or confirm a seat. Source links let you check the details.</p><p id="source-checked"></p><p id="sample-disclosure">Live answers need an OpenAI connection. No questions are sent to OpenAI when that connection is unavailable.</p></details>
+      <noscript><p>This guide needs JavaScript. You can still browse the <a href="/pages/family-hub.html">Family Hub</a> or <a href="mailto:learn@rivertech.me">email the school</a>.</p></noscript>
+    </section>
+  </main>
+  <footer><span>Christian education · Grades 1–12 · Post Falls, Idaho</span><a href="/pages/family-hub.html#daily/handbook">School policies ↗</a></footer>
+</body>
+</html>
