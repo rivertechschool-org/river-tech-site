@@ -24,4 +24,7 @@ function selectMonth(index){
 monthChoices.forEach((date,index)=>{const b=document.createElement('button');b.type='button';b.id='hub-month-'+monthKey(date);b.setAttribute('role','tab');b.setAttribute('aria-controls','hub-month-events');b.textContent=date.toLocaleDateString('en-US',{month:'long'});b.setAttribute('aria-label',date.toLocaleDateString('en-US',{month:'long',year:'numeric'}));b.addEventListener('click',()=>selectMonth(index));b.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(index+1)%3;if(e.key==='ArrowLeft')next=(index+2)%3;if(e.key==='Home')next=0;if(e.key==='End')next=2;if(next!==undefined){e.preventDefault();selectMonth(next);monthTabs.children[next].focus()}});monthTabs.append(b)});
 monthTabs.hidden=false;selectMonth(0);
 root.querySelector('#hub-show-select').addEventListener('change',e=>location.hash='shows/'+e.target.value);
-window.addEventListener('hashchange',render);render();})();
+window.addEventListener('hashchange',render);render();
+// Font loading can change the wrapped mobile menu height after the first scroll.
+if(document.fonts)document.fonts.ready.then(()=>{if(location.hash==='#daily/syllabuses')render();});
+})();
