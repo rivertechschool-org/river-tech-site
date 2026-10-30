@@ -26,5 +26,5 @@ monthTabs.hidden=false;selectMonth(0);
 root.querySelector('#hub-show-select').addEventListener('change',e=>location.hash='shows/'+e.target.value);
 window.addEventListener('hashchange',render);render();
 // Font loading can change the wrapped mobile menu height after the first scroll.
-if(document.fonts)document.fonts.ready.then(()=>{if(location.hash==='#daily/syllabuses')render();});
+if(document.fonts)document.fonts.ready.then(()=>{if(location.hash==='#daily/syllabuses'||location.hash.startsWith('#daily/faq-'))render();});
 })();
