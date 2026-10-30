@@ -9,6 +9,9 @@ services:
     autoDeployTrigger: off
     dockerfilePath: ./Dockerfile
     healthCheckPath: /healthz
+    maxShutdownDelaySeconds: 90
+    domains:
+      - ask.rivertechschool.com
     disk:
       name: ask-river-tech-data
       mountPath: /var/data
