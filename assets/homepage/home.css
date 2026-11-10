@@ -36,3 +36,47 @@ body{font-size:var(--text-body)}
 /* Keep the smallest phone widths readable without horizontal scrolling. */
 .program-pair article,.interest>*{min-width:0}.program-pair .button{max-width:100%;white-space:normal}
 @media(max-width:360px){.tabs{flex-direction:column}.tabs button{text-align:left;padding:12px 16px}.sitebar nav{gap:5px}.sitebar{padding-inline:10px}.sitebar .mobile-brand{font-size:14px}.program-pair article{padding:20px}.program-pair h3{font-size:36px}}
+
+.hiring-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin: 0 0 65px;
+  padding: 25px 30px;
+  background: #f0e5de;
+  border-left: 3px solid #a33128;
+}
+.hiring-callout h2 {
+  margin: 0 0 6px;
+  color: #272443;
+  font-size: clamp(26px, 2.4vw, 34px);
+}
+.hiring-callout p {
+  margin: 0;
+  font-size: var(--text-support);
+  line-height: 1.45;
+}
+.hiring-callout .hiring-details {
+  margin-top: 9px;
+  font: 600 14px/1.5 Avenir, Arial, sans-serif;
+}
+.hiring-link {
+  display: inline-block;
+  flex: 0 0 auto;
+  padding: 12px 17px;
+  background: #a33128;
+  color: #fff;
+  font: 600 16px/1.4 Avenir, Arial, sans-serif;
+}
+.hiring-link:hover {
+  background: #862820;
+}
+@media (max-width: 700px) {
+  .hiring-callout {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 55px;
+    padding: 22px;
+  }
+}
