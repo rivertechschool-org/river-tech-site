@@ -153,6 +153,7 @@ section[id] { scroll-margin-top: 20px; }
 .entry-list li::before { content: "0" counter(entry); font: 700 .8rem/1.5 var(--mono); color: var(--red); padding-top: 4px; }
 .entry-list h3 { font-size: 1.2rem; margin-bottom: 2px; }
 .entry-list p { color: var(--muted); }
+.entry-list p + p { margin-top: 8px; }
 
 .entry-form { grid-column: 1 / -1; scroll-margin-top: 20px; padding: clamp(20px, 4vw, 42px); border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: 6px; background: var(--on-dark); }
 .entry-form h3 { font-size: clamp(1.65rem, 3.5vw, 2.4rem); line-height: 1.1; letter-spacing: -.035em; }
