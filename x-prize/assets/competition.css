@@ -114,6 +114,7 @@ section[id] { scroll-margin-top: 20px; }
 
 .section { padding-block: clamp(55px, 8vw, 103px); }
 .section h2, .closing h2 { margin-top: 12px; font-size: clamp(2.5rem, 5.5vw, 4.45rem); line-height: .99; letter-spacing: -.035em; font-weight: 780; }
+.challenge-purpose { max-width: 58ch; margin-bottom: 28px; font-size: 1.12rem; color: var(--muted); }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
 .section-head > p { max-width: 35ch; color: var(--muted); font-size: 1.06rem; padding-bottom: 2px; }
 .categories { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
