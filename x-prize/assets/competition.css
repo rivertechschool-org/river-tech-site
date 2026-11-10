@@ -11,6 +11,7 @@
   --hero-shade: #211e39;
   --on-dark: #fffdf9;
   --light-accent: #ffe0d5;
+  --school-rail-width: 280px;
   --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
   font: 16px/1.55 "Avenir Next", "Segoe UI", system-ui, sans-serif;
   color: var(--ink);
@@ -29,6 +30,32 @@ section[id] { scroll-margin-top: 20px; }
 .skip { position: fixed; top: 10px; left: 10px; transform: translateY(-200%); z-index: 3; padding: 12px; background: var(--red); color: white; }
 .skip:focus { transform: none; }
 
+.site-rail {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--school-rail-width);
+  max-height: 100dvh;
+  padding: 18px 16px;
+  border-right: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--font-nav);
+  z-index: 20;
+}
+.site-rail .sidebar-nav > .nav-group > a {
+  border-radius: 3px;
+  padding: 17px 8px;
+  font-size: 19px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.site-rail .sidebar-nav > .nav-group:first-child > a {
+  color: white;
+  border-color: #e21c21;
+  background: #e21c21;
+}
+.site-rail .sidebar-submenu a { font-size: 16px; line-height: 1.4; }
+.site-rail p { margin: 32px auto; color: var(--red); text-align: center; font-size: 18px; font-style: italic; }
+
 .masthead { position: relative; z-index: 1; border-bottom: 1px solid var(--line); }
 .masthead-inner { min-height: 74px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -36,10 +63,23 @@ section[id] { scroll-margin-top: 20px; }
 .brand strong, .brand small { display: block; line-height: 1.3; }
 .brand strong { font-size: 1.06rem; }
 .brand small { color: var(--muted); font: .65rem/1.6 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
-.masthead nav { display: flex; gap: 26px; font-size: .88rem; }
+.masthead nav { display: flex; align-items: center; gap: 26px; font-size: .88rem; }
 .masthead nav a, .site-footer a { text-decoration: none; }
 .masthead nav a:hover, .site-footer a:hover { text-decoration: underline; text-underline-offset: .35em; }
 .masthead nav span, .site-footer span { color: var(--red); }
+
+.masthead .hamburger {
+  display: none;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  background: var(--on-dark);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 .hero { position: relative; isolation: isolate; overflow: hidden; background: var(--hero-shade); color: var(--on-dark); }
 .hero-art, .hero::after { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
@@ -151,6 +191,19 @@ section[id] { scroll-margin-top: 20px; }
 .closing p:last-child { max-width: 54ch; margin: 18px auto 0; color: #e5dce6; }
 .site-footer { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .86rem; }
 
+@media (min-width: 901px) {
+  body { margin-left: var(--school-rail-width); }
+  .skip { left: calc(var(--school-rail-width) + 10px); }
+}
+@media (min-width: 901px) and (max-width: 1120px) {
+  .wrap { width: calc(100% - 58px); }
+  .hero h1 { font-size: clamp(3.9rem, 7vw, 5.4rem); }
+  .judge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .site-rail { display: none; }
+  .masthead .hamburger { display: inline-block; }
+}
 @media (max-width: 840px) {
   .wrap { width: calc(100% - 58px); }
   .hero-art { object-position: 66% center; }
@@ -161,7 +214,7 @@ section[id] { scroll-margin-top: 20px; }
   .wrap { width: calc(100% - 36px); }
   .masthead-inner { min-height: 62px; gap: 10px; }
   .masthead nav a:first-child { display: none; }
-  .masthead nav { font-size: .75rem; }
+  .masthead nav { gap: 10px; font-size: .75rem; }
   .brand { gap: 6px; }
   .brand-mark { width: 29px; }
   .brand strong { font-size: .93rem; }
@@ -182,6 +235,9 @@ section[id] { scroll-margin-top: 20px; }
   .category-top { min-height: 64px; }
   .category-icon { width: 62px; }
   .entry-list li { grid-template-columns: 26px 1fr; }
+}
+@media (max-width: 365px) {
+  .masthead nav > a { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
