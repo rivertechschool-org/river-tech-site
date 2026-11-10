@@ -64,8 +64,10 @@ const personal=[
  ['Who can help with River Tech merchandise?',categories[4],'emily','Contact Emily about school merchandise, availability or an order question.','#contact','merchandise merch shirt order']
 ];
 personal.forEach((r,i)=>entries.push({id:'request-'+i,q:r[0],group:r[1],owner:r[2],answer:r[3],href:r[4],search:r.join(' '),second:r[6]}));
+const askGuide=section.querySelector('#hub-ask-river-tech');
 section.replaceChildren();
 const heading=el('div','hub-section-heading');heading.append(el('p','eyebrow','FAMILY QUESTIONS'),el('h2','','Find your answer.'));section.append(heading);
+if (askGuide) section.append(askGuide);
 const label=el('label','hub-answer-label','What would you like to know?');label.htmlFor='hub-find-query';const input=el('input');input.id=label.htmlFor;input.type='search';input.placeholder='Try payments, computers, pickup or rehearsals';section.append(label,input);
 const filters=el('div','hub-find-categories');filters.setAttribute('role','group');filters.setAttribute('aria-label','Answer categories');section.append(filters);
 let category=categories[0],selected=entries[0].id;
