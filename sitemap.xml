@@ -148,4 +148,9 @@
   </url>
   <url><loc>https://www.rivertechschool.com/pages/family-fair.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 <url><loc>https://www.rivertechschool.com/school/</loc></url>
-<url><loc>https://www.rivertechschool.com/pages/family-hub.html</loc></url></urlset>
+<url><loc>https://www.rivertechschool.com/pages/family-hub.html</loc></url>  <url>
+    <loc>https://www.rivertechschool.com/pages/teach.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
