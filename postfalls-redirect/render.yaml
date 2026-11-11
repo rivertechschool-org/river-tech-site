@@ -115,6 +115,16 @@
         },
         {
           "type": "redirect",
+          "source": "/post/wonderful-post-falls",
+          "destination": "https://www.rivertechschool.com/pages/our-culture.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/wonderful-post-falls/",
+          "destination": "https://www.rivertechschool.com/pages/our-culture.html"
+        },
+        {
+          "type": "redirect",
           "source": "/why-river-tech",
           "destination": "https://www.rivertechschool.com/pages/why-river-tech.html"
         },
@@ -245,6 +255,91 @@
         },
         {
           "type": "redirect",
+          "source": "/blog/categories/rivertechmusic",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/categories/rivertechmusic/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/childrenschoir",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/childrenschoir/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/gospel-choir",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/gospel-choir/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/greatestshowman",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/greatestshowman/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/journey-to-bethlehem",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/journey-to-bethlehem/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/how-to-breathe-part-1",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/how-to-breathe-part-1/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/how-to-breathe-part-2",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/post/how-to-breathe-part-2/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/production",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/production/",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/_files/ugd/a3f9bc_559f6ad7ea1942e2814f7a9264260916.pdf",
+          "destination": "https://www.rivertechschool.com/pages/performing-arts.html"
+        },
+        {
+          "type": "redirect",
           "source": "/copy-of-performing-arts",
           "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
         },
@@ -252,6 +347,56 @@
           "type": "redirect",
           "source": "/copy-of-performing-arts/",
           "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/categories/wingchunjkd",
+          "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/categories/wingchunjkd/",
+          "destination": "https://www.rivertechschool.com/pages/sports-fitness.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/albums",
+          "destination": "https://www.rivertechschool.com/pages/gallery.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/albums/",
+          "destination": "https://www.rivertechschool.com/pages/gallery.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog",
+          "destination": "https://www.rivertechschool.com/pages/vlog.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/",
+          "destination": "https://www.rivertechschool.com/pages/vlog.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/categories/rivertechschool",
+          "destination": "https://www.rivertechschool.com/pages/vlog.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/blog/categories/rivertechschool/",
+          "destination": "https://www.rivertechschool.com/pages/vlog.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/danhegelund",
+          "destination": "https://www.rivertechschool.com/pages/teachers.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/danhegelund/",
+          "destination": "https://www.rivertechschool.com/pages/teachers.html"
         },
         {
           "type": "redirect",
@@ -311,16 +456,6 @@
         {
           "type": "redirect",
           "source": "/enrollment/",
-          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
-        },
-        {
-          "type": "redirect",
-          "source": "/research-phase",
-          "destination": "https://www.rivertechschool.com/pages/enrollment.html"
-        },
-        {
-          "type": "redirect",
-          "source": "/research-phase/",
           "destination": "https://www.rivertechschool.com/pages/enrollment.html"
         },
         {
@@ -662,6 +797,51 @@
           "type": "redirect",
           "source": "/post/now-hiring-robotics-drone-engineering-teacher/",
           "destination": "https://www.rivertechschool.com/pages/teach.html"
+        },
+        {
+          "type": "redirect",
+          "source": "/research-phase",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html#school-tours"
+        },
+        {
+          "type": "redirect",
+          "source": "/research-phase/",
+          "destination": "https://www.rivertechschool.com/pages/enrollment.html#school-tours"
+        },
+        {
+          "type": "redirect",
+          "source": "/tutoring",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#contact"
+        },
+        {
+          "type": "redirect",
+          "source": "/tutoring/",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#contact"
+        },
+        {
+          "type": "redirect",
+          "source": "/privacy-policy",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#daily/handbook"
+        },
+        {
+          "type": "redirect",
+          "source": "/privacy-policy/",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#daily/handbook"
+        },
+        {
+          "type": "redirect",
+          "source": "/terms-and-conditions",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#daily/handbook"
+        },
+        {
+          "type": "redirect",
+          "source": "/terms-and-conditions/",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#daily/handbook"
+        },
+        {
+          "type": "redirect",
+          "source": "/_files/ugd/a3f9bc_9570efe0be6d410a9e0da52a228ec59c.pdf",
+          "destination": "https://www.rivertechschool.com/pages/family-hub.html#daily/dresscode"
         },
         {
           "type": "redirect",
