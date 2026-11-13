@@ -108,3 +108,5 @@
   font: 600 17px/1.5 var(--font-display);
 }
 .jobs-work-samples p { margin: 0; }
+
+.jobs-hero-art{display:block;width:100%;height:auto;margin:28px 0 0;border-radius:5px}
