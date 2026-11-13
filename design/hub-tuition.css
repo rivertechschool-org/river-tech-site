@@ -14,7 +14,7 @@
 .page-family-hub .hub-money-calculator .tuition-output{padding:30px;background:#272440;color:#fff}
 .page-family-hub .hub-money-calculator .tuition-output p,.page-family-hub .hub-money-calculator .tuition-output strong{color:#fff}
 .page-family-hub .hub-money-calculator .tuition-output .eyebrow{color:#dfc79e}
-.page-family-hub #tuition-amount{font-size:clamp(3.5rem,6vw,5rem);line-height:1;margin:20px 0}
+.page-family-hub.rt-design #tuition-amount{color:#dfc79e;font-size:clamp(3.5rem,6vw,5rem);line-height:1;margin:20px 0}
 .page-family-hub .hub-money-section{padding:38px 0;border-top:1px solid #ccc8cf;margin-top:35px;scroll-margin-top:120px}
 .page-family-hub .hub-money-included{padding:28px 0;max-width:850px}
 .page-family-hub .hub-money-support{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
