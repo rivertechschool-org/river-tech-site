@@ -24,22 +24,25 @@
    const monthlyOption = payment.querySelector('[value="0"]');
    const elevenPayments = new Option('Monthly · 11 payments', '3');
    monthlyOption.after(elevenPayments);
+   const elevenHeader = document.createElement('th');
+   elevenHeader.scope = 'col';
+   elevenHeader.textContent = 'Monthly × 11';
+   elevenHeader.hidden = true;
+   table.tHead.rows[0].append(elevenHeader);
+   for (const row of table.tBodies[0].rows) row.insertCell().hidden = true;
    let rates = currentRates;
 
    function updateQuote() {
      const program = rates[attendance.value];
      const option = Number(payment.value);
      const {payments, unit} = schedule[option];
-     const total = option === 3 ? program.rates[0] * 12 : program.rates[option] * payments;
-     const totalCents = total * 100;
-     const installment = Math.round(totalCents / payments);
-     const lastInstallment = totalCents - installment * (payments - 1);
+     const installment = program.rates[option];
+     const total = installment * payments;
      $('#tuition-name').textContent = program.name;
-     $('#tuition-amount').textContent = format(installment / 100);
+     $('#tuition-amount').textContent = format(installment);
      $('#tuition-frequency').textContent = 'per ' + unit;
      const paymentCount = payments === 1 ? '1 payment' : payments + ' payments';
-     const lastPayment = lastInstallment === installment ? '' : ' (last payment ' + format(lastInstallment / 100) + ')';
-     $('#tuition-total').textContent = format(total) + ' full-year tuition · ' + paymentCount + lastPayment;
+     $('#tuition-total').textContent = format(total) + ' full-year tuition · ' + paymentCount;
    }
 
    function updateYear() {
@@ -51,15 +54,17 @@
      elevenPayments.disabled = !next;
      if (!next && payment.value === '3') payment.value = '0';
      paymentNote.textContent = next
-       ? 'The rate guide shows 12 monthly payments. An 11-payment schedule splits the same yearly tuition over fewer payments.'
+       ? 'Both monthly plans are open to all families. The 11-payment plan costs less over the year. Checks are accepted for quarterly and annual plans.'
        : 'Monthly payments run July–June. Checks are accepted for quarterly and annual plans.';
-     const guidePath = '/assets/images/tuition-fulltime-' + (next ? '2027-28' : '2026-27') + '.png';
+     const guidePath = '/assets/images/tuition-fulltime-' + (next ? '2027-28' : '2026-27') + (next ? '-four-plans.png' : '.png');
      guide.querySelectorAll('a').forEach(link => { link.href = guidePath; });
      const image = guide.querySelector('img');
      image.alt = year + ' tuition comparison for all six attendance plans. Rates are also in the calculator and table.';
      if (image.getAttribute('src') !== guidePath) image.src = guidePath;
      table.caption.textContent = 'Published ' + year + ' tuition per student';
+     elevenHeader.hidden = !next;
      for (const [index, row] of Array.from(table.tBodies[0].rows).entries()) {
+       row.cells[4].hidden = !next;
        rates[index].rates.forEach((rate, column) => { row.cells[column + 1].textContent = format(rate); });
      }
      $('#tuition-fee-year').hidden = !next;
@@ -71,6 +76,9 @@
    years.addEventListener('change', updateYear);
    attendance.addEventListener('change', updateQuote);
    payment.addEventListener('change', updateQuote);
+   if (new URLSearchParams(location.search).get('tuition-year') === '2027-28') {
+     years.querySelector('[value="2027-28"]').checked = true;
+   }
    updateYear();
    years.hidden = false;
  }
