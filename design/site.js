@@ -56,7 +56,7 @@
      paymentNote.textContent = next
        ? 'Both monthly plans are open to all families. The 11-payment plan costs less over the year. Checks are accepted for quarterly and annual plans.'
        : 'Monthly payments run July–June. Checks are accepted for quarterly and annual plans.';
-     const guidePath = '/assets/images/tuition-fulltime-' + (next ? '2027-28' : '2026-27') + (next ? '-four-plans.png' : '.png');
+     const guidePath = '/assets/images/tuition-fulltime-' + (next ? '2027-28' : '2026-27') + (next ? '-four-plans.png?v=2' : '.png');
      guide.querySelectorAll('a').forEach(link => { link.href = guidePath; });
      const image = guide.querySelector('img');
      image.alt = year + ' tuition comparison for all six attendance plans. Rates are also in the calculator and table.';
