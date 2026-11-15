@@ -11,7 +11,10 @@ export function loadIndex(){
 }
 export const indexCurrent=()=>Date.parse(loadIndex().expiresAt)>Date.now();
 export function refreshIndex(){
-  if(refreshing||Date.now()-Date.parse(loadIndex().generatedAt)<6*3600*1000)return;
+  if(refreshing)return;
+  const index=loadIndex();
+  const hasTuitionSchedules=index.sources.some(source=>source.kind==='tuition-schedule');
+  if(hasTuitionSchedules&&Date.now()-Date.parse(index.generatedAt)<6*3600*1000)return;
   refreshing=true;
   const python=process.env.ASK_INDEX_PYTHON||'/Users/danhegelund/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3';
   const child=spawn(python,[fileURLToPath(new URL('./index_website.py',import.meta.url))],{stdio:'ignore',timeout:300000});

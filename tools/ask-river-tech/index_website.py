@@ -45,6 +45,30 @@ def normalize(url, base=BASE):
     if path.startswith(('/ask/','/tools/','/.','/api/')): return None
     return urlunsplit(('https','www.rivertechschool.com',path,'',''))
 
+def hub_tuition_schedule(html, year, rate_id, sibling_id, payment_counts):
+    rates_match = re.search(r'<script id="' + rate_id + r'" type="application/json">(.*?)</script>', html, re.S)
+    sibling_match = re.search(r'<div id="' + sibling_id + r'"[^>]*>(.*?)</div>', html, re.S)
+    if not rates_match or not sibling_match:
+        raise ValueError(f'Missing {year} tuition or sibling data')
+    sibling = Page(BASE)
+    sibling.feed(sibling_match[1])
+    discounts = '\n'.join(text for _, _, text in sibling.sections())
+    rates = json.loads(rates_match[1])
+    expected = {'5-Day School', '4-Day School', '4-Day Homeschool', '3-Day Homeschool', '2-Day Homeschool', '1-Day Homeschool'}
+    if {row['name'] for row in rates} != expected or len(rates) != len(expected) or not discounts:
+        raise ValueError(f'Incomplete {year} tuition schedule')
+    lines = [f'{year} tuition per student, before sibling discounts and separate enrollment fees.']
+    for row in rates:
+        amounts = row['rates']
+        if len(amounts) != len(payment_counts) or any(type(amount) is not int or amount <= 0 for amount in amounts):
+            raise ValueError(f'Invalid {year} tuition amounts for {row["name"]}')
+        name = row['name'].replace(' School', ' full-time school').replace(' Homeschool', ' part-time À La Carte homeschool')
+        options = [f'{plan}: ${amount:,} × {count} = ${amount * count:,} for the school year'
+                   for (plan, count), amount in zip(payment_counts, amounts)]
+        lines.append(f'{name}: ' + '; '.join(options) + '.')
+    return '\n'.join([*lines, f'{year} sibling discount:', discounts])
+
+
 def fetch(url):
     try:
         if PREVIEW and normalize(url):
@@ -213,6 +237,19 @@ def run():
                     if footer:
                         footer_page=Page(final);footer_page.feed(footer[1])
                         for _,_,text in footer_page.sections():add(final,'School contact and legal notices',text,'footer')
+                if final == BASE + 'pages/family-hub.html':
+                    plans = [('monthly (12 payments)', 12), ('quarterly', 4), ('annual', 1)]
+                    for year, key, discount, payments in (
+                        ('2026–27', 'tuition-data', 'tuition-siblings-current', plans),
+                        ('2027–28', 'tuition-next-year-data', 'tuition-siblings-next', [*plans, ('monthly (11 payments)', 11)]),
+                    ):
+                        try:
+                            text = hub_tuition_schedule(html, year, key, discount, payments)
+                            selector = '?tuition-year=2027-28' if year == '2027–28' else ''
+                            add(final + selector + '#billing/tuition', f'{year} tuition rates and sibling discounts', text, 'tuition-schedule', 5000)
+                            dynamic.append({'url':final,'kind':f'{year} tuition calculator and sibling discount','items':6})
+                        except (ValueError, TypeError, KeyError) as error:
+                            failures.append({'url':final,'status':f'{year} tuition extraction failed','error':str(error)})
                 # Full-time program panels are JSON-encoded HTML in the page.
                 # Include every level, not only the initially visible tab.
                 panel_start=re.search(r'const panels\s*=\s*',html)
