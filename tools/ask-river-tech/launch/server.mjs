@@ -9,6 +9,7 @@ import {createAnswerEngine} from '../engine.mjs';
 import {loadIndex,refreshIndex} from '../website.mjs';
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const files=new Map([['/ask/', ['ask/index.html','text/html; charset=utf-8']],['/ask/index.html',['ask/index.html','text/html; charset=utf-8']],['/ask/ask.js',['ask/ask.js','text/javascript; charset=utf-8']],['/ask/stream.js',['ask/stream.js','text/javascript; charset=utf-8']],['/ask/ask.css',['ask/ask.css','text/css; charset=utf-8']]]);
+const hubOrigins = new Set(['https://www.rivertechschool.com', 'https://rivertechschool.com']);
 const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(data));};
 async function body(req){let size=0;const chunks=[];for await(const chunk of req){size+=chunk.length;if(size>24000)throw Object.assign(Error('Please ask a shorter question.'),{status:413});chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw Object.assign(Error('Please try a shorter question.'),{status:400});}}
 export function createPublicServer({origin,apiKey,dbPath,salt,monthlyUsd,dailyUsd,concurrent=5,perMinute=5,perDay=20,fetchImpl=fetch,indexLoader=loadIndex,timeoutMs=80000,trustRenderProxy=false,clock=Date.now,logger=()=>{}}){
@@ -26,12 +27,30 @@ export function createPublicServer({origin,apiKey,dbPath,salt,monthlyUsd,dailyUs
    if(req.url==='/healthz'&&req.method==='GET'){const current=Date.parse(indexLoader().expiresAt)>clock();json(res,current?200:503,{ready:current});return;}
    if(req.headers.host!==url.host){json(res,403,{error:'Please use the school guide’s address.'});return;}
    const path=new URL(req.url,origin).pathname;
-   if(req.headers.origin&&req.headers.origin!==url.origin){json(res,403,{error:'Please use the school guide’s question form.'});return;}
+   const requestOrigin = req.headers.origin;
+   const fromHub = path === '/api/ask' && hubOrigins.has(requestOrigin);
+   if (path === '/api/ask') res.setHeader('Vary', 'Origin');
+   if (requestOrigin && requestOrigin !== url.origin && !fromHub) {
+    json(res, 403, {error:'Please use the school guide’s question form.'});
+    return;
+   }
+   if (fromHub) {
+    res.setHeader('Access-Control-Allow-Origin', requestOrigin);
+    if (req.method === 'OPTIONS') {
+     if (req.headers['access-control-request-method'] !== 'POST') {
+      json(res, 405, {error:'That action is unavailable.'});
+      return;
+     }
+     res.writeHead(204, {'Access-Control-Allow-Methods':'POST', 'Access-Control-Allow-Headers':'Content-Type', 'Access-Control-Max-Age':'600'});
+     res.end();
+     return;
+    }
+   }
    if(path==='/api/ask/status'&&req.method==='GET'){
     const index=indexLoader();json(res,200,{mode:'live',public:true,reviewed:index.generatedAt,indexedPages:index.coverage.pagesIndexed,indexedDocuments:index.coverage.pdfsIndexed,sourcesCurrent:Date.parse(index.expiresAt)>clock()});return;
    }
    if(path==='/api/ask'&&req.method==='POST'){
-    if(req.headers.origin!==url.origin||!req.headers['content-type']?.startsWith('application/json')){json(res,403,{error:'Please use the school guide’s question form.'});return;}
+    if((requestOrigin!==url.origin&&!fromHub)||req.headers['content-type']?.split(';')[0].trim().toLowerCase()!=='application/json'){json(res,403,{error:'Please use the school guide’s question form.'});return;}
     let address=req.socket.remoteAddress||'unknown';
     if(trustRenderProxy){address=String(req.headers['cf-connecting-ip']||'').trim();if(!isIP(address)){json(res,503,{error:'The guide’s connection needs attention. Please use the Family Hub.'});return;}}
     const input=await body(req);
