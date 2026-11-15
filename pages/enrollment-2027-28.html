@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>River Tech 2027–28 Enrollment</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #eaf1f6; color: #12233e; font: 16px/1.45 Arial, sans-serif; }
+.enrollment-guide { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+h1 { margin: 0; font-size: clamp(1.9rem, 5vw, 2.5rem); text-align: center; }
+.intro { margin: 6px 0 20px; text-align: center; color: #42546c; }
+.priority { margin: 0 0 22px; padding: 14px 18px; border-left: 4px solid #377670; border-radius: 8px; background: #e0f0ea; }
+.priority strong { display: block; color: #214e45; margin-bottom: 3px; }
+.priority p, .section-note { margin: 0; color: #334a61; font-size: 14px; }
+.priority p + p { margin-top: 6px; }
+.family-picker { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 0 0 20px; }
+.family-picker[hidden] { display: none; }
+.family-picker label { font-size: 14px; font-weight: 700; }
+.family-picker select { max-width: 100%; min-height: 40px; padding: 6px 10px; border: 1px solid #899cb2; border-radius: 6px; background: white; color: #12233e; font: inherit; }
+.family-picker select:focus-visible { outline: 2px solid #377670; outline-offset: 2px; }
+h2 { margin: 0 0 5px; font-size: 21px; }
+.section-note { margin-bottom: 10px; }
+.table-wrap { overflow-x: auto; border-radius: 10px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; background: #fff; }
+.full-time table { min-width: 755px; }
+.part-time table { min-width: 520px; }
+th, td { padding: 9px 7px; text-align: center; vertical-align: middle; }
+thead th { background: #233b5b; color: #fff; font-size: 14px; }
+thead th:first-child, tbody th { padding-left: 14px; text-align: left; }
+tbody th { background: #f2f6fa; font-size: 14px; }
+tbody tr + tr > * { border-top: 1px solid #d2dde7; }
+tbody td { border-left: 1px solid #e8eef3; font-weight: 700; }
+.early { background: #e4f2ed; color: #214e45; }
+.pending { color: #526277; font-weight: 400; font-size: 13px; }
+.year { display: block; font-size: 11px; font-weight: 400; }
+footer { color: #354963; font-size: 13px; }
+footer p { margin: 7px 0 0; }
+@media (max-width: 650px) {
+  .enrollment-guide { padding: 22px 14px; }
+  .priority { padding: 11px 13px; }
+}
+</style>
+</head>
+<body>
+<main class="enrollment-guide">
+<h1>2027–28 Enrollment</h1>
+<p class="intro">River Tech School · One-time enrollment fees per household, separate from tuition</p>
+
+<aside class="priority">
+  <strong>A head start for returning families</strong>
+  <p>We’d love to see your family back next year. Interest in River Tech is growing quickly, so we open enrollment to current families first. We encourage you to enroll early for the best chance at the schedule you want.</p>
+  <p>Places are subject to availability for all students, including those returning. Once you’ve completed enrollment and paid the fee, look for a confirmation from River Tech that your child has a spot.</p>
+</aside>
+
+<div class="family-picker" id="family-picker" hidden>
+  <label for="family-group">Show fees for</label>
+  <select id="family-group">
+    <option value="all">All families</option>
+    <option value="full-time">Current full-time families</option>
+    <option value="part-time">Current part-time homeschool families</option>
+    <option value="wait-pool">Families already in the wait pool</option>
+    <option value="public">New families</option>
+  </select>
+</div>
+
+<section class="full-time" aria-labelledby="full-time-title">
+<h2 id="full-time-title">Full-time school</h2>
+<p class="section-note">One full-time enrollment fee per household, whether you enroll one child or several.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Full-time enrollment dates and fees">
+<table>
+<colgroup><col style="width:24%"><col span="5"></colgroup>
+<thead><tr><th scope="col">Family group</th><th scope="col">Nov 20–Dec 4<span class="year">2026</span></th><th scope="col">Dec 5–Dec 31<span class="year">2026</span></th><th scope="col">Jan 1–Jan 20<span class="year">2027</span></th><th scope="col">Jan 21–Feb 14<span class="year">2027</span></th><th scope="col">Feb 15 onward<span class="year">2027</span></th></tr></thead>
+<tbody>
+<tr data-family="full-time"><th scope="row">Current full-time families</th><td class="early">$200</td><td>$200</td><td>$200</td><td>$250</td><td>$300<span class="year">Through Mar 9</span></td></tr>
+<tr data-family="part-time"><th scope="row">Current part-time families moving to full-time</th><td class="pending">Opens Dec 5</td><td class="early">$200</td><td>$200</td><td>$250</td><td>$300<span class="year">Through Mar 9</span></td></tr>
+<tr data-family="wait-pool"><th scope="row">Families already in the wait pool</th><td colspan="2" class="pending">Offers start Jan 1</td><td class="early">$200</td><td>$250</td><td>$300</td></tr>
+<tr data-family="public"><th scope="row">Public enrollment</th><td colspan="3" class="pending">Opens Jan 21 if seats remain</td><td class="early">$250</td><td>$300</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="part-time" id="part-time-fees" aria-labelledby="part-time-title">
+<h2 id="part-time-title">Part-time homeschool À La Carte</h2>
+<p class="section-note">Starting Dec 5, 2026, current part-time families can re-enroll in À La Carte or enroll in full-time school. Wait-pool offers start Jan 1, 2027. Public enrollment opens Jan 21 if seats remain.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Part-time enrollment fees by attendance days">
+<table>
+<colgroup><col style="width:24%"><col span="4"></colgroup>
+<thead><tr><th scope="col">Days per week</th><th scope="col">Dec 5–Dec 31<span class="year">2026</span></th><th scope="col">Jan 1–Jan 20<span class="year">2027</span></th><th scope="col">Jan 21–Feb 14<span class="year">2027</span></th><th scope="col">Feb 15 onward<span class="year">2027</span></th></tr></thead>
+<tbody>
+<tr><th scope="row">1 day</th><td class=early>$60</td><td>$65</td><td>$70</td><td>$75</td></tr>
+<tr><th scope="row">2 days</th><td class=early>$85</td><td>$90</td><td>$95</td><td>$100</td></tr>
+<tr><th scope="row">3 days</th><td class=early>$110</td><td>$115</td><td>$120</td><td>$125</td></tr>
+<tr><th scope="row">4 days</th><td class=early>$135</td><td>$140</td><td>$145</td><td>$150</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer>
+<p><strong>Mar 9 is the last day of re-enrollment.</strong> From Mar 10, contact the office about any remaining seats.</p>
+<p>Part-time fees are based on the child in your household enrolled for the most days. Joining the wait pool is free. New families pay the fee when they accept a seat.</p>
+</footer>
+<p><a href="/pages/enrollment.html">Back to Enrollment</a> · <a href="/pages/family-hub.html?tuition-year=2027-28#billing/tuition">See 2027–28 tuition</a></p>
+</main>
+<script>
+const familyGroup = document.querySelector('#family-group');
+const fullTimeRows = document.querySelectorAll('tr[data-family]');
+const partTimeFees = document.querySelector('#part-time-fees');
+
+function showFamilyFees() {
+  const group = familyGroup.value;
+  for (const row of fullTimeRows) {
+    row.hidden = group !== 'all' && group !== row.dataset.family;
+  }
+  partTimeFees.hidden = group === 'full-time';
+}
+
+familyGroup.addEventListener('change', showFamilyFees);
+showFamilyFees();
+document.querySelector('#family-picker').hidden = false;
+</script>
+</body>
+</html>
