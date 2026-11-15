@@ -34,8 +34,8 @@ tbody td { border-left: 1px solid #e8eef3; font-weight: 700; }
 .early { background: #e4f2ed; color: #214e45; }
 .pending { color: #526277; font-weight: 400; font-size: 13px; }
 .year { display: block; font-size: 11px; font-weight: 400; }
-footer { color: #354963; font-size: 13px; }
-footer p { margin: 7px 0 0; }
+.enrollment-notes { color: #354963; font-size: 13px; }
+.enrollment-notes p { margin: 7px 0 0; }
 @media (max-width: 650px) {
   .enrollment-guide { padding: 22px 14px; }
   .priority { padding: 11px 13px; }
@@ -70,10 +70,10 @@ footer p { margin: 7px 0 0; }
 <div class="table-wrap" tabindex="0" role="region" aria-label="Full-time enrollment dates and fees">
 <table>
 <colgroup><col style="width:24%"><col span="5"></colgroup>
-<thead><tr><th scope="col">Family group</th><th scope="col">Nov 20–Dec 4<span class="year">2026</span></th><th scope="col">Dec 5–Dec 31<span class="year">2026</span></th><th scope="col">Jan 1–Jan 20<span class="year">2027</span></th><th scope="col">Jan 21–Feb 14<span class="year">2027</span></th><th scope="col">Feb 15 onward<span class="year">2027</span></th></tr></thead>
+<thead><tr><th scope="col">Family group</th><th scope="col">Nov 20–Dec 4 <span class="year">2026</span></th><th scope="col">Dec 5–Dec 31 <span class="year">2026</span></th><th scope="col">Jan 1–Jan 20 <span class="year">2027</span></th><th scope="col">Jan 21–Feb 14 <span class="year">2027</span></th><th scope="col">Feb 15 onward <span class="year">2027</span></th></tr></thead>
 <tbody>
-<tr data-family="full-time"><th scope="row">Current full-time families</th><td class="early">$200</td><td>$200</td><td>$200</td><td>$250</td><td>$300<span class="year">Through Mar 9</span></td></tr>
-<tr data-family="part-time"><th scope="row">Current part-time families moving to full-time</th><td class="pending">Opens Dec 5</td><td class="early">$200</td><td>$200</td><td>$250</td><td>$300<span class="year">Through Mar 9</span></td></tr>
+<tr data-family="full-time"><th scope="row">Current full-time families</th><td class="early">$200</td><td>$200</td><td>$200</td><td>$250</td><td>$300 <span class="year">Through Mar 9</span></td></tr>
+<tr data-family="part-time"><th scope="row">Current part-time families moving to full-time</th><td class="pending">Opens Dec 5</td><td class="early">$200</td><td>$200</td><td>$250</td><td>$300 <span class="year">Through Mar 9</span></td></tr>
 <tr data-family="wait-pool"><th scope="row">Families already in the wait pool</th><td colspan="2" class="pending">Offers start Jan 1</td><td class="early">$200</td><td>$250</td><td>$300</td></tr>
 <tr data-family="public"><th scope="row">Public enrollment</th><td colspan="3" class="pending">Opens Jan 21 if seats remain</td><td class="early">$250</td><td>$300</td></tr>
 </tbody>
@@ -87,7 +87,7 @@ footer p { margin: 7px 0 0; }
 <div class="table-wrap" tabindex="0" role="region" aria-label="Part-time enrollment fees by attendance days">
 <table>
 <colgroup><col style="width:24%"><col span="4"></colgroup>
-<thead><tr><th scope="col">Days per week</th><th scope="col">Dec 5–Dec 31<span class="year">2026</span></th><th scope="col">Jan 1–Jan 20<span class="year">2027</span></th><th scope="col">Jan 21–Feb 14<span class="year">2027</span></th><th scope="col">Feb 15 onward<span class="year">2027</span></th></tr></thead>
+<thead><tr><th scope="col">Days per week</th><th scope="col">Dec 5–Dec 31 <span class="year">2026</span></th><th scope="col">Jan 1–Jan 20 <span class="year">2027</span></th><th scope="col">Jan 21–Feb 14 <span class="year">2027</span></th><th scope="col">Feb 15 onward <span class="year">2027</span></th></tr></thead>
 <tbody>
 <tr><th scope="row">1 day</th><td class=early>$60</td><td>$65</td><td>$70</td><td>$75</td></tr>
 <tr><th scope="row">2 days</th><td class=early>$85</td><td>$90</td><td>$95</td><td>$100</td></tr>
@@ -98,10 +98,10 @@ footer p { margin: 7px 0 0; }
 </div>
 </section>
 
-<footer>
+<div class="enrollment-notes">
 <p><strong>Mar 9 is the last day of re-enrollment.</strong> From Mar 10, contact the office about any remaining seats.</p>
 <p>Part-time fees are based on the child in your household enrolled for the most days. Joining the wait pool is free. New families pay the fee when they accept a seat.</p>
-</footer>
+</div>
 <p><a href="/pages/enrollment.html">Back to Enrollment</a> · <a href="/pages/family-hub.html?tuition-year=2027-28#billing/tuition">See 2027–28 tuition</a></p>
 </main>
 <script>
