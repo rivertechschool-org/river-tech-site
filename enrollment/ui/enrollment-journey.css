@@ -35,3 +35,30 @@
 
 /* Approved milk-and-red direction, with more room for the invitation. */
 @media(min-width:801px){[data-wait-look="a"] .enroll-status{grid-template-columns:1fr 1fr;gap:clamp(28px,3vw,44px)}}
+
+.enroll-overview {
+  padding-inline: clamp(18px, 5vw, 56px);
+  text-align: left;
+}
+.enroll-overview p {
+  margin-inline: 0;
+}
+.enroll-opening-dates {
+  max-width: 46rem;
+  margin: 22px 0;
+  border-top: 1px solid #dcd2c4;
+}
+.enroll-opening-dates > div {
+  display: grid;
+  grid-template-columns: clamp(6.75rem, 19vw, 8.5rem) minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #dcd2c4;
+}
+.enroll-opening-dates dt {
+  font: 700 16px/1.6 Arial, sans-serif;
+  white-space: nowrap;
+}
+.enroll-opening-dates dd {
+  margin: 0;
+}
