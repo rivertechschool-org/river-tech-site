@@ -10,10 +10,12 @@ body { margin: 0; background: #eaf1f6; color: #12233e; font: 16px/1.45 Arial, sa
 .enrollment-guide { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
 h1 { margin: 0; font-size: clamp(1.9rem, 5vw, 2.5rem); text-align: center; }
 .intro { margin: 6px 0 20px; text-align: center; color: #42546c; }
-.priority { margin: 0 0 22px; padding: 14px 18px; border-left: 4px solid #377670; border-radius: 8px; background: #e0f0ea; }
-.priority strong { display: block; color: #214e45; margin-bottom: 3px; }
-.priority p, .section-note { margin: 0; color: #334a61; font-size: 14px; }
-.priority p + p { margin-top: 6px; }
+.priority { margin: 0 0 12px; padding: 14px 18px; border-left: 4px solid #377670; border-radius: 8px; background: #e0f0ea; }
+.priority h2, .priority strong { color: #214e45; }
+.priority p, .after-opening-dates p, .section-note { margin: 0; color: #334a61; font-size: 14px; }
+.priority p + p, .after-opening-dates p + p { margin-top: 8px; }
+.after-opening-dates { margin: 0 0 22px; }
+.after-opening-dates strong { color: #12233e; }
 .family-picker { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 0 0 20px; }
 .family-picker[hidden] { display: none; }
 .family-picker label { font-size: 14px; font-weight: 700; }
@@ -34,6 +36,12 @@ tbody td { border-left: 1px solid #e8eef3; font-weight: 700; }
 .early { background: #e4f2ed; color: #214e45; }
 .pending { color: #526277; font-weight: 400; font-size: 13px; }
 .year { display: block; font-size: 11px; font-weight: 400; }
+.opening-dates { margin: 12px 0 0; border-radius: 7px; overflow: hidden; }
+.opening-dates th, .opening-dates td { padding: 6px 12px; text-align: left; font-size: 14px; }
+.opening-dates thead th { background: #275a53; }
+.opening-dates th:first-child { width: 29%; min-width: 110px; }
+.opening-dates tbody th { background: #f3f8f6; }
+.opening-dates tbody td { font-weight: 400; }
 .enrollment-notes { color: #354963; font-size: 13px; }
 .enrollment-notes p { margin: 7px 0 0; }
 @media (max-width: 650px) {
@@ -47,11 +55,27 @@ tbody td { border-left: 1px solid #e8eef3; font-weight: 700; }
 <h1>2027–28 Enrollment</h1>
 <p class="intro">River Tech School · One-time enrollment fees per household, separate from tuition</p>
 
-<aside class="priority">
-  <strong>A head start for returning families</strong>
-  <p>We’d love to see your family back next year. Interest in River Tech is growing quickly, so we open enrollment to current families first. We encourage you to enroll early for the best chance at the schedule you want.</p>
-  <p>Places are subject to availability for all students, including those returning. Once you’ve completed enrollment and paid the fee, look for a confirmation from River Tech that your child has a spot.</p>
+<aside class="priority" aria-labelledby="returning-families-title">
+  <h2 id="returning-families-title">Planning to return next year? Please enroll early.</h2>
+  <p>We would love to welcome your family back! <strong>Your child’s spot does not automatically carry over to next year.</strong> Completing enrollment tells us you intend to return.</p>
+  <p>Current families get the first opportunity to enroll. As each new window opens, more families can apply for the remaining seats.</p>
+  <table class="opening-dates" aria-label="Enrollment opening dates">
+    <thead>
+      <tr><th scope="col">Enrollment opens</th><th scope="col">Who can enroll</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">November 20</th><td>Current full-time families</td></tr>
+      <tr><th scope="row">December 5</th><td>Current part-time families, including those choosing full-time</td></tr>
+      <tr><th scope="row">January 1</th><td>Families currently in our wait pool</td></tr>
+      <tr><th scope="row">January 21</th><td>The public, where space remains</td></tr>
+    </tbody>
+  </table>
 </aside>
+<div class="after-opening-dates">
+  <p><strong>Demand is high, and space is limited. We strongly encourage you to enroll as soon as your window opens.</strong></p>
+  <p>For example, a current full-time family waiting until mid-January would be applying after enrollment has also opened to current part-time families and our wait pool. By then, their child’s group could already be full.</p>
+  <p>Please complete enrollment and pay the household fee promptly. <strong>Your child’s place is secure once you receive a seat confirmation from River Tech.</strong> This applies to returning students as well as new students.</p>
+</div>
 
 <div class="family-picker" id="family-picker" hidden>
   <label for="family-group">Show fees for</label>
@@ -102,7 +126,7 @@ tbody td { border-left: 1px solid #e8eef3; font-weight: 700; }
 <p><strong>Mar 9 is the last day of re-enrollment.</strong> From Mar 10, contact the office about any remaining seats.</p>
 <p>Part-time fees are based on the child in your household enrolled for the most days. Joining the wait pool is free. New families pay the fee when they accept a seat.</p>
 </div>
-<p><a href="/pages/enrollment.html">Back to Enrollment</a> · <a href="/pages/family-hub.html?tuition-year=2027-28#billing/tuition">See 2027–28 tuition</a></p>
+<p><a href="/pages/enrollment.html">Back to Enrollment</a> · <a href="/pages/family-hub.html?tuition-year=2027-28#billing/tuition">See 2027–28 tuition</a> · <a href="/pages/join-wait-pool.html">Join the free wait pool</a></p>
 </main>
 <script>
 const familyGroup = document.querySelector('#family-group');
