@@ -105,6 +105,7 @@
     (() => {
       const message = document.getElementById('enrollment-opening-message');
       const beforeOpening = message.textContent;
+      const reEnrollmentCloses = Date.parse('2027-03-10T00:00:00-08:00');
       // These four opening dates fall during Pacific Standard Time.
       const openings = [
         ['2026-11-20T00:00:00-08:00', '2027–28 re-enrollment is now open for current full-time families.'],
@@ -127,9 +128,23 @@
           text = opening.text;
         }
         if (message.textContent !== text) message.textContent = text;
+        const action = document.getElementById('returning-enrollment-action');
+        const link = document.getElementById('returning-enrollment-link');
+        if (action && link) {
+          const url = link.dataset.formUrl;
+          const available = /^https:\/\/script\.google\.com\/(?:a\/macros\/rivertech\.me\/|macros\/)s\/[\w-]+\/exec$/.test(url || '');
+          action.hidden = !available || now < openings[0].time || now >= reEnrollmentCloses;
+          if (!action.hidden) {
+            link.href = url;
+            if (now >= openings[openings.length - 1].time) {
+              timer = setTimeout(updateMessage, Math.min(reEnrollmentCloses - now, 86_400_000));
+            }
+          }
+        }
       }
 
       window.addEventListener('pageshow', updateMessage);
+      document.addEventListener('DOMContentLoaded', updateMessage, {once:true});
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) updateMessage();
       });
@@ -144,6 +159,10 @@
     <div><dt><time datetime="2027-01-21">January 21</time></dt><dd>Public enrollment, where space remains</dd></div>
   </dl>
   <p>Full-time enrollment is <strong>$200 per household through January 20</strong>, $250 from January 21 through February 14, and $300 starting February 15. Part-time fees depend on the number of days per week.</p>
+  <div id="returning-enrollment-action" hidden>
+    <p><a id="returning-enrollment-link" class="solid-link" data-form-url="https://script.google.com/a/macros/rivertech.me/s/AKfycbyYfdlyfXLLWAVOwvwgneA9fIe-KVQr5LfCKmzRAXkc1K9qtDLlJuIprdoK-PeJMfRW/exec">Re-enroll for 2027–28 →</a></p>
+    <p>Returning families can use the parent or guardian email we have on file to request a private form.</p>
+  </div>
   <a class="solid-link" href="/pages/enrollment-2027-28.html">See enrollment dates and household fees →</a>
 </section>
 <section aria-labelledby="waitpool-heading" class="enroll-status"><div><p class="eyebrow">WHEN YOU’RE WAITING FOR A SPOT</p><h2 id="waitpool-heading">Join the free wait pool.</h2><p>Joining the wait pool gives your family the opportunity to be considered <strong>before we open enrollment to the public.</strong></p><p>If your enrollment window hasn’t opened or your child’s group is full, join the wait pool so we can consider your family when a place opens.</p></div><div class="enroll-wait-action"><h3>Be considered for the next opening.</h3><p>Choose your program, tell us about your child, and let us know when you could start. As places become available, we’ll turn to families in our wait pool first.</p><a class="enroll-start" href="/pages/join-wait-pool.html">Join the free wait pool →</a><p class="enroll-wait-note">Free to join. No commitment.<br/>Enrollment fees are due only if you accept a place.</p></div></section>
