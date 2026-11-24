@@ -89,6 +89,7 @@ def fetch(url):
 class Page(HTMLParser):
     def __init__(self,url):
         super().__init__();self.url=url;self.stack=[];self.links=set();self.outbound=set();self.document_notes={};self.lines=[];self.title=[];self.heading='';self.anchor='';self.redirect=None;self.has_main=False
+        self.hub_calendar = urlsplit(url).path == '/pages/family-hub.html'
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if tag=='main' or 'main-content' in a.get('class','').split():self.has_main=True
@@ -105,20 +106,36 @@ class Page(HTMLParser):
         if tag in {'td','th'}:self.add(' | ')
         if tag=='br':self.add(' / ')
         if tag=='img' and a.get('alt'):self.add('[Image: '+a['alt']+']')
-        if tag not in VOID:self.stack.append({'tag':tag,'attrs':a,'heading':tag in {'h1','h2','h3','h4','summary'},'text':[]})
+        if tag not in VOID:
+            item = {'tag':tag,'attrs':a,'heading':tag in {'h1','h2','h3','h4','summary'},'text':[]}
+            if self.hub_calendar and tag == 'article' and 'hub-date-row' in a.get('class','').split() and a.get('id'):
+                item['calendar_event'] = (len(self.lines), self.heading, self.anchor)
+                self.heading = ''
+                self.anchor = 'calendar/' + a['id']
+            self.stack.append(item)
     def handle_endtag(self,tag):
         for n in range(len(self.stack)-1,-1,-1):
             item=self.stack[n]
             if item['tag']==tag:
-                if item['heading']:
+                if item['heading'] and not self.in_month_cards():
                     self.heading=' '.join(''.join(item['text']).split())
                     ids=[x['attrs'].get('id') for x in self.stack[:n+1] if x['attrs'].get('id')]
                     self.anchor=self.route(ids)
+                    year = next((x['attrs']['data-school-year-panel'] for x in self.stack[:n+1]
+                                 if 'data-school-year-panel' in x['attrs']), '')
+                    if re.fullmatch(r'[0-9]{4}-[0-9]{2}', year):
+                        self.anchor = '?year=' + year + ('#' + self.anchor if self.anchor else '')
                     self.add(self.heading)
                 if tag in {'h1','h2','h3','h4','p','li','tr','summary','blockquote','figcaption','dt','dd'}:self.flush()
+                if 'calendar_event' in item:
+                    start, previous_heading, previous_anchor = item['calendar_event']
+                    for index in range(start, len(self.lines)):
+                        _, _, text, in_main = self.lines[index]
+                        self.lines[index] = (self.heading, self.anchor, text, in_main)
+                    self.heading, self.anchor = previous_heading, previous_anchor
                 self.stack=self.stack[:n];break
     def route(self,ids):
-        if '/family-hub.html' in self.url:
+        if self.hub_calendar:
             for root in ['billing','daily','contact','calendar','shows']:
                 if root in ids:
                     children=ids[ids.index(root)+1:]
@@ -126,7 +143,12 @@ class Page(HTMLParser):
                     if root=='calendar':last={'school-dates':'dates','class-schedules':'schedules','field-trips':'trips'}.get(ids[-1],ids[-1])
                     return root if last==root else root+'/'+last
         return ids[-1] if ids else ''
+    def in_month_cards(self):
+        # The month cards repeat the dated calendar entries, which have individual links.
+        return self.hub_calendar and any(x['attrs'].get('id') == 'hub-month-events' for x in self.stack)
     def active(self):
+        if self.in_month_cards():
+            return False
         return not any(x['tag'] in SKIP or x['attrs'].get('aria-hidden')=='true' or set(x['attrs'].get('class','').split()) & {'sidebar','site-rail','mobile-nav','mobile-menu','hub-answer-result'} for x in self.stack)
     def add(self,text):
         if self.active():self.lines.append((self.heading,self.anchor,text,any(x['tag']=='main' or 'main-content' in x['attrs'].get('class','').split() for x in self.stack)))
@@ -231,7 +253,9 @@ def run():
                 for heading,anchor,text in grouped:
                     if final.endswith('/pages/river-tech-days.html'):
                         text='Historical May 2026 school visit event. These event-specific hours and instructions do not describe the regular school program. Future visit dates have not been announced.\n'+text
-                    add(final+('#'+anchor if anchor else ''),title+(' · '+heading if heading else ''),text,'page',4000 if anchor else 1800)
+                    suffix = anchor if anchor.startswith('?') else '#' + anchor if anchor else ''
+                    kind = 'calendar-event' if page.hub_calendar and anchor.startswith('calendar/event-') else 'page'
+                    add(final + suffix, title+(' · '+heading if heading else ''), text, kind, 4000 if anchor else 1800)
                 if final==BASE:
                     footer=re.search(r'<footer\b[^>]*>([\s\S]*?)</footer>',html,re.I)
                     if footer:

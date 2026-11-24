@@ -14,7 +14,8 @@ export function refreshIndex(){
   if(refreshing)return;
   const index=loadIndex();
   const hasTuitionSchedules=index.sources.some(source=>source.kind==='tuition-schedule');
-  if(hasTuitionSchedules&&Date.now()-Date.parse(index.generatedAt)<6*3600*1000)return;
+  const hasCalendarEvents=index.sources.some(source=>source.kind==='calendar-event');
+  if(hasTuitionSchedules&&hasCalendarEvents&&Date.now()-Date.parse(index.generatedAt)<6*3600*1000)return;
   refreshing=true;
   const python=process.env.ASK_INDEX_PYTHON||'/Users/danhegelund/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3';
   const child=spawn(python,[fileURLToPath(new URL('./index_website.py',import.meta.url))],{stdio:'ignore',timeout:300000});
@@ -71,7 +72,10 @@ export function runWebsiteTool(name,args,sources){
   if(name==='read_website_page'){
     if(typeof args.url!=='string'||!Number.isInteger(args.part)||args.part<0)throw Error('Invalid page request');
     const base=args.url.split('#')[0];
-    const matches=sources.filter(s=>s.url.split('#')[0]===base);
+    const matches=sources.filter(source=>{
+      const documentUrl=source.url.split('#')[0];
+      return base.includes('?') ? documentUrl===base : documentUrl.split('?')[0]===base;
+    });
     const start=args.part*8;
     return {sources:matches.slice(start,start+8),more:start+8<matches.length,nextPart:start+8<matches.length?args.part+1:null};
   }
