@@ -51,7 +51,13 @@ export function present(answer, sources, mode) {
   const references=[...new Set(answer.citations)].map(id=>sources.find(s=>s.id===id)).filter(Boolean).map(({id,title,url})=>({id,title,url:process.env.ASK_WEBSITE_PREVIEW==='1'?url.replace(/^https:\/\/www\.rivertechschool\.com(?=\/)/,''):url}));
   const citations=[...new Map(references.map(s=>[s.url,s])).values()];
   if(!citations.length) throw Error('Answer has no allowed sources');
-  return {title:answer.title.slice(0,160),paragraphs:answer.paragraphs.slice(0,5).map(p=>p.replace(/(?:\+?1[\s().-]*)?425[\s().-]*444[\s().-]*2081/g,'[personal number removed]').slice(0,2000)),sources:citations,action:actions[answer.action]||actions.contact,mode};
+  let action = actions[answer.action] || actions.contact;
+  if (action === actions.tuition && citations.some(source => {
+    const url = new URL(source.url, action.url);
+    url.search = '';
+    return url.href === action.url;
+  })) action = null;
+  return {title:answer.title.slice(0,160),paragraphs:answer.paragraphs.slice(0,5).map(p=>p.replace(/(?:\+?1[\s().-]*)?425[\s().-]*444[\s().-]*2081/g,'[personal number removed]').slice(0,2000)),sources:citations,action,mode};
 }
 
 export function responseRequest(question, history, selected, today=localDate()) {
